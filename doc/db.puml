@@ -1,0 +1,53 @@
+@startuml
+
+class User {
+    id
+    username
+    password
+    actif
+    date_creation
+}
+
+class Salarie {
+  id
+
+}
+
+class Chasseur {
+  id
+
+}
+
+class Entreprise {
+    id
+}
+
+class CV {
+    id
+    json
+    pdf
+    anonyme
+    mobilite
+}
+
+class Selection {
+    id
+    date
+}
+
+class Offre {
+    id
+}
+
+
+
+
+User <|-- Salarie
+User <|-- Chasseur
+User <|-- Entreprise
+Salarie "1" ... "*" CV
+Entreprise "*" ... "*" Offre
+Selection .. CV
+Selection .. Offre
+
+@enduml
