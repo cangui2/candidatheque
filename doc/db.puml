@@ -8,12 +8,12 @@ class User {
     date_creation
 }
 
-class Salarie {
+class Candidat {
   id
 
 }
 
-class Chasseur {
+class Agence {
   id
 
 }
@@ -42,12 +42,13 @@ class Offre {
 
 
 
-User <|-- Salarie
-User <|-- Chasseur
+User <|-- Candidat
+User <|-- Agence
 User <|-- Entreprise
-Salarie "1" ... "*" CV
+Candidat "1" ... "*" CV
 Entreprise "*" ... "*" Offre
 Selection .. CV
 Selection .. Offre
+
 
 @enduml
