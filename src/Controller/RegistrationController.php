@@ -180,7 +180,7 @@ class RegistrationController extends AbstractController
         $user->setAuthToken(null);
         $user->setActif(true);
         $this->em->flush();
-        $this->addFlash('success', 'Votre compte est actif! Vous pouvez vous connecter');
+        $this->addFlash('success', 'Votre compte est actif! Vous pouvez vous connecter.');
         return $this->redirectToRoute("app_login");
     }
 
