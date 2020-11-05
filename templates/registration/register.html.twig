@@ -7,10 +7,15 @@
     <div class="row">
         <div class="col-md-6 mb-5 mt-5" style="margin:auto; text-align: center;">
             <h3 class="text-center">Inscription</h3>
+{#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
         </div>
     </div>
     {{ form_start(regForm, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_errors(regForm) }}
+    <div class="row">
+        <div class="col-md-6 mb-3 mt-3" style="margin:auto; text-align: center;">
+            {{ form_errors(regForm) }}
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-6" style="margin:auto">
             {{ form_row(regForm.nom) }}
@@ -27,6 +32,15 @@
                 {% do regForm.entreprise.setRendered() %}
             {% elseif route == 'professionnel_inscription'  %}
                 {{ form_row(regForm.entreprise) }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
+            {% if route == 'candidat_inscription' %}
+                {% do regForm.siret.setRendered() %}
+            {% elseif route == 'professionnel_inscription'  %}
+                {{ form_row(regForm.siret) }}
             {% endif %}
         </div>
     </div>

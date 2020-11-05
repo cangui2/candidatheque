@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -44,6 +45,14 @@ class RegistrationFormType extends AbstractType
                 ],
                 'error_bubbling' => true
             ])
+            ->add('siret', TextType::class, [
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'Siret*'
+                ],
+                'error_bubbling' => true
+            ])
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
@@ -69,6 +78,10 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez entrer un mot de passe',
                     ]),
+                    new Regex([
+                        'pattern' => "/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z])(\S)+$/",
+                        'message' => "Mot de passe incorrect!"
+                    ]),
                     new Length([
                         'min' => 8,
                         'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
@@ -84,8 +97,7 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Mot de passe*',
-                    'help' => "Le mot de passe doit avoir une longuer minimale de 8 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial."
+                        'placeholder' => 'Mot de passe*'
                     ]
                 ],
                 'second_options' => [

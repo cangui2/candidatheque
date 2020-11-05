@@ -32,6 +32,17 @@ class Recruteur
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="recruteurs")
+     * @ORM\JoinColumn(name="id_entreprise", referencedColumnName="id")
+     */
+    private $entreprise;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +86,30 @@ class Recruteur
         if ($user->getRecruteur() !== $newRecruteur) {
             $user->setRecruteur($newRecruteur);
         }
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $entreprise): self
+    {
+        $this->entreprise = $entreprise;
 
         return $this;
     }

@@ -57,6 +57,11 @@ class Candidat
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $telephone;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,6 +165,18 @@ class Candidat
         if ($user->getCandidat() !== $newCandidat) {
             $user->setCandidat($newCandidat);
         }
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }

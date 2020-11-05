@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Candidat;
+use App\Entity\Entreprise;
 use App\Entity\Recruteur;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -113,9 +114,13 @@ class RegistrationController extends AbstractController
                 $user->setRecruteur($rc);
                 $rc->setNom($regForm->get('nom')->getData());
                 $rc->setPrenom($regForm->get('prenom')->getData());
-//                $en = new Entreprise();
+                $en = new Entreprise();
+                $rc->setEntreprise($en);
+                $en->setRaisonSociale($regForm->get('entreprise')->getData());
+                $en->setSiret($regForm->get('siret')->getData());
                 $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
 
+                $this->em->persist($en);
                 $this->em->persist($rc);
                 $this->em->persist($user);
                 $this->em->flush();
@@ -167,10 +172,10 @@ class RegistrationController extends AbstractController
             $this->addFlash('danger', 'Jeton invalide ');
         }
 
-        if (time() > ($user_token[3]+6*3600)) {
-            $user = null;
-            $this->addFlash('danger', 'Le lien a expiré');
-        }
+//        if (time() > ($user_token[3]+48*3600)) {
+//            $user = null;
+//            $this->addFlash('danger', 'Le lien a expiré');
+//        }
 
         $user->setAuthToken(null);
         $user->setActif(true);
