@@ -1,16 +1,13 @@
 {% apply inline_css(source('@css/email.css')) %}
     <!DOCTYPE html>
-
     <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title></title>
     </head>
     <body>
-
-
     <table border="0" width="100%" class="besttnetfont">
-        <tr style="background-color: #DCDCDC33">
+        <tr style="background-color: #B9DCE0">
 {#            <td style="padding-bottom: 15px; padding-top: 15px; padding-left:5px;">#}
 {#                <img src="{{ email.image('@images/bestt.png') }}" class="logo" alt="" align="left">#}
 {#            </td>#}
@@ -22,18 +19,13 @@
 
                     <tr >
                         <td class="besttnetcadre" style="margin-bottom: 15px; padding-top:30px;">
-                            <h2>Bonjour,</h2>
-                            <p>Une réinitialisation du mot de passe a été demandée pour ce compte: <b><code>{{ email.to[0].address }}</code></b>.</p>
-                            <p> Cliquez sur le bouton ci-dessous pour activer votre compte : <br></br>
-                                <button style="min-height:60px; background-color:#ffcc00;font-size:24px; margin-right:auto; margin-left:auto;">
-                                    <a href="{{ url }}">Changer mon mot de passe</a></button><br>
-                            <p>Si le bouton ne marche pas, veuillez copier/coller ce lien dans votre navigateur: </p>
+                            <h2>Bonjour {{ prenom }},</h2>
+                            <p>Bienvenue sur la Candidatheque! Pour finaliser votre inscription, veuiller <b>activer</b> votre compte en suivant ce lien: <a href="{{ url }}"><em><b>Confirmer mon profil</b></em></a></p>
+                            <p>Vous avez aussi la possibilité de copier/coller ce lien dans votre navigateur: </p>
                             <p><b>{{url}}</b></p>
 
-                            <p><b><u>Attention :</u></b> Ce lien est valable 48 heures. Après expiration de ce délai, vous devrez soumettre une nouvelle demande de réinitialisation de mot de passe.</p>
-
+                            <p><b>Rappel:</b> Cette inscription a été réalisée avec l'adresse e-mail <b><code>{{ email.to[0].address }}</code></b>.</p>
                             </p>
-
                         </td>
                     </tr>
                     <tr><td style="height: 15px;" ></td></tr>
@@ -42,13 +34,9 @@
             </td>
         </tr>
         <tr>
-            <td id="t-footer" class="besttnetelement" style="background-color:#ffcc00; text-align: center">
-                <p>
+            <td id="t-footer" class="besttnetelement" style="background-color:#B9DCE0; text-align: center">
 
-                    <span class="footer_span">Adresse&nbsp;Candidathèque.net</span></p>
-                <p><span class="footer_span">80000&nbsp;Amiens</span></p>
-                <p><span class="footer_span">email@bestt.net</span></p><p>&nbsp;</p>
-                <p><span class="footer_span">©</span><span class="footer_span">Copyright&nbsp;2020&nbsp;Candidathèque.net</span></p>
+                <p><span class="footer_span">©</span><span class="footer_span"> 2020&nbsp;Candidatheque</span></p>
             </td>
         </tr>
     </table>
