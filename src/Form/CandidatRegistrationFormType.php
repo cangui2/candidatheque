@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
-class RegistrationFormType extends AbstractType
+class CandidatRegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -37,22 +37,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'error_bubbling' => true
             ])
-            ->add('entreprise', TextType::class, [
-                'label' => false,
-                'mapped' => false,
-                'attr' => [
-                    'placeholder' => 'Nom de la société*'
-                ],
-                'error_bubbling' => true
-            ])
-            ->add('siret', TextType::class, [
-                'label' => false,
-                'mapped' => false,
-                'attr' => [
-                    'placeholder' => 'Siret*'
-                ],
-                'error_bubbling' => true
-            ])
+
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [

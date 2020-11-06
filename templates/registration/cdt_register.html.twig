@@ -28,24 +28,6 @@
     </div>
     <div class="row">
         <div class="col-md-6" style="margin:auto">
-            {% if route == 'candidat_inscription' %}
-                {% do regForm.entreprise.setRendered() %}
-            {% elseif route == 'professionnel_inscription'  %}
-                {{ form_row(regForm.entreprise) }}
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6" style="margin:auto">
-            {% if route == 'candidat_inscription' %}
-                {% do regForm.siret.setRendered() %}
-            {% elseif route == 'professionnel_inscription'  %}
-                {{ form_row(regForm.siret) }}
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6" style="margin:auto">
             {{ form_row(regForm.email) }}
         </div>
     </div>
