@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Candidat;
+use App\Entity\Entreprise;
 use App\Entity\Recruteur;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
-use App\Form\RegistrationProFormType;
+use App\Form\CandidatRegistrationFormType;
+use App\Form\ProRegistrationFormType;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -49,7 +50,7 @@ class RegistrationController extends AbstractController
 
 //        INSCRIPTION CANDIDAT
         if($route == "candidat_inscription") {
-            $regForm = $this->createForm(RegistrationFormType::class, $user);
+            $regForm = $this->createForm(CandidatRegistrationFormType::class, $user);
             $regForm->handleRequest($request);
 
             if ($regForm->isSubmitted() && $regForm->isValid()) {
@@ -89,16 +90,17 @@ class RegistrationController extends AbstractController
 
             }
 
-            return $this->render('registration/register.html.twig', [
+            return $this->render('cdt_register.html.twig', [
                 'regForm' => $regForm->createView(),
                 'route' => $route
             ]);
+//            TODO vérif entreprise->employé avant activation de compte
 
 
 //            INSCRIPTION ENTREPRISE
         }elseif($route == "professionnel_inscription") {
 
-            $regForm = $this->createForm(RegistrationFormType::class, $user);
+            $regForm = $this->createForm(ProRegistrationFormType::class, $user);
             $regForm->handleRequest($request);
 
             if ($regForm->isSubmitted() && $regForm->isValid()) {
@@ -113,9 +115,20 @@ class RegistrationController extends AbstractController
                 $user->setRecruteur($rc);
                 $rc->setNom($regForm->get('nom')->getData());
                 $rc->setPrenom($regForm->get('prenom')->getData());
-//                $en = new Entreprise();
+                $en = new Entreprise();
+                $rc->setEntreprise($en);
+                $en->setRaisonSociale($regForm->get('raisonSociale')->getData());
+                $en->setSiret($regForm->get('siret')->getData());
+                $en->setAdresse1($regForm->get('adresse1')->getData());
+                $en->setAdresse2($regForm->get('adresse2')->getData());
+                $en->setVille($regForm->get('ville')->getData());
+                $en->setCodePostal($regForm->get('codePostal')->getData());
+                $en->setTelephone($regForm->get('telephone')->getData());
+                $en->setApe($regForm->get('ape')->getData());
+
                 $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
 
+                $this->em->persist($en);
                 $this->em->persist($rc);
                 $this->em->persist($user);
                 $this->em->flush();
@@ -139,7 +152,7 @@ class RegistrationController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            return $this->render('registration/register.html.twig', [
+            return $this->render('pro_register.html.twig', [
                 'regForm' => $regForm->createView(),
                 'route' => $route
             ]);
@@ -167,15 +180,15 @@ class RegistrationController extends AbstractController
             $this->addFlash('danger', 'Jeton invalide ');
         }
 
-        if (time() > ($user_token[3]+6*3600)) {
-            $user = null;
-            $this->addFlash('danger', 'Le lien a expiré');
-        }
+//        if (time() > ($user_token[3]+48*3600)) {
+//            $user = null;
+//            $this->addFlash('danger', 'Le lien a expiré');
+//        }
 
         $user->setAuthToken(null);
         $user->setActif(true);
         $this->em->flush();
-        $this->addFlash('success', 'Votre compte est actif! Vous pouvez vous connecter');
+        $this->addFlash('success', 'Votre compte est actif! Vous pouvez vous connecter.');
         return $this->redirectToRoute("app_login");
     }
 

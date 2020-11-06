@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-5 mt-5" style="margin:auto; text-align: center;">
+                <h3 class="text-center">Inscription</h3>
+                {#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
+            </div>
+        </div>
+        {{ form_start(regForm, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="row">
+            <div class="col-md-6 mb-3 mt-3" style="margin:auto; text-align: center;">
+                {{ form_errors(regForm) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.nom) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.prenom) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.raisonSociale) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.siret) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.adresse1) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.adresse2) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.codePostal) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.ville) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.email) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.plainPassword) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="margin:auto">
+                {{ form_row(regForm.agreeTerms) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 mb-2 text-center" style="margin:auto;">
+                <button  type="submit" id="signup_button" class="btn btn-lg btn-light">Valider</button>
+            </div>
+        </div>
+
+        {{ form_end(regForm) }}
+    </div>
+{% endblock %}

@@ -21,10 +21,22 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginAuthenticator
+            form_login:
+                login_path: login
+                csrf_token_generator: security.csrf.token_manager
+
+
+            remember_me:
+                secret: '%kernel.secret%'
+                name: REMEMBERME
+                lifetime: 604800 # 1 week in seconds
+                httponly: true
+                path: /
             logout:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
+            user_checker: App\Security\UserChecker
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

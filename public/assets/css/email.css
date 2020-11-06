@@ -1,0 +1,222 @@
+html,
+body {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+}
+
+#besttnet table.besttnetcolumns td.besttnetelement_connector,
+#besttnet td.besttnetelement_connector {
+
+    width: 100% !important;
+}
+table {
+    border-spacing: 0 !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+    margin: 0 auto !important;
+}
+
+p {
+    overflow-wrap: break-word !important;
+    font-size: 15px !important;
+    font-family: "Helvetica Neue, Helvetica, sans-serif" !important;
+}
+
+#t-footer {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.table-title {
+    text-align: center;
+    border: 1px solid #646464;
+    padding-top:3px;
+    padding-bottom: 3px;
+}
+
+.table-desc {
+    /*text-align: center;*/
+    border: 1px solid #646464;
+    padding-top:3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    border-radius: .35rem;
+}
+
+
+
+@media screen and (max-width: 600px){
+    #besttnet img {
+        width: 100% !important;
+    }
+    body {
+        width: 100%;
+    }
+
+    p {
+        font-size: 15px;
+    }
+    table, td {
+        width: 100%;
+    }
+}
+
+body {
+    margin:0;
+    width:100%;
+
+}
+
+.besttnetbody {
+    min-height:100%;
+    width:100%;
+    margin:0;
+
+}
+
+.besttnetcenter {
+    text-align:center;
+}
+
+
+.besttnetgrid_selector {
+
+    width:100%;
+    min-width:620px;
+}
+.besttnetrow {
+    width:100%;
+    position:relative;
+}
+center {
+
+    width:100%;
+}
+.besttnetcontainer {
+    width:100%;
+    margin:0px auto;
+    text-align:inherit;
+}
+td {
+    width:100%;
+    margin-right: auto;
+    margin-left:auto;
+}
+.besttnetcolumns .besttnetsix {
+    margin:0px auto;
+    text-align:left;
+    width:310px;
+}
+.besttnetexpander {
+    width:0px;
+}
+.besttnetelement_connector {
+    padding:0px;
+    min-height:35px;
+    width:100%;
+    padding-bottom:0px;
+}
+.besttnetimage-table .besttnetimage-2 {
+    margin-left:0px;
+    margin-right:0px;
+    float:none;
+    text-align:left;
+}
+.besttnetelement {
+    text-align:left;
+    height:auto;
+    overflow:hidden;
+
+}
+a {
+    color:#2ba6cb;
+    text-decoration:none;
+}
+.logo {
+    max-height: 100px !important;
+    height: 80px !important;
+}
+
+.besttnetcolumns .besttnetsix {
+    margin:0px auto;
+    text-align:left;
+    width:310px;
+}
+
+.besttnetimage-table .besttnetimage-1 {
+    margin-left:0px;
+    margin-right:0px;
+    float:right;
+    text-align:left;
+}
+.besttnetcadre {
+    background-color: #DCDCDC33;
+    padding-left:25px;
+    padding-right:25px;
+}
+#img2 {
+    outline:none;
+    text-decoration:none;
+    display:block;
+    clear:none;
+    height:auto;
+    max-width:225px;
+    width:100%;
+    border:none;
+    margin-left:0px;
+    margin-right:0px;
+    width:225px;
+}
+
+.besttnetcolumns .besttnettwelve {
+    margin:0px auto;
+    text-align:left;
+    width:620px;
+}
+
+.besttnetparagraph .besttnetp-informations {
+    width:100%;
+    text-align:left;
+}
+
+.besttnetelement2 {
+    border-top:1px
+    solid #646464;
+    padding-top:20px;
+    padding-right:0px;
+    padding-left:0px;
+    text-align:justify;
+}
+
+/* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+.a6S {
+    display: none !important;
+    opacity: 0.01 !important;
+}
+/* If the above doesn't work, add a .g-img class to any image in question. */
+img.g-img + div {
+    display: none !important;
+}
+
+.bestt-hour {
+    background-color: #8eee87;
+    border: 2px solid white;
+    border-radius: .35rem;
+    text-align: center;
+}
+.bestt-day {
+    background-color: gainsboro;
+    border: 2px solid white;
+    border-radius: .35rem;
+    text-align: center;
+
+}
+
+.bestt-w {
+    background-color: gainsboro;
+    border: 2px solid white;
+    border-radius: .35rem;
+    text-align: center;
+}
