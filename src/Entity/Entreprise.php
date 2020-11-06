@@ -69,9 +69,21 @@ class Entreprise
      */
     private $role;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="agence")
+     */
+    private $postules;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="agence")
+     */
+    private $candidats;
+
     public function __construct()
     {
         $this->recruteurs = new ArrayCollection();
+        $this->postules = new ArrayCollection();
+        $this->candidats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,5 +232,65 @@ class Entreprise
     public function __toString()
     {
         return $this->raisonSociale;
+    }
+
+    /**
+     * @return Collection|Postule[]
+     */
+    public function getPostules(): Collection
+    {
+        return $this->postules;
+    }
+
+    public function addPostule(Postule $postule): self
+    {
+        if (!$this->postules->contains($postule)) {
+            $this->postules[] = $postule;
+            $postule->setAgence($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostule(Postule $postule): self
+    {
+        if ($this->postules->removeElement($postule)) {
+            // set the owning side to null (unless already changed)
+            if ($postule->getAgence() === $this) {
+                $postule->setAgence(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Candidat[]
+     */
+    public function getCandidats(): Collection
+    {
+        return $this->candidats;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->candidats->contains($candidat)) {
+            $this->candidats[] = $candidat;
+            $candidat->setAgence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        if ($this->candidats->removeElement($candidat)) {
+            // set the owning side to null (unless already changed)
+            if ($candidat->getAgence() === $this) {
+                $candidat->setAgence(null);
+            }
+        }
+
+        return $this;
     }
 }
