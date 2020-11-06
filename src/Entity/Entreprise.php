@@ -69,6 +69,11 @@ class Entreprise
      */
     private $role;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
     public function __construct()
     {
         $this->recruteurs = new ArrayCollection();
@@ -220,5 +225,17 @@ class Entreprise
     public function __toString()
     {
         return $this->raisonSociale;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 }
