@@ -50,7 +50,7 @@ class CV
     private $candidat;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Entreprises::class, mappedBy="favoris")
+     * @ORM\ManyToMany(targetEntity=Entreprise::class, mappedBy="favoris")
      */
     private $favoris;
 

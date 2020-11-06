@@ -84,11 +84,17 @@ class Entreprise
      */
     private $candidats;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CV::class, inversedBy="favoris")
+     */
+    private $favoris;
+
     public function __construct()
     {
         $this->recruteurs = new ArrayCollection();
         $this->postules = new ArrayCollection();
         $this->candidats = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -307,6 +313,30 @@ class Entreprise
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CV[]
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(CV $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(CV $favori): self
+    {
+        $this->favoris->removeElement($favori);
 
         return $this;
     }
