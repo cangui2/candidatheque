@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RechercheController!{% endblock %}
+{% block title %}Liste Offre{% endblock %}
 
 {% block body %}
 <style>
@@ -9,19 +9,19 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello Page de recherche {{ controller_name }}! ✅</h1>
+    <h1>Hello Page de liste d'offres {{ controller_name }}! ✅</h1>
 
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/Users/AURIOR2/Desktop/candidatheque/src/Controller/RechercheController.php'|file_link(0) }}">src/Controller/RechercheController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/AURIOR2/Desktop/candidatheque/templates/recherche/index.html.twig'|file_link(0) }}">templates/recherche/index.html.twig</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/AURIOR2/Desktop/candidatheque/templates/recherche/list.html.twig'|file_link(0) }}">templates/recherche/list.html.twig</a></code></li>
     </ul>
 
     <div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">Moteur de recherche</h5>
+    <h5 class="card-title">Liste d'offres</h5>
     <p class="card-text">Différents critères de recherches.</p>
-    <a href="{{ path('recherche_list') }}" class="btn btn-primary">Rechercher</a>
+    <a href="{{ path('recherche_details') }}" class="btn btn-primary">Voir l'offre</a>
   </div>
 </div>
 </div>

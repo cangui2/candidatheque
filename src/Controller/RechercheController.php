@@ -20,6 +20,16 @@ class RechercheController extends AbstractController
 
 
     /**
+     * @Route("/recherche_list", name="recherche_list")
+     */
+    public function list(): Response
+    {
+        return $this->render('recherche/list.html.twig', [
+            'controller_name' => 'RechercheController',
+        ]);
+    }
+
+    /**
      * @Route("/recherche_details", name="recherche_details")
      */
     public function details(): Response
