@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +63,27 @@ class Candidat
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $telephone;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CV::class, mappedBy="candidat")
+     */
+    private $CVs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="candidat")
+     */
+    private $postules;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="candidats")
+     */
+    private $agence;
+
+    public function __construct()
+    {
+        $this->CVs = new ArrayCollection();
+        $this->postules = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -184,5 +207,77 @@ class Candidat
     public function __toString()
     {
         return $this->nom . " " . $this->prenom;
+    }
+
+    /**
+     * @return Collection|CV[]
+     */
+    public function getCVs(): Collection
+    {
+        return $this->CVs;
+    }
+
+    public function addCV(CV $cV): self
+    {
+        if (!$this->CVs->contains($cV)) {
+            $this->CVs[] = $cV;
+            $cV->setCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCV(CV $cV): self
+    {
+        if ($this->CVs->removeElement($cV)) {
+            // set the owning side to null (unless already changed)
+            if ($cV->getCandidat() === $this) {
+                $cV->setCandidat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Postule[]
+     */
+    public function getPostules(): Collection
+    {
+        return $this->postules;
+    }
+
+    public function addPostule(Postule $postule): self
+    {
+        if (!$this->postules->contains($postule)) {
+            $this->postules[] = $postule;
+            $postule->setCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostule(Postule $postule): self
+    {
+        if ($this->postules->removeElement($postule)) {
+            // set the owning side to null (unless already changed)
+            if ($postule->getCandidat() === $this) {
+                $postule->setCandidat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAgence(): ?Entreprise
+    {
+        return $this->agence;
+    }
+
+    public function setAgence(?Entreprise $agence): self
+    {
+        $this->agence = $agence;
+
+        return $this;
     }
 }

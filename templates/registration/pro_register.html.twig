@@ -5,70 +5,70 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-md-6 mb-5 mt-5" style="margin:auto; text-align: center;">
+            <div class="col-md-6 mb-2 mt-5" style="margin:auto; text-align: center;">
                 <h3 class="text-center">Inscription</h3>
                 {#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
             </div>
         </div>
-        {{ form_start(regForm, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_start(proForm, {'attr': {'novalidate': 'novalidate'}}) }}
         <div class="row">
-            <div class="col-md-6 mb-3 mt-3" style="margin:auto; text-align: center;">
-                {{ form_errors(regForm) }}
+            <div class="col-md-6" style="margin:auto; text-align: center;">
+                {{ form_errors(proForm) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-2 mt-2" style="margin:auto; text-align: center;">
+                <h4 class="text-center">Vos informations</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.nom) }}
+                {{ form_row(proForm.nom) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.prenom) }}
+                {{ form_row(proForm.prenom) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.raisonSociale) }}
+                {{ form_row(proForm.email) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.siret) }}
+                {{ form_row(proForm.plainPassword) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3 mt-2" style="margin:auto; text-align: center;">
+                <h4 class="text-center">Informations entreprise</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.adresse1) }}
+                {{ form_row(proForm.raisonSociale) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.adresse2) }}
+                {{ form_row(proForm.siret) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.codePostal) }}
+                {{ form_row(proForm.telephone) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.ville) }}
+                {{ form_row(proForm.socMail) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.email) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.plainPassword) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6" style="margin:auto">
-                {{ form_row(regForm.agreeTerms) }}
+                {{ form_row(proForm.agreeTerms) }}
             </div>
         </div>
         <div class="row">
@@ -77,6 +77,6 @@
             </div>
         </div>
 
-        {{ form_end(regForm) }}
+        {{ form_end(proForm) }}
     </div>
 {% endblock %}

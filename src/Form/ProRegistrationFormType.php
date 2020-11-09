@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -53,24 +54,8 @@ class ProRegistrationFormType extends AbstractType
                 ],
                 'error_bubbling' => true
             ])
-            ->add('adresse1', TextType::class, [
-                'label' => false,
-                'mapped' => false,
-                'attr' => [
-                    'placeholder' => 'Adresse*'
-                ],
-                'error_bubbling' => true
-            ])
-            ->add('adresse2', TextType::class, [
-                'label' => false,
-                'mapped' => false,
-                'attr' => [
-                    'placeholder' => "Complément d'adresse"
-                ],
-                'required' => false,
-                'error_bubbling' => true
-            ])
-            ->add('telephone', TextType::class, [
+
+            ->add('telephone', TelType::class, [
                 'label' => false,
                 'mapped' => false,
                 'attr' => [
@@ -78,11 +63,11 @@ class ProRegistrationFormType extends AbstractType
             ],
                 'error_bubbling' => true
             ])
-            ->add('ape', TextType::class, [
+            ->add('socMail', EmailType::class, [
                 'label' => false,
                 'mapped' => false,
                 'attr' => [
-                    'placeholder' => "Code APE"
+                    'placeholder' => "Email"
                 ],
                 'required' => false,
                 'error_bubbling' => true

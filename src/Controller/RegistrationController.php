@@ -85,12 +85,12 @@ class RegistrationController extends AbstractController
 
                 $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
 
-                $this->addFlash("success", "Votre compte utilisateur a été créé! Pour l'activer, veuillez suivre les instructions contenues dans l'e-mail que nous venons de vous envoyer");
+                $this->addFlash("success", "Votre compte utilisateur a été créé! Pour l'activer, veuillez suivre les instructions contenues dans l'email que nous venons de vous envoyer");
                 return $this->redirectToRoute('app_login');
 
             }
 
-            return $this->render('cdt_register.html.twig', [
+            return $this->render('registration/cdt_register.html.twig', [
                 'regForm' => $regForm->createView(),
                 'route' => $route
             ]);
@@ -100,31 +100,26 @@ class RegistrationController extends AbstractController
 //            INSCRIPTION ENTREPRISE
         }elseif($route == "professionnel_inscription") {
 
-            $regForm = $this->createForm(ProRegistrationFormType::class, $user);
-            $regForm->handleRequest($request);
+            $proForm = $this->createForm(ProRegistrationFormType::class, $user);
+            $proForm->handleRequest($request);
 
-            if ($regForm->isSubmitted() && $regForm->isValid()) {
+            if ($proForm->isSubmitted() && $proForm->isValid()) {
                 // encode the plain password
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
-                        $regForm->get('plainPassword')->getData()
+                        $proForm->get('plainPassword')->getData()
                     )
                 );
                 $rc = new Recruteur();
                 $user->setRecruteur($rc);
-                $rc->setNom($regForm->get('nom')->getData());
-                $rc->setPrenom($regForm->get('prenom')->getData());
+                $rc->setNom($proForm->get('nom')->getData());
+                $rc->setPrenom($proForm->get('prenom')->getData());
                 $en = new Entreprise();
                 $rc->setEntreprise($en);
-                $en->setRaisonSociale($regForm->get('raisonSociale')->getData());
-                $en->setSiret($regForm->get('siret')->getData());
-                $en->setAdresse1($regForm->get('adresse1')->getData());
-                $en->setAdresse2($regForm->get('adresse2')->getData());
-                $en->setVille($regForm->get('ville')->getData());
-                $en->setCodePostal($regForm->get('codePostal')->getData());
-                $en->setTelephone($regForm->get('telephone')->getData());
-                $en->setApe($regForm->get('ape')->getData());
+                $en->setRaisonSociale($proForm->get('raisonSociale')->getData());
+                $en->setTelephone($proForm->get('telephone')->getData());
+                $en->setEmail($proForm->get('socMail')->getData());
 
                 $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
 
@@ -141,21 +136,22 @@ class RegistrationController extends AbstractController
 
                 $url = $this->generateUrl('app_confirm', ['token' => $authToken], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                // send an email
-                $nom = $rc->getNom();
-                $prenom = $rc->getPrenom();
-                $mail = $user->getEmail();
+                // SEND AN EMAIL AFTER VERIFICATION
+//                $nom = $rc->getNom();
+//                $prenom = $rc->getPrenom();
+//                $mail = $user->getEmail();
 
-                $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
+//                $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
 
-                $this->addFlash("success", "Votre compte utilisateur a été créé! Pour l'activer, veuillez suivre les instructions contenues dans l'e-mail que nous venons de vous envoyer");
+                $this->addFlash("success", "Votre demande d'inscription pour le compte de votre entreprise a bien été enregistrée. Vous recevrez un email détaillant les étapes pour l'activation de ce compte.");
                 return $this->redirectToRoute('app_login');
             }
 
-            return $this->render('pro_register.html.twig', [
-                'regForm' => $regForm->createView(),
+            return $this->render('registration/pro_register.html.twig', [
+                'proForm' => $proForm->createView(),
                 'route' => $route
             ]);
+
         }
     }
 
@@ -189,7 +185,9 @@ class RegistrationController extends AbstractController
         $user->setActif(true);
         $this->em->flush();
         $this->addFlash('success', 'Votre compte est actif! Vous pouvez vous connecter.');
-        return $this->redirectToRoute("app_login");
+
+            return $this->redirectToRoute("app_login");
+
     }
 
 }

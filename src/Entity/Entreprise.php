@@ -69,9 +69,32 @@ class Entreprise
      */
     private $role;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="agence")
+     */
+    private $postules;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="agence")
+     */
+    private $candidats;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=CV::class, inversedBy="favoris")
+     */
+    private $favoris;
+
     public function __construct()
     {
         $this->recruteurs = new ArrayCollection();
+        $this->postules = new ArrayCollection();
+        $this->candidats = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,5 +243,101 @@ class Entreprise
     public function __toString()
     {
         return $this->raisonSociale;
+    }
+
+    /**
+     * @return Collection|Postule[]
+     */
+    public function getPostules(): Collection
+    {
+        return $this->postules;
+    }
+
+    public function addPostule(Postule $postule): self
+    {
+        if (!$this->postules->contains($postule)) {
+            $this->postules[] = $postule;
+            $postule->setAgence($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostule(Postule $postule): self
+    {
+        if ($this->postules->removeElement($postule)) {
+            // set the owning side to null (unless already changed)
+            if ($postule->getAgence() === $this) {
+                $postule->setAgence(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Candidat[]
+     */
+    public function getCandidats(): Collection
+    {
+        return $this->candidats;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->candidats->contains($candidat)) {
+            $this->candidats[] = $candidat;
+            $candidat->setAgence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        if ($this->candidats->removeElement($candidat)) {
+            // set the owning side to null (unless already changed)
+            if ($candidat->getAgence() === $this) {
+                $candidat->setAgence(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CV[]
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(CV $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(CV $favori): self
+    {
+        $this->favoris->removeElement($favori);
+
+        return $this;
     }
 }
