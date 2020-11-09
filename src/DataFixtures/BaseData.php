@@ -2,8 +2,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\APE;
+use App\Entity\CV;
+use App\Entity\Entreprise;
 use App\Entity\Metier;
-use App\Entity\Rome;
+use App\Entity\Offre;
+use App\Entity\TypeContrat;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -20,38 +24,48 @@ class BaseData extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager)
     {
-        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/coderome.csv', 'r');
+        /////////////////////////////////////////////////////////////////////////////////
+        /// Rome
+        ////////////////////////////////////////////////////////////////////////////////
+
+//        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/coderome.csv', 'r');
+//
+//        while (!feof($csv)) {
+//            $line = fgetcsv($csv);
+//            if ($line) {
+//                $ro = new Rome();
+//                $ro->setCode($line[0]);
+//                $ro->setLibelle($line[1]);
+//
+//                $manager->persist($ro);
+//            }
+//        }
+//
+//        fclose($csv);
+//
+//        $manager->flush();
+
+
+        /////////////////////////////////////////////////////////////////////////////////
+        /// Metiers
+        ////////////////////////////////////////////////////////////////////////////////
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/rome.csv', 'r');
+        $line = fgetcsv($csv);
 
         while (!feof($csv)) {
-            $line = fgetcsv($csv);
-            if ($line) {
-                $ro = new Rome();
-                $ro->setCode($line[0]);
-                $ro->setLibelle($line[1]);
-
-                $manager->persist($ro);
-            }
-        }
-
-        fclose($csv);
-
-        $manager->flush();
-
-        $repo_rome = $manager->getRepository(Rome::class);
-
-        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/metiers.csv', 'r');
-
-        while (!feof($csv)) {
-            $line = fgetcsv($csv);
+            $line = fgetcsv($csv, 0, ",", '"');
             if ($line) {
                 $me = new Metier();
-                $co = $line[7];
-                $li = $line[0];
-                $rome = $repo_rome->findOneBy(["code" => $co]);
-                $me->setLibelle($li);
-                $me->setRome($rome);
-
-                $manager->persist($me);
+                $c1 = $line[0];
+                $c2 = $line[1];
+                $c3 = $line[2];
+                $libelle = $line[3];
+                if ($c1 && $c2 && $c3) {
+                    $me->setLibelle($libelle);
+                    $me->setRome($c1.$c2.$c3);
+                    $manager->persist($me);
+                }
             }
         }
 
@@ -59,6 +73,73 @@ class BaseData extends Fixture implements FixtureGroupInterface
 
         $manager->flush();
 
+
+        /////////////////////////////////////////////////////////////////////////////////
+        /// APE
+        ////////////////////////////////////////////////////////////////////////////////
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/naf.csv', 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv, 0, ";", '"');
+            if ($line) {
+                $co = $line[0];
+                if (strlen($co)==5) {
+                    $li = $line[1];
+                    $ape = new APE($co, $li);
+
+                    $manager->persist($ape);
+                }
+            }
+        }
+
+        fclose($csv);
+
+        $manager->flush();
+
+
+        $tc1 = new TypeContrat(1, "CDI");
+        $manager->persist($tc1);
+        $tc2 = new TypeContrat(2, "CDD < 5 mois");
+        $manager->persist($tc2);
+        $tc3 = new TypeContrat(3, "CDD > 5 mois");
+        $manager->persist($tc3);
+        $tc4 = new TypeContrat(4, "CTT/Interim");
+        $manager->persist($tc4);
+        $tc5 = new TypeContrat(5, "Freelance");
+        $manager->persist($tc5);
+        $tc6 = new TypeContrat(6, "Alternance");
+        $manager->persist($tc6);
+        $tc7 = new TypeContrat(7, "CUI – Contrat unique d’insertion");
+        $manager->persist($tc7);
+        $tc8 = new TypeContrat(8, "CAE – Contrat d’accompagnement dans l’emploi");
+        $manager->persist($tc8);
+        $tc9 = new TypeContrat(9, "CIE – Contrat initiative emploi");
+        $manager->persist($tc9);
+        $tc10 = new TypeContrat(10, "Service civique");
+        $manager->persist($tc10);
+
+
+        $ent1 = new Entreprise();
+        $ent1->setRaisonSociale("Entreprise1");
+        $manager->persist($ent1);
+
+        $cv1 = new CV();
+        $cv1->addFavori($ent1);
+        $manager->persist($cv1);
+
+
+
+        $of1 = new Offre();
+        $of1->getDuree("6 mois");
+        $of1->setType($tc3);
+
+        $manager->persist($of1);
+
+
+
+        $manager->flush();
 
     }
 

@@ -59,6 +59,21 @@ class Offre
      */
     private $duree;
 
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
+     */
+    private $type;
+
+
+
+
     public function __construct()
     {
         $this->postules = new ArrayCollection();
@@ -179,6 +194,32 @@ class Offre
     public function setDuree(?string $duree): self
     {
         $this->duree = $duree;
+
+        return $this;
+    }
+
+
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getType(): ?TypeContrat
+    {
+        return $this->type;
+    }
+
+    public function setType(?TypeContrat $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

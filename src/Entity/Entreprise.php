@@ -85,9 +85,15 @@ class Entreprise
     private $candidats;
 
     /**
+     * Liaison entre CV et Entreprise représente les CVs mis en favoris par l'entreprise (table de liaison entreprise_cv)
      * @ORM\ManyToMany(targetEntity=CV::class, inversedBy="favoris")
      */
     private $favoris;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Consulte::class, mappedBy="entreprise")
+     */
+    private $consultes;
 
     public function __construct()
     {
@@ -95,6 +101,7 @@ class Entreprise
         $this->postules = new ArrayCollection();
         $this->candidats = new ArrayCollection();
         $this->favoris = new ArrayCollection();
+        $this->consultes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -337,6 +344,36 @@ class Entreprise
     public function removeFavori(CV $favori): self
     {
         $this->favoris->removeElement($favori);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Consulte[]
+     */
+    public function getConsultes(): Collection
+    {
+        return $this->consultes;
+    }
+
+    public function addConsulte(Consulte $consulte): self
+    {
+        if (!$this->consultes->contains($consulte)) {
+            $this->consultes[] = $consulte;
+            $consulte->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsulte(Consulte $consulte): self
+    {
+        if ($this->consultes->removeElement($consulte)) {
+            // set the owning side to null (unless already changed)
+            if ($consulte->getEntreprise() === $this) {
+                $consulte->setEntreprise(null);
+            }
+        }
 
         return $this;
     }

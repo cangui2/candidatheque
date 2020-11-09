@@ -54,9 +54,15 @@ class CV
      */
     private $favoris;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Consulte::class, mappedBy="cv")
+     */
+    private $consultes;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
+        $this->consultes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,14 +143,14 @@ class CV
     }
 
     /**
-     * @return Collection|Entreprises[]
+     * @return Collection|Entreprise[]
      */
     public function getFavoris(): Collection
     {
         return $this->favoris;
     }
 
-    public function addFavori(Entreprises $favori): self
+    public function addFavori(Entreprise $favori): self
     {
         if (!$this->favoris->contains($favori)) {
             $this->favoris[] = $favori;
@@ -154,10 +160,40 @@ class CV
         return $this;
     }
 
-    public function removeFavori(Entreprises $favori): self
+    public function removeFavori(Entreprise $favori): self
     {
         if ($this->favoris->removeElement($favori)) {
             $favori->removeFavori($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Consulte[]
+     */
+    public function getConsultes(): Collection
+    {
+        return $this->consultes;
+    }
+
+    public function addConsulte(Consulte $consulte): self
+    {
+        if (!$this->consultes->contains($consulte)) {
+            $this->consultes[] = $consulte;
+            $consulte->setCv($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsulte(Consulte $consulte): self
+    {
+        if ($this->consultes->removeElement($consulte)) {
+            // set the owning side to null (unless already changed)
+            if ($consulte->getCv() === $this) {
+                $consulte->setCv(null);
+            }
         }
 
         return $this;
