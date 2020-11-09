@@ -4,10 +4,13 @@ namespace App\DataFixtures;
 
 use App\Entity\APE;
 use App\Entity\CV;
+use App\Entity\Departement;
 use App\Entity\Entreprise;
 use App\Entity\Metier;
 use App\Entity\Offre;
+use App\Entity\Region;
 use App\Entity\TypeContrat;
+use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -97,6 +100,89 @@ class BaseData extends Fixture implements FixtureGroupInterface
         fclose($csv);
 
         $manager->flush();
+
+
+        /////////////////////////////////////////////////////////////////////////////////
+        /// Region
+        ////////////////////////////////////////////////////////////////////////////////
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/regions.csv', 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv, 0, ",", '"');
+            if (count($line)>1) {
+                $co = $line[1];
+                $li = $line[2];
+                $reg = new Region($co, $li);
+                $manager->persist($reg);
+            }
+        }
+
+        fclose($csv);
+
+        $manager->flush();
+
+
+        /////////////////////////////////////////////////////////////////////////////////
+        /// Departement
+        ////////////////////////////////////////////////////////////////////////////////
+        ///
+        $repo = $manager->getRepository(Region::class);
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/departements.csv', 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv, 0, ",", '"');
+            if ($line && count($line)>1) {
+                $co = $line[2];
+                $li = $line[3];
+                $re = $line[1];
+                $region = $repo->find($re);
+                $dep = new Departement($co, $li);
+                $dep->setRegion($region);
+                $manager->persist($dep);
+            }
+        }
+
+        fclose($csv);
+
+        $manager->flush();
+
+
+        /////////////////////////////////////////////////////////////////////////////////
+        /// Villes
+        ////////////////////////////////////////////////////////////////////////////////
+        ///
+        $repo = $manager->getRepository(Departement::class);
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/villes.csv', 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv, 0, ",", '"');
+            if ($line && count($line)>1) {
+                $cp = $line[3];
+                $nom = $line[4];
+                $dep = $line[1];
+                $lon = $line[6];
+                $lat = $line[7];
+                $departement = $repo->find($dep);
+                $ville = new Ville();
+                $ville->setNom($nom);
+                $ville->setCodePostal($cp);
+                $ville->setLongitude($lon);
+                $ville->setLatitude($lat);
+                $ville->setDepartement($departement);
+                $manager->persist($ville);
+            }
+        }
+
+        fclose($csv);
+
+        $manager->flush();
+
 
 
         $tc1 = new TypeContrat(1, "CDI");
