@@ -39,6 +39,26 @@ class Offre
      */
     private $postules;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $salaire;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateFin;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $duree;
+
     public function __construct()
     {
         $this->postules = new ArrayCollection();
@@ -111,6 +131,54 @@ class Offre
                 $postule->setOffre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSalaire(): ?float
+    {
+        return $this->salaire;
+    }
+
+    public function setSalaire(?float $salaire): self
+    {
+        $this->salaire = $salaire;
+
+        return $this;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(?\DateTimeInterface $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(?\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    public function getDuree(): ?string
+    {
+        return $this->duree;
+    }
+
+    public function setDuree(?string $duree): self
+    {
+        $this->duree = $duree;
 
         return $this;
     }
