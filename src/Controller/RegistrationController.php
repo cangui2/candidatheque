@@ -121,7 +121,7 @@ class RegistrationController extends AbstractController
                 $en->setTelephone($proForm->get('telephone')->getData());
                 $en->setEmail($proForm->get('socMail')->getData());
 
-                $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
+                $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
 
                 $this->em->persist($en);
                 $this->em->persist($rc);
@@ -136,14 +136,14 @@ class RegistrationController extends AbstractController
 
                 $url = $this->generateUrl('app_confirm', ['token' => $authToken], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                // SEND AN EMAIL AFTER VERIFICATION
+                // TODO SEND AN EMAIL AFTER VERIFICATION
 //                $nom = $rc->getNom();
 //                $prenom = $rc->getPrenom();
 //                $mail = $user->getEmail();
 
 //                $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
 
-                $this->addFlash("success", "Votre demande d'inscription pour le compte de votre entreprise a bien été enregistrée. Vous recevrez un email détaillant les étapes pour l'activation de ce compte.");
+                $this->addFlash("success", "Votre demande d'inscription pour le compte de votre entreprise a bien été enregistrée. Après l'étude de celle-ci et confirmation de la part de votre société, un lien d'activation vous sera envoyé par email.");
                 return $this->redirectToRoute('app_login');
             }
 
@@ -180,6 +180,9 @@ class RegistrationController extends AbstractController
 //            $user = null;
 //            $this->addFlash('danger', 'Le lien a expiré');
 //        }
+        if($user->getRoles() === ["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]){
+            $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
+        }
 
         $user->setAuthToken(null);
         $user->setActif(true);

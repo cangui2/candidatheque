@@ -1,0 +1,64 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+
+{% block page_title 'ESPACE GESTION' %}
+
+{% block page_content %}
+    <style>
+        p { max-width: 600px; }
+    </style>
+
+    <div class="container">
+        <div class=row">
+{#            col1 #}
+            <div class="col-sm col-data1">
+                <a class="users-confirm" href="{{ path('test') }}">
+                <div class="visual">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="detail">
+                    <div class="conf-users">
+                        <span data-counter="counterup" data-value="">1</span>
+                    </div>
+                    <div class="desc">
+                        Comtes entreprise à confirmer
+                    </div>
+                </div>
+                </a>
+            </div>
+{#        col2 #}
+            <div class="col-sm col-data2">
+                <div class="visual">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div class="detail">
+                    <div class="conf-users">
+                        <span data-counter="counterup" data-value="">2</span>
+                    </div>
+                    <div class="desc">
+                        Offres actives
+                    </div>
+                </div>
+            </div>
+            {#        col3 #}
+            <div class="col-sm col-data3">
+                <div class="visual">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div class="detail">
+                    <div class="conf-users">
+                        <span data-counter="counterup" data-value="">3</span>
+                    </div>
+                    <div class="desc">
+                        Autre
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2 class="text-center mt-4 mt-4">Liste utilisateurs pro non-confirmés</h2>
+
+        <table class="table active  table-responsive" role="table">
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                <td>{{ user.recruteur.nom }}</td>
+                <td>{{ user.recruteur.prenom }}</td>
+                <td>{{ user.recruteur.entreprise }}</td>
+                {% for role in user.roles %}
+                    <td>{{ role }}</td>
+                {% endfor %}
+                    <td><a id="modifier" href=""><span class="fa fa-pencil" aria-hidden="true"></span>Confirmer</a></td>
+
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
