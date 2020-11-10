@@ -1,0 +1,68 @@
+.navigation_corner{
+    border-radius: 0px 0px 20px 0px;
+    }
+
+.candidat_corner{
+    border-radius: 6px 0px 0px 0px;
+    background-color: #3E68D4;
+    }
+    
+.entreprise_corner{
+    border-radius: 0px 0px 6px 0px;
+    color: #3E68D4;
+    }
+
+.navbar-brand{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.nav{
+    position:sticky;
+    top:0px;
+}
+
+.card{
+    border-radius: 0px 0px 10px 0px;
+}
+
+#background{
+    height: 200px;
+  }
+
+#menu a{
+    color: #3E68D4;
+}
+
+.navbar-brand{
+    color: #3E68D4;
+}
+
+.pastille {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+}
+
+.child {
+    z-index: 3;
+    position: absolute;
+    top: 200px;
+    left:400px;
+    color: white!important;
+}
+
+.child2 {
+    z-index: 2;
+    position: abolute;
+    top: 100px;
+    left: 100px;
+}
+.child3 {
+    z-index: 1;
+    top: 50px;
+    left: 80px;
+    margin: 30px;
+    
+}

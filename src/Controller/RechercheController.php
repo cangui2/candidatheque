@@ -39,4 +39,24 @@ class RechercheController extends AbstractController
             'controller_name' => 'RechercheController',
         ]);
     }
+
+        /**
+     * @Route("/recherche_moteur", name="recherche_moteur")
+     */
+    public function search(Request $request, ObjectManager $manager)
+    {
+        $moteur = new Moteur();
+
+        $form = $this->createFormBuilder($moteur)
+                     ->add('profession')
+                     ->add('lieu')
+                     ->add('secteur')
+                     ->add('contrat')
+                     ->getForm();
+
+        return $this->render('recherche_index.html.twig', [
+            'formMoteur' => $form->createView()
+        ]);
+    }
+
 }

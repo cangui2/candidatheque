@@ -8,67 +8,82 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
+{#<div class="example-wrapper">
     <h1>Bonjour!</h1>
     <a role="button"  href="{{ path('candidat_inscription') }}"><h6>Inscription candidat test</h6></a>
     <a role="button"  href="{{ path('professionnel_inscription') }}"><h6>Inscription recruteur</h6></a>
-</div>
+</div>#}
 
-<div id="circle"></div>
+{#<div id="background">
+<img src="{{ asset("assets/images/test" ~ variaTest ~ ".jpg") }}" />
+</div>#}
+
+<body class="image" style="background-image:url('{{ asset("assets/images/test" ~ variaTest ~ ".jpg") }}')">
+    <div class="pastille">
+      <div class="child1">
+        <p>Lorem ipsum, etc</p>
+      </div>
+      <div class="child1 child2">
+        <h1 class="rounded-circle bg-primary" style="width: 15rem; height: 15rem;">Votre talent, nos offres</h1>
+      </div>
+      <div class="child2 child3">
+        <button type="button" class="btn btn-light">S'inscrire</button>
+      </div>
+    </div>
 
 <div class="container">
-<div class="row">
-<form>
-  <div class="form-group">
-    <label for="rechercheInput1">Profession</label>
-    <input type="email" class="form-control" id="rechercheInput1">
-  </div>
-  <div class="form-group">
-    <label for="rechercheInput2">Lieu</label>
-    <input type="password" class="form-control" id="rechercheInput2">
-  </div>
-  <div class="form-group">
-    <label for="rechercheInput3">Secteur</label>
-    <input type="email" class="form-control" id="rechercheInput3">
-  </div>
-    <div class="form-group">
-    <label for="rechercheInput4">Type de contrat</label>
-    <input type="email" class="form-control" id="rechercheInput4">
-  </div>
-  <button type="submit" class="btn btn-primary">Rechercher des offres</button>
-</form>
-</div>
-
   <div class="row">
-        <div class="card col-sm bg-light" style="width: 18rem;">
-            <div class="card-body">
-            <div class="rounded-circle bg-primary d-flex justify-content-center" style="width: 5rem; height: 5rem" >
-            </div>
-            <h5 class="card-title">Créer mon CV en ligne</h5>
-            <p class="card-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <a href="{{ path('recherche_details') }}" class="btn btn-primary">Rédiger</a>
-            </div>
+    <div class="col-12">
+      <form>
+        <div class="form-group">
+          <label for="rechercheInput1">Profession</label>
+          <input type="email" class="form-control" id="rechercheInput1">
         </div>
-        <div class="card col-sm bg-light mx-4" style="width: 18rem;">
-            <div class="card-body">
-            <div class="rounded-circle bg-primary d-flex justify-content-center" style="width: 5rem; height: 5rem" >
-            </div>
-                <h5 class="card-title">Déposer mon CV</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-                <a href="{{ path('recherche_details') }}" class="btn btn-primary">Déposer</a>
-            </div>
+        <div class="form-group">
+          <label for="rechercheInput2">Lieu</label>
+          <input type="password" class="form-control" id="rechercheInput2">
         </div>
-        <div class="card col-sm bg-light" style="width: 18rem;">
-            <div class="card-body">
-            <div class="rounded-circle bg-primary d-flex justify-content-center" style="width: 5rem; height: 5rem" >
-            </div>
-                <h5 class="card-title">Infos et conseils</h5>
-                <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <a href="{{ path('recherche_details') }}" class="btn btn-primary">S'informer</a>
-            </div>
+        <div class="form-group">
+          <label for="rechercheInput3">Secteur</label>
+          <input type="email" class="form-control" id="rechercheInput3">
         </div>
+        <div class="form-group">
+          <label for="rechercheInput4">Type de contrat</label>
+          <input type="email" class="form-control" id="rechercheInput4">
+        </div>
+          <button type="submit" class="btn btn-primary">Rechercher des offres</button>
+      </form>
+        <div class="d-flex justify-content-center"> 
+        </div>
+    </div>
   </div>
+
+    <div class="row">
+      <div class="card-deck">
+        <div class="card col-sm bg-light">
+            <div class="card-body text-center">
+              <img class="rounded-circle bg-primary" src="{{ asset("assets/images/blueprint.svg") }}" style="width: 5rem; height: 5rem" />
+            </div>
+              <h5 class="card-title">Créer mon CV en ligne</h5>
+              <p class="card-text mb-4">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div class="card col-sm bg-light">
+            <div class="card-body text-center">
+              <img class="rounded-circle bg-primary" src="{{ asset("assets/images/archive.svg") }}" style="width: 5rem; height: 5rem" />
+            </div>
+              <h5 class="card-title">Déposer mon CV</h5>
+              <p class="card-text mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+            </div>
+        <div class="card col-sm bg-light">
+            <div class="card-body text-center">
+              <img class="rounded-circle bg-primary" src="{{ asset("assets/images/loudspeaker.svg") }}" style="width: 5rem; height: 5rem" />
+            </div>
+              <h5 class="card-title">Infos et conseils</h5>
+              <p class="card-text mb-4">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+    </div>
 </div>
 
-</div>
+</body>
 {% endblock %}
