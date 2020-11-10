@@ -12,6 +12,10 @@
     color: #3E68D4;
     }
 
+.margin_navbar {
+    margin-left: 205px;
+}
+
 .navbar-brand{
     font-size: x-large;
     font-weight: bold;
@@ -28,14 +32,19 @@
 
 #background{
     height: 200px;
+
   }
+  .image_background{
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
 #menu a{
     color: #3E68D4;
 }
 
-.navbar-brand{
-    color: #3E68D4;
+#brand{
+    color: #34495E;
 }
 
 .pastille {
@@ -45,24 +54,48 @@
     margin: 10px;
 }
 
-.child {
-    z-index: 3;
+#pastille1 {
+    height: 15rem;
+    width: 15rem;
     position: absolute;
-    top: 200px;
-    left:400px;
+    top: 300px;
+    left:720px;
     color: white!important;
+    z-index: 3;
 }
 
-.child2 {
+#pastille2 {
+    height: 15rem;
+    width: 15rem;
+    position: absolute;
+    top: 200px;
+    left:700px;
+    color: white!important;
     z-index: 2;
-    position: abolute;
-    top: 100px;
-    left: 100px;
 }
-.child3 {
+
+#pastille3 {
+    height: 15rem;
+    width: 15rem;
+    position: absolute;
+    top: 400px;
+    left:890px;
     z-index: 1;
-    top: 50px;
-    left: 80px;
-    margin: 30px;
-    
+}
+
+.rech{
+    color: #3E68D4;
+    }
+
+
+/* Nouvelles règles si la fenêtre fait au plus 1024px de large */
+@media screen and (max-width: 992px)
+{
+    .pastille{
+        display: none;
+    }
+
+    .margin_navbar {
+        margin-left: 0px;
+    }
 }
