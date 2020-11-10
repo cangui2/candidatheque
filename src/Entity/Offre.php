@@ -20,6 +20,11 @@ class Offre
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titre;
+    
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $datePublication;
@@ -55,21 +60,27 @@ class Offre
     private $dateFin;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $duree;
 
 
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $titre;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $possibiliteCDI;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $urgent;
 
 
 
@@ -186,12 +197,12 @@ class Offre
         return $this;
     }
 
-    public function getDuree(): ?string
+    public function getDuree(): ?integer
     {
         return $this->duree;
     }
 
-    public function setDuree(?string $duree): self
+    public function setDuree(?integer $duree): self
     {
         $this->duree = $duree;
 
@@ -220,6 +231,30 @@ class Offre
     public function setType(?TypeContrat $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPossibiliteCDI(): ?bool
+    {
+        return $this->possibiliteCDI;
+    }
+
+    public function setPossibiliteCDI(?bool $possibiliteCDI): self
+    {
+        $this->possibiliteCDI = $possibiliteCDI;
+
+        return $this;
+    }
+
+    public function getUrgent(): ?bool
+    {
+        return $this->urgent;
+    }
+
+    public function setUrgent(?bool $urgent): self
+    {
+        $this->urgent = $urgent;
 
         return $this;
     }

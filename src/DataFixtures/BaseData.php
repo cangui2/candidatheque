@@ -184,6 +184,39 @@ class BaseData extends Fixture implements FixtureGroupInterface
         $manager->flush();
 
 
+        /////////////////////////////////////////////////////////////////////////////////
+        /// Pays
+        ////////////////////////////////////////////////////////////////////////////////
+        ///
+        $repo = $manager->getRepository(Departement::class);
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/ROME/villes.csv', 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv, 0, ",", '"');
+            if ($line && count($line)>1) {
+                $cp = $line[3];
+                $nom = $line[4];
+                $dep = $line[1];
+                $lon = $line[6];
+                $lat = $line[7];
+                $departement = $repo->find($dep);
+                $ville = new Ville();
+                $ville->setNom($nom);
+                $ville->setCodePostal($cp);
+                $ville->setLongitude($lon);
+                $ville->setLatitude($lat);
+                $ville->setDepartement($departement);
+                $manager->persist($ville);
+            }
+        }
+
+        fclose($csv);
+
+        $manager->flush();
+
+
 
         $tc1 = new TypeContrat(1, "CDI");
         $manager->persist($tc1);

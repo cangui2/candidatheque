@@ -294,7 +294,7 @@ class Entreprise
     {
         if (!$this->candidats->contains($candidat)) {
             $this->candidats[] = $candidat;
-            $candidat->setAgence($this);
+            $candidat->setDeposePar($this);
         }
 
         return $this;
@@ -304,8 +304,8 @@ class Entreprise
     {
         if ($this->candidats->removeElement($candidat)) {
             // set the owning side to null (unless already changed)
-            if ($candidat->getAgence() === $this) {
-                $candidat->setAgence(null);
+            if ($candidat->getDeposePar() === $this) {
+                $candidat->setDeposePar(null);
             }
         }
 
