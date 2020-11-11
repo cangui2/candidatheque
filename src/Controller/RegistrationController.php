@@ -8,6 +8,7 @@ use App\Entity\Recruteur;
 use App\Entity\User;
 use App\Form\CandidatRegistrationFormType;
 use App\Form\ProRegistrationFormType;
+use App\Repository\EntrepriseRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,14 +30,15 @@ class RegistrationController extends AbstractController
     protected $session;
     protected $security;
     protected $em;
+    protected $enRepo;
 
-    public function __construct(MailService $ms, SessionInterface $session, Security $security, EntityManagerInterface $em)
+    public function __construct(MailService $ms, SessionInterface $session, Security $security, EntityManagerInterface $em, EntrepriseRepository $enRepo)
     {
         $this->ms = $ms;
         $this->session = $session;
         $this->security = $security;
         $this->em = $em;
-
+        $this->enRepo = $enRepo;
     }
 
     /**
@@ -115,9 +117,20 @@ class RegistrationController extends AbstractController
                 $user->setRecruteur($rc);
                 $rc->setNom($proForm->get('nom')->getData());
                 $rc->setPrenom($proForm->get('prenom')->getData());
+
+                //search for company in db
+                $siret = $proForm->get('siret')->getData();
+                $en = $this->enRepo->findOneBy(["siret" => $siret]);
+//                TODO BLOCK USER OR WHATEVER
+                if($en){
+                    $rc->setEntreprise($en);
+                    $this->em->persist($rc);
+                }
+
                 $en = new Entreprise();
                 $rc->setEntreprise($en);
                 $en->setRaisonSociale($proForm->get('raisonSociale')->getData());
+                $en->setSiret($siret);
                 $en->setTelephone($proForm->get('telephone')->getData());
                 $en->setEmail($proForm->get('socMail')->getData());
 
@@ -180,9 +193,9 @@ class RegistrationController extends AbstractController
 //            $user = null;
 //            $this->addFlash('danger', 'Le lien a expiré');
 //        }
-        if($user->getRoles() === ["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]){
-            $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
-        }
+//        if($user->getRoles() === ["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]){
+//            $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
+//        }
 
         $user->setAuthToken(null);
         $user->setActif(true);

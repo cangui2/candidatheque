@@ -4,6 +4,7 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 
 class AdminController extends AbstractController
 {
@@ -17,9 +18,9 @@ class AdminController extends AbstractController
      * @Route("/test", name="test")
      */
 
-    public function confirmUsersAction()
+    public function confirmUsers(AdminContext $context)
     {
-        $users = $this->uRepo->findAllByRole();
+        $users = $this->uRepo->findUsersByRoleVerify();
 //        dd($users);
         return $this->render('admin/confirm_pro_users.html.twig', [
             'users' => $users

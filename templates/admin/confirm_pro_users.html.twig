@@ -1,25 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="text-center mt-4 mb-4">Liste des recruteurs non-confirmés</h4>
 
-    <h2 class="text-center mt-4 mt-4">Liste utilisateurs pro non-confirmés</h2>
+                <table class="table table-hover" role="table">
+                    <thead class="thead-light">
+                    <tr role="row">
+                        <th scope="col" role="columnheader" class="text-center">ID</th>
+                        <th scope="col" role="columnheader" class="text-center">Nom</th>
+                        <th scope="col" role="columnheader" class="text-center">Prénom</th>
+                        <th scope="col" role="columnheader" class="text-center">Société</th>
+                        <th scope="col" role="columnheader" class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td class="text-center">{{ user.id }}</td>
+                            <td class="text-center">{{ user.recruteur.nom }}</td>
+                            <td class="text-center">{{ user.recruteur.prenom }}</td>
+                            <td class="text-center">{{ user.recruteur.entreprise }}</td>
+                            <td class="text-center"><a id="confirm" href="{{ path('user_confirm', {user: user.id}) }}">Confirmer</a>
+                            </td>
+                            <input type="hidden"  name="_token" value = "{{ csrf_token('confirm') }}">
 
-        <table class="table active  table-responsive" role="table">
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                <td>{{ user.recruteur.nom }}</td>
-                <td>{{ user.recruteur.prenom }}</td>
-                <td>{{ user.recruteur.entreprise }}</td>
-                {% for role in user.roles %}
-                    <td>{{ role }}</td>
-                {% endfor %}
-                    <td><a id="modifier" href=""><span class="fa fa-pencil" aria-hidden="true"></span>Confirmer</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if users | length !=0 %}
+                    <form method="post">
+                    <div class="col-md-12 text-center">
+                        <a href="{{ path('users_confirm_all') }}"role="button" id="confirm_all" class="btn btn-lg btn-success">Confirmer tous les utilisateurs</a>
+                        <input type="hidden"  name="_token" value = "{{ csrf_token('confirm_all') }}">
+                    </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
 
-                </tr>
+    </div>
 
-            {% endfor %}
-            </tbody>
-        </table>
+
 {% endblock %}
