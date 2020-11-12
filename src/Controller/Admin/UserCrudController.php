@@ -19,6 +19,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,15 +45,15 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('User')
-            ->setEntityLabelInPlural('Users')
+            ->setEntityLabelInSingular('Utilisateur')
+            ->setEntityLabelInPlural('Utilisateurs')
             ->setPageTitle(Crud::PAGE_INDEX, 'Liste des utilisateurs');
 //            ->setSearchFields(['id', 'email', 'roles', 'actif', 'recruteur.id', 'candidat.id']);
     }
 
     public function configureFields(string $pageName): iterable
     {
-        $id = IntegerField::new('id', 'ID');
+        $id = IntegerField::new('id', 'ID')->hideOnIndex();
         $email = EmailField::new('email');
         $actif = BooleanField::new('actif');
         $candidat = AssociationField::new('candidat');
@@ -76,22 +77,39 @@ class UserCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         $user_confirm = Action::new('user_confirm', 'Confirmer', 'fa fa-ok')
-            ->linkToRoute("user_confirm", function (User $user){
+            ->linkToRoute("users_manage", function (User $user){
                 return [
-                    'user' =>$user->getId()
+                    'user' =>$user->getId(),
+                    "btn_verify" => "Confirmer"
                 ];
             })
-            ->addCssClass('btn btn_warning');
+            ->addCssClass('btn btn-info')
 
-//            TODO
-//            ->displayIf(function (User $user) {
-//                return $user->getRoles() === ["ROLE_USER, ROLE_RECRUTEUR, ROLE_TO_VERIFY"];
-//            });
+            ->displayIf(function (User $user) {
+                return $user->getRoles() === ["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"];
+            });
+        $user_remove = Action::new('user_remove', 'Supprimer')
+            ->linkToRoute("users_manage", function (User $user){
+                return [
+                    'user' => $user->getId(),
+                    "btn_verify" => "Supprimer"
+                ];
+            })
+
+            ->addCssClass('btn btn-danger')
+            ->displayIf(function (User $user) {
+                return $user->getRoles() === ["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"];
+            });
+
+
+
         return $actions
             // ...
-//            ->remove(Crud::PAGE_INDEX, Action::NEW)
-            ->disable(Action::NEW)
+
+            ->disable(Action::DELETE)
             ->add(Crud::PAGE_INDEX, $user_confirm)
+            ->add(Crud::PAGE_INDEX, $user_remove)
+            ->reorder(Crud::PAGE_INDEX, array('user_confirm', 'user_remove'));
             ;
     }
     public function configureFilters(Filters $filters): Filters
@@ -104,7 +122,7 @@ class UserCrudController extends AbstractCrudController
     }
 
     /**
-     * @Route("admin/user_verify", name="user_verify")
+     * @Route("admin/users_verify", name="users_verify")
      */
 
     public function listVerifyUsers()
@@ -112,42 +130,51 @@ class UserCrudController extends AbstractCrudController
         $users = $this->uRepo->findUsersByRoleVerify();
 //        dd($users);
         return $this->render('admin/confirm_pro_users.html.twig', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
     /**
-     * @Route("admin/user_confirm/{user}", name="user_confirm")
+     * @Route("admin/users_manage/{user}", name="users_manage")
      */
     public function confirmUser(User $user, Request $request){
 
         $submittedToken = $request->request->get('_token');
+//        contexte edasyadmin
+        if ($request->attributes->get('easyadmin_context') || $this->isCsrfTokenValid('confirm', $submittedToken)) {
 
+//            contexte formulaire post
+            if ($request->request->get('btn_verify') === "Confirmer" || $request->query->get('btn_verify') === "Confirmer") {
 
-        if ($this->isCsrfTokenValid('confirm', $submittedToken)) {
+                $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
 
-            dd($submittedToken);
+                // Generate authToken
+                $authToken = $this->ms->generateToken($user->getId(), $user->getEmail());
+                $user->setAuthToken($authToken);
+                $this->em->flush();
+
+                $url = $this->generateUrl('app_confirm', ['token' => $authToken], UrlGeneratorInterface::ABSOLUTE_URL);
+
+                // send an email
+                $nom = $user->getRecruteur()->getNom();
+                $prenom = $user->getRecruteur()->getPrenom();
+                $mail = $user->getEmail();
+
+                $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
+
+                return $this->redirectToRoute('admin');
+
+            } elseif ($request->request->get('btn_verify') === "Supprimer" || $request->query->get('btn_verify') === "Supprimer") {
+
+                $this->em->remove($user->getRecruteur());
+                $this->em->remove($user);
+                $this->em->flush();
+
+                return $this->redirectToRoute('admin');
+
+            }
+        }
+        else {
             return new Response('Opération interdite!');
-        }else{
-
-            $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
-
-            // Generate authToken
-            $authToken = $this->ms->generateToken($user->getId(), $user->getEmail());
-
-            $user->setAuthToken($authToken);
-            $this->em->flush();
-
-            $url = $this->generateUrl('app_confirm', ['token' => $authToken], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            // send an email
-            $nom = $user->getRecruteur()->getNom();
-            $prenom = $user->getRecruteur()->getPrenom();
-            $mail = $user->getEmail();
-
-            $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
-
-            return $this->redirectToRoute('admin');
-
         }
 
     }
@@ -161,13 +188,13 @@ class UserCrudController extends AbstractCrudController
 
         $submittedToken = $request->request->get('_token');
 
-        if ($this->isCsrfTokenValid('confirm_all', $submittedToken)) {
-
+        if (!$this->isCsrfTokenValid('confirm_all', $submittedToken)) {
 
             return new Response('Opération interdite!');
         }else{
+            dd('confirm');
             $users = $this->uRepo->findUsersByRoleVerify();
-            foreach ($users as $user){
+            foreach ($users as $user) {
 
                 $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
 
@@ -185,13 +212,14 @@ class UserCrudController extends AbstractCrudController
                 $mail = $user->getEmail();
 
                 $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
-
+            }
                 return $this->redirectToRoute('admin');
 
-            }
+
 
 
         }
 
     }
+
 }

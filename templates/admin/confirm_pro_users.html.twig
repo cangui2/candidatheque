@@ -18,23 +18,26 @@
                     </thead>
                     <tbody>
                     {% for user in users %}
+                        <form method="post" action="{{ path('users_manage', {user: user.id}) }}">
                         <tr>
                             <td class="text-center">{{ user.id }}</td>
                             <td class="text-center">{{ user.recruteur.nom }}</td>
                             <td class="text-center">{{ user.recruteur.prenom }}</td>
                             <td class="text-center">{{ user.recruteur.entreprise }}</td>
-                            <td class="text-center"><a id="confirm" href="{{ path('user_confirm', {user: user.id}) }}">Confirmer</a>
+                            <td class="text-center"><input type="submit" class="btn btn-md btn-success" id="confirm" name="btn_verify" value="Confirmer">
+                            <td class="text-center"><input type="submit" class="btn btn-md btn-success" id="confirm" name="btn_verify" value="Supprimer">
                             </td>
                             <input type="hidden"  name="_token" value = "{{ csrf_token('confirm') }}">
 
                         </tr>
+                        </form>
                     {% endfor %}
                     </tbody>
                 </table>
                 {% if users | length !=0 %}
-                    <form method="post">
+                    <form method="post" action="{{ path('users_confirm_all') }}">
                     <div class="col-md-12 text-center">
-                        <a href="{{ path('users_confirm_all') }}"role="button" id="confirm_all" class="btn btn-lg btn-success">Confirmer tous les utilisateurs</a>
+                        <input type="submit" id="confirm_all" class="btn btn-lg btn-success" value="Confirmer tous les utilisateurs">
                         <input type="hidden"  name="_token" value = "{{ csrf_token('confirm_all') }}">
                     </div>
                     </form>

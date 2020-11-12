@@ -48,7 +48,7 @@ class DashboardController extends AbstractDashboardController
             'cd_users' => $cd_users,
             'pro_users' => $pro_users,
             'vf_users' => $vf_users,
-            'total_offres' => $total_offres
+            'total_offres' => $total_offres,
         ]);
     }
 
@@ -72,6 +72,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Recruteurs', 'fas fa-address-card', Recruteur::class);
         yield MenuItem::linkToCrud('Entreprises', 'fas fa-building', Entreprise::class);
         yield MenuItem::linkToCrud('Offres', 'fas fa-folder-open', Offre::class);
+
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

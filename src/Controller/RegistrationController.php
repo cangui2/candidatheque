@@ -43,7 +43,7 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/candidat/inscription/", name="candidat_inscription")
-     * @Route("/professionnel/inscription", name="professionnel_inscription")
+     * @Route("/entreprise/inscription", name="entreprise_inscription")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -100,32 +100,36 @@ class RegistrationController extends AbstractController
 
 
 //            INSCRIPTION ENTREPRISE
-        }elseif($route == "professionnel_inscription") {
+        }elseif($route == "entreprise_inscription") {
 
             $proForm = $this->createForm(ProRegistrationFormType::class, $user);
             $proForm->handleRequest($request);
 
             if ($proForm->isSubmitted() && $proForm->isValid()) {
-                // encode the plain password
+                //search for company in db
+                $siret = $proForm->get('siret')->getData();
+                $en = $this->enRepo->findOneBy(["siret" => $siret]);
+
+                if($en && $en->getRecruteurs()->count() > 0){
+                    $this->addFlash("danger", "Une inscription a déjà été faite pour le compte de votre entreprise. Merci de vous rapprocher de votre société pour plus d'informations.");
+                    return $this->redirectToRoute('entreprise_inscription');
+                }
+            // else insert User, Recruteur, Entreprise
+
+            // encode the plain password
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
                         $proForm->get('plainPassword')->getData()
                     )
                 );
+            // set Recruteur
                 $rc = new Recruteur();
                 $user->setRecruteur($rc);
                 $rc->setNom($proForm->get('nom')->getData());
                 $rc->setPrenom($proForm->get('prenom')->getData());
 
-                //search for company in db
-                $siret = $proForm->get('siret')->getData();
-                $en = $this->enRepo->findOneBy(["siret" => $siret]);
-//                TODO BLOCK USER OR WHATEVER
-                if($en){
-                    $rc->setEntreprise($en);
-                    $this->em->persist($rc);
-                }
+            // create Entreprise
 
                 $en = new Entreprise();
                 $rc->setEntreprise($en);

@@ -5,6 +5,15 @@
 {% block body %}
     <div class="container">
         <div class="row">
+        {% for label, messages in app.flashes(['info', 'danger']) %}
+            {% for message in messages %}
+                <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        </div>
+        <div class="row">
             <div class="col-md-6 mb-2 mt-5" style="margin:auto; text-align: center;">
                 <h3 class="text-center">Inscription</h3>
                 {#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
