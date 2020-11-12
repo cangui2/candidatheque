@@ -9,12 +9,17 @@
     
 .entreprise_corner{
     border-radius: 0px 0px 6px 0px;
-    color: #3E68D4;
-    border-color: #3E68D4;
+    color        : #3E68D4;
+    border-color : #3E68D4;
     }
 
-.rounded-circle{
+.inscrp_corner{
+    border-radius: 0px 0px 6px 0px;
+    color        : #3E68D4;
+    }
 
+
+.rounded-circle{
     background-color: #3E68D4;
     }
 
@@ -23,7 +28,7 @@
 }
 
 .navbar-brand{
-    font-size: x-large;
+    font-size  : x-large;
     font-weight: bold;
 }
 
@@ -50,9 +55,9 @@
 }
 
 .image-background{
-    background-size: 100% auto;
+    background-size  : 100% auto;
     background-repeat: no-repeat;
-    margin-top: -20px;
+    margin-top       : -20px;
 }
 
 #menu a{
@@ -60,25 +65,25 @@
 }
 
 #brand{
-    color: #6F7A95;
+    color    : #6F7A95;
     font-size: x-large;
 }
 
 #pastille1 {
     position: absolute;
-    width: 280px;
-    top: 160px;
-    left:40px;
-    color: white;
-    z-index: 3;
+    width   : 280px;
+    top     : 160px;
+    left    : 40px;
+    color   : white;
+    z-index : 3;
 }
 
 #pastille2 {
-    position: absolute;
-    top: 390px;
-    left:230px;
+    position    : absolute;
+    top         : 390px;
+    left        : 230px;
     padding-left: 50px;
-    z-index: 2;
+    z-index     : 2;
 }
 
   .intro {
