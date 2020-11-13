@@ -41,6 +41,16 @@ class Metier
      */
     private $rome;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ogr1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ogr2;
+
 
     public function __construct()
     {
@@ -134,6 +144,30 @@ class Metier
     public function setRome(?Rome $rome): self
     {
         $this->rome = $rome;
+
+        return $this;
+    }
+
+    public function getOgr1(): ?string
+    {
+        return $this->ogr1;
+    }
+
+    public function setOgr1(?string $ogr1): self
+    {
+        $this->ogr1 = $ogr1;
+
+        return $this;
+    }
+
+    public function getOgr2(): ?string
+    {
+        return $this->ogr2;
+    }
+
+    public function setOgr2(?string $ogr2): self
+    {
+        $this->ogr2 = $ogr2;
 
         return $this;
     }
