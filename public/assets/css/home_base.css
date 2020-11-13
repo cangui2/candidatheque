@@ -3,7 +3,7 @@
     }
 
 .candidat_corner{
-    border-radius: 6px 0px 0px 0px;
+    border-radius   : 6px 0px 0px 0px;
     background-color: #3E68D4;
     }
     
@@ -47,7 +47,9 @@
   }
 
   .entreprise_corner:hover{
-    color: #3E68D4;
+    color: white;
+    background-color: #3E68D4;
+    opacity: 0.2;
 }
 
 .card{
@@ -86,6 +88,15 @@
     z-index     : 2;
 }
 
+#pastille3 {
+    position    : absolute;
+    top         : 390px;
+    left        : 230px;
+    padding-left: 50px;
+    opacity     : 0;
+    z-index     : 4;
+}
+
   .intro {
     padding-left: 30px;
   }
@@ -101,13 +112,12 @@
 
 .color_3E68D4{
     background-color: #3E68D4;
-    color: aliceblue;
+    color           : aliceblue;
 }
 
 /* .container-fluid {
     min-height: 20px;
 } */
-
 
 /* Nouvelles règles si la fenêtre fait au plus 1024px de large */
 @media screen and (max-width: 992px)
@@ -124,3 +134,5 @@
         display: inline-block;
     }
 }
+
+btn d-flex btn-primary align-self-end
