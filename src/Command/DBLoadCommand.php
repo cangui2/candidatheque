@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\APE;
+use App\Entity\Competence;
 use App\Entity\Departement;
 use App\Entity\Metier;
 use App\Entity\Pays;
@@ -45,7 +46,10 @@ class DBLoadCommand extends Command
                 $this->loadRome($output);
                 break;
             case "metier":
-                $this->loadMetier($output);
+                //$this->loadMetier($output);
+                break;
+            case "competence":
+                $this->loadCompetence($output);
                 break;
             case "pays":
                 $this->loadPays($output);
@@ -62,10 +66,15 @@ class DBLoadCommand extends Command
             case "ape":
                 $this->loadAPE($output);
                 break;
+            case "base":
+                $this->loadBaseData($output);
+                break;
             case "all":
+                $this->loadBaseData($output);
                 $this->loadAPE($output);
                 $this->loadRome($output);
-                $this->loadMetier($output);
+                $this->loadCompetence($output);
+                //$this->loadMetier($output);
                 $this->loadPays($output);
                 $this->loadRegion($output);
                 $this->loadDepartement($output);
@@ -76,6 +85,19 @@ class DBLoadCommand extends Command
 
 
         return Command::SUCCESS;
+    }
+
+    protected function loadBaseData(OutputInterface $output) {
+        $command = $this->getApplication()->find('doctrine:fixtures:load');
+
+        $arguments = [
+            '--no-interaction' => true,
+            '--append' => true,
+            '--group' => array("base")
+        ];
+
+        $greetInput = new ArrayInput($arguments);
+        return $command->run($greetInput, $output);
     }
 
     protected function loadAPE(OutputInterface $output)
@@ -111,31 +133,47 @@ class DBLoadCommand extends Command
     protected function loadRome(OutputInterface $output)
     {
 
-
-
-
-        $csv_file = 'coderome.csv';
+        $csv_file = '23-cr_gd_dp_appellations_v344_utf8.csv';
         $output->write("Loading <info>Rome</info> from <info>" . $csv_file . "</info>");
-        $csv = fopen(dirname(__FILE__).'/../../doc/csv/'.$csv_file , 'r');
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
         $line = fgetcsv($csv);
-        $counter=0;
+        $counter1=0;
+        $counter2=0;
 
         while (!feof($csv)) {
             $line = fgetcsv($csv);
-            if ($line) {
-                $ro = new Rome();
-                $ro->setCode($line[0]);
-                $ro->setLibelle($line[1]);
+            if ($line && count($line)>4) {
+                $co1 = $line[0];
+                $co2 = $line[1];
+                $co3 = $line[2];
+                $libelle_rome = $line[3];
+                $libelle_metier = $line[4];
+                $ogr_metier1 = $line[8];
+                $ogr_metier2 = $line[9];
+                if ($co1 && $co2 && $co3) {
+                    $ro = new Rome($co1.$co2.$co3, $libelle_rome);
+                    $this->manager->persist($ro);
+                    $counter1++;
+                }
+                elseif (!$co1 && !$co2 && !$co3 && $libelle_metier) {
+                    $me = new Metier();
+                    $this->manager->persist($me);
+                    $me->setRome($ro);
+                    $me->setLibelle($libelle_metier);
+                    $me->setOgr1($ogr_metier1);
+                    $me->setOgr2($ogr_metier2);
+                    $counter2++;
+                }
 
-                $this->manager->persist($ro);
-                $counter++;
+
+
             }
         }
-
+        $this->manager->flush();
         fclose($csv);
 
         $this->manager->flush();
-        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+        $output->writeln(" ... <question>" . $counter1 . "</question> Rome <question>" . $counter2 . "</question> Metier lines inserted");
     }
 
     protected function loadMetier(OutputInterface $output)
@@ -159,6 +197,33 @@ class DBLoadCommand extends Command
                     $this->manager->persist($me);
                     $counter++;
                 }
+            }
+        }
+
+        fclose($csv);
+
+        $this->manager->flush();
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+    }
+
+
+    protected function loadCompetence(OutputInterface $output)
+    {
+        $csv_file = 'competences.csv';
+        $output->write("Loading <info>Competence</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/'.$csv_file, 'r');
+        $line = fgetcsv($csv);
+        $counter=0;
+        while (!feof($csv)) {
+            $line = fgetcsv($csv, 0, ",", '"');
+            if ($line) {
+                $co = new Competence();
+                $code = $line[0];
+                $libelle = $line[1];
+                $co->setLibelle(str_replace("''", "'", $libelle));
+                $co->setCode($code);
+                $this->manager->persist($co);
+                $counter++;
             }
         }
 
