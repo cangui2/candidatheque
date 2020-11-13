@@ -40,6 +40,7 @@ class DashboardController extends AbstractDashboardController
         $cd_users = count($this->uRepo->findUsersByRoleCandidat());
         $pro_users = count($this->uRepo->findUsersByRoleRecruteur());
         $vf_users = count($this->uRepo->findUsersByRoleVerify());
+        $active_users = count($this->uRepo->findUsersByActiveField());
 
         $total_offres = count($this->ofRepo->findAll());
 
@@ -49,6 +50,7 @@ class DashboardController extends AbstractDashboardController
             'pro_users' => $pro_users,
             'vf_users' => $vf_users,
             'total_offres' => $total_offres,
+            'active_users' => $active_users
         ]);
     }
 
@@ -68,6 +70,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoDashboard('__ea__page_title.dashboard', 'fa fa-home');
 
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+        yield MenuItem::linktoRoute('Comptes pro à confirmer', 'fas fa-bell',"users_verify");
         yield MenuItem::linkToCrud('Candidats', 'fas fa-graduation-cap', Candidat::class);
         yield MenuItem::linkToCrud('Recruteurs', 'fas fa-address-card', Recruteur::class);
         yield MenuItem::linkToCrud('Entreprises', 'fas fa-building', Entreprise::class);

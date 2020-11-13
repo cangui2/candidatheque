@@ -1,64 +1,58 @@
 {# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-
-{% block page_title 'ESPACE GESTION' %}
+{% block page_title 'Welcome to EasyAdmin 3' %}
 
 {% block page_content %}
     <style>
         p { max-width: 600px; }
     </style>
 
-    <div class="container">
-        <div class=row">
-{#            col1 #}
-            <div class="col-sm col-data1">
-                <a class="users-confirm" href="{{ path('test') }}">
-                <div class="visual">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="detail">
-                    <div class="conf-users">
-                        <span data-counter="counterup" data-value="">1</span>
-                    </div>
-                    <div class="desc">
-                        Comtes entreprise à confirmer
-                    </div>
-                </div>
-                </a>
-            </div>
-{#        col2 #}
-            <div class="col-sm col-data2">
-                <div class="visual">
-                    <i class="fas fa-edit"></i>
-                </div>
-                <div class="detail">
-                    <div class="conf-users">
-                        <span data-counter="counterup" data-value="">2</span>
-                    </div>
-                    <div class="desc">
-                        Offres actives
-                    </div>
-                </div>
-            </div>
-            {#        col3 #}
-            <div class="col-sm col-data3">
-                <div class="visual">
-                    <i class="fas fa-edit"></i>
-                </div>
-                <div class="detail">
-                    <div class="conf-users">
-                        <span data-counter="counterup" data-value="">3</span>
-                    </div>
-                    <div class="desc">
-                        Autre
-                    </div>
-                </div>
-            </div>
-        </div>
+    <p>
+        <strong>You have successfully installed EasyAdmin 3 in your application!</strong>
+    </p>
 
-    </div>
+    <p>
+        You are seeing this example page because you haven't configured the start page
+        of your Dashboard. To do that, open the following file in your editor:
+    </p>
 
+    <pre>{{ dashboard_controller_filepath }}</pre>
 
+    <p>
+        Then, add the following method to it to customize the Dashboard start page:
+    </p>
 
+    <pre>
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\CrudUrlGenerator;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+// ...
+
+class {{ dashboard_controller_class }} extends AbstractDashboardController
+{
+    /**
+     * @Route("/admin")
+     */
+    public function index(): Response
+    {
+        // redirect to some CRUD controller
+        $routeBuilder = $this->get(CrudUrlGenerator::class)->build();
+
+        return $this->redirect($routeBuilder->setController(OneOfYourCrudController::class)->generateUrl());
+
+        // you can also redirect to different pages depending on the current user
+        if ('jane' === $this->getUser()->getUsername()) {
+            return $this->redirect('...');
+        }
+
+        // you can also render some template to display a proper Dashboard
+        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
+        return $this->render('some/path/my-dashboard.html.twig');
+    }
+
+    // ...
+}
+    </pre>
 {% endblock %}

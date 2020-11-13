@@ -40,7 +40,15 @@ section.content-header::before, section.content-header::after {
     color:#da70d6 !important;
     filter: opacity(100%);
 }
-
+.user-table-head {
+    background-color: #da70d6 !important;
+}
+#users-pro-table .btn {
+    border-radius: 5px;
+}
+#confirm_all {
+    border-radius: 5px;
+}
 
 @media
 only screen

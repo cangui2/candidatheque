@@ -51,3 +51,4 @@ security:
         - { path: ^/login_success, allow_if: "is_authenticated()"}
         - { path: ^/candidat/inscription, roles: IS_ANONYMOUS }
         - { path: ^/professionnel/inscription, roles: IS_ANONYMOUS }
+        - { path: ^/admin, roles: ROLE_ADMIN }

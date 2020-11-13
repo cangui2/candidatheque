@@ -68,7 +68,7 @@ class UserCrudController extends AbstractCrudController
         } elseif (Crud::PAGE_DETAIL === $pageName) {
             return [$id, $email, $roles, $password, $actif, $candidat, $recruteur, $authToken, $resetToken];
         }elseif (Crud::PAGE_NEW === $pageName) {
-            return [$email, $roles, $actif, $candidat, $recruteur];
+            return [$email, $password, $roles, $actif, $candidat, $recruteur];
         }elseif (Crud::PAGE_EDIT === $pageName) {
             return [$email, $roles, $password, $actif, $candidat, $recruteur];
         }
@@ -192,7 +192,7 @@ class UserCrudController extends AbstractCrudController
 
             return new Response('Opération interdite!');
         }else{
-            dd('confirm');
+
             $users = $this->uRepo->findUsersByRoleVerify();
             foreach ($users as $user) {
 
