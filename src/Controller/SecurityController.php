@@ -38,7 +38,7 @@ class SecurityController extends AbstractController
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
 
-            return $this->redirectToRoute("home");
+            return $this->redirectToRoute("admin");
         }
         elseif($this->get('security.authorization_checker')->isGranted('ROLE_CANDIDAT')){
 
@@ -47,7 +47,7 @@ class SecurityController extends AbstractController
 
 //            TODO Redirect to candidat dashboard
 
-            return $this->redirectToRoute("home");
+            return $this->redirectToRoute("espace_candidat");
         }
         elseif($this->get('security.authorization_checker')->isGranted('ROLE_RECRUTEUR')){
 
@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
 //          dd($recruteur->getEntreprise()->getSiret());
 //            TODO Redirect to pro dashboard
 
-            return $this->redirectToRoute("home");
+            return $this->redirectToRoute("espace_entreprise");
         }
         return $this->redirectToRoute("home");
     }
