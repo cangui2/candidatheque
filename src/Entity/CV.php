@@ -84,6 +84,11 @@ class CV
      */
     private $langues;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="candidats")
+     */
+    private $deposePar;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
@@ -359,4 +364,17 @@ class CV
 
         return $this;
     }
+
+    public function getDeposePar(): ?Entreprise
+    {
+        return $this->deposePar;
+    }
+
+    public function setDeposePar(?Entreprise $deposePar): self
+    {
+        $this->deposePar = $deposePar;
+
+        return $this;
+    }
+
 }
