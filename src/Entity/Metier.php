@@ -37,9 +37,10 @@ class Metier
     private $offres;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="metiers")
      */
     private $rome;
+
 
     public function __construct()
     {
@@ -125,15 +126,17 @@ class Metier
         return $this;
     }
 
-    public function getRome(): ?string
+    public function getRome(): ?Rome
     {
         return $this->rome;
     }
 
-    public function setRome(?string $rome): self
+    public function setRome(?Rome $rome): self
     {
         $this->rome = $rome;
 
         return $this;
     }
+
+
 }
