@@ -9,12 +9,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home_index")
      */
     public function index(): Response
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'variaTest' => rand(0, 9),
         ]);
     }
 }

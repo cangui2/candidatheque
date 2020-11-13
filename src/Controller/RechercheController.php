@@ -13,6 +13,7 @@ class RechercheController extends AbstractController
      */
     public function index(): Response
     {
+        //test
         return $this->render('recherche/index.html.twig', [
             'controller_name' => 'RechercheController',
         ]);
@@ -20,12 +21,13 @@ class RechercheController extends AbstractController
 
 
     /**
-     * @Route("/recherche_list", name="recherche_list")
+     * @Route("/recherche_liste", name="recherche_liste")
      */
-    public function list(): Response
+    public function liste(): Response
     {
-        return $this->render('recherche/list.html.twig', [
+        return $this->render('recherche/liste.html.twig', [
             'controller_name' => 'RechercheController',
+            'variaTest' => rand(0, 9),
         ]);
     }
 
@@ -39,3 +41,25 @@ class RechercheController extends AbstractController
         ]);
     }
 }
+
+
+        /**
+     * @Route("/recherche_moteur", name="recherche_moteur")
+     */
+  //  public function search(Request $request, ObjectManager $manager)
+   /* {
+        $moteur = new Moteur();
+
+        $form = $this->createFormBuilder($moteur)
+                     ->add('profession')
+                     ->add('lieu')
+                     ->add('secteur')
+                     ->add('contrat')
+                     ->getForm();
+
+        return $this->render('recherche_index.html.twig', [
+            'formMoteur' => $form->createView()
+        ]);
+    }
+
+}*/

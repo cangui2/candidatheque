@@ -2,15 +2,116 @@
 
 {% block title %}Hello HomeController!{% endblock %}
 
-{% block body %}
+{% block stylesheets %}
 <style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+{#<style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+</style>#}
 
-<div class="example-wrapper">
+{#<div class="example-wrapper">
     <h1>Bonjour!</h1>
     <a role="button"  href="{{ path('candidat_inscription') }}"><h6>Inscription candidat test</h6></a>
     <a role="button"  href="{{ path('professionnel_inscription') }}"><h6>Inscription recruteur</h6></a>
+</div>#}
+
+{#<div id="background">
+<img src="{{ asset("assets/images/test" ~ variaTest ~ ".jpg") }}" />
+</div>#}
+    
+
+<body>
+<div class="container-fluid">
+  <div class="ban"></div>
+  <div class="row image-background" style="background-image:url('{{ asset("assets/images/test" ~ variaTest ~ ".jpg") }}')">
+    <div class="offset-md-1 col-lg-5 col-md-10 mt-4">
+      <form class="bg-light rounded mt-5 mb-4 mb-lg-5 py-4">
+        <div class="form-group mx-5">
+          <label class="mb-0" for="rechercheInput1">Profession</label>
+          <input type="email" class="form-control form-control-sm" id="rechercheInput1">
+        </div>
+        <div class="form-group mx-5">
+          <label class="mb-0" for="rechercheInput2">Lieu</label>
+          <input type="password" class="form-control form-control-sm" id="rechercheInput2">
+        </div>
+        <div class="form-group mx-5">
+          <label class="mb-0" for="rechercheInput3">Secteur</label>
+          <input type="email" class="form-control form-control-sm" id="rechercheInput3">
+        </div>
+        <div class="form-group mx-5">
+          <label class="mb-0" for="rechercheInput4">Type de contrat</label>
+          <input type="email" class="form-control form-control-sm" id="rechercheInput4">
+        </div>
+        <div class="rech text-right">
+          <button type="submit" class="btn color_3E68D4 mt-1 mx-5">Rechercher des offres</button>
+        </div>
+      </form>
+    </div>
+          <div class="col-lg-6">
+              <div class="inscrp w-100">
+                <button type="button" class="btn btn-block color_3E68D4 mb-4">S'inscrire maintenant</button>
+              </div>
+              <div id="pastille1" class="pastille cercle embed-responsive embed-responsive-1by1  color_3E68D4"  style="border-radius: 200px; overflow: hidden;">
+                <div class="intro embed-responsive-item pt-5"  style="border-radius: 200px; overflow: hidden;">
+                  <h1>Votre talent, nos offres</h1>
+                    <p>Lorem ipsum, etc</p>
+                </div>
+              </div>
+            <button type="button" id="pastille2" class="btn pastille btn btn-light">S'inscrire</button>
+          </div>
+      </div>
 </div>
+
+<div class="container">
+        <div class="card-deck mt-4">
+                <div class="card bg-light px-3 pt-2">
+                  <div class= "text-center">
+                    <img class="card-img-top rounded-circle" src="{{ asset("assets/images/blueprint.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-between">
+                      <h5 class="card-title">Créer mon CV en ligne</h5>
+                      <p class="card-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <a href="#" class="btn btn-primary">Créer</a>
+                  </div>
+                </div>
+                <div class="card bg-light px-3 pt-2">
+                  <div class= "text-center">
+                    <img class="card-img-top rounded-circle" src="{{ asset("assets/images/archive.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-between">
+                      <h5 class="card-title">Déposer mon CV</h5>
+                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      <a href="#" class="btn btn-primary">Déposer</a>
+                  </div>
+                </div>
+
+                <div class="card bg-light px-3 pt-2" >
+                  <div class= "text-center">
+                    <img class="card-img-top rounded-circle" src="{{ asset("assets/images/loudspeaker.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
+                  </div>
+                  <div class="card-body d-flex flex-column">
+                      <h5 class="card-title">Infos et conseils</h5>
+                      <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                      <a href="#" class="btn btn-primary mt-auto w-50 align-self-center">S'informer</a>
+                  </div>
+                </div>
+
+
+
+            {#<div class="card bg-light px-3 pt-2" style="width: 18rem;">
+                <div class="card-body text-center">
+                  <img class="rounded-circle bg-primary" src="{{ asset("assets/images/loudspeaker.svg") }}" style="width: 5rem; height: 5rem" />
+                </div>
+                  <h5 class="card-title">Infos et conseils</h5>
+                  <p class="card-text mb-4">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>#}
+    </div>
+  </div>
+
+</body>
 {% endblock %}
