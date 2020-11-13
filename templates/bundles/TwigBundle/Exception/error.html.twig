@@ -1,0 +1,27 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+
+{# pour tester l'affichage des pages d'erreur en dev, écrire dans l'url: https://127.0.0.1:8000/index.php/_error/404 #}
+{# le status_code de l'erreur - ici 404 - peut être remplacé par tout autre status_code #}
+{# par défaut, la variable status_code est 500 #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="jumbotron">
+
+            <h3 class="text-center mt-4 mb-4"style="color:red">Erreur!</h3>
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h3 style="color:red">Nous sommes désolés, la page que vous cherchez n'existe pas ou vous ne disposez pas des autorisations requises pour y accéder!</h3>
+                </div>
+            </div>
+            <div class="text-center mb-5">
+                <p>
+                    Veuillez <a href="{{ path('app_login') }}"> vous connecter</a> ou retourner <a href="{{ path('index') }}"> à la page d'accueil
+                    </a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
