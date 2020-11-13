@@ -1,0 +1,122 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block page_title 'ESPACE DE GESTION ADMIN' %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <ul class="list-group">
+                    <li class="list-group-item active ist-group-item-primary d-flex justify-content-between align-items-center">Utilisateurs inscrits
+                    <span class="badge badge-primary badge-pill">{{ total_users }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center ">
+                        Comptes candidat
+                        <span class="badge badge-primary badge-pill">{{ cd_users }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        Comptes entreprise
+                        <span class="badge badge-primary badge-pill">{{ pro_users }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        Comptes actifs
+                        <span class="badge badge-primary badge-pill">{{ active_users }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul class="list-group">
+                    <li class="list-group-item active ist-group-item-primary d-flex justify-content-between align-items-center">
+                        Offres d'emploi
+                        <span class="badge badge-primary badge-pill">{{ total_offres }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-info d-flex justify-content-between align-items-center">
+                        Utilisateurs inscrits
+                        <span class="badge badge-primary badge-pill">{{ total_users }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center ">
+                        Comptes candidat
+                        <span class="badge badge-primary badge-pill">{{ cd_users }}</span>
+                    </li>
+                    <li class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        Comptes entreprise
+                        <span class="badge badge-primary badge-pill">{{ pro_users }}</span>
+                    </li>
+                </ul>
+            </div>
+        <div class="col-4">
+            <ul class="list-group">
+                <li class="list-group-item active">CV</li>
+                <li class="list-group-item list-group-item-info d-flex justify-content-between align-items-center">
+                    Utilisateurs inscrits
+                    <span class="badge badge-primary badge-pill">{{ total_users }}</span>
+                </li>
+                <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center ">
+                    Comptes candidat
+                    <span class="badge badge-primary badge-pill">{{ cd_users }}</span>
+                </li>
+                <li class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                    Comptes entreprise
+                    <span class="badge badge-primary badge-pill">{{ pro_users }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="bar-chart" width="600" height="300"></canvas>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+                <script>
+                    // Bar chart
+                    new Chart(document.getElementById("bar-chart"), {
+                        type: 'bar',
+                        data: {
+                            labels: ["Métier1", "Métier2", "Métier3", "Métier4", "Métier5"],
+                            datasets: [
+                                {
+                                    label: "Offres d'emploi par métier",
+                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                                    data: [44,326,74,64,95]
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: { display: false },
+                            title: {
+                                display: true,
+                                text: "Offres d'emploi par métier"
+                            }
+                        }
+                    });
+                </script>
+            </div>
+            <div class="col-md-6">
+                <canvas id="doughnut-chart" width="600" height="300"></canvas>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+                <script>
+                    new Chart(document.getElementById("doughnut-chart"), {
+                        type: 'doughnut',
+                        data: {
+                            labels: ["Hauts-de-France", "Île-de-France", "Grand Est", "Normandie", "Bourgogne-Franche-Compté"],
+                            datasets: [
+                                {
+                                    label: "Nombre d'offres",
+                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                                    data: [44,326,74,64,95]
+                                }
+                            ]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'Offres d\'emploi par région'
+                            }
+                        }
+                    });
+                </script>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

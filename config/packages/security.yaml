@@ -48,3 +48,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login_success, allow_if: "is_authenticated()"}
+        - { path: ^/candidat/inscription, roles: IS_ANONYMOUS }
+        - { path: ^/professionnel/inscription, roles: IS_ANONYMOUS }
+        - { path: ^/admin, roles: ROLE_ADMIN }

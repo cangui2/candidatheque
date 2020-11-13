@@ -1,0 +1,55 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block page_title 'ESPACE DE GESTION ADMIN' %}
+
+                {% block page_content %}
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="text-center mt-4 mb-4">Liste des recruteurs non-confirmés</h4>
+
+                            <table id="users-pro-table" class="table table-hover table-brordered" role="table">
+                                <thead class="user-table-head">
+                                <tr role="row">
+                                    <th scope="col" role="columnheader" class="text-center">ID</th>
+                                    <th scope="col" role="columnheader" class="text-center">Nom</th>
+                                    <th scope="col" role="columnheader" class="text-center">Prénom</th>
+                                    <th scope="col" role="columnheader" class="text-center">Société</th>
+                                    <th scope="col" role="columnheader" class="text-center">Siret</th>
+                                    <th colspan="2" scope="col" role="columnheader" class="text-center">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in users %}
+                                    <form method="post" action="{{ path('users_manage', {user: user.id}) }}">
+                                        <tr>
+                                            <td class="text-center">{{ user.id }}</td>
+                                            <td class="text-center">{{ user.recruteur.nom }}</td>
+                                            <td class="text-center">{{ user.recruteur.prenom }}</td>
+                                            <td class="text-center">{{ user.recruteur.entreprise }}</td>
+                                            <td class="text-center">{{ user.recruteur.entreprise.siret }}</td>
+                                            <td class="text-center"><input type="submit" class="btn btn-md btn-success" id="confirm" name="btn_verify" value="Confirmer">
+                                            <td class="text-center"><input type="submit" class="btn btn-md btn-warning" id="confirm" name="btn_verify" value="Supprimer">
+                                            </td>
+                                            <input type="hidden"  name="_token" value = "{{ csrf_token('confirm') }}">
+
+                                        </tr>
+                                    </form>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            {% if users | length !=0 %}
+                                <form method="post" action="{{ path('users_confirm_all') }}">
+                                    <div class="col-md-12 text-center mt-4">
+                                        <input type="submit" id="confirm_all" class="btn btn-lg btn-success" value="Confirmer tous les comptes">
+                                        <input type="hidden"  name="_token" value = "{{ csrf_token('confirm_all') }}">
+                                    </div>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
