@@ -42,15 +42,13 @@
     border-bottom-color: #C4A2FC;
 }
 
+.nav-link:hover{
+    border-bottom-color: #C4A2FC;
+}
+
 .zoom_bouton:hover {
     transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   }
-
-  .entreprise_corner:hover{
-    color: white;
-    background-color: #3E68D4;
-    opacity: 0.2;
-}
 
 .card{
     border-radius: 0px 0px 10px 0px;
@@ -115,6 +113,14 @@
     color           : aliceblue;
 }
 
+.colorTxt-3E68D4Cdtk{
+    color: #3E68D4;
+}
+
+.colorBG-DBDEE5Cdtk{
+    background-color: #DBDEE5;
+}
+
 /* .container-fluid {
     min-height: 20px;
 } */
@@ -134,5 +140,3 @@
         display: inline-block;
     }
 }
-
-btn d-flex btn-primary align-self-end
