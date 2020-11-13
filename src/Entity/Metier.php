@@ -24,10 +24,7 @@ class Metier
      */
     private $libelle;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="metiers")
-     */
-    private $rome;
+
 
     /**
      * @ORM\OneToMany(targetEntity=CV::class, mappedBy="metier")
@@ -38,6 +35,11 @@ class Metier
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="metier")
      */
     private $offres;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $rome;
 
     public function __construct()
     {
@@ -62,18 +64,7 @@ class Metier
         return $this;
     }
 
-    public function getRome(): ?Rome
-    {
-        return $this->rome;
-    }
-
-    public function setRome(?Rome $rome): self
-    {
-        $this->rome = $rome;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|CV[]
      */
@@ -130,6 +121,18 @@ class Metier
                 $offre->setMetier(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRome(): ?string
+    {
+        return $this->rome;
+    }
+
+    public function setRome(?string $rome): self
+    {
+        $this->rome = $rome;
 
         return $this;
     }

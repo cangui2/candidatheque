@@ -39,29 +39,48 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+
+    public function findUsersByRoleVerify()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
+        $users = $this->createQueryBuilder('u')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%'.'ROLE_TO_VERIFY'.'%')
+            ->orderBy('u.id')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
+        return $users;
     }
-    */
+
+    public function findUsersByRoleRecruteur()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%'.'ROLE_RECRUTEUR'.'%')
+            ->orderBy('u.id')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
+
+    public function findUsersByRoleCandidat()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%'.'ROLE_CANDIDAT'.'%')
+            ->orderBy('u.id')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
+    public function findUsersByActiveField()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->andWhere('u.actif = 1')
+            ->orderBy('u.id')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
+
 }

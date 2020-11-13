@@ -31,8 +31,8 @@ class DBResetCommand extends Command
         $arguments = new ArrayInput(['--force'  => true, '--env'  => "dev" ]);
         $command->run($arguments, $output);
 
-        $command = $this->getApplication()->find('doctrine:fixture:load');
-        $arguments = new ArrayInput([ '--env'  => "dev" , '--no-interaction'  => true, "--group" => ["base"]]);
+        //$command = $this->getApplication()->find('doctrine:fixture:load');
+        //$arguments = new ArrayInput([ '--env'  => "dev" , '--no-interaction'  => true, "--group" => ["base"]]);
 
         return $command->run($arguments, $output);
 

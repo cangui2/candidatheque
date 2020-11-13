@@ -8,6 +8,7 @@ use App\Entity\Recruteur;
 use App\Entity\User;
 use App\Form\CandidatRegistrationFormType;
 use App\Form\ProRegistrationFormType;
+use App\Repository\EntrepriseRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,19 +30,20 @@ class RegistrationController extends AbstractController
     protected $session;
     protected $security;
     protected $em;
+    protected $enRepo;
 
-    public function __construct(MailService $ms, SessionInterface $session, Security $security, EntityManagerInterface $em)
+    public function __construct(MailService $ms, SessionInterface $session, Security $security, EntityManagerInterface $em, EntrepriseRepository $enRepo)
     {
         $this->ms = $ms;
         $this->session = $session;
         $this->security = $security;
         $this->em = $em;
-
+        $this->enRepo = $enRepo;
     }
 
     /**
      * @Route("/candidat/inscription/", name="candidat_inscription")
-     * @Route("/professionnel/inscription", name="professionnel_inscription")
+     * @Route("/entreprise/inscription", name="entreprise_inscription")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -98,30 +100,45 @@ class RegistrationController extends AbstractController
 
 
 //            INSCRIPTION ENTREPRISE
-        }elseif($route == "professionnel_inscription") {
+        }elseif($route == "entreprise_inscription") {
 
             $proForm = $this->createForm(ProRegistrationFormType::class, $user);
             $proForm->handleRequest($request);
 
             if ($proForm->isSubmitted() && $proForm->isValid()) {
-                // encode the plain password
+                //search for company in db
+                $siret = $proForm->get('siret')->getData();
+                $en = $this->enRepo->findOneBy(["siret" => $siret]);
+
+                if($en && $en->getRecruteurs()->count() > 0){
+                    $this->addFlash("danger", "Une inscription a déjà été faite pour le compte de votre entreprise. Merci de vous rapprocher de votre société pour plus d'informations.");
+                    return $this->redirectToRoute('entreprise_inscription');
+                }
+            // else insert User, Recruteur, Entreprise
+
+            // encode the plain password
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
                         $proForm->get('plainPassword')->getData()
                     )
                 );
+            // set Recruteur
                 $rc = new Recruteur();
                 $user->setRecruteur($rc);
                 $rc->setNom($proForm->get('nom')->getData());
                 $rc->setPrenom($proForm->get('prenom')->getData());
+
+            // create Entreprise
+
                 $en = new Entreprise();
                 $rc->setEntreprise($en);
                 $en->setRaisonSociale($proForm->get('raisonSociale')->getData());
+                $en->setSiret($siret);
                 $en->setTelephone($proForm->get('telephone')->getData());
                 $en->setEmail($proForm->get('socMail')->getData());
 
-                $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
+                $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
 
                 $this->em->persist($en);
                 $this->em->persist($rc);
@@ -136,14 +153,14 @@ class RegistrationController extends AbstractController
 
                 $url = $this->generateUrl('app_confirm', ['token' => $authToken], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                // SEND AN EMAIL AFTER VERIFICATION
+                // TODO SEND AN EMAIL AFTER VERIFICATION
 //                $nom = $rc->getNom();
 //                $prenom = $rc->getPrenom();
 //                $mail = $user->getEmail();
 
 //                $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
 
-                $this->addFlash("success", "Votre demande d'inscription pour le compte de votre entreprise a bien été enregistrée. Vous recevrez un email détaillant les étapes pour l'activation de ce compte.");
+                $this->addFlash("success", "Votre demande d'inscription pour le compte de votre entreprise a bien été enregistrée. Après l'étude de celle-ci et confirmation de la part de votre société, un lien d'activation vous sera envoyé par email.");
                 return $this->redirectToRoute('app_login');
             }
 
@@ -179,6 +196,9 @@ class RegistrationController extends AbstractController
 //        if (time() > ($user_token[3]+48*3600)) {
 //            $user = null;
 //            $this->addFlash('danger', 'Le lien a expiré');
+//        }
+//        if($user->getRoles() === ["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]){
+//            $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR"]);
 //        }
 
         $user->setAuthToken(null);

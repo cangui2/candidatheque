@@ -1,0 +1,64 @@
+/* public/css/admin.css */
+:root {
+    /* make the backend contents as wide as the browser window */
+    --body-max-width: 100%;
+    /* change the background color of the <body> */
+    --body-bg: #f5f5f5;
+    /* make the base font size smaller */
+    --font-size-base: 13px;
+    /* remove all border radius to make corners straight */
+    --border-radius: 0px;
+}
+
+section.content-header, section.content-header::before, section.content-header::after {
+    margin-bottom:10px;
+    padding-right:8px;
+    padding-left:8px;
+
+}
+section.content-header::before, section.content-header::after {
+    display:none;
+}
+
+#title_back {
+    color:#da70d6;
+    padding: 10px;
+    padding-right:0px;
+    padding-left:0px;
+    font-size: 18px !important;
+    font-style: italic;
+}
+.btn-primary {
+    background-color:#da70d6 !important;
+}
+
+.datagrid thead {
+    background: var(--table-header-bg);
+    background-color:#da70d6 !important;
+}
+.sidebar-menu li:not(.submenu-active).active .menu-icon, .sidebar-menu li:not(.submenu-active).active a {
+    color:#da70d6 !important;
+    filter: opacity(100%);
+}
+.user-table-head {
+    background-color: #da70d6 !important;
+}
+#users-pro-table .btn {
+    border-radius: 5px;
+}
+#confirm_all {
+    border-radius: 5px;
+}
+
+@media
+only screen
+and (max-width: 768px), (min-device-width: 576px)
+and (max-device-width: 768px)  {
+
+    body {
+        /* make the backend contents as wide as the browser window */
+        width: 100% !important;
+
+    }
+
+}

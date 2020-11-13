@@ -77,7 +77,7 @@ class Candidat
     /**
      * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="candidats")
      */
-    private $agence;
+    private $deposePar;
 
     public function __construct()
     {
@@ -269,14 +269,14 @@ class Candidat
         return $this;
     }
 
-    public function getAgence(): ?Entreprise
+    public function getDeposePar(): ?Entreprise
     {
-        return $this->agence;
+        return $this->deposePar;
     }
 
-    public function setAgence(?Entreprise $agence): self
+    public function setDeposePar(?Entreprise $deposePar): self
     {
-        $this->agence = $agence;
+        $this->deposePar = $deposePar;
 
         return $this;
     }

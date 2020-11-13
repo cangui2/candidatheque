@@ -20,6 +20,11 @@ class Offre
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titre;
+    
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $datePublication;
@@ -38,6 +43,47 @@ class Offre
      * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="offre")
      */
     private $postules;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $salaire;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateFin;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $duree;
+
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $possibiliteCDI;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $urgent;
+
+
+
 
     public function __construct()
     {
@@ -111,6 +157,104 @@ class Offre
                 $postule->setOffre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSalaire(): ?float
+    {
+        return $this->salaire;
+    }
+
+    public function setSalaire(?float $salaire): self
+    {
+        $this->salaire = $salaire;
+
+        return $this;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(?\DateTimeInterface $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(?\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    public function getDuree(): ?integer
+    {
+        return $this->duree;
+    }
+
+    public function setDuree(?integer $duree): self
+    {
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getType(): ?TypeContrat
+    {
+        return $this->type;
+    }
+
+    public function setType(?TypeContrat $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPossibiliteCDI(): ?bool
+    {
+        return $this->possibiliteCDI;
+    }
+
+    public function setPossibiliteCDI(?bool $possibiliteCDI): self
+    {
+        $this->possibiliteCDI = $possibiliteCDI;
+
+        return $this;
+    }
+
+    public function getUrgent(): ?bool
+    {
+        return $this->urgent;
+    }
+
+    public function setUrgent(?bool $urgent): self
+    {
+        $this->urgent = $urgent;
 
         return $this;
     }
