@@ -27,21 +27,14 @@ class BaseData extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager)
     {
-        /////////////////////////////////////////////////////////////////////////////////
-        /// Rome
-        ////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-
-
-
+        $u1 = new User();
+        $u1->setusername('admin@candidatheque.com');
+        $password = $this->encoder->encodePassword($u1, 'LaVieEstBelle');
+        $u1->setPassword($password);
+        $u1->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $manager->persist($u1);
+        $manager->flush();
 
         $tc1 = new TypeContrat(1, "CDI");
         $manager->persist($tc1);
