@@ -50,9 +50,17 @@ class Recruteur
      */
     private $offres;
 
+    /**
+     * Relation est déposé par
+     * @ORM\OneToMany(targetEntity=CV::class, mappedBy="deposePar")
+     */
+    private $candidats;
+
     public function __construct()
     {
         $this->offres = new ArrayCollection();
+        $this->candidats = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -155,6 +163,36 @@ class Recruteur
             // set the owning side to null (unless already changed)
             if ($offre->getRecruteur() === $this) {
                 $offre->setRecruteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Candidat[]
+     */
+    public function getCandidats(): Collection
+    {
+        return $this->candidats;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->candidats->contains($candidat)) {
+            $this->candidats[] = $candidat;
+            $candidat->setDeposePar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        if ($this->candidats->removeElement($candidat)) {
+            // set the owning side to null (unless already changed)
+            if ($candidat->getDeposePar() === $this) {
+                $candidat->setDeposePar(null);
             }
         }
 

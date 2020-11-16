@@ -85,7 +85,7 @@ class CV
     private $langues;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="candidats")
+     * @ORM\ManyToOne(targetEntity=Recruteur::class, inversedBy="candidats")
      */
     private $deposePar;
 
