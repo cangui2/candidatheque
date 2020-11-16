@@ -82,6 +82,16 @@ class Offre
      */
     private $urgent;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $profil;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Recruteur::class, inversedBy="offres")
+     */
+    private $recruteur;
+
 
 
 
@@ -255,6 +265,30 @@ class Offre
     public function setUrgent(?bool $urgent): self
     {
         $this->urgent = $urgent;
+
+        return $this;
+    }
+
+    public function getProfil(): ?string
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?string $profil): self
+    {
+        $this->profil = $profil;
+
+        return $this;
+    }
+
+    public function getRecruteur(): ?Recruteur
+    {
+        return $this->recruteur;
+    }
+
+    public function setRecruteur(?Recruteur $recruteur): self
+    {
+        $this->recruteur = $recruteur;
 
         return $this;
     }
