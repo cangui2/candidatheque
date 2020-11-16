@@ -1,3 +1,5 @@
+/* Custom radius */
+
 .navigation_corner{
     border-radius: 0px 0px 20px 0px;
     }
@@ -13,19 +15,26 @@
     border-color : #3E68D4;
     }
 
-.inscrp_corner{
+.inscrp-corner{
     border-radius: 0px 0px 6px 0px;
     color        : #3E68D4;
     }
 
+.card{
+    border-radius: 0px 0px 10px 0px;
+}
+
+/* Custom margin menu */
+
+.margin-navbar {
+    margin-left: 205px;
+}
+
+/* Custom couleur */
 
 .rounded-circle{
     background-color: #3E68D4;
     }
-
-.margin_navbar {
-    margin-left: 205px;
-}
 
 .navbar-brand{
     font-size  : x-large;
@@ -38,20 +47,22 @@
     border-bottom-width: 3px;
 }
 
-.nav-link:hover{
-    border-bottom-color: #C4A2FC;
-}
+/* Custom hover */
 
 .nav-link:hover{
     border-bottom-color: #C4A2FC;
 }
 
-.zoom_bouton:hover {
-    transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+.nav-link:hover{
+    border-bottom-color: #C4A2FC;
+}
+
+.zoom-bouton:hover {
+    transform: scale(1.02);
   }
 
-.card{
-    border-radius: 0px 0px 10px 0px;
+.entreprise-corner:hover{
+    color: #3E68D4;
 }
 
 .image-background{
@@ -108,7 +119,7 @@
     display: none;
 }
 
-.color_3E68D4{
+.color-3E68D4{
     background-color: #3E68D4;
     color           : aliceblue;
 }
@@ -120,6 +131,15 @@
 .colorBG-DBDEE5Cdtk{
     background-color: #DBDEE5;
 }
+
+.colorTxt-aliceblueCdtk{
+    color: aliceblue;
+}
+
+.colorBG-3E68D4Cdtk{
+    background-color: #3E68D4;
+}
+
 
 /* .container-fluid {
     min-height: 20px;
