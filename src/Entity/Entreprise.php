@@ -92,12 +92,18 @@ class Entreprise
      */
     private $consultes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="entreprise")
+     */
+    private $offres;
+
     public function __construct()
     {
         $this->recruteurs = new ArrayCollection();
         $this->postules = new ArrayCollection();
         $this->favoris = new ArrayCollection();
         $this->consultes = new ArrayCollection();
+        $this->offres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -340,6 +346,36 @@ class Entreprise
             // set the owning side to null (unless already changed)
             if ($consulte->getEntreprise() === $this) {
                 $consulte->setEntreprise(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Offre[]
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offre $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offre $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getEntreprise() === $this) {
+                $offre->setEntreprise(null);
             }
         }
 
