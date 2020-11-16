@@ -1,3 +1,41 @@
+/* Global style */
+
+.color-principale1 {
+    color: #555555;
+}
+
+.color-principale2 {
+    color: #555555;
+}
+
+.color-principale3 {
+    color: #555555;
+}
+
+.bg-color-principale1 {
+    background-color: blue;
+}
+
+.bg-color-principale2 {
+    background-color: blue;
+}
+
+.bg-color-principale3 {
+    background-color: blue;
+}
+
+
+.titre1 {
+
+}
+
+.button1 {
+    
+}
+
+
+
+
 /* Custom radius */
 
 .navigation_corner{
@@ -147,6 +185,22 @@
 
 /* Nouvelles règles si la fenêtre fait au plus 1024px de large */
 @media screen and (max-width: 992px)
+{
+    .pastille{
+        display: none;
+    }
+
+    .margin_navbar {
+        margin-left: 0px;
+    }
+
+    .inscrp{
+        display: inline-block;
+    }
+}
+
+/* Nouvelles règles si la fenêtre fait au plus 1024px de large */
+@media screen and (max-width: 320px)
 {
     .pastille{
         display: none;

@@ -10,6 +10,7 @@ use App\Entity\Metier;
 use App\Entity\Offre;
 use App\Entity\Region;
 use App\Entity\TypeContrat;
+use App\Entity\User;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -29,7 +30,7 @@ class BaseData extends Fixture implements FixtureGroupInterface
     {
 
         $u1 = new User();
-        $u1->setusername('admin@candidatheque.com');
+        $u1->setEmail('admin@candidatheque.com');
         $password = $this->encoder->encodePassword($u1, 'LaVieEstBelle');
         $u1->setPassword($password);
         $u1->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
