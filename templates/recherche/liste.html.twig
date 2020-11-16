@@ -9,7 +9,7 @@
 		<div class="row image-background" style="background-image:url('{{ asset("assets/images/test" ~ variaTest ~ ".jpg") }}')">
 			<div class="offset-md-1 col-lg-5 mt-4">
 				<form class="bg-light rounded mt-5 mb-4 mb-lg-5 py-4">
-					<div class="form-group mx-5">
+					<div class="form-group mx-5" id="root">
 						<label class="mb-0" for="rechercheInput1">Profession</label>
 						<input type="email" class="form-control form-control-sm" id="rechercheInput1">
 					</div>
@@ -108,5 +108,12 @@
 	</div>
 	</div>
 </div>
+
 	</body>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('/assets/js/f1.js') }}"></script>
+	<script src="{{ asset('/assets/js/f2.js') }}"></script>
+	<script src="{{ asset('/assets/js/f3.js') }}"></script>
 {% endblock %}
