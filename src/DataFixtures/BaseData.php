@@ -8,6 +8,7 @@ use App\Entity\Departement;
 use App\Entity\Entreprise;
 use App\Entity\Metier;
 use App\Entity\Offre;
+use App\Entity\Recruteur;
 use App\Entity\Region;
 use App\Entity\TypeContrat;
 use App\Entity\User;
@@ -34,6 +35,7 @@ class BaseData extends Fixture implements FixtureGroupInterface
         $password = $this->encoder->encodePassword($u1, 'LaVieEstBelle');
         $u1->setPassword($password);
         $u1->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $u1->setActif(true);
         $manager->persist($u1);
         $manager->flush();
 
@@ -61,7 +63,45 @@ class BaseData extends Fixture implements FixtureGroupInterface
 
         $ent1 = new Entreprise();
         $ent1->setRaisonSociale("Entreprise1");
+        $ent1->setSiret("654321987");
+        $ent1->setAdresse1("rue du bas");
+        $ent1->setAdresse2("");
+        $ent1->setCodePostal("75003");
+        $ent1->setVille("Paris");
         $manager->persist($ent1);
+
+        $rec1 = new Recruteur();
+        $rec1->setNom("Gates");
+        $rec1->setPrenom("Bill");
+        $rec1->setEntreprise($ent1);
+        $manager->persist($rec1);
+
+        $u2 = new User();
+        $u2->setEmail('rec1@be4web.fr');
+        $password = $this->encoder->encodePassword($u2, '123456');
+        $u2->setPassword($password);
+        $u2->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
+        $u2->setAuthToken("654654654654");
+        $u2->setRecruteur($rec1);
+        //$u2->setActif(true);
+        $manager->persist($u2);
+
+        $rec2 = new Recruteur();
+        $rec2->setNom("Gates");
+        $rec2->setPrenom("Bill");
+        $rec2->setEntreprise($ent1);
+        $manager->persist($rec2);
+
+        $u3 = new User();
+        $u3->setEmail('rec2@be4web.fr');
+        $password = $this->encoder->encodePassword($u3, '123456');
+        $u3->setPassword($password);
+        $u3->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
+        $u3->setAuthToken("654654654654987");
+        $u3->setRecruteur($rec2);
+        //$u2->setActif(true);
+        $manager->persist($u3);
+
 
         $cv1 = new CV();
         $cv1->addFavori($ent1);
