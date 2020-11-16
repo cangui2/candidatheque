@@ -19,15 +19,15 @@
                                 </thead>
                                 <tbody>
                                 {% for user in users %}
-                                    <form method="post" action="{{ path('users_manage', {user: user.id}) }}">
+                                    <form method="post" action="{{ path('users_manage', {user: user.id}) }}" >
                                         <tr>
                                             <td class="text-center">{{ user.id }}</td>
                                             <td class="text-center">{{ user.recruteur.nom }}</td>
                                             <td class="text-center">{{ user.recruteur.prenom }}</td>
                                             <td class="text-center">{{ user.recruteur.entreprise }}</td>
                                             <td class="text-center">{{ user.recruteur.entreprise.siret }}</td>
-                                            <td class="text-center"><input type="submit" class="btn btn-md btn-success" id="confirm" name="btn_verify" value="Confirmer">
-                                            <td class="text-center"><input type="submit" class="btn btn-md btn-warning" id="confirm" name="btn_verify" value="Supprimer">
+                                            <td class="text-center"><input type="submit" class="btn btn-md btn-success " id="confirm" name="btn_verify" value="Confirmer" >
+                                            <td class="text-center"><input type="submit" class="btn btn-md btn-warning btn-confirm" id="confirm" name="btn_verify" value="Supprimer">
                                             </td>
                                             <input type="hidden"  name="_token" value = "{{ csrf_token('confirm') }}">
 
@@ -51,7 +51,18 @@
         </div>
     </div>
 
+                    <script>
+                        document.querySelectorAll(".btn-confirm").forEach(function (elt) {
+                                elt.addEventListener("click", function(evt) {
+                                    if (!confirm("Êtes-vous sûr de vouloir supprimer la demande de ce recruteur ?")) {
+                                        evt.preventDefault();
+                                    }
+                                });
+                        });
 
+                    </script>
 {% endblock %}
+
 {% block javascripts %}
+
 {% endblock %}
