@@ -27,7 +27,7 @@ class OffreCrudController extends AbstractCrudController
         $datePublication = DateField::new('datePublication');
         $description = TextareaField::new('description');
         $metier = AssociationField::new('metier');
-        $postule = AssociationField::new('postule');
+        $postule = AssociationField::new('postules');
 
         if (Crud::PAGE_INDEX === $pageName) {
             return [$id, $datePublication,  $description, $metier, $postule];
