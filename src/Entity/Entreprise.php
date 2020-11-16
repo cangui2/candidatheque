@@ -79,10 +79,7 @@ class Entreprise
      */
     private $postules;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="agence")
-     */
-    private $candidats;
+
 
     /**
      * Liaison entre CV et Entreprise représente les CVs mis en favoris par l'entreprise (table de liaison entreprise_cv)
@@ -99,7 +96,6 @@ class Entreprise
     {
         $this->recruteurs = new ArrayCollection();
         $this->postules = new ArrayCollection();
-        $this->candidats = new ArrayCollection();
         $this->favoris = new ArrayCollection();
         $this->consultes = new ArrayCollection();
     }
@@ -282,35 +278,7 @@ class Entreprise
         return $this;
     }
 
-    /**
-     * @return Collection|Candidat[]
-     */
-    public function getCandidats(): Collection
-    {
-        return $this->candidats;
-    }
 
-    public function addCandidat(Candidat $candidat): self
-    {
-        if (!$this->candidats->contains($candidat)) {
-            $this->candidats[] = $candidat;
-            $candidat->setDeposePar($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCandidat(Candidat $candidat): self
-    {
-        if ($this->candidats->removeElement($candidat)) {
-            // set the owning side to null (unless already changed)
-            if ($candidat->getDeposePar() === $this) {
-                $candidat->setDeposePar(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {

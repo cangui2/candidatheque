@@ -8,6 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="{{ asset("assets/css/bootstrap.min.css") }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('assets/css/style_entreprise.css') }}"/>
 		{% block stylesheets %}{% endblock %}
 		</head>
 		<body>
@@ -21,9 +22,9 @@
 						<button class="navbar-toggler mx-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="navbar-toggler-icon"></span>
 					</div>
-					<nav class="navbar navigation-corner navbar-expand-lg navbar-light bg-light py-0"></button>
+					<nav class="navbar navigation_corner navbar-expand-lg navbar-light bg-light py-0"></button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul id="menu" class="navbar-nav margin-navbar">
+						<ul id="menu" class="navbar-nav margin_navbar">
 							<li class="nav-item active">
 								<a class="nav-link" href="{{ path("home") }}">Accueil
 									<span class="sr-only">(current)</span>
@@ -48,50 +49,50 @@
 
 			{% block body %}{% endblock %}
 			<!-- Footer -->
-<footer class="page-footer font-small indigo colorBG-DBDEE5Cdtk">
+<footer class="page-footer font-small indigo">
 
   <!-- Footer Links -->
   <div class="container">
 
     <!-- Grid row-->
-    <div class="row text-center d-flex justify-content-center pt-3">
+    <div class="row text-center d-flex justify-content-center pt-5 mb-3">
 
       <!-- Grid column -->
       <div class="col-md-2 mb-3">
-        <h6 class="text-uppercase">
-          <a href="#! "class="colorTxt-aliceblueCdtk">A propos</a>
+        <h6 class="text-uppercase font-weight-bold">
+          <a href="#!">A propos</a>
         </h6>
       </div>
       <!-- Grid column -->
 
       <!-- Grid column -->
       <div class="col-md-2 mb-3">
-        <h6 class="text-uppercase">
-          <a href="#!" class="colorTxt-aliceblueCdtk">Nos services</a>
+        <h6 class="text-uppercase font-weight-bold">
+          <a href="#!">Nos services</a>
         </h6>
       </div>
       <!-- Grid column -->
 
       <!-- Grid column -->
       <div class="col-md-2 mb-3">
-        <h6 class="text-uppercase">
-          <a href="#!" class="colorTxt-aliceblueCdtk">Mentions légales</a>
+        <h6 class="text-uppercase font-weight-bold">
+          <a href="#!">Mentions légales</a>
         </h6>
       </div>
       <!-- Grid column -->
 
       <!-- Grid column -->
       <div class="col-md-2 mb-3">
-        <h6 class="text-uppercase">
-          <a href="#!" class="colorTxt-aliceblueCdtk">FAQ</a>
+        <h6 class="text-uppercase font-weight-bold">
+          <a href="#!">FAQ</a>
         </h6>
       </div>
       <!-- Grid column -->
 
       <!-- Grid column -->
       <div class="col-md-2 mb-3">
-        <h6 class="text-uppercase">
-          <a href="#!" class="colorTxt-aliceblueCdtk">Contact</a>
+        <h6 class="text-uppercase font-weight-bold">
+          <a href="#!">Contact</a>
         </h6>
       </div>
       <!-- Grid column -->
@@ -102,10 +103,28 @@
 
     <!-- Grid row-->
     <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+
+      <!-- Grid column -->
+      <div class="col-md-8 col-12 mt-5">
+        <p style="line-height: 1.7rem">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem
+          aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+          explicabo.
+		</p>
+      </div>
+      <!-- Grid column -->
+
     </div>
+    <!-- Grid row-->
+    <hr class="clearfix d-md-none rgba-white-light" style="margin: 10% 15% 5%;">
+
+  </div>
+  <!-- Footer Links -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3 colorTxt-3E68D4Cdtk">© 2020 Copyright : Candidatheque.com</div>
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <p> Candidatheque.com</p>
+  </div>
   <!-- Copyright -->
 
 </footer>

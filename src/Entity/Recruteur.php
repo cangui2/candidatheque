@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecruteurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,24 @@ class Recruteur
      * @ORM\JoinColumn(name="id_entreprise", referencedColumnName="id")
      */
     private $entreprise;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="recruteur")
+     */
+    private $offres;
+
+    /**
+     * Relation est déposé par
+     * @ORM\OneToMany(targetEntity=CV::class, mappedBy="deposePar")
+     */
+    private $candidats;
+
+    public function __construct()
+    {
+        $this->offres = new ArrayCollection();
+        $this->candidats = new ArrayCollection();
+
+    }
 
     public function getId(): ?int
     {
@@ -117,5 +137,65 @@ class Recruteur
     public function __toString()
     {
         return $this->nom . " " . $this->prenom;
+    }
+
+    /**
+     * @return Collection|Offre[]
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offre $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->setRecruteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offre $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getRecruteur() === $this) {
+                $offre->setRecruteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Candidat[]
+     */
+    public function getCandidats(): Collection
+    {
+        return $this->candidats;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->candidats->contains($candidat)) {
+            $this->candidats[] = $candidat;
+            $candidat->setDeposePar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        if ($this->candidats->removeElement($candidat)) {
+            // set the owning side to null (unless already changed)
+            if ($candidat->getDeposePar() === $this) {
+                $candidat->setDeposePar(null);
+            }
+        }
+
+        return $this;
     }
 }

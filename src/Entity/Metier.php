@@ -37,9 +37,20 @@ class Metier
     private $offres;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="metiers")
      */
     private $rome;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ogr1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ogr2;
+
 
     public function __construct()
     {
@@ -125,15 +136,41 @@ class Metier
         return $this;
     }
 
-    public function getRome(): ?string
+    public function getRome(): ?Rome
     {
         return $this->rome;
     }
 
-    public function setRome(?string $rome): self
+    public function setRome(?Rome $rome): self
     {
         $this->rome = $rome;
 
         return $this;
     }
+
+    public function getOgr1(): ?string
+    {
+        return $this->ogr1;
+    }
+
+    public function setOgr1(?string $ogr1): self
+    {
+        $this->ogr1 = $ogr1;
+
+        return $this;
+    }
+
+    public function getOgr2(): ?string
+    {
+        return $this->ogr2;
+    }
+
+    public function setOgr2(?string $ogr2): self
+    {
+        $this->ogr2 = $ogr2;
+
+        return $this;
+    }
+
+
 }
