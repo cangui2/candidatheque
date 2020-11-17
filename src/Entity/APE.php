@@ -8,7 +8,21 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=APERepository::class)
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *                          "get"={},
+
+ *                          },
+ *     itemOperations={
+ *                          "get"={},
+ *                          },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
+ *     attributes={
+ *                  "force_eager"=false
+
+ *                 }
+ * )
  */
 class APE
 {

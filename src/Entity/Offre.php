@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\OffreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,7 +13,30 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=OffreRepository::class)
  * @ORM\HasLifecycleCallbacks
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *                          "get"={},
+
+ *                          },
+ *     itemOperations={
+ *                          "get"={},
+ *                          },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
+ *     attributes={
+ *                  "force_eager"=false
+
+ *                 }
+ * )
+ * @ApiFilter(
+ *       SearchFilter::class,
+ *       properties={
+ *              "metier.libelle": "exact",
+ *              "metier.rome": "exact"
+ *
+ *                  })
+ *
+ * )
  */
 class Offre
 {
