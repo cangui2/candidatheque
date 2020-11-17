@@ -14,37 +14,34 @@
 		<body>
 
 			<header>
-				<div class="navbar navbar-expand-lg navbar-light bg-light">
-					<h1 class="navbar-brand mr-auto" id="brand" href="#">CANDIDATHEQUE</h1>
 
-						<a href ="{{ path("espace_candidat") }}" class="btn zoom_bouton candidat_corner btn-sm text-white" role="button">Espace candidat</a>
-						<a href ="{{ path("espace_entreprise") }}" class="btn zoom_bouton entreprise_corner btn-sm" role="button">Espace entreprise</a>
-						<button class="navbar-toggler mx-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-					</div>
-					<nav class="navbar navigation_corner navbar-expand-lg navbar-light bg-light py-0"></button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul id="menu" class="navbar-nav margin_navbar">
-							<li class="nav-item active">
-								<a class="nav-link" href="{{ path("home") }}">Accueil
-									<span class="sr-only">(current)</span>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">Atelier CV</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">Blog</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">NavbarBase</a>
-							</li>
-						</ul>
-					</div>
-				</nav>
+<nav class="navbar navigation-corner navbar-expand-lg navbar-light bg-secondary">
+  <a class="navbar-brand" href="{{ path("home") }}">CANDIDATHEQUE</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Tableau de bord</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
+      </li>
+      <li class="nav-item">
+				<a class="nav-link" href="#">Atelier CV</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Blog</a>
+			</li>
+    </ul>
+    <form class="form-inline my-2 mx-3 my-lg-0">
+      <button type="button" class="btn btn-outline-dark my-2 my-sm-0 "><h3>C</h3></button>
+    </form>
+  </div>
+</nav>
+
 			</header>
 
 			{% block body %}{% endblock %}
