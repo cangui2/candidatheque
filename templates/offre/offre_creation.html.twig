@@ -4,6 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/assets/css/offre.css">
 
 {% endblock %}
@@ -37,9 +38,10 @@
             {{ form_row(offreForm.type) }}
         </div>
     </div>
-    <div class="row">
+    <div id="js-datepicker" class="row">
         <div class="col-md-6">
-           {{ form_row(offreForm.dateDebut) }}
+           {{ form_label(offreForm.dateDebut) }}
+           {{ form_widget(offreForm.dateDebut) }}
         </div>
         <div class="col-md-6">
             {{ form_row(offreForm.dateFin) }}
@@ -66,6 +68,11 @@
             {{ form_row(offreForm.possibiliteCDI) }}
         </div>
     </div>
+    <div class="row mt-5 mb-5">
+        <div class="col-md-6" style="margin: auto">
+            {{ form_row(offreForm.save, {'label': "Déposer l'offre"}) }}
+        </div>
+    </div>
 
 
 
@@ -73,37 +80,61 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.fr.min.js"></script>#}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
 
-        $(document).ready(function(){
-            $.fn.datepicker.dates['fr'] = {
-                days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-                daysShort: ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."],
-                daysMin: ["D", "L", "Ma", "Me", "J", "V", "S"],
-                months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-                monthsShort: ["Janv.", "Févr.", "Mars", "Avril", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Déc."],
-                today: "Aujourd'hui",
-                monthsTitle: "Mois",
-                prevText: 'Précédent',
-                nextText: 'Suivant',
-                clear: "Effacer",
-                weekStart: 1,
-                weekHeader: 'Sem.',
-                format: "dd/mm/yyyy"
-            };
+         $(document).ready(function(){
+        //     $.datepicker.regional['fr'] = {
+        //         days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+        //         daysShort: ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."],
+        //         daysMin: ["D", "L", "Ma", "Me", "J", "V", "S"],
+        //         months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+        //         monthsShort: ["Janv.", "Févr.", "Mars", "Avril", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Déc."],
+        //         today: "Aujourd'hui",
+        //         monthsTitle: "Mois",
+        //         prevText: 'Précédent',
+        //         nextText: 'Suivant',
+        //         clear: "Effacer",
+        //         weekStart: 1,
+        //         calendarWeeks: true,
+        //         weekHeader: 'Sem.',
+        //         format: "dd/mm/yyyy",
+        //     };
+            //$.datepicker.setDefaults($.datepicker.regional['fr']);
+            console.log($.datepicker.regional['fr']);
 
-        });
 
-
-        jQuery(document).ready(function() {
             $('.js-datepicker').datepicker({
-                format: 'dd/mm/yyyy',
-                language: 'fr',
+                monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+                dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                dayNamesShort: ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."],
+                dayNamesMin: ["D", "L", "Ma", "Me", "J", "V", "S"],
                 todayHighlight: true,
-
+                orientation: 'bottom right',
+                autoclose: true,
+                dateFormat: "dd/mm/yy",
+                firstDay: 1
             });
         });
+
+        $(function() {
+
+
+            $( "#offre_metier" ).autocomplete({
+                source: "{{ path('offre_autocomplete') }}",
+                minLength: 2,
+                select: function( event, ui ) {
+                    console.log( ui.item ?
+                        "Selected: " + ui.item.value + " aka " + ui.item.id :
+                        "Nothing selected, input was " + this.value );
+                }
+            });
+        });
+
+
+
     </script>
 {% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\Offre;
 use App\Form\OffreType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -26,6 +27,31 @@ class OffreController extends AbstractController
     }
 
     /**
+     * @Route("/autocomplete", name="offre_autocomplete")
+     */
+    public function autocompleteAction(Request $request)
+    {
+        $names = array();
+        $term = trim(strip_tags($request->get('term')));
+
+        $entities = $this->em->getRepository('App\Entity\Metier')->createQueryBuilder('c')
+            ->where('c.libelle LIKE :libelle')
+            ->setParameter('libelle', '%'.$term.'%')
+            ->getQuery()
+            ->getResult();
+        $libelles=[];
+        foreach ($entities as $entity)
+        {
+            $libelles[] = $entity->getLibelle();
+        }
+
+        $response = new JsonResponse();
+        $response->setData($libelles);
+
+        return $response;
+    }
+
+    /**
      * @Route("/entreprise/offre_creation", name="offre_creation")
      */
     public function create(Request $request)
@@ -36,6 +62,7 @@ class OffreController extends AbstractController
         $entreprise = $this->security->getUser()->getRecruteur()->getEntreprise();
 
         $offreForm->handleRequest($request);
+//        dd($offre);
 
         if($offreForm->isSubmitted() && $offreForm->isValid()){
 

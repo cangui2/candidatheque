@@ -21,3 +21,7 @@ td .today .day  {
      background-color: #fde19a !important;
  }
 
+label.required:before {
+    content: "* " !important;
+    color: red;
+}
