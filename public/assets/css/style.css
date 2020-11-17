@@ -38,16 +38,16 @@
 
 /* Custom radius */
 
-.navigation_corner{
+.navigation-corner{
     border-radius: 0px 0px 20px 0px;
     }
 
-.candidat_corner{
+.candidat-corner{
     border-radius   : 6px 0px 0px 0px;
     background-color: #3E68D4;
     }
     
-.entreprise_corner{
+.entreprise-corner{
     border-radius: 0px 0px 6px 0px;
     color        : #3E68D4;
     border-color : #3E68D4;
@@ -79,10 +79,44 @@
     font-weight: bold;
 }
 
+
 .nav-link{
     border-bottom-color: #C4A2FC00;
     border-bottom-style: solid;
     border-bottom-width: 3px;
+}
+
+/* Custom barre */
+
+.barre:hover{
+    border-bottom-color: #C4A2FC;
+}
+
+
+.barre{
+    border-bottom-color: #C4A2FC;
+    border-bottom-style: solid;
+    border-bottom-width: 4px;
+    width: 200px;
+}
+
+.barre{
+    border-bottom-color: #C4A2FC;
+    border-bottom-style: solid;
+    border-bottom-width: 4px;
+    width: 200px;
+}
+
+.barre-pro:hover{
+    border-bottom-color: #6F7A95;
+}
+
+
+.barre-pro{
+    border-bottom-color: #6F7A95;
+    border-bottom-style: solid;
+    border-bottom-width: 4px;
+    width: 60%;
 }
 
 /* Custom hover */
@@ -106,6 +140,13 @@
 .image-background{
     background-size  : 100% auto;
     background-repeat: no-repeat;
+    margin-top       : -20px;
+}
+
+.image-background-thin{
+    background-size  : 100% auto;
+    background-repeat: no-repeat;
+    height           : 300px;
     margin-top       : -20px;
 }
 

@@ -6,41 +6,31 @@
 {% block body %}
 	<body>
 		<div class="ban"></div>
-		<div class="row image-background" style="background-image:url('{{ asset("assets/images/test" ~ variaTest ~ ".jpg") }}')">
-			<div class="offset-md-1 col-lg-5 mt-4">
-				<form class="bg-light rounded mt-5 mb-4 mb-lg-5 py-4">
-					<div class="form-group mx-5">
+		<div class="row image-background-thin" style="background-image:url('{{ asset("assets/images/test" ~ variaTest ~ ".jpg") }}')">
+			<div class="col-lg-8 mt-4" style="margin:auto">
+				<form class="bg-light rounded mt-5 mx-5 mb-lg-5 py-3 px-5">
+				<div class="row">
+					<div class="col-6 form-group">
 						<label class="mb-0" for="rechercheInput1">Profession</label>
 						<input type="email" class="form-control form-control-sm" id="rechercheInput1">
 					</div>
-					<div class="form-group mx-5">
+					<div class="col-6 form-group">
 						<label class="mb-0" for="rechercheInput2">Lieu</label>
 						<input type="password" class="form-control form-control-sm" id="rechercheInput2">
 					</div>
-					<div class="form-group mx-5">
+					<div class="col-6 form-group">
 						<label class="mb-0" for="rechercheInput3">Secteur</label>
 						<input type="email" class="form-control form-control-sm" id="rechercheInput3">
 					</div>
-					<div class="form-group mx-5">
+					<div class="col-6 form-group">
 						<label class="mb-0" for="rechercheInput4">Type de contrat</label>
 						<input type="email" class="form-control form-control-sm" id="rechercheInput4">
 					</div>
-					<div class="rech text-right">
-						<button type="submit" class="btn color-3E68D4 mt-1 mx-5">Rechercher des offres</button>
+					<div class="col-12 rech text-right">
+						<button type="submit" class="btn color-3E68D4 mt-1">Rechercher des offres</button>
 					</div>
+				</div>
 				</form>
-			</div>
-			<div class="col-lg-6">
-				<div class="inscrp w-100">
-					<button type="button" class="btn btn-block color-3E68D4 mb-4">S'inscrire maintenant</button>
-				</div>
-				<div id="pastille1" class="pastille cercle embed-responsive embed-responsive-1by1 rounded-circle color-3E68D4">
-					<div class="intro embed-responsive-item pt-5">
-						<h1>Votre talent, nos offres</h1>
-						<p>Lorem ipsum, etc</p>
-					</div>
-				</div>
-				<button type="button" id="pastille2" class="btn pastille btn btn-light">S'inscrire</button>
 			</div>
 		</div>
 
@@ -49,7 +39,7 @@
 <form>
 <div class="row my-4">
   <div class="form-group col-3">
-    <label for="exampleFormControlSelect1">Critère 1</label>
+    <label for="exampleFormControlSelect1">Métiers</label>
     <select class="form-control" id="exampleFormControlSelect1">
       <option>1</option>
       <option>2</option>
@@ -58,7 +48,7 @@
     </select>
 	 </div>
 	   <div class="form-group col-3">
-    <label for="exampleFormControlSelect1">Critère 2</label>
+    <label for="exampleFormControlSelect1">Ville</label>
     <select class="form-control" id="exampleFormControlSelect1">
       <option>1</option>
       <option>2</option>
@@ -67,7 +57,7 @@
     </select>
 	 </div>
 	   <div class="form-group col-3">
-    <label for="exampleFormControlSelect1">Critère 3</label>
+    <label for="exampleFormControlSelect1">Type de contrat</label>
     <select class="form-control" id="exampleFormControlSelect1">
       <option>1</option>
       <option>2</option>
@@ -76,7 +66,7 @@
     </select>
 	 </div>
 	   <div class="form-group col-3">
-    <label for="exampleFormControlSelect1">Critère 4</label>
+    <label for="exampleFormControlSelect1">Date de publication</label>
     <select class="form-control" id="exampleFormControlSelect1">
       <option>1</option>
       <option>2</option>
