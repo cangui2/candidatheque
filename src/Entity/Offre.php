@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\OffreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +12,31 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=OffreRepository::class)
+ * @ORM\HasLifecycleCallbacks
+ * @ApiResource(
+ *     collectionOperations={
+ *                          "get"={},
+
+ *                          },
+ *     itemOperations={
+ *                          "get"={},
+ *                          },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
+ *     attributes={
+ *                  "force_eager"=false
+
+ *                 }
+ * )
+ * @ApiFilter(
+ *       SearchFilter::class,
+ *       properties={
+ *              "metier.libelle": "exact",
+ *              "metier.rome": "exact"
+ *
+ *                  })
+ *
+ * )
  */
 class Offre
 {
@@ -60,7 +88,7 @@ class Offre
     private $dateFin;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $duree;
 
@@ -92,6 +120,11 @@ class Offre
      */
     private $recruteur;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="offres")
+     * @ORM\JoinColumn(name="id_entreprise", referencedColumnName="id")
+     */
+    private $entreprise;
 
 
 
@@ -113,6 +146,16 @@ class Offre
     public function setDatePublication(?\DateTimeInterface $datePublication): self
     {
         $this->datePublication = $datePublication;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setDatePublicationValue()
+    {
+        $this->datePublication = new \DateTime();
 
         return $this;
     }
@@ -289,6 +332,18 @@ class Offre
     public function setRecruteur(?Recruteur $recruteur): self
     {
         $this->recruteur = $recruteur;
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $entreprise): self
+    {
+        $this->entreprise = $entreprise;
 
         return $this;
     }

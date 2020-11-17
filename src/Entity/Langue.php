@@ -2,11 +2,27 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LangueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=LangueRepository::class)
+ * @ApiResource(
+ *     collectionOperations={
+ *                          "get"={},
+
+ *                          },
+ *     itemOperations={
+ *                          "get"={},
+ *                          },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
+ *     attributes={
+ *                  "force_eager"=false
+
+ *                 }
+ * )
  */
 class Langue
 {

@@ -8,6 +8,7 @@ use App\Entity\Departement;
 use App\Entity\Entreprise;
 use App\Entity\Metier;
 use App\Entity\Offre;
+use App\Entity\Recruteur;
 use App\Entity\Region;
 use App\Entity\TypeContrat;
 use App\Entity\User;
@@ -34,6 +35,7 @@ class BaseData extends Fixture implements FixtureGroupInterface
         $password = $this->encoder->encodePassword($u1, 'LaVieEstBelle');
         $u1->setPassword($password);
         $u1->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $u1->setActif(true);
         $manager->persist($u1);
         $manager->flush();
 
@@ -59,21 +61,6 @@ class BaseData extends Fixture implements FixtureGroupInterface
         $manager->persist($tc10);
 
 
-        $ent1 = new Entreprise();
-        $ent1->setRaisonSociale("Entreprise1");
-        $manager->persist($ent1);
-
-        $cv1 = new CV();
-        $cv1->addFavori($ent1);
-        $manager->persist($cv1);
-
-
-
-        $of1 = new Offre();
-        $of1->getDuree("6 mois");
-        $of1->setType($tc3);
-
-        $manager->persist($of1);
 
 
 

@@ -69,6 +69,9 @@ class DBLoadCommand extends Command
             case "base":
                 $this->loadBaseData($output);
                 break;
+            case "extend":
+                $this->loadExtendedData($output);
+                break;
             case "all":
                 $this->loadBaseData($output);
                 $this->loadAPE($output);
@@ -79,6 +82,7 @@ class DBLoadCommand extends Command
                 $this->loadRegion($output);
                 $this->loadDepartement($output);
                 $this->loadVille($output);
+                $this->loadExtendedData($output);
                 break;
         }
 
@@ -94,6 +98,19 @@ class DBLoadCommand extends Command
             '--no-interaction' => true,
             '--append' => true,
             '--group' => array("base")
+        ];
+
+        $greetInput = new ArrayInput($arguments);
+        return $command->run($greetInput, $output);
+    }
+
+    protected function loadExtendedData(OutputInterface $output) {
+        $command = $this->getApplication()->find('doctrine:fixtures:load');
+
+        $arguments = [
+            '--no-interaction' => true,
+            '--append' => true,
+            '--group' => array("extend")
         ];
 
         $greetInput = new ArrayInput($arguments);
