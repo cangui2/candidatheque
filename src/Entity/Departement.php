@@ -49,11 +49,17 @@ class Departement
      */
     private $villes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="departement")
+     */
+    private $offres;
+
     public function __construct($code, $nom)
     {
         $this->id = $code;
         $this->nom = $nom;
         $this->villes = new ArrayCollection();
+        $this->offres = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -109,6 +115,36 @@ class Departement
             // set the owning side to null (unless already changed)
             if ($ville->getDepartement() === $this) {
                 $ville->setDepartement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Offre[]
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offre $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offre $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getDepartement() === $this) {
+                $offre->setDepartement(null);
             }
         }
 

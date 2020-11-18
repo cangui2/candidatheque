@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VilleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,6 +59,16 @@ class Ville
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="villes")
      */
     private $departement;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="ville")
+     */
+    private $offres;
+
+    public function __construct()
+    {
+        $this->offres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +131,36 @@ class Ville
     public function setDepartement(?Departement $departement): self
     {
         $this->departement = $departement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Offre[]
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offre $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offre $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getVille() === $this) {
+                $offre->setVille(null);
+            }
+        }
 
         return $this;
     }

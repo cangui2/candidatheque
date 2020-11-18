@@ -126,6 +126,21 @@ class Offre
      */
     private $entreprise;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="offres")
+     */
+    private $ville;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="offres")
+     */
+    private $departement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="offres")
+     */
+    private $region;
+
 
 
     public function __construct()
@@ -344,6 +359,42 @@ class Offre
     public function setEntreprise(?Entreprise $entreprise): self
     {
         $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?Departement
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(?Departement $departement): self
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
