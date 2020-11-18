@@ -13,10 +13,12 @@
 		<body>
 			<header>
 				<div class="navbar navbar-expand-md navbar-light bg-light">
-					<h1 class="navbar-brand mr-auto" id="brand" href="#">CANDIDATHEQUE</h1>
+					<h1 class="navbar-brand mr-auto" id="brand" href="#">CANDIDATHE<i class="fa fa-search" aria-hidden="true"></i>UE</h1>
 
 					<div>
-						<a href="{{ path("espace_candidat") }}" class="btn zoom-bouton candidat-corner btn-sm text-white" role="button">Espace candidat</a><a href="{{ path("espace_entreprise") }}" class="btn zoom-bouton entreprise-corner btn-sm" role="button">Espace entreprise</a>
+						<!--<a href="{{ path("espace_candidat") }}" class="btn zoom-bouton candidat-corner btn-sm" role="button">Espace candidat</a>-->
+						<a href="{{ path("login") }}" class="btn zoom-bouton candidat-corner btn-sm text-white" role="button">Se connecter</a><a href="{{ path("espace_candidat") }}" class="btn zoom-bouton login-corner btn-sm" role="button">S'inscrire <i class="fa fa-sign-in" aria-hidden="true"></i></a>
+						<a href="{{ path("espace_entreprise") }}" class="btn zoom-bouton entreprise-corner btn-sm" role="button">Espace entreprise</a>
 					</div>
 					<button class="navbar-toggler mx-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -53,7 +55,6 @@
 			<footer
 				class="page-footer font-small indigo bottom-corner colorBG-DBDEE5Cdtk">
 
-				<!-- Footer Links -->
 				<div
 					class="container">
 
@@ -61,52 +62,41 @@
 					<div
 						class="row text-center d-flex justify-content-center pt-3">
 
-						<!-- Grid column -->
 						<div class="col-md-2 mb-3">
 							<h6 class="text-uppercase">
 								<a href="#! " class="colorTxt-aliceblueCdtk">A propos <i class="fa fa-wpexplorer" aria-hidden="true"></i></a>
 							</h6>
 						</div>
-						<!-- Grid column -->
 
-						<!-- Grid column -->
 						<div class="col-md-2 mb-3">
 							<h6 class="text-uppercase">
 								<a href="#!" class="colorTxt-aliceblueCdtk">Nos services</a>
 							</h6>
 						</div>
-						<!-- Grid column -->
 
-						<!-- Grid column -->
 						<div class="col-md-2 mb-3">
 							<h6 class="text-uppercase">
 								<a href="#!" class="colorTxt-aliceblueCdtk">Mentions légales</a>
 							</h6>
 						</div>
-						<!-- Grid column -->
 
-						<!-- Grid column -->
 						<div class="col-md-2 mb-3">
 							<h6 class="text-uppercase">
 								<a href="#!" class="colorTxt-aliceblueCdtk">FAQ</a>
 							</h6>
 						</div>
-						<!-- Grid column -->
 
-						<!-- Grid column -->
 						<div class="col-md-2 mb-3">
 							<h6 class="text-uppercase">
 								<a href="#!" class="colorTxt-aliceblueCdtk">Contact</a>
 							</h6>
 						</div>
-						<!-- Grid column -->
-
+		
 					</div>
 					<!-- Grid row-->
 					<hr
 					class="rgba-white-light" style="margin: 0 15%;">
 
-					<!-- Grid row-->
 					<div class="row d-flex text-center justify-content-center mb-md-0 mb-4"></div>
 
 					<!-- Copyright -->
