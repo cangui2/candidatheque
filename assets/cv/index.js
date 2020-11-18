@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 import 'bootstrap';
+import './index.css';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class FormExperience extends React.Component {
 
@@ -39,7 +43,6 @@ class FormExperiences extends React.Component {
     render() {
         return (
             <div className="cv">
-                <h1>Experiences</h1>
                 <input type="button" value="+" onClick={(evt) => this.props.addExperience(evt)} />
                 <div >
                     {
@@ -63,56 +66,60 @@ class FormExperiences extends React.Component {
 class FormProfil extends React.Component {
     render() {
         return (
-            <div >
-                Nom:
-                <input
-                    value={this.props.value.nom}
-                    onChange={() => this.props.onNomChange(this.refs.nomTextInput.value)}
-                    ref="nomTextInput"
-                />
-                <br />
-                Prenom:
-                <input
-                    value={this.props.value.prenom}
-                    onChange={() => this.props.onPrenomChange(this.refs.prenomTextInput.value)}
-                    ref="prenomTextInput"
-                />
-            </div>
-        );
-    }
-}
-
-
-class Experiences extends React.Component {
-
-    render() {
-        let i = 0;
-        return (
-            <div >
-                <h1>Experiences</h1>
-                <div >
-                    {
-
-                        this.props.value.map((experience) =>
-                            <div key={i++}>
-                                {experience.date}
-                                {experience.mission}
-                            </div>
-                        )
-                    }
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label >Nom:</label>
+                        <input
+                            class="form-control form-control-sm"
+                            type="text"
+                            value={this.props.value.nom}
+                            onChange={() => { 
+                                this.props.value.nom=this.refs.nomTextInput.value; 
+                                this.props.onProfilChange(this.props.value)
+                            }}
+                            ref="nomTextInput"
+                        />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label >Prenom:</label>
+                        <input
+                            class="form-control form-control-sm"
+                            type="text"
+                            value={this.props.value.prenom}
+                            onChange={() => { 
+                                this.props.value.prenom=this.refs.prenomTextInput.value; 
+                                this.props.onProfilChange(this.props.value)
+                            }}
+                            ref="prenomTextInput"
+                        />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label >Adresse:</label>
+                        <input
+                            class="form-control form-control-sm"
+                            type="text"
+                            value={this.props.value.adresse}
+                            onChange={() => { 
+                                this.props.value.adresse=this.refs.adresseTextInput.value; 
+                                this.props.onProfilChange(this.props.value)
+                            }}
+                            ref="adresseTextInput"
+                        />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label >Ville:</label>
+                        <input
+                            class="form-control form-control-sm"
+                            type="text"
+                            value={this.props.value.ville}
+                            onChange={() => { 
+                                this.props.value.ville=this.refs.villeTextInput.value; 
+                                this.props.onProfilChange(this.props.value)
+                            }}
+                            ref="villeTextInput"
+                        />
+                    </div>
                 </div>
-            </div>
-        );
-    }
-}
-
-class Profil extends React.Component {
-    render() {
-        return (
-            <div >
-                <h1>Profil</h1>
-                {this.props.value.prenom} {this.props.value.nom}
-            </div>
         );
     }
 }
@@ -123,26 +130,25 @@ class CV extends React.Component {
         super(props);
         this.state = {
             profil: {
-                nom: "toto",
-                prenom: "titi",
+                nom: "Doe",
+                prenom: "John",
+                adresse: "garden street",
+                ville: "London"
             },
             experiences: [
+                { date: "juillet 2001", mission: "stage de découverte" },
+                { date: "2020-10-02", mission: "bla bla bla" },
+            ],
+            formations: [
                 { date: "juillet 2001", mission: "stage de découverte" },
                 { date: "2020-10-02", mission: "bla bla bla" },
             ]
         }
     }
-    handleNomChange(nom) {
-        //console.log(nom);
-        let profil = this.state.profil;
-        profil.nom = nom;
-        this.setState({ profil });
-    }
-    handlePrenomChange(prenom) {
-        //console.log(nom);
-        let profil = this.state.profil;
-        profil.prenom = prenom;
-        this.setState({ profil });
+    handleProfilChange(pro) {
+        //let profil = this.state.profil;
+        //profil.nom = nom;
+        this.setState({ profil: pro });
     }
     handleAddExperience(evt) {
         // console.log(evt);
@@ -168,36 +174,81 @@ class CV extends React.Component {
         //console.log("654");
         return (
             <div className="row">
-                <div className="col-sm-6">
-                    <div>
-                        <FormProfil
-                            value={this.state.profil}
-                            onNomChange={(evt) => this.handleNomChange(evt)}
-                            onPrenomChange={(evt) => this.handlePrenomChange(evt)}
-                        />
-                    </div>
+                
+                <div className="col-sm-5">
+                    <h1>Module de création de CV.</h1>
+                    Cliquez sur les onglets ci-dessous pour compléter les différents rubriques de votre CV
 
-                    <div >
-                        <FormExperiences
-                            value={this.state.experiences}
-                            addExperience={(evt) => this.handleAddExperience(evt)}
-                            delExperience={(i) => this.handleDelExperience(i)}
-                            changeExperience={(i, exp) => this.handleChangeExperience(i, exp)}
-                        />
-                    </div>
-                </div>
-                <div  className="col-sm-6">
-                    <hr />
-                    <div >
-                        <div>
-                            <Profil value={this.state.profil} />
+                        <div class="accordion mt-5" id="accordion1">
+                            <div class="card">
+                                <div class="card-header" id="heading1">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse1" >
+                                            Profil                                
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse1" class="collapse show" data-parent="#accordion1">
+                                    <div class="card-body">
+                                        <FormProfil
+                                            value={this.state.profil}
+                                            onProfilChange={(evt) => this.handleProfilChange(evt)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="heading2">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse2" >
+                                            Experiences                                
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse2" class="collapse " data-parent="#accordion1">
+                                    <div class="card-body">
+                                    <FormExperiences
+                                        value={this.state.experiences}
+                                        addExperience={(evt) => this.handleAddExperience(evt)}
+                                        delExperience={(i) => this.handleDelExperience(i)}
+                                        changeExperience={(i, exp) => this.handleChangeExperience(i, exp)}
+                                    />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
+                    
+                </div>
+
+                <div  className="col-sm-7">
+
+                    <div className="cv_paper">
+                        <div className="cv_profil">
+                            <div className="engras">{this.state.profil.prenom} {this.state.profil.nom}</div>
+                            <div>{this.state.profil.adresse} {this.state.profil.ville}</div>
+                        </div>
+                        <hr />
                         <div >
-                            <Experiences value={this.state.experiences} />
+                        <div >
+                            <h3>Experiences</h3>
+                            <div >
+                                {
+                                    
+                                    this.state.experiences.map((experience) =>
+                                        <div >
+                                            {experience.date}
+                                            &nbsp;-&nbsp;
+                                            {experience.mission}
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         );
     }
