@@ -16,7 +16,7 @@
 					<h1 class="navbar-brand mr-auto" id="brand" href="#">CANDIDATHEQUE</h1>
 
 					<div>
-						<a href="{{ path("espace_candidat") }}" class="btn zoom_bouton candidat-corner btn-sm text-white" role="button">Espace candidat</a><a href="{{ path("espace_entreprise") }}" class="btn zoom_bouton entreprise-corner btn-sm" role="button">Espace entreprise</a>
+						<a href="{{ path("espace_candidat") }}" class="btn zoom-bouton candidat-corner btn-sm text-white" role="button">Espace candidat</a><a href="{{ path("espace_entreprise") }}" class="btn zoom-bouton entreprise-corner btn-sm" role="button">Espace entreprise</a>
 					</div>
 					<button class="navbar-toggler mx-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -38,7 +38,7 @@
 								<a class="nav-link" href="#">Atelier CV</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#">Blog</a>
+								<a class="nav-link" href="{{ path('blog') }}">Blog</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">NavbarBase</a>
@@ -51,7 +51,7 @@
 			{% block body %}{% endblock %}
 			<!-- Footer -->
 			<footer
-				class="page-footer font-small indigo colorBG-DBDEE5Cdtk">
+				class="page-footer font-small indigo bottom-corner colorBG-DBDEE5Cdtk">
 
 				<!-- Footer Links -->
 				<div

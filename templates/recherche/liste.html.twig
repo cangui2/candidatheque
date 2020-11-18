@@ -4,103 +4,100 @@
 {% endblock %}
 
 {% block body %}
-	<body>
-			<div class="col-lg-8 mt-4" style="margin:auto">
-				<form class="bg-light rounded mt-5 mx-5 mb-lg-5 pt-4 pb-1 px-5">
-				<div class="row">
-					<div class="col-6 form-group" id="root">
-						<label class="mb-0" for="rechercheInput1">Profession</label>
-						<input type="email" class="form-control form-control-sm" id="rechercheInput1">
-					</div>
-					<div class="col-6 form-group">
-						<label class="mb-0" for="rechercheInput2">Lieu</label>
-						<input type="password" class="form-control form-control-sm" id="rechercheInput2">
-					</div>
-					<div class="col-6 form-group">
-						<label class="mb-0" for="rechercheInput3">Secteur</label>
-						<input type="email" class="form-control form-control-sm" id="rechercheInput3">
-					</div>
-					<div class="col-6 form-group">
-						<label class="mb-0" for="rechercheInput4">Type de contrat</label>
-						<input type="email" class="form-control form-control-sm" id="rechercheInput4">
-					</div>
-					<div class="col-12 rech text-right">
-						<button type="submit" class="btn color-3E68D4 mt-1">Rechercher des offres</button>
-					</div>
-				</div>
+<body>
+<div class="col-lg-10 col-sm-12 mt-4" style="margin:auto">
+	<form class="bg-light rounded mt-5 mx-5 mb-4 mb-lg-5 pt-4 pb-1 px-5">
+	
+	<div class="row">
+		<div class="col-sm-6 form-group" id="root">
+			<label class="mb-0" for="rechercheInput1">Profession</label>
+			<input type="email" class="form-control form-control-sm" id="rechercheInput1">
+		</div>
+		<div class="col-sm-6 form-group">
+			<label class="mb-0" for="rechercheInput2">Lieu</label>
+			<input type="password" class="form-control form-control-sm" id="rechercheInput2">
+		</div>
+		<div class="col-sm-6 form-group">
+			<label class="mb-0" for="rechercheInput3">Secteur</label>
+			<input type="email" class="form-control form-control-sm" id="rechercheInput3">
+		</div>
+		<div class="col-sm-6 form-group">
+			<label class="mb-0" for="rechercheInput4">Type de contrat</label>
+			<input type="email" class="form-control form-control-sm" id="rechercheInput4">
+		</div>
+		<div class="col-12 rech text-right">
+			<button type="submit" class="btn color-3E68D4 mt-1">Rechercher des offres <i class="fa fa-search" aria-hidden="true"></i></button>
+		</div>
+	</div>
 
-<form>
-<div class="row my-4">
-  <div class="form-group col-3">
-    <label for="exampleFormControlSelect1">Métiers</label>
-    <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
-	 </div>
-	   <div class="form-group form-group-sm col-3">
-    <label for="exampleFormControlSelect1">Ville</label>
-    <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
-	 </div>
-	   <div class="form-group form-group-sm col-3">
-    <label for="exampleFormControlSelect1">Type de contrat</label>
-    <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
-	 </div>
-	   <div class="form-group form-group-sm col-3">
-    <label for="exampleFormControlSelect1">Date de publication</label>
-    <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
-	 </div>
-  </div>
+	<form>
+	<div class="row my-4">
+		<div class="form-group col-lg-3 col-md-6">
+			<label for="exampleFormControlSelect1">Secteur d'activité</label>
+				<select class="form-control form-control-sm" id="exampleFormControlSelect1">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				</select>
+		</div>
+		<div class="form-group col-lg-3 col-md-6">
+			<label for="exampleFormControlSelect1">Ville</label>
+				<select class="form-control form-control-sm" id="exampleFormControlSelect1">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				</select>
+		</div>
+		<div class="form-group col-lg-3 col-md-6">
+			<label for="exampleFormControlSelect1">Type de contrat</label>
+				<select class="form-control form-control-sm" id="exampleFormControlSelect1">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				</select>
+		</div>
+		<div class="form-group col-lg-3 col-md-6">
+			<label for="exampleFormControlSelect1">Date de publication</label>
+				<select class="form-control form-control-sm" id="exampleFormControlSelect1">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				</select>
+		</div>
+	</div>
+	</form>
+
 </form>
-
-
-				</form>
-			</div>
-
-
-
-
+</div>
 
 <div class="container">
-<div class="card-deck mb-5">
-	<div class="card" style="width: 18rem; overflow: hidden; ">
-		<div class="card-body bg-light">
-			<h5 class="card-title border-bottom pb-2">Offre</h5>
-			<p class="card-text">Réf :</p>
-			<p class="card-text">Publié le :</p>
-			<p class="card-text">Type de contrat :</p>
-			<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-			<a href="{{ path('recherche_details') }}" class="btn btn-primary">Voir l'offre</a>
+	<div class="card-deck mb-5">
+		<div class="card bg-light" style="overflow: hidden;">
+			<div class="card-body">
+				<h5 class="card-title border-bottom pb-2">Offre</h5>
+				<p class="card-text">Réf :</p>
+				<p class="card-text">Publié le :</p>
+				<p class="card-text">Type de contrat :</p>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+				<a href="{{ path('recherche_details') }}" class="btn btn-primary">Voir l'offre</a>
+			</div>
 		</div>
-	</div>
-		<div class="card bg-light" style="width: 18rem;">
-		<div class="card-body">
-			<h5 class="card-title border-bottom pb-2">Offre</h5>
-			<p class="card-text">Réf :</p>
-			<p class="card-text">Publié le :</p>
-			<p class="card-text">Type de contrat :</p>
-			<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-			<a href="{{ path('recherche_details') }}" class="btn btn-primary">Voir l'offre</a>
+		<div class="card bg-light">
+			<div class="card-body">
+				<h5 class="card-title border-bottom pb-2">Offre</h5>
+				<p class="card-text">Réf :</p>
+				<p class="card-text">Publié le :</p>
+				<p class="card-text">Type de contrat :</p>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+				<a href="{{ path('recherche_details') }}" class="btn btn-primary">Voir l'offre</a>
+			</div>
 		</div>
-	</div>
 	</div>
 </div>
-	</body>
+
+</body>
 {% endblock %}

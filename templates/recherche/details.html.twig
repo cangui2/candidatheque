@@ -7,19 +7,23 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+<body>
+    <div class="card" style="margin:auto;">
+      <div class="card-body">
+        <h1 class="card-title">Offre n°</h1>
+        <h2 class="card-text">Détails d'une offre.</h2>
+        <h2 class="card-text">Publiée le : </h2>
+        <h2 class="card-text">Type de contrat : </h2>
+        <h2 class="card-text">Profil : </h2>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+        <h2 class="card-text">Mission : </h2>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+        <a href="/" class="btn btn-primary">Postuler</a>
+      </div>
+    </div>
+</body>
 
-
-	<div class="card" style="width: 18rem;">
-		<div class="card-body">
-			<h5 class="card-title">Offre</h5>
-			<p class="card-text">Réf :</p>
-			<p class="card-text">Publié le :</p>
-			<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-			<a href="{{ path('recherche_details') }}" class="btn btn-primary">Postuler</a>
-		</div>
-	</div>
-
-<div class="example-wrapper">
+{#<div class="example-wrapper">
 
     <h1>Hello Page de détail d'une offre {{ controller_name }}! ✅</h1>
 
@@ -28,17 +32,5 @@
         <li>Your controller at <code><a href="{{ 'C:/Users/AURIOR2/Desktop/candidatheque/src/Controller/RechercheController.php'|file_link(0) }}">src/Controller/RechercheController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/Users/AURIOR2/Desktop/candidatheque/templates/recherche/details.html.twig'|file_link(0) }}">templates/recherche/details.html.twig</a></code></li>
     </ul>
-
-    <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Offre n°</h5>
-    <p class="card-text">Détails d'une offre.</p>
-    <p class="card-text">Publiée le : </p>
-    <p class="card-text">Type de contrat : </p>
-    <p class="card-text">Profil : </p>
-    <p class="card-text">Mission : </p>
-    <a href="/" class="btn btn-primary">Postuler</a>
-  </div>
-</div>
-</div>
+</div>#}
 {% endblock %}

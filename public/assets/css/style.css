@@ -39,7 +39,11 @@
 /* Custom radius */
 
 .navigation-corner{
-    border-radius: 0px 0px 20px 0px;
+    border-radius: 0px 0px 30px 0px;
+    }
+
+.bottom-corner{
+    border-radius: 0px 30px 0px 0px;
     }
 
 .candidat-corner{
@@ -140,14 +144,14 @@
 .image-background{
     background-size  : 100% auto;
     background-repeat: no-repeat;
-    margin-top       : -20px;
+    margin-top       : -30px;
 }
 
 .image-background-thin{
     background-size  : 100% auto;
     background-repeat: no-repeat;
     height           : 300px;
-    margin-top       : -20px;
+    margin-top       : -30px;
 }
 
 #menu a{
