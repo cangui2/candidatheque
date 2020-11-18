@@ -1,6 +1,73 @@
 {% extends 'base.html.twig' %}
 
+{%  block stylesheets %}
+<style>
+    .active {
+        background-color: #f8f9fa!important;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2   mt-5 " >
+                <ul class="nav nav-fill nav-tabs " role="tablist" >
+                    <li class="nav-item" >
+                        <a class="nav-link  active" data-toggle="tab" href="#login">Se connecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " data-toggle="tab" href="#register">Vous n'avez pas de compte</a>
+                    </li>
+                </ul>
+                <div class="tab-content" >
+                    <div class="tab-pane active bg-white" id="login" >
+                        <form class=" mb-4 mb-lg-5 py-4" method="post" action="{{ path('login') }}">
+                            <div class="form-group mx-5">
+{#                                <label class="mb-0" for="rechercheInput1">Profession</label>#}
+                                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                            </div>
+                            <div class="form-group mx-5">
+{#                                <label class="mb-0" for="rechercheInput2">Lieu</label>#}
+                                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+                            </div>
+
+                            <div class="rech text-right">
+                                <input type="checkbox" id="remember_me" name="_remember_me" />
+                                <label for="remember_me"><h6>Se souvenir de moi</h6></label>
+                                <button type="submit" class="btn color-3E68D4 mt-1 mx-5">Se connecter</button>
+
+                            </div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        </form>
+                    </div>
+                    <div class="tab-pane bg-white " id="register"  >
+                        <form class=" mb-4 mb-lg-5 py-4">
+                            <div class="form-group mx-5">
+                                <label class="mb-0" for="rechercheInput1">Profession2</label>
+                                <input type="text" class="form-control form-control-sm" id="rechercheInput1">
+                            </div>
+                            <div class="form-group mx-5">
+                                <label class="mb-0" for="rechercheInput2">Lieu2</label>
+                                <input type="text" class="form-control form-control-sm" id="rechercheInput2">
+                            </div>
+                            <div class="form-group mx-5">
+                                <label class="mb-0" for="rechercheInput3">Secteur2</label>
+                                <input type="text" class="form-control form-control-sm" id="rechercheInput3">
+                            </div>
+                            <div class="form-group mx-5">
+                                <label class="mb-0" for="rechercheInput4">Type de contrat2</label>
+                                <input type="text" class="form-control form-control-sm" id="rechercheInput4">
+                            </div>
+                            <div class="rech text-right">
+                                <button type="submit" class="btn color-3E68D4 mt-1 mx-5">Rechercher des offres</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="text-center"><a href="{{ path("candidat_inscription") }}">Inscription</a></div>
     <div class="text-center"><a href="{{ path("app_login") }}">Connexion</a></div>
 

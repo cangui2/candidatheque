@@ -14,7 +14,7 @@ class EntrepriseController extends AbstractController
     public function index(): Response
     {
         return $this->render('entreprise/espace_entreprise.html.twig', [
-            'controller_name' => 'EntrepriseController',
+            'error' => null
         ]);
     }
 }
