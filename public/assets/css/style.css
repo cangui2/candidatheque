@@ -46,6 +46,17 @@
     border-radius   : 6px 0px 0px 0px;
     background-color: #3E68D4;
     }
+
+.candidat-corner1{
+    border-radius   : 6px 0px 0px 0px;
+    color        : #3E68D4;
+    border-color : #3E68D4;
+}
+
+.candidat-corner2{
+    border-radius   : 0px 0px 6px 0px;
+    background-color: #3E68D4;
+}
     
 .entreprise-corner{
     border-radius: 0px 0px 6px 0px;
