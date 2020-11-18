@@ -197,6 +197,9 @@
     color: #3E68D4;
     }
 
+.no-border{
+    border: 0px;
+}
 
 .inscrp{
     display: none;
@@ -222,7 +225,6 @@
 .colorBG-3E68D4Cdtk{
     background-color: #3E68D4;
 }
-
 
 /* .container-fluid {
     min-height: 20px;
