@@ -113,7 +113,5 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{ asset('/assets/js/f1.js') }}"></script>
-	<script src="{{ asset('/assets/js/f2.js') }}"></script>
-	<script src="{{ asset('/assets/js/f3.js') }}"></script>
+	{{ encore_entry_script_tags('react_recherche') }}
 {% endblock %}
