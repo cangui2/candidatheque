@@ -61,6 +61,17 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4">
+            {{ form_row(offreForm.ville) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(offreForm.departement) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(offreForm.region) }}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             {{ form_row(offreForm.urgent) }}
         </div>
@@ -87,25 +98,8 @@
     <script>
 
          $(document).ready(function(){
-        //     $.datepicker.regional['fr'] = {
-        //         days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-        //         daysShort: ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."],
-        //         daysMin: ["D", "L", "Ma", "Me", "J", "V", "S"],
-        //         months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-        //         monthsShort: ["Janv.", "Févr.", "Mars", "Avril", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct.", "Nov.", "Déc."],
-        //         today: "Aujourd'hui",
-        //         monthsTitle: "Mois",
-        //         prevText: 'Précédent',
-        //         nextText: 'Suivant',
-        //         clear: "Effacer",
-        //         weekStart: 1,
-        //         calendarWeeks: true,
-        //         weekHeader: 'Sem.',
-        //         format: "dd/mm/yyyy",
-        //     };
-            //$.datepicker.setDefaults($.datepicker.regional['fr']);
-            console.log($.datepicker.regional['fr']);
 
+            console.log($.datepicker.regional['fr']);
 
             $('.js-datepicker').datepicker({
                 monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
@@ -116,7 +110,8 @@
                 orientation: 'bottom right',
                 autoclose: true,
                 dateFormat: "dd/mm/yy",
-                firstDay: 1
+                firstDay: 1,
+                minDate: 'today'
             });
         });
 
@@ -137,4 +132,30 @@
 
 
     </script>
+    <script>
+        var $region = $('#offre_region');
+        // When region gets selected ...
+        $region.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected region value.
+            var data = {};
+            data[$region.attr('name')] = $region.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    // Replace current position field ...
+                    $('#offre_departement').replaceWith(
+                        // ... with the returned one from the AJAX response.
+                        $(html).find('#offre_departement')
+                    );
+                    // Departement field now displays the appropriate departements.
+                }
+            });
+        });
+    </script>
+
 {% endblock %}

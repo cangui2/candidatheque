@@ -23,7 +23,7 @@ $this->entityManager = $entityManager;
 */
 public function transform($metier)
 {
-    dd($metier);
+//    dd($metier);
 
     if (null === $metier) {
     return '';

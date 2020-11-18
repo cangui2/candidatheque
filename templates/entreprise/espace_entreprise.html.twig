@@ -1,6 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="text-center"><a href="{{ path("entreprise_inscription") }}">Inscription</a></div>
-    <div class="text-center"><a href="{{ path("app_login") }}">Connexion</a></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% for label, messages in app.flashes(['info', 'success']) %}
+                    {% for message in messages %}
+                        <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="text-center"><a href="{{ path("entreprise_inscription") }}">Inscription</a></div>
+        <div class="text-center"><a href="{{ path("app_login") }}">Connexion</a></div>
+    </div>
+
 {% endblock %}

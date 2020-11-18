@@ -62,9 +62,11 @@ class OffreController extends AbstractController
         $entreprise = $this->security->getUser()->getRecruteur()->getEntreprise();
 
         $offreForm->handleRequest($request);
-//        dd($offre);
+
 
         if($offreForm->isSubmitted() && $offreForm->isValid()){
+
+//            dd($offre);
 
             $offre->setRecruteur($recruteur);
             $offre->setEntreprise($entreprise);
@@ -74,7 +76,7 @@ class OffreController extends AbstractController
             $this->addFlash('success', 'Publication réussie! Votre offre est dès à présent consultable sur notre site.');
 
 //            TODO
-            return $this->redirectToRoute('/entreprise/offre_creation');
+            return $this->redirectToRoute('espace_entreprise');
         }
 
         return $this->render('offre/offre_creation.html.twig', [
