@@ -1,20 +1,55 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_entreprise.html.twig' %}
 
 {% block body %}
-    <div class="container">
+
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                {% for label, messages in app.flashes(['info', 'success']) %}
-                    {% for message in messages %}
-                        <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
+            <div class="col-sm-9 col-md-7 col-lg-4 mx-auto">
+                <div class="card card-signin my-5" style="background-color: #f8f9fa">
+                    <div class="card-body">
+                        <h5 class="card-title text-left p-1">Connexion</h5>
+                        <form class=" mb-4 mb-lg-5 py-4" method="post" action="{{ path('login') }}">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+                            {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
+                                {% for message in messages %}
+                                    <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    Vous êtes déjà connecté. <a href="{{ path('app_logout') }}">Déconnexion</a>
+                                </div>
+                            {% endif %}
+
+                            <div class="form-group ">
+                                {# <label class="mb-0" for="rechercheInput1">Profession</label> #}
+                                <input type="email" name="email" id="inputEmail" class="form-control"
+                                       placeholder="Email" required autofocus>
+                            </div>
+                            <div class="form-group ">
+                                {# <label class="mb-0" for="rechercheInput2">Lieu</label> #}
+                                <input type="password" name="password" id="inputPassword" class="form-control"
+                                       placeholder="Mot de passe" required>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3 ">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Se souvenir de moi </label>
+                            </div>
+                            <button class="btn  btn-primary btn-block text-uppercase " type="submit">Se connecter
+                            </button>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <hr>
+                            <div class="text-center"><a href="{{ path("entreprise_inscription") }}">Vous n'avez pas encore de compte, inscrivez-vous !</a></div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="text-center"><a href="{{ path("entreprise_inscription") }}">Inscription</a></div>
-        <div class="text-center"><a href="{{ path("app_login") }}">Connexion</a></div>
     </div>
-
 {% endblock %}

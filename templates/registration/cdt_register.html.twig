@@ -2,51 +2,47 @@
 
 {% block title %}{% endblock %}
 
+{% block stylesheets %}
+<style>
+    .form-group .col-sm-2 {
+        /*display: none;*/
+    }
+
+</style>
+{%  endblock %}
+
 {% block body %}
-<div class="container">
+<div class="container-fluid mb-5">
     <div class="row">
-        <div class="col-md-6 mb-5 mt-5" style="margin:auto; text-align: center;">
-            <h3 class="text-center">Inscription</h3>
+        <div class=" col-md-9 col-lg-7 mx-auto">
+            <div class="card card-signin my-5" style="background-color: #f8f9fa">
+                <div class="card-body">
+                    <h5 class="card-title text-left p-1">Inscription</h5>
 {#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
-        </div>
-    </div>
     {{ form_start(regForm, {'attr': {'novalidate': 'novalidate'}}) }}
-    <div class="row">
-        <div class="col-md-6 mb-3 mt-3" style="margin:auto; text-align: center;">
+    <div class="form-group">
             {{ form_errors(regForm) }}
-        </div>
     </div>
-    <div class="row">
-        <div class="col-md-6" style="margin:auto">
-            {{ form_row(regForm.nom) }}
-        </div>
+    <div class="form-group">
+            {{ form_widget(regForm.nom) }}
     </div>
-    <div class="row">
-        <div class="col-md-6" style="margin:auto">
-            {{ form_row(regForm.prenom) }}
-        </div>
+    <div class="form-group">
+            {{ form_widget(regForm.prenom) }}
     </div>
-    <div class="row">
-        <div class="col-md-6" style="margin:auto">
-            {{ form_row(regForm.email) }}
-        </div>
+    <div class="form-group">
+            {{ form_widget(regForm.email) }}
     </div>
-    <div class="row">
-        <div class="col-md-6" style="margin:auto">
-            {{ form_row(regForm.plainPassword) }}
-        </div>
+    <div class="form-group">
+            {{ form_widget(regForm.plainPassword) }}
     </div>
-    <div class="row">
-        <div class="col-md-6" style="margin:auto">
-            {{ form_row(regForm.agreeTerms) }}
-        </div>
+    <div class="form-group">
+            {{ form_widget(regForm.agreeTerms) }}
     </div>
-    <div class="row">
-        <div class="col-md-2 mb-2 text-center" style="margin:auto;">
-            <button  type="submit" id="signup_button" class="btn btn-lg btn-light">Valider</button>
-        </div>
+    <div class="form-group">
+            <button  type="submit" id="signup_button" class="btn  btn-primary btn-block text-uppercase">Valider</button>
     </div>
 
     {{ form_end(regForm) }}
 </div>
 {% endblock %}
+

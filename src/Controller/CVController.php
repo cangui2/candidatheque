@@ -6,15 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class EntrepriseController extends AbstractController
+class CVController extends AbstractController
 {
     /**
-     * @Route("/entreprise/espace_entreprise", name="espace_entreprise")
+     * @Route("/cv", name="c_v")
      */
     public function index(): Response
     {
-        return $this->render('entreprise/espace_entreprise.html.twig', [
-            'error' => null
+        return $this->render('cv/index.html.twig', [
+            'controller_name' => 'CVController',
         ]);
     }
 }
