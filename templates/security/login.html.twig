@@ -4,68 +4,105 @@
 
 {% block body %}
 <body>
+
 <div class="container">
-<div class="row">
-    <div class="col-md-6 offset-3 bg-light rounded my-4 py-2">
-            <div class="col-md-12 my-5" style="margin:auto; text-align: center;">
-        <div class="row">
-        <div class="col-md-6 barre">
-            <h3 class="text-center">Créer mon compte</h3>
-            </div>
-            <div class="col-md-6 barre">
-            <h3 class="text-center">Me connecter</h3>
-            </div>
-            </div>
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
-        {% for message in messages %}
-            <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+<div class="d-flex justify-content-around">
+            <div class="w-50 bg-light rounded my-5 py-2" style="text-align: center;">
+                <nav>
+                <div class="nav mb-3 d-flex justify-content-around" id="pills-tab" role="tablist">
+                    <a class="nav-link barre-log what active h4" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Me connecter</a>
+                    <a class="nav-link barre-log what h4" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Créer un compte</a>
+                </div>
+                </nav>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
+                        {% for message in messages %}
+                            <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            Vous êtes déjà connecté. <a href="{{ path('app_logout') }}">Déconnexion</a>
-        </div>
-    {% endif %}
+                    {% if app.user %}
+                        <div class="mb-3">
+                            Vous êtes déjà connecté. <a href="{{ path('app_logout') }}">Déconnexion</a>
+                        </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-6 mb-4" style="margin:auto;">
+                            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4" style="margin:auto;">
+                            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <div class="row">
+                        <div class="col-md-4 mb-5 text-center" style="margin:auto;">
+                            <button class="btn btn-lg btn-light" type="submit" id="login">
+                                Se connecter
+                            </button><br><br>
+                            <input type="checkbox" id="remember_me" name="_remember_me" />
+                            <label for="remember_me"><h6>Se souvenir de moi</h6></label><br><br>
+                {#            <a class="btn btn-outline-light" role="button"  href="{{ path('app_forgotten_password') }}"><h6>Mot de passe oublié ?</h6></a>#}
+                        </div>
+                    </div>
+                </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                           {{ form_start(regForm, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row">
-        <div class="col-md-6 mb-5 mt-5" style="margin:auto; text-align: center;">
-            <h2 class="h3 mb-3 font-weight-normal text-center" id="login_title">Espace de connexion</h2>
+        <div class="col-md-10 mb-3 mt-3" style="text-align: center;">
+            {{ form_errors(regForm) }}
         </div>
     </div>
-    <div class=row">
-        <div class="col-md-6 mb-4" style="margin:auto;">
-            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+    <div class="row">
+        <div class="col-md-10" >
+            {{ form_row(regForm.nom) }}
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 mb-4" style="margin:auto;">
-            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+        <div class="col-md-10">
+            {{ form_row(regForm.prenom) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            {{ form_row(regForm.email) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            {{ form_row(regForm.plainPassword) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            {{ form_row(regForm.agreeTerms) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 mb-2 text-right">
+            <button  type="submit" id="signup_button" class="btn btn-lg btn-primary">Valider</button>
         </div>
     </div>
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-    <div class="row">
-        <div class="col-md-4 mb-5 text-center" style="margin:auto;">
-            <button class="btn btn-lg btn-light" type="submit" id="login">
-                Se connecter
-            </button><br><br>
-            <input type="checkbox" id="remember_me" name="_remember_me" />
-            <label for="remember_me"><h6>Se souvenir de moi</h6></label><br><br>
-{#            <a class="btn btn-outline-light" role="button"  href="{{ path('app_forgotten_password') }}"><h6>Mot de passe oublié ?</h6></a>#}
-        </div>
-    </div>
-</form>
-    </div>
+    {{ form_end(regForm) }}
+                    </div>
+                </div>
             </div>
-    </div>
-    </div>
+</div>
+</div>
+
     <div class="container">
         <div class="card-deck my-5">
                 <div class="card bg-light px-3 pt-2">

@@ -1,34 +1,40 @@
 /* Global style */
 
 .color-principale1 {
-    color: #555555;
+    color: #3E68D4;
 }
 
 .color-principale2 {
-    color: #555555;
+    color: #6F7A95;
 }
 
 .color-principale3 {
-    color: #555555;
+    color: #C4A2FC;
 }
 
 .bg-color-principale1 {
-    background-color: blue;
+    background-color: #3E68D4;
 }
 
 .bg-color-principale2 {
-    background-color: blue;
+    background-color: #6F7A95;
 }
 
 .bg-color-principale3 {
-    background-color: blue;
+    background-color: #C4A2FC;
 }
 
-
-.titre1 {
-
+.titre1{
+    font-size: x-large;
 }
 
+.titre2{
+    font-size: medium;
+}
+
+.titre3{
+    font-size: small;
+}
 .button1 {
     
 }
@@ -72,6 +78,9 @@
     border-radius: 0px 0px 10px 0px;
 }
 
+.test{
+    height: 45px;
+}
 /* Custom margin menu */
 
 .margin-navbar {
@@ -110,11 +119,15 @@
     width: 200px;
 }
 
-.barre{
+.what.active {
     border-bottom-color: #C4A2FC;
+  }
+
+
+.barre-log{
+    border-bottom-color: #6F7A95;
     border-bottom-style: solid;
     border-bottom-width: 4px;
-    width: 200px;
 }
 
 .barre-pro:hover{
