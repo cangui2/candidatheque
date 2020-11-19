@@ -94,7 +94,8 @@ class RegistrationController extends AbstractController
 
             return $this->render('registration/cdt_register.html.twig', [
                 'regForm' => $regForm->createView(),
-                'route' => $route
+                'route' => $route,
+               
             ]);
 //            TODO vérif entreprise->employé avant activation de compte
 

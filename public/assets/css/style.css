@@ -24,6 +24,10 @@
     background-color: #C4A2FC;
 }
 
+.bg-color-secondaire1{
+    background-color: #DBDEE5;
+}
+
 .titre1{
     font-size: x-large;
 }
@@ -78,7 +82,9 @@
     border-radius: 0px 0px 10px 0px;
 }
 
-.test{
+
+/* Forme bouton profil */
+.cube{
     height: 45px;
 }
 /* Custom margin menu */
@@ -238,10 +244,6 @@
 
 .colorTxt-3E68D4Cdtk{
     color: #3E68D4;
-}
-
-.colorBG-DBDEE5Cdtk{
-    background-color: #DBDEE5;
 }
 
 .colorTxt-aliceblueCdtk{
