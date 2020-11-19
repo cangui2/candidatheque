@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+<body>
 
 <div class="container">
 	<form class="bg-light rounded mt-5 mb-4 mb-lg-5 pt-4 pb-1 px-5">
@@ -98,4 +99,9 @@
 	</div>
 </div>
 
+	</body>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('react_recherche') }}
 {% endblock %}

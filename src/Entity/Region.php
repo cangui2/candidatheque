@@ -44,11 +44,17 @@ class Region
      */
     private $departements;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="region")
+     */
+    private $offres;
+
     public function __construct($code, $nom)
     {
         $this->id = $code;
         $this->nom = $nom;
         $this->departements = new ArrayCollection();
+        $this->offres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,36 @@ class Region
             // set the owning side to null (unless already changed)
             if ($departement->getRegion() === $this) {
                 $departement->setRegion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Offre[]
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offre $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->setRegion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offre $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getRegion() === $this) {
+                $offre->setRegion(null);
             }
         }
 

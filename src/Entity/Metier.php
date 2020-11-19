@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MetierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=MetierRepository::class)
+ * @ORM\Table(indexes={@ORM\Index(name="search_idx1", columns={"libelle"})})
  * @ApiResource(
  *     collectionOperations={
  *                          "get"={},
@@ -25,6 +29,15 @@ use Doctrine\ORM\Mapping as ORM;
 
  *                 }
  * )
+ * @ApiFilter(
+ *       SearchFilter::class,
+ *       properties={
+ *              "libelle": "partial",
+ *              "rome": "exact"
+ *
+ *                  })
+ *
+ * )
  */
 class Metier
 {
@@ -37,6 +50,7 @@ class Metier
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read"})
      */
     private $libelle;
 
@@ -54,6 +68,7 @@ class Metier
 
     /**
      * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="metiers")
+     * @Groups({"read"})
      */
     private $rome;
 

@@ -1,0 +1,11 @@
+{
+  "build/cv.css": "/build/cv.css",
+  "build/cv.js": "/build/cv.js",
+  "build/react_recherche.js": "/build/react_recherche.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/vendors~cv.css": "/build/vendors~cv.css",
+  "build/vendors~cv.js": "/build/vendors~cv.js",
+  "build/vendors~cv~react_recherche.js": "/build/vendors~cv~react_recherche.js",
+  "build/vendors~react_recherche.css": "/build/vendors~react_recherche.css",
+  "build/vendors~react_recherche.js": "/build/vendors~react_recherche.js"
+}

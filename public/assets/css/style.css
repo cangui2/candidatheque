@@ -173,6 +173,13 @@
     margin-top       : -30px;
 }
 
+.image-background-thin{
+    background-size  : 100% auto;
+    background-repeat: no-repeat;
+    height           : 300px;
+    margin-top       : -20px;
+}
+
 #menu a{
     color: #3E68D4;
 }

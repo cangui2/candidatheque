@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\CandidatRegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,10 +14,14 @@ class CandidatController extends AbstractController
     /**
      * @Route("/candidat/espace_candidat", name="espace_candidat")
      */
-    public function espaceCandidat(): Response
+    public function espaceCandidat(Request $request): Response
     {
+        $user = new User();
+        $regForm = $this->createForm(CandidatRegistrationFormType::class, $user);
+        $regForm->handleRequest($request);
+
         return $this->render('candidat/espace_candidat.html.twig', [
-            'controller_name' => 'CandidatController',
+            'regForm' => $regForm->createView()
         ]);
     }
 }
