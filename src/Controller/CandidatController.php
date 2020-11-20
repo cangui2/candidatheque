@@ -24,4 +24,13 @@ class CandidatController extends AbstractController
             'regForm' => $regForm->createView()
         ]);
     }
+
+    /**
+     * @Route("/candidat/dashboard", name="dashboard_candidat")
+     */
+    public function dashboard(): Response {
+
+
+        return $this->render('candidat/dashboard_candidat.html.twig');
+    }
 }

@@ -60,7 +60,7 @@ public function reverseTransform($libelle)
     // causes a validation error
     // this message is not shown to the user
     // see the invalid_message option
-    throw new TransformationFailedException(sprintf('Pas de métier!', $libelle
+    throw new TransformationFailedException(sprintf('Aucun métier ne correspond à votre saisie!', $libelle
     ));
 }
 

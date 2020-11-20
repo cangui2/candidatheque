@@ -5,11 +5,16 @@ namespace App\Form;
 use App\Entity\Departement;
 use App\Entity\Metier;
 use App\Entity\Offre;
+use App\Entity\Pays;
 use App\Entity\Region;
 use App\Entity\Ville;
 use App\Entity\TypeContrat;
+use App\Form\DataTransformer\DepartementToStringTransformer;
 use App\Form\DataTransformer\MetierToStringTransformer;
-use App\Form\EventListener\AddDepartementFieldSubscriber;
+use App\Form\DataTransformer\RegionToStringTransformer;
+use App\Form\DataTransformer\VilleToStringTransformer;
+use App\Repository\PaysRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -20,20 +25,24 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\EventListener\AddRegionFieldSubscriber;
 
 
 class OffreType extends AbstractType
 {
-    private $transformer;
+    private $mTransformer;
+    private $rTransformer;
+    private $dTransformer;
+    private $vTransformer;
+    private $em;
 
-    public function __construct(MetierToStringTransformer $transformer)
+    public function __construct(MetierToStringTransformer $mTransformer, RegionToStringTransformer $rTrasformer, DepartementToStringTransformer $dTransformer, VilleToStringTransformer $vTransformer, EntityManagerInterface $em)
     {
-        $this->transformer = $transformer;
+        $this->mTransformer = $mTransformer;
+        $this->rTransformer = $rTrasformer;
+        $this->dTransformer = $dTransformer;
+        $this->vTransformer = $vTransformer;
+        $this->em = $em;
     }
 
 
@@ -42,15 +51,18 @@ class OffreType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'required' => false,
-                'label' => "Intitulé de l'offre"
+                'label' => "Intitulé de l'offre",
+                'error_bubbling' => true
             ])
 //            ->add('datePublication', DateType::class)
             ->add('description', TextareaType::class, [
-                'label' => "Description de l'offre"
+                'label' => "Description de l'offre",
+                'error_bubbling' => true
             ])
             ->add('salaire', NumberType::class, [
                 'label' => 'Salaire',
-                'required' => false
+                'required' => false,
+                'error_bubbling' => true
             ])
             ->add('dateDebut', DateType::class, [
                 'label' => 'De...',
@@ -58,23 +70,28 @@ class OffreType extends AbstractType
                 'html5' => false,
                 'attr' => ['class' => 'form-control js-datepicker'],
                 'format' => 'dd/mm/yyyy',
+                'required' => false,
+                'error_bubbling' => true
             ])
             ->add('dateFin', DateType::class, [
                 'label' => "Jusqu'à...",
                 'widget' => 'single_text',
                 'html5' => false,
                 'attr' => ['class' => 'form-control js-datepicker'],
-                'format' => 'dd/mm/yyyy'
+                'format' => 'dd/mm/yyyy',
+                'required' => false,
+                'error_bubbling' => true
             ])
             ->add('duree', TextType::class, [
                 'label' => 'Durée',
-                'required' => false
+                'required' => false,
+                'error_bubbling' => true
             ])
             ->add('possibiliteCDI', ChoiceType::class, [
                 'label' => 'Possibilité CDI',
                 'choices' => [
                     'Oui' => true,
-                    'Non' => false
+                    'Non' => false,
                 ],
                 'label_attr' => [
                     'class' => 'radio-inline'
@@ -82,7 +99,8 @@ class OffreType extends AbstractType
                 'required' => false,
                 'expanded' => true,
                 'multiple' => false,
-                'placeholder' => false
+                'placeholder' => false,
+                'error_bubbling' => true
             ])
             ->add('urgent', ChoiceType::class, [
                 'label' => 'Urgent',
@@ -96,10 +114,12 @@ class OffreType extends AbstractType
                 'required' => false,
                 'expanded' => true,
                 'multiple' => false,
-                'placeholder' => false
+                'placeholder' => false,
+                'error_bubbling' => true
             ])
             ->add('profil', TextareaType::class, [
                 'label' => 'Profil requis',
+                'error_bubbling' => true
             ])
             ->add('metier', TextType::class, [
 //                'class' => Metier::class,
@@ -107,7 +127,8 @@ class OffreType extends AbstractType
 //                'choice_label' => 'libelle',
 //                'expanded' => false,
 //                'placeholder' => 'Sélectionnez un métier',
-                'required' => true
+                'required' => true,
+                'error_bubbling' => true
             ])
             ->add('type', EntityType::class, [
                 'class' => TypeContrat::class,
@@ -115,68 +136,90 @@ class OffreType extends AbstractType
                 'choice_label' => 'libelle',
                 'expanded' => false,
                 'placeholder' => 'Choisissez le type de contrat',
-                'required' => false
+                'required' => false,
+                'error_bubbling' => true
             ])
-
-            ->add('ville', EntityType::class, [
-                'class' => Ville::class,
-                'label' => 'Ville',
+            ->add('localisation', ChoiceType::class, [
+                'mapped' => false,
+                'label' => 'Lie de travail',
+                'required' => false,
+                'choices' => [
+                    'France' => 1,
+                    'Etranger' => 2
+                ],
+                'label_attr' => [
+                    'class' => 'radio-inline'
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'placeholder' => false,
+                'error_bubbling' => true
+            ])
+            ->add('pays', EntityType::class, [
+                'class' => Pays::class,
+                'label' => 'Pays',
                 'choice_label' => 'nom',
                 'expanded' => false,
-                'placeholder' => '',
-                'required' => false
+                'placeholder' => 'Choisissez un pays',
+                'required' => false,
+                'query_builder' => function (PaysRepository $pRepo) {
+                    return $pRepo->createQueryBuilder('p')
+                        ->andWhere('p.nom <> :nom')
+                        ->setParameter('nom', 'France');
+
+                },
+                'error_bubbling' => true
+            ])
+
+            ->add('ville', TextType::class, [
+//                'class' => Ville::class,
+                'label' => 'Ville',
+//                'choice_label' => 'nom',
+//                'expanded' => false,
+//                'placeholder' => '',
+                'required' => false,
+                'error_bubbling' => true
             ])
 
 //            ->add('recruteur')
 //              ->add('entreprise')
-            ->add('save', SubmitType::class)
 
-            ->add('region', EntityType::class, [
-                'class' => Region::class,
+
+            ->add('region', TextType::class, [
+//                'class' => Region::class,
                 'label' => 'Région',
-                'choice_label' => 'nom',
-                'expanded' => false,
-                'placeholder' => '',
-                'required' => false
-            ]);
-        $formModifier = function (FormInterface $form, Region $region = null) {
-        $departements = null === $region ? array() : $region->getDepartements();
+//                'choice_label' => 'nom',
+//                'expanded' => false,
+//                'placeholder' => '',
+                'required' => false,
+                'error_bubbling' => true
+            ])
 
-            $form->add('departement', EntityType::class, [
-                'class' => Departement::class,
+            ->add('departement', TextType::class, [
+//                'class' => Departement::class,
                 'label' => 'Département',
-                'choice_label' => 'nom',
-                'expanded' => false,
-                'placeholder' => '',
-                'choices' => $departements,
-                'required' => false
+//                'choice_label' => 'nom',
+//                'expanded' => false,
+//                'placeholder' => '',
+                'required' => false,
+                'error_bubbling' => true
+            ])
+            ->add('save', SubmitType::class, [
+                'attr' => ['class' => 'btn-depot'
+
+                ]
             ]);
-        };
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($formModifier) {
-                $data = $event->getData();
-
-                $formModifier($event->getForm(), $data->getRegion());
-            }
-        );
-        $builder->get('region')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) use ($formModifier) {
-                // It's important here to fetch $event->getForm()->getData(), as
-                // $event->getData() will get you the client data (that is, the ID)
-                $region = $event->getForm()->getData();
-
-                // since we've added the listener to the child, we'll have to pass on
-                // the parent to the callback functions!
-                $formModifier($event->getForm()->getParent(), $region);
-            }
-        );
 
 
         $builder->get('metier')
-            ->addModelTransformer($this->transformer);
+            ->addModelTransformer($this->mTransformer);
+        $builder->get('departement')
+            ->addModelTransformer($this->dTransformer);
+        $builder->get('region')
+            ->addModelTransformer($this->rTransformer);
+        $builder->get('ville')
+            ->addModelTransformer($this->vTransformer);
+
 
     }
 

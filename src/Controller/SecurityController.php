@@ -47,7 +47,7 @@ class SecurityController extends AbstractController
 
 //            TODO Redirect to candidat dashboard
 
-            return $this->redirectToRoute("espace_candidat");
+            return $this->redirectToRoute("dashboard_candidat");
         }
         elseif($this->get('security.authorization_checker')->isGranted('ROLE_RECRUTEUR')){
 
@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
 //          dd($recruteur->getEntreprise()->getSiret());
 //            TODO Redirect to pro dashboard
 
-            return $this->redirectToRoute("espace_entreprise");
+            return $this->redirectToRoute("dashboard_entreprise");
         }
         return $this->redirectToRoute("home");
     }

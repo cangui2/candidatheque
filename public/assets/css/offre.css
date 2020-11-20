@@ -10,4 +10,40 @@
 label.required:before {
     content: "* " !important;
     color: red;
+
+}
+
+.ui-autocomplete {
+    position: relative !important;
+    overflow-x: hidden;
+    overflow-y: scroll !important;
+    padding:  3px 6px 3px !important;
+    max-width: 58.7vw !important;
+    max-height: 300px;
+}
+
+
+.card {
+    background: transparent;
+    border: 1px;
+}
+.card-body{
+    padding-right: 30px;
+    padding-left: 30px;
+}
+h3 {
+    font-weight: lighter;
+}
+hr{
+    background-color: #1a1a1a;
+}
+
+input {
+    border-radius: .3rem;
+}
+#offre_save{
+    padding: 15px 30px;
+    color: #fff;
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
 }

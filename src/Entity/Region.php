@@ -7,6 +7,7 @@ use App\Repository\RegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RegionRepository::class)
@@ -36,11 +37,13 @@ class Region
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $nom;
 
     /**
      * @ORM\OneToMany(targetEntity=Departement::class, mappedBy="region")
+     * @Groups("read")
      */
     private $departements;
 

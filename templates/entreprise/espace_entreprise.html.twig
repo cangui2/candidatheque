@@ -12,19 +12,6 @@
                             {% if error %}
                                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
-                            {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
-                                {% for message in messages %}
-                                    <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
-                                        {{ message }}
-                                    </div>
-                                {% endfor %}
-                            {% endfor %}
-
-                            {% if app.user %}
-                                <div class="mb-3">
-                                    Vous êtes déjà connecté. <a href="{{ path('app_logout') }}">Déconnexion</a>
-                                </div>
-                            {% endif %}
 
                             <div class="form-group ">
                                 {# <label class="mb-0" for="rechercheInput1">Profession</label> #}
