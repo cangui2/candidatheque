@@ -2,14 +2,51 @@
 
 {% block body %}
 
-    <body>
+<body>
+
+<div class="jumbotron text-right px-4">
+  <h1 class="display-4 color-principale1">RECRUTER ENSEMBLE</h1>
+  <p class="lead">Impedit unde architecto iusto? Natus eum iure architecto corporis tenetur asperiores sunt sed ad labore aspernatur.</p>
+  <hr class="my-4">
+  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt eaque magni error iusto omnis.</p>
+  <a class="btn text-light bg-color-principale1 btn-lg" href="#" role="button">Publier une offre</a>
+</div>
+
+<div class="container">
+    <div class="card-deck my-5">
+        <div class="card border-secondary mb-3">
+        <div class="card-header color-principale1"><h1>1</h1></div>
+        <div class="card-body">
+            <h5 class="card-title">Inscrivez-vous</h5>
+            <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt eaque magni error iusto omnis.</p>
+        </div>
+        </div>
+
+        <div class="card border-secondary mb-3">
+        <div class="card-header color-principale1"><h1>2</h1></div>
+        <div class="card-body text-secondary">
+            <h5 class="card-title">Rédigez votre offre</h5>
+            <p class="card-text">Impedit unde architecto iusto? Natus eum iure architecto corporis tenetur asperiores sunt sed ad labore aspernatur culpa eius at blanditiis temporibus voluptates quos voluptatem harum.</p>
+        </div>
+        </div>
+
+        <div class="card border-secondary mb-3">
+        <div class="card-header color-principale1"><h1>3</h1></div>
+        <div class="card-body text-secondary">
+            <h5 class="card-title">Et publiez-la</h5>
+            <p class="card-text">Labore rem sed dolorum repudiandae porro omnis at optio nihil iure corrupti beatae esse velit, veniam libero quas.</p>
+        </div>
+        </div>
+    </div>
+</div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-9 col-md-7 col-lg-4 mx-auto">
                 <div class="card card-signin my-5" style="background-color: #f8f9fa">
                     <div class="card-body">
-                        <h5 class="card-title text-left p-1">Connexion entreprise</h5>
-                        <form class=" mb-4 mb-lg-5 py-4" method="post" action="{{ path('login') }}">
+                        <h4 class="card-title color-principale1 text-center pt-1">Connexion entreprise</h4>
+                        <form class="mb-3 mb-lg-4 py-3" method="post" action="{{ path('login') }}">
                             {% if error %}
                                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
@@ -42,7 +79,7 @@
                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
                                 <label class="custom-control-label" for="customCheck1">Se souvenir de moi </label>
                             </div>
-                            <button class="btn  btn-primary btn-block text-uppercase " type="submit">Se connecter
+                            <button class="btn text-light bg-color-principale1 btn-block text-uppercase" type="submit">Se connecter
                             </button>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                             <hr>
@@ -54,6 +91,13 @@
         </div>
     </div>
 
+<div class="jumbotron jumbotron-fluid mx-5">
+  <div class="container">
+    <h1 class="display-4 color-principale1">Nos solutions</h1>
+    <p class="lead">Cum provident eius ex fugiat eaque natus, voluptatibus neque, expedita ullam maxime atque quaerat iusto.</p>
+  </div>
+</div>
+
     <div class="container">
     <div class="card-deck my-5">
         <div class="card bg-light px-3 pt-2">
@@ -61,9 +105,9 @@
                 <img class="card-img-top rounded-circle" src="{{ asset("assets/images/blueprint.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
             </div>
             <div class="card-body d-flex flex-column justify-content-between">
-                <h5 class="card-title">Créer mon CV en ligne</h5>
+                <h5 class="card-title">Diffuser des annonces</h5>
                 <p class="card-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <a href="#" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">Créer</a>
+                <a href="#" class="btn text-light bg-color-principale2 zoom-bouton mt-auto">Editer</a>
             </div>
         </div>
         <div class="card bg-light px-3 pt-2">
@@ -71,9 +115,9 @@
                 <img class="card-img-top rounded-circle" src="{{ asset("assets/images/archive.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
             </div>
             <div class="card-body d-flex flex-column justify-content-between">
-                <h5 class="card-title">Déposer mon CV</h5>
+                <h5 class="card-title">Archiver des candidatures</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-                <a href="#" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">Déposer</a>
+                <a href="#" class="btn text-light bg-color-principale2 zoom-bouton mt-auto">Recruter</a>
             </div>
         </div>
 
@@ -82,12 +126,13 @@
                 <img class="card-img-top rounded-circle" src="{{ asset("assets/images/loudspeaker.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
             </div>
             <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Infos et conseils</h5>
+                <h5 class="card-title">Profiter de notre réseau</h5>
                 <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <a href="#" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">S'informer</a>
+                <a href="#" class="btn text-light bg-color-principale2 zoom-bouton mt-auto">S'entourer</a>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 {% endblock %}

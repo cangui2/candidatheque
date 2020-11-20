@@ -39,8 +39,11 @@
 .titre3{
     font-size: small;
 }
-.button1 {
-    
+.box {
+    background-color: #6F7A95;
+    border-radius: 0px 0px 10px 0px;
+    margin: 0;
+    padding: 10px;
 }
 
 
@@ -125,13 +128,13 @@
     width: 200px;
 }
 
-.what.active {
+.presence.active {
     border-bottom-color: #C4A2FC;
   }
 
 
 .barre-log{
-    border-bottom-color: #6F7A95;
+    border-bottom-color: #6F7A9500;
     border-bottom-style: solid;
     border-bottom-width: 4px;
 }
@@ -252,6 +255,10 @@
 
 .colorBG-3E68D4Cdtk{
     background-color: #3E68D4;
+}
+
+.jumbotron-entreprise{
+    margin-top       : -30px;
 }
 
 /* .container-fluid {

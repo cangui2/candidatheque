@@ -4,25 +4,21 @@
 
 {% block stylesheets %}
 <style>
-    .form-group .col-sm-2 {
-        /*display: none;*/
-    }
-
+.form-group .col-sm-2 {
+/*display: none;*/
+}
 </style>
 {%  endblock %}
 
 {% block body %}
 
-
-   
-
-
-<div class="container-fluid mb-5">
-    <div class="row">
-        <div class=" col-md-9 col-lg-7 mx-auto">
+<body>
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-4 mx-auto">
             <div class="card card-signin my-5" style="background-color: #f8f9fa">
                 <div class="card-body">
-                    <h5 class="card-title text-left p-1">Inscription</h5>
+                    <h5 class="card-title text-center p-1">Inscription</h5>
 {#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
     {{ form_start(regForm, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="form-group">
@@ -44,7 +40,7 @@
             {{ form_widget(regForm.agreeTerms) }}
     </div>
     <div class="form-group">
-            <button  type="submit" id="signup_button" class="btn  btn-primary btn-block text-uppercase">Valider</button>
+            <button  type="submit" id="signup_button" class="btn btn-primary bg-color-principale1 btn-block text-uppercase">Valider</button>
     </div>
 
     {{ form_end(regForm) }}

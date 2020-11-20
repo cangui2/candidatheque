@@ -4,93 +4,66 @@
 
 {% block body %}
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        {% for label, messages in app.flashes(['info', 'danger']) %}
-            {% for message in messages %}
-                <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-            <div class="col-sm-9 col-md-7 col-lg-6 mx-auto">
-                <div class="card card-signin m-5" style="background-color: #f8f9fa">
-                    <div class="card-body">
-                <h5 class="card-title text-center p-1">Créer un compte</h5>
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin m-5" style="background-color: #f8f9fa">
+                <div class="card-body">
+                    <h4 class="card-title text-center color-principale1 pt-1">Créer un compte</h4>
+                    <form class="mb-3 mb-lg-4 py-3">
 {#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
+                    {% for label, messages in app.flashes(['info', 'danger']) %}
+                        {% for message in messages %}
+                            <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                    
-        {{ form_start(proForm, {'attr': {'novalidate': 'novalidate'}}) }}
-        <div class="row">
-            <div class="col-md-10" style="text-align: center;">
-                {{ form_errors(proForm) }}
+                    {{ form_start(proForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                    <div class="form-group ">
+                        {{ form_errors(proForm) }}
+                    </div>
+                    <div class="form-group ">
+                        <h5 class="text-left">Vos informations</h5>
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.nom) }}
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.prenom) }}
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.email) }}
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.plainPassword) }}
+                    </div>
+                    <div class="form-group ">
+                        <h5 class="text-left">Informations entreprise</h5>
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.raisonSociale) }}
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.siret) }}
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.telephone) }}
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.socMail) }}
+                    </div>
+                    <div class="form-group ">
+                        {{ form_row(proForm.agreeTerms) }}
+                    </div>
+                        <button  type="submit" id="signup_button" class="btn text-light bg-color-principale1 text-uppercase">Valider</button>
+                    {{ form_end(proForm) }}
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10 mb-3 mt-2">
-                <h4 class="text-left">Vos informations</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.nom) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.prenom) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.email) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.plainPassword) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10 mb-3 mt-2">
-                <h4 class="text-left">Informations entreprise</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.raisonSociale) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.siret) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.telephone) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.socMail) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10">
-                {{ form_row(proForm.agreeTerms) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10 mb-2 text-center" style="margin:auto;">
-                <button  type="submit" id="signup_button" class="btn btn-lg btn-secondary">Valider</button>
-            </div>
-        </div>
-
-        {{ form_end(proForm) }}
-        </div>
         </div>
     </div>
-</div>
 
     <div class="container">
         <div class="card-deck my-5">
