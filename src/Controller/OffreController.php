@@ -7,6 +7,7 @@ use App\Entity\Ville;
 use App\Entity\Region;
 use App\Entity\Departement;
 use App\Form\OffreType;
+use App\Repository\OffreRepository;
 use App\Repository\PaysRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,13 +24,15 @@ class OffreController extends AbstractController
     protected $session;
     protected $security;
     protected $pRepo;
+    protected $offRepo;
 
 
-    public function __construct(EntityManagerInterface $em, SessionInterface $session, Security $security, PaysRepository $pRepo){
+    public function __construct(EntityManagerInterface $em, SessionInterface $session, Security $security, PaysRepository $pRepo, OffreRepository $offRepo){
         $this->em = $em;
         $this->session = $session;
         $this->security = $security;
         $this->pRepo = $pRepo;
+        $this->offRepo = $offRepo;
     }
 
 //    AUTOCOMPLETE FOR METIER, REGION, DEPARTEMENT, VILLE
@@ -140,12 +143,31 @@ class OffreController extends AbstractController
 
 
 //    LISTE OFFRES ENTREPRISE
-//
+
+    /**
+     * @Route("/entreprise/offres_liste", name="offres_liste")
+     */
+    public function listAll()
+    {
+        $recruteur = $this->security->getUser()->getRecruteur();
+        $comp = $recruteur->getEntreprise();
+        $liste_offres = $this->offRepo->findByCompany($comp);
+        $offres_recruteur = $this->offRepo->findByCompanyAndRecruiter($comp, $recruteur);
+
+        return $this->render('offre/offres_liste.html.twig', [
+            'recruteur' => $recruteur,
+            'comp' => $comp,
+            'liste_offres' => $liste_offres,
+            'offres_recruteur' => $offres_recruteur
+        ]);
+    }
+
+//   LIST END
 
 //    CREATION DE L'OFFRE
 
     /**
-     * @Route("/entreprise/offre_creation", name="offre_creation")
+     * @Route("/entreprise/offres_creation", name="offres_creation")
      */
     public function create(Request $request)
     {
@@ -176,7 +198,7 @@ class OffreController extends AbstractController
             return $this->redirectToRoute('dashboard_entreprise');
         }
 
-        return $this->render('offre/offre_creation.html.twig', [
+        return $this->render('offre/offres_creation.html.twig', [
             'offre' => $offre,
             'offreForm' => $offreForm->createView()
 

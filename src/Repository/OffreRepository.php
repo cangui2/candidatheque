@@ -22,29 +22,29 @@ class OffreRepository extends ServiceEntityRepository
     // /**
     //  * @return Offre[] Returns an array of Offre objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByCompany($entreprise_id)
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('o.entreprise = :entreprise_id')
+            ->setParameter('entreprise_id', $entreprise_id)
             ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Offre
+    public function findByCompanyAndRecruiter($entreprise_id, $recruteur_id)
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('o.entreprise = :entreprise_id')
+            ->andWhere('o.recruteur = :recruteur_id')
+            ->setParameters(['entreprise_id' => $entreprise_id, 'recruteur_id' => $recruteur_id])
+            ->orderBy('o.id', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
+
+
+
 }

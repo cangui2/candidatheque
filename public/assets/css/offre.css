@@ -18,7 +18,7 @@ label.required:before {
     overflow-x: hidden;
     overflow-y: scroll !important;
     padding:  3px 6px 3px !important;
-    max-width: 58.7vw !important;
+    max-width: 62.5vw !important;
     max-height: 300px;
 }
 
@@ -42,8 +42,51 @@ input {
     border-radius: .3rem;
 }
 #offre_save{
-    padding: 15px 30px;
+    padding: 10px 20px;
     color: #fff;
     background-color: #1a1a1a;
     border-color: #1a1a1a;
+}
+.help-msg{
+    font-size: .85rem;
+}
+
+.classic-tabs{
+    padding-right: 30px;
+    padding-left: 30px;
+}
+#detail-tab {
+    background-color: #C4A2FC !important;
+}
+#detail-tab .nav-link:hover {
+    border: 2px solid #7442CB !important;
+}
+#detail-tab a{
+    color: white;
+}
+
+#candidat-tab {
+    background-color: #17a2b8 !important;
+}
+#candidat-tab .nav-link:hover {
+    border: 2px solid teal !important;
+}
+#candidat-tab a{
+    color: white;
+}
+
+#hr-card {
+    height: 1px;
+    color: #C4A2FC;
+    background-color: transparent;
+}
+
+@media
+only screen
+and (max-width: 768px), (min-device-width: 400px)
+and (max-device-width: 992px)
+{
+    .form-control{
+        font-size: .8rem;
+    }
 }

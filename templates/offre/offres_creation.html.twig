@@ -12,11 +12,13 @@
 {% block body %}
 
 <div class="container">
-    <div class="card mt-5 p-4">
+    <div class="card mt-2 p-4">
         <div class="card-body">
             <div class="row mt-2 mb-5">
                 <div class="col-12">
                     <span class="text-left"><h3>Déposez votre offre d'emploi ici</h3>
+                        <p class="help-msg">Le menu de saisie sémi-automatique s'affiche lorsque vous commencez à taper un métier ou la localisation de l'offre.</br>
+                            Après avoir entrer la ville, le département et la région seront sélectionnés automatiquement.</p>
                     <hr></span>
                 </div>
             </div>
@@ -30,7 +32,7 @@
             <div class="row mt-2">
                 <div class="col-12">
                     {{ form_label(offreForm.metier) }}
-                    {{ form_widget(offreForm.metier, {'attr': {'placeholder':"Le menu de saisie sémi-automatique s'affiche lorsque vous commencez à taper un mot"}}) }}
+                    {{ form_widget(offreForm.metier) }}
                 </div>
             </div>
             <div class="row mt-2">
