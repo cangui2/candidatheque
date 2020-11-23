@@ -1,0 +1,36 @@
+<nav class="navbar navigation-corner navbar-expand-lg navbar-light bg-color-principale1">
+    <a class="navbar-brand text-light" href="{{ path("home") }}">CANDIDATHEQUE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path("dashboard_candidat") }}">Tableau de bord</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path("candidat_cv") }}">Atelier CV</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('blog') }}">Blog</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 mx-3 my-lg-0">
+            <div class="dropdown user-profile nav-item py-3 text-center"  >
+                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    R
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-user " aria-labelledby="dropdownMenuButton">
+
+                    <a class=" dropdown-item" href="#">Profil</a>
+                    <div class="dropdown-divider "></div>
+                    <a class=" dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>

@@ -3,7 +3,7 @@
 }
 
 .paper {
-    position: absolute;
+    /*position: absolute;*/
     margin-left: ;
     padding: 30px;
     border: 2px gray solid;
@@ -11,4 +11,5 @@
     width: 21cm;
     height: 29.7cm;
     transform: scale(1);
+    margin-bottom: 20px;
 }
