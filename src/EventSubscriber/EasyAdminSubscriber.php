@@ -1,5 +1,5 @@
 <?php
-# src/EventSubscriber/EasyAdminSubscriber.php
+# src/EventListener/EasyAdminSubscriber.php
 namespace App\EventSubscriber;
 
 use App\Entity\User;

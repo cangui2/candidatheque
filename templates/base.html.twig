@@ -12,11 +12,38 @@
 	</head>
 		<body>
 			<header>
+				{% if is_granted("ROLE_CANDIDAT") %}
+					<nav class="navbar navigation-corner navbar-expand-lg navbar-light bg-color-principale1">
+						<a class="navbar-brand text-light" href="{{ path("home") }}">CANDIDATHEQUE</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item">
+									<a class="nav-link" href="/">Tableau de bord</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path("candidat_cv") }}">Atelier CV</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('blog') }}">Blog</a>
+								</li>
+							</ul>
+							<form class="form-inline my-2 mx-3 my-lg-0">
+								<button type="button" class="btn text-light cube btn-outline-light my-2 my-sm-0 bold-border"><h3>C</h3></button>
+							</form>
+						</div>
+					</nav>
+				{% else %}
 				<div class="navbar navbar-expand-md navbar-light bg-light">
 					<a class="navbar-brand titre1 mr-auto" id="brand" href="{{ path("home") }}">CANDIDATHE<i class="fa fa-search" aria-hidden="true"></i>UE</a>
 
 					<div>
-						<!--<a href="{{ path("espace_candidat") }}" class="btn zoom-bouton candidat-corner btn-sm" role="button">Espace candidat</a>-->
 						<a href="{{ path("login") }}" class="btn zoom-bouton candidat-corner btn-sm text-white" role="button">Se connecter</a><a href="{{ path("candidat_inscription") }}" class="btn zoom-bouton login-corner btn-sm" role="button">S'inscrire <i class="fa fa-sign-in" aria-hidden="true"></i></a>
 						<a href="{{ path("espace_entreprise") }}" class="btn zoom-bouton entreprise-corner btn-sm" role="button">Espace entreprise</a>
 					</div>
@@ -28,32 +55,27 @@
 					
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul id="menu" class="navbar-nav margin-navbar">
-							<li class="nav-item active">
-								<a class="nav-link presence {{ app.request.pathinfo == "/"? "active"}} mx-2 px-0" href="{{ path("home") }}"><i class="fa fa-home" aria-hidden="true"></i>
-								<span class="sr-only">(current)</span>
-								</a>
-							</li>
+
 							<li class="nav-item">
 								<a class="nav-link presence {{ app.request.pathinfo == "/recherche_liste"? "active"}} mx-2 px-0" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link presence {{ app.request.pathinfo == "/cv"? "active"}} mx-2 px-0" href="{{ path("c_v") }}">Atelier CV</a>
+								<a class="nav-link presence {{ app.request.pathinfo == "/cv"? "active"}} mx-2 px-0" href="{{ path("candidat_cv") }}">Atelier CV</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link presence {{ app.request.pathinfo == "/blog"? "active"}} mx-2 px-0" href="{{ path('blog') }}">Blog</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link presence" href="#" tabindex="-1" aria-disabled="true">NavbarBase</a>
-							</li>
+
 						</ul>
 					</div>
 				</nav>
+				{% endif %}
 			</header>
 
 			{% block body %}{% endblock %}
 			
 			<!-- Footer -->
-			<footer class="page-footer font-small bottom-corner bg-color-secondaire1">
+			<footer class="page-footer font-small  bg-color-secondaire1">
 
 				<div class="container">
 
@@ -95,7 +117,7 @@
 
 			</footer>
 
-				<script src="{{ asset("/assets/js/jquery-3.5.1.slim.min.js") }}"></script>
+				<script src="{{ asset("/assets/js/jquery-3.5.1.min.js") }}"></script>
 				<script src="{{ asset("/assets/js/popper.min.js") }}" ></script>
 				<script src="{{ asset("/assets/js/bootstrap.min.js") }}" ></script>
 				{% block javascripts %}{% endblock %}

@@ -1,23 +1,87 @@
-.datepicker-days table td{
-    padding: 2px !important;
-    margin: 2px;
+.ui-datepicker-header {
+    background-color: #4169E1 !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {
+    border-color: #4169E1 !important;
+    background-color: #4169E1 !important;
+}
+
+label.required:before {
+    content: "* " !important;
+    color: red;
 
 }
-/*.datepicker-days {*/
-/*    background-color: gainsboro !important;*/
+
+.ui-autocomplete {
+    position: relative !important;
+    overflow-x: hidden;
+    overflow-y: scroll !important;
+    padding:  3px 6px 3px !important;
+    max-width: 62.5vw !important;
+    max-height: 300px;
+}
+
+
+.card {
+    background: transparent;
+    border: 1px;
+}
+.card-body {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+h3 {
+    font-weight: lighter;
+}
+
+input {
+    border-radius: .3rem;
+}
+#offre_save{
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+.help-msg{
+    font-size: .85rem;
+}
+
+/*.classic-tabs{*/
+/*    padding-right: 30px;*/
+/*    padding-left: 30px;*/
 /*}*/
-.datepicker-days table th {
-    background-color: #fde19a !important;
-    border-radius: unset !important;
+#detail-tab {
+    background-color: #C4A2FC !important;
 }
 
-.datepicker .datepicker-switch {
-    background-color: #fde19a !important;
-    padding: 6px !important;
-    font-size: 1.05em !important;
+#detail-tab a{
+    color: white;
 }
 
-td .today .day  {
-     background-color: #fde19a !important;
- }
+#candidat-tab {
+    background-color: #17a2b8 !important;
+}
+#candidat-tab .nav-link:hover {
+    border: 2px solid teal !important;
+}
+#candidat-tab a{
+    color: white;
+}
 
+.hr-card {
+    height: 1px;
+    color: #C4A2FC;
+    background-color: transparent;
+}
+
+@media
+only screen
+and (max-width: 768px), (min-device-width: 400px)
+and (max-device-width: 992px)
+{
+    .form-control{
+        font-size: .8rem;
+    }
+}

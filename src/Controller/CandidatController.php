@@ -11,17 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CandidatController extends AbstractController
 {
-    /**
-     * @Route("/candidat/espace_candidat", name="espace_candidat")
-     */
-    public function espaceCandidat(Request $request): Response
-    {
-        $user = new User();
-        $regForm = $this->createForm(CandidatRegistrationFormType::class, $user);
-        $regForm->handleRequest($request);
 
-        return $this->render('candidat/espace_candidat.html.twig', [
-            'regForm' => $regForm->createView()
-        ]);
+    /**
+     * @Route("/candidat/dashboard", name="dashboard_candidat")
+     */
+    public function dashboard(): Response {
+
+
+        return $this->render('candidat/dashboard_candidat.html.twig');
     }
 }

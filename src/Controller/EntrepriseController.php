@@ -11,10 +11,27 @@ class EntrepriseController extends AbstractController
     /**
      * @Route("/entreprise/espace_entreprise", name="espace_entreprise")
      */
-    public function index(): Response
-    {
+    public function index(): Response {
+
+    if($this->isGranted("IS_AUTHENTICATED_REMEMBERED"))
+        {
+            return $this->redirectToRoute("login_success");
+        }
+
+
         return $this->render('entreprise/espace_entreprise.html.twig', [
             'error' => null
         ]);
     }
+
+    /**
+     * @Route("/entreprise/dashboard", name="dashboard_entreprise")
+     */
+    public function dashboard(): Response {
+
+
+        return $this->render('entreprise/dashboard_entreprise.html.twig');
+    }
+
+
 }

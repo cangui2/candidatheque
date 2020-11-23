@@ -1,0 +1,19 @@
+{% extends 'base_entreprise.html.twig' %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
+                {% for message in messages %}
+                    <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <br><br><br><br><br><br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At commodi consequuntur culpa, delectus dolorum eaque expedita illo laborum magni modi obcaecati officia pariatur possimus quisquam quos sequi tempore totam veritatis?
+            <br><br><br><br><br><br>
+        </div>
+    </div>
+</div>
+{% endblock %}
