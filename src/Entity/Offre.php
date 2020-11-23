@@ -141,6 +141,11 @@ class Offre
      */
     private $region;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="offres")
+     */
+    private $pays;
+
 
 
     public function __construct()
@@ -395,6 +400,18 @@ class Offre
     public function setRegion(?Region $region): self
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    public function getPays(): ?Pays
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?Pays $pays): self
+    {
+        $this->pays = $pays;
 
         return $this;
     }
