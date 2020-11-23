@@ -7,16 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ path("dashboard_candidat") }}">Tableau de bord</a>
+                <a class="nav-link {{ activeMenu("dashboard_candidat") }}" href="{{ path("dashboard_candidat") }}">Tableau de bord</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
+                <a class="nav-link {{ activeMenu("recherche_liste") }}" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path("candidat_cv") }}">Atelier CV</a>
+                <a class="nav-link {{ activeMenu("candidat_cv") }}" href="{{ path("candidat_cv") }}">Atelier CV</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('blog') }}">Blog</a>
+                <a class="nav-link {{ activeMenu("blog") }}" href="{{ path('blog') }}">Blog</a>
             </li>
         </ul>
         <form class="form-inline my-2 mx-3 my-lg-0">

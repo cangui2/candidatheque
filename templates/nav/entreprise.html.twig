@@ -7,17 +7,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link barre-log color-principale3 presence pt-3" href="{{ path("dashboard_entreprise") }}">Tableau de bord</a>
+                <a class="nav-link barre-log color-principale3 presence pt-3  {{ activeMenu("dashboard_entreprise") }}" href="{{ path("dashboard_entreprise") }}">Tableau de bord</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link color-principale3 presence pt-3" href="{{ path('offres_creation') }}">Déposer une offre</a>
+                <a class="nav-link color-principale3 presence pt-3  {{ activeMenu("offres_creation") }}" href="{{ path('offres_creation') }}">Déposer une offre</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link color-principale3 presence pt-3" href="{{ path('offres_liste') }}">Liste des offres</a>
+                <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("offres_liste") }}" href="{{ path('offres_liste') }}">Liste des offres</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link color-principale3 presence pt-3" href="{{ path("blog") }}">Blog</a>
+                <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("blog") }}" href="{{ path("blog") }}">Blog</a>
             </li>
         </ul>
         <form class="form-inline my-2 mx-3 my-lg-0">
