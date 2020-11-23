@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=VilleRepository::class)
@@ -25,6 +28,14 @@ use Doctrine\ORM\Mapping as ORM;
 
  *                 }
  * )
+ * @ApiFilter(
+ *       SearchFilter::class,
+ *       properties={
+ *              "nom": "exact"
+ *
+ *                  }
+ *
+ * )
  */
 class Ville
 {
@@ -37,11 +48,13 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $codePostal;
 
@@ -57,6 +70,7 @@ class Ville
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="villes")
+     * @Groups("read")
      */
     private $departement;
 
@@ -67,6 +81,7 @@ class Ville
 
     public function __construct()
     {
+
         $this->offres = new ArrayCollection();
     }
 
@@ -163,5 +178,10 @@ class Ville
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 }
