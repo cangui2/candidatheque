@@ -30,15 +30,14 @@ class TwigToolBox extends AbstractExtension
     }
 
     /**
-     * @param array $routesToCheck
+     * @param string $routesToCheck
      * @return string
      */
-    public function activeMenu(array $routesToCheck)
+    public function activeMenu(string $routesToCheck)
     {
         $currentRoute = $this->requestStack->getCurrentRequest()->get('_route');
-        //dd($routesToCheck);
 
-        if (in_array($currentRoute, $routesToCheck)) {
+        if ($currentRoute==$routesToCheck) {
             return "font-weight-bold actif";
         }
         return "";
