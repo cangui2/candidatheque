@@ -3,6 +3,7 @@ import FormExperiences from './FormExperiences.js';
 import FormFormations from './FormFormations.js';
 import FormProfil from './FormProfil.js';
 import Dialog from './Dialog.js';
+import Templates from './Templates.js';
 import './CV.css';
 
 class CV extends React.Component {
@@ -10,10 +11,12 @@ class CV extends React.Component {
         super(props);
         this.state = {
             profil: {
-                nom: "",
-                prenom: "",
-                adresse: "",
-                ville: ""
+                nom: "Doe",
+                prenom: "John",
+                adresse: "Carnaby Street",
+                ville: "London",
+                phone: "+33 6 58 96 52 14",
+                email: "jodo@yahoo.com"
             },
             experiences: [
                 { 
@@ -83,23 +86,24 @@ class CV extends React.Component {
             <div className="row">
                 <div className="col-12">
                     <Dialog />
+                    <Templates />
                 </div>
                 
                 <div className="col-sm-5">
                     <h1>Module de création de CV.</h1>
                     Cliquez sur les onglets ci-dessous pour compléter les différentes rubriques de votre CV
 
-                        <div class="accordion mt-5" id="accordion1">
-                            <div class="card">
-                                <div class="card-header" id="heading1">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse1" >
+                        <div className="accordion mt-5" id="accordion1">
+                            <div className="card">
+                                <div className="card-header" id="heading1">
+                                    <h2 className="mb-0">
+                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse1" >
                                             Informations personnelles                                
                                         </button>
                                     </h2>
                                 </div>
-                                <div id="collapse1" class="collapse show" data-parent="#accordion1">
-                                    <div class="card-body">
+                                <div id="collapse1" className="collapse show" data-parent="#accordion1">
+                                    <div className="card-body">
                                         <FormProfil
                                             value={this.state.profil}
                                             onProfilChange={(evt) => this.handleProfilChange(evt)}
@@ -107,10 +111,10 @@ class CV extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header" id="heading2">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse2" >
+                            <div className="card">
+                                <div className="card-header" id="heading2">
+                                    <h2 className="mb-0">
+                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse2" >
                                             Experiences                                
                                         </button>
                                     </h2>
@@ -153,9 +157,28 @@ class CV extends React.Component {
                 <div  className="col-sm-7 ">
 
                     <div className="paper">
+                        <section className="identite">
+                            <div className="nom">{this.state.profil.prenom} {this.state.profil.nom}</div>
+                        </section>
+                        <section className="photo">
+                            <div className="portrait"></div>
+                        </section>
                         <section className="profil">
-                            <div className="titre">{this.state.profil.prenom} {this.state.profil.nom}</div>
-                            <div>{this.state.profil.adresse} {this.state.profil.ville}</div>
+                            <header>Contact</header>
+                            <div className="adresse">{this.state.profil.adresse}</div>
+                            <div className="ville">{this.state.profil.ville}</div>
+                            <div className="phone">{this.state.profil.phone}</div>
+                            <div className="email">{this.state.profil.email}</div>
+                        </section>
+                        <section className="titre">
+                            <div className="poste">Developpeur Logiciel</div>
+                        </section>
+                        <section className="intro">
+                            <header>Profil</header>
+                            <div className="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas
+                                corrupti odio architecto ipsa libero a totam iusto odit saepe. Tempore debitis error
+                                beatae. Earum totam consequatur accusantium repellendus, veritatis commodi!
+                            </div>
                         </section>
                         <section className="experiences">
                             <header>Experiences</header>

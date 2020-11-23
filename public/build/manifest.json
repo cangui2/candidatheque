@@ -1,11 +1,10 @@
 {
-  "build/0.cd92ea0e.js": "/build/0.cd92ea0e.js",
-  "build/1.bdc6abc1.css": "/build/1.bdc6abc1.css",
-  "build/1.a1d6b814.js": "/build/1.a1d6b814.js",
-  "build/2.5f18781a.css": "/build/2.5f18781a.css",
-  "build/2.acd4aa0d.js": "/build/2.acd4aa0d.js",
-  "build/cv.css": "/build/cv.a394aeb9.css",
-  "build/cv.js": "/build/cv.5a9213e4.js",
-  "build/react_recherche.js": "/build/react_recherche.c4c88971.js",
-  "build/runtime.js": "/build/runtime.d94b3b43.js"
+  "build/cv.css": "/build/cv.css",
+  "build/cv.js": "/build/cv.js",
+  "build/react_recherche.js": "/build/react_recherche.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/vendors~cv.js": "/build/vendors~cv.js",
+  "build/vendors~cv~react_recherche.js": "/build/vendors~cv~react_recherche.js",
+  "build/vendors~react_recherche.css": "/build/vendors~react_recherche.css",
+  "build/vendors~react_recherche.js": "/build/vendors~react_recherche.js"
 }
