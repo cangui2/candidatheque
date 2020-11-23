@@ -27,15 +27,12 @@ label.required:before {
     background: transparent;
     border: 1px;
 }
-.card-body{
-    padding-right: 30px;
-    padding-left: 30px;
+.card-body {
+    padding-right: 10px;
+    padding-left: 10px;
 }
 h3 {
     font-weight: lighter;
-}
-hr{
-    background-color: #1a1a1a;
 }
 
 input {
@@ -51,16 +48,14 @@ input {
     font-size: .85rem;
 }
 
-.classic-tabs{
-    padding-right: 30px;
-    padding-left: 30px;
-}
+/*.classic-tabs{*/
+/*    padding-right: 30px;*/
+/*    padding-left: 30px;*/
+/*}*/
 #detail-tab {
     background-color: #C4A2FC !important;
 }
-#detail-tab .nav-link:hover {
-    border: 2px solid #7442CB !important;
-}
+
 #detail-tab a{
     color: white;
 }
@@ -75,7 +70,7 @@ input {
     color: white;
 }
 
-#hr-card {
+.hr-card {
     height: 1px;
     color: #C4A2FC;
     background-color: transparent;

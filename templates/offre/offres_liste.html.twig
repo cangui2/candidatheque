@@ -9,14 +9,16 @@
 <div class="container">
 <div class="row">
   <div class="col-12">
-    <h3 class="text-center mt-5 mb-4">Les offres de votre société {{ app.user.recruteur.entreprise | upper }}</h3>
+      <h3 class="text-left mt-5"><b>SOCIÉTÉ {{ app.user.recruteur.entreprise | upper }} - </b> Offres actives: {{ liste_offres | length }} </h3>
+      <a href="#"><h5 class="font-weight-lighter"><b>Voir uniquement les offres que vous avez créées</b></h5></a><br>
+      <hr>
     {% for offre_recruteur in offres_recruteur %}
 <!-- Card -->
 <div class="card liste-card mb-2">
     <!-- Card content -->
     <div class="card-body pb-0">
         <!-- Title -->
-        <h4 class="card-title font-weight-bold">{{ offre_recruteur.titre }} {{ offre_recruteur.type }} </h4>
+        <h4 class="card-title font-weight-lighter"><b>{{ offre_recruteur.titre }} {{ offre_recruteur.type }}</b></h4>
         <!-- Text -->
         <p class="card-text mb-2">Publiée le : {{ offre_recruteur.datePublication | date("d/m/Y") }} par
             {% if app.user.recruteur == offre_recruteur.recruteur %}
@@ -25,7 +27,7 @@
             <em> {{ offre_recruteur.recruteur.prenom ~ " " ~ offre_recruteur.recruteur.nom }} </em>
             {% endif %}
         </p>
-        <h4 class="align-self-end">{{ offre_recruteur.metier.rome }} - {{ offre_recruteur.metier }} </h4>
+        <h4 class="align-self-end font-weight-lighter"><b>{{ offre_recruteur.metier.rome }} - {{ offre_recruteur.metier }}</b></h4>
 {#        LOCATION  #}
         {% if offre_recruteur.ville is not empty and offre_recruteur.departement is not empty and offre_recruteur.region is not empty %}
         <p class="card-text">{{ offre_recruteur.ville }} &#8226; {{ offre_recruteur.departement }} &#8226; {{ offre_recruteur.region }} &#8226; {{ offre_recruteur.pays }}</p>
@@ -35,93 +37,87 @@
             <p class="card-text">{{ offre_recruteur.departement }} &#8226; {{ offre_recruteur.region }}</p>
         {% else %}
             <p class="card-text">{{ offre_recruteur.ville }} {{ offre_recruteur.departement }} {{ offre_recruteur.region }} {{ offre_recruteur.pays }}</p>
-        <p class="card-text">{{ offre_recruteur.type }}</p>
         {% endif %}
 {#  END IF ELSE OCATION      #}
-    </div>
-
+        <h5 class="align-self-end">#5 candidats</h5>
     <!-- Classic tabs -->
     <div class="classic-tabs">
 
-        <!-- Nav tabs -->
-        <ul class="nav tabs-white nav-fill mb-4 mt-2" role="tablist">
-            <li id="detail-tab" class="nav-item ml-0">
-                <a class="nav-link waves-light active" data-toggle="tab" href="#panel1001" role="tab">DÉTAILS</a>
-            </li>
-            <li id="candidat-tab" class="nav-item">
-                <a class="nav-link waves-light" data-toggle="tab" href="#panel1002" role="tab">CANDIDATS</a>
-            </li>
-        </ul>
+        <!-- COLLAPSE/EXPAND -->
 
-        <div class="tab-content rounded-bottom">
-            <!--Panel 1-->
-            <div class="tab-pane fade in show active" id="panel1001" role="tabpanel">
-                <div class="row mt-3">
-                    <div class="col-12 text-justify">
-                        <p class="font-small text-muted mx-1">DESCRIPTION <br>
-                            <span>{{offre_recruteur.description}}</span>
-                        </p>
+        <div class="collapse-content">
+            <div class="collapse" id="collapse-{{ offre_recruteur.id }}">
+                <div class="tab-pane fade in show active" id="panel1001" role="tabpanel">
+                    <hr class="hr-card">
+                    <div class="row mt-3">
+                        <div class="col-12 text-justify">
+                            <p class="font-small text-muted mx-1">DESCRIPTION <br>
+                                <span>{{offre_recruteur.description}}</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 text-justify">
-                        <p class="font-small text-muted mx-1">PROFIL<br>
-                            <span>{{offre_recruteur.profil}}</span>
-                        </p>
+                    <div class="row">
+                        <div class="col-12 text-justify">
+                            <p class="font-small text-muted mx-1">PROFIL<br>
+                                <span>{{offre_recruteur.profil}}</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="font-small text-muted mx-1">DATE DE DÉBUT <br>
-                            <span>{{offre_recruteur.dateDebut | date("d/m/Y")}}</span>
-                        </p>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="font-small text-muted mx-1">DATE DE DÉBUT <br>
+                                <span>{{offre_recruteur.dateDebut | date("d/m/Y")}}</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="font-small text-muted mx-1">DATE DE FIN</br>
-                            <span>{{offre_recruteur.dateFin | date("d/m/Y")}}</span>
-                        </p>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="font-small text-muted mx-1">DATE DE FIN</br>
+                                <span>{{offre_recruteur.dateFin | date("d/m/Y")}}</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                {% if offre_recruteur.duree is not empty %}
-                <div class="row">
-                    <div class="col-12">
-                        <p class="font-small text-muted mx-1">DUREÉE </br>
-                            <span>{{offre_recruteur.duree }}</span>
-                        </p>
+                    {% if offre_recruteur.duree is not empty %}
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="font-small text-muted mx-1">DUREÉE </br>
+                                    <span>{{offre_recruteur.duree }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <p class="font-small text-muted mx-1 mb-2">SALAIRE</br>
+                                <span>{{offre_recruteur.salaire}}</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                {% endif %}
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <p class="font-small text-muted mx-1 mb-2">SALAIRE</br>
-                            <span>{{offre_recruteur.salaire}}</span>
-                        </p>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Update Button -->
+                            <a href="#" class="btn btn-outline-info p-1 mx-0 mb-2">Modifier l'offre</a>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Update Button -->
-                        <a href="#" class="btn btn-outline-info p-1 mx-0 mb-2">Modifier l'offre</a>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Delete Button -->
+                            <a href="#" class="btn btn-outline-secondary p-1 mx-0 mb-0">Supprimer l'offre</a>
+                        </div>
                     </div>
+                    <hr class="hr-card">
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Delete Button -->
-                        <a href="#" class="btn btn-outline-secondary p-1 mx-0 mb-0">Supprimer l'offre</a>
-                    </div>
-                </div>
-                <hr id="hr-card">
-            </div>
 
-            <!--/.Panel 1-->
-            <!--Panel 2-->
-            <div class="tab-pane fade" id="panel1002" role="tabpanel">
-                <p align="justify" class="font-small text-muted mx-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.</p>
-                <p align="justify" class="font-small text-muted mx-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.</p>
+                <!--/.Panel 1-->
             </div>
-            <!--/.Panel 2-->
+            <div class="row mt-4 mb-4 text-center" id="detail-tab">
+                <div class="col-12 text-center">
+                    <a class="nav-link waves-light active btn-details" data-toggle="collapse" href="#collapse-{{ offre_recruteur.id }}" aria-expanded="false" aria-controls="collapseExample" role="button">DÉTAILS</a>
+                </div>
+
+            </div>
+        </div>
+
         </div>
     </div>
     <!-- Classic tabs -->
@@ -135,5 +131,19 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        $(function () {
+            $(".btn-details").click(function () {
+                if($(this).text()=="DÉTAILS"){
+                    console.log("ok");
+                    $(this).text("REPLIER");
+                }
+                else {
+                    console.log("ko");
+                    $(this).text("DÉTAILS");
+                }
+            });
+        });
+    </script>
 
 {% endblock %}
