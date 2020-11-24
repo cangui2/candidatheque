@@ -2,10 +2,113 @@
 
 
 {% block body %}
-<br><br><br><br><br><br><br><br><br><br><br>
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam delectus excepturi id necessitatibus non quidem, quis repellendus repudiandae suscipit tempore voluptas. Ab exercitationem, illo impedit molestiae nihil quas sequi.
+{#DEBUT PROFIL #}
+<br>
+<div class="half-float-bottom">
+    <!--Photo du candidat-->
+    <div class="thumb-lg member-thumb mx-auto"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle img-thumbnail" alt="pro" height="100" width="100">
+ </div>
+ <br>
+<h4>John Doe</h4>
 
+
+
+{# DEBUT NAVBAR ESPACE CANDIDAT #}
+<br>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="accueil-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Accueil</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="cv-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">CV</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Les offres</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Vos compétences</a>
+    </li>
+    
+  </ul>
+
+  {# FIN NAVBAR ESPACE CANDIDAT #}
+  
+  {#DEBUT ONGLET ACCUEIL #}
+  <div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <h3>Bienvenue sur votre profil</h3>
+        <p>Ici vous allez choisir vos compétences, vous allez postuler à des offres, avoir la réponse à vos candidatures.</p>
+        <p>Ajouter ou créer votre cv</p>
+
+        <br>
+
+    <div class="container">
+            <div class="row">
+                <div class="col-5">
+
+                <div class="jumbotron">
+             <h1 class="display-8"> Vos compétences</h1>
+                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <hr class="my-8">
+                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Choisir les compétences</a>
+                </div>   
+
+        <div class="jumbotron">
+            <h1 class="display-8"> CV envoyés</h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-8">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Nombre de cv</a>
+        </div>
+
+        <div class="jumbotron">
+            <h1 class="display-8">Nombre d'offres en attente de réponses </h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-8">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Voir les offres</a>
+        </div>
+                </div>
+          </div>
+    </div>
+
+    {#FIN ONGLET ACCUEIL#}
+
+
+
+
+    
+    
+    </div>
+    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab"> Ici mettre Atelier cv. Mettre des template de cv  </div>
+    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab"> Les offres </div>
+    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">test2</div>
+    
+    {#DEBUT ONGLET VOS COMPETENCES #}
+    <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+        <br>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h3 class="display-6">Vos compétences</h3>
+              <p class="lead">Les compétences regroupent l'ensemble de vos savoirs, savoir-faire, savoir-être professionnels, langue et permis.</p>
+            </div>
+        </div>
+                </div>
+          </div>
+
+
+
+        </div>
+    {#FIN ONGLET VOS COMPETENCES #}
+    
+  </div>
 
 <br><br><br><br><br><br><br><br><br><br><br>
 
