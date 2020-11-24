@@ -1,14 +1,13 @@
-.col-sm-5, .col-sm-7 {
-    /* border: 1px red dashed; */
-}
+
 
 .paper {
-    position: absolute;
-    margin-left: ;
+    /*position: absolute;*/
+    margin-left: 20px;
     padding: 30px;
     border: 2px gray solid;
     box-shadow: 10px 10px 10px gray;
     width: 21cm;
     height: 29.7cm;
     transform: scale(1);
+    margin-bottom: 20px;
 }
