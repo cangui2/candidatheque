@@ -93,8 +93,6 @@ class Offre
     private $duree;
 
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
      */
@@ -275,12 +273,12 @@ class Offre
         return $this;
     }
 
-    public function getDuree(): ?integer
+    public function getDuree(): ?string
     {
         return $this->duree;
     }
 
-    public function setDuree(?integer $duree): self
+    public function setDuree(?string $duree): self
     {
         $this->duree = $duree;
 
