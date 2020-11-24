@@ -13,6 +13,11 @@ label.required:before {
 
 }
 
+.content-title {
+    text-align: justify !important;
+
+}
+
 .ui-autocomplete {
     position: relative !important;
     overflow-x: hidden;
@@ -83,5 +88,15 @@ and (max-device-width: 992px)
 {
     .form-control{
         font-size: .8rem;
+    }
+    h3 {
+        font-size: 1.25rem;
+    }
+    h5 {
+        font-size: 1.15rem;
+        line-height: 1;
+    }
+    h4 {
+        font-size: 1.20rem;
     }
 }

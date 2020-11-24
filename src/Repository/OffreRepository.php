@@ -28,7 +28,7 @@ class OffreRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('o')
             ->andWhere('o.entreprise = :entreprise_id')
             ->setParameter('entreprise_id', $entreprise_id)
-            ->orderBy('o.id', 'ASC')
+            ->orderBy('o.datePublication', 'DESC')
             ->getQuery()
             ->getResult()
         ;
@@ -39,7 +39,7 @@ class OffreRepository extends ServiceEntityRepository
             ->andWhere('o.entreprise = :entreprise_id')
             ->andWhere('o.recruteur = :recruteur_id')
             ->setParameters(['entreprise_id' => $entreprise_id, 'recruteur_id' => $recruteur_id])
-            ->orderBy('o.id', 'ASC')
+            ->orderBy('o.datePublication', 'DESC')
             ->getQuery()
             ->getResult()
             ;

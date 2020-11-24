@@ -146,20 +146,37 @@ class OffreController extends AbstractController
 
     /**
      * @Route("/entreprise/offres_liste", name="offres_liste")
+     * @Route("/entreprise/offres_recruteur", name="offres_recruteur")
      */
-    public function listAll()
+    public function listAll(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_RECRUTEUR', null, 'User tried to access a page without having ROLE_RECRUTEUR');
+
+        $route = $request->attributes->get('_route');
         $recruteur = $this->security->getUser()->getRecruteur();
         $comp = $recruteur->getEntreprise();
         $liste_offres = $this->offRepo->findByCompany($comp);
         $offres_recruteur = $this->offRepo->findByCompanyAndRecruiter($comp, $recruteur);
 
-        return $this->render('offre/offres_liste.html.twig', [
-            'recruteur' => $recruteur,
-            'comp' => $comp,
-            'liste_offres' => $liste_offres,
-            'offres_recruteur' => $offres_recruteur
-        ]);
+        if($route == "offres_liste"){
+
+            return $this->render('offre/offres_liste.html.twig', [
+                'recruteur' => $recruteur,
+                'comp' => $comp,
+                'liste_offres' => $liste_offres,
+                'offres_recruteur' => $offres_recruteur
+            ]);
+        }
+        elseif ($route == "offres_recruteur"){
+//            dd($recruteur);
+
+            return $this->render('offre/offres_recruteur.html.twig', [
+                'recruteur' => $recruteur,
+                'comp' => $comp,
+                'offres_recruteur' => $offres_recruteur
+            ]);
+        }
+
     }
 
 //   LIST END
@@ -171,6 +188,8 @@ class OffreController extends AbstractController
      */
     public function create(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_RECRUTEUR', null, 'User tried to access a page without having ROLE_RECRUTEUR');
+
         $offre = new Offre();
         $offreForm = $this->createForm(OffreType::class, $offre);
         $recruteur = $this->security->getUser()->getRecruteur();
@@ -203,5 +222,73 @@ class OffreController extends AbstractController
             'offreForm' => $offreForm->createView()
 
         ]);
+    }
+
+//    END CREATE
+
+//    START UPDATE OFFRE
+
+    /**
+     * @Route("/entreprise/offres_modification/{offre}", name="offres_modification")
+     */
+    public function edit(Request $request, Offre $offre){
+
+        $this->denyAccessUnlessGranted('ROLE_RECRUTEUR', null, 'User tried to access a page without having ROLE_RECRUTEUR');
+
+        $recruteur = $this->security->getUser()->getRecruteur();
+        $comp = $recruteur->getEntreprise();
+        $liste_offres = $this->offRepo->findByCompany($comp);
+        $offres_recruteur = $this->offRepo->findByCompanyAndRecruiter($comp, $recruteur);
+
+        $offreUpdateForm = $this->createForm(OffreType::class, $offre);
+
+        if (in_array($offre, $liste_offres) || in_array($offre, $offres_recruteur)) {
+
+            $offreUpdateForm->handleRequest($request);
+
+            if($offreUpdateForm->isSubmitted() && $offreUpdateForm->isValid()){
+
+                $offre->setDateModification(new \DateTime());
+                $offre->setRecruteur($recruteur);
+
+                $this->em->persist($offre);
+                $this->em->flush();
+                $this->addFlash('info', 'Vos modifications ont bien été enregistrées!');
+
+                return $this->redirectToRoute('offres_liste');
+            }
+            return $this->render('offre/offres_modification.html.twig', [
+                'offre' => $offre,
+                'offreUpdateForm' => $offreUpdateForm->createView()
+            ]);
+        }
+        return $this->redirectToRoute('dashboard_entreprise');
+
+    }
+    //  END UPDATE FUNCTION
+
+    //START DELETE FUNCTION
+
+    /**
+     * @Route("/entreprise/offres_suppression/{offre}", name="offres_suppression", methods="DELETE"))
+     */
+
+    // Annuler une commande
+
+    public function cancel(Offre $offre, Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_RECRUTEUR', null, 'User tried to access a page without having ROLE_RECRUTEUR');
+
+        if($this->isCsrfTokenValid('delete' . $offre->getId(), $request->get('_token'))){
+
+
+            $this->em->remove($offre);
+            $this->em->flush();
+
+            $this->addFlash('info', 'Votre offre a bien été supprimée!');
+            return $this->redirectToRoute('offres_liste');
+        }
+
+        return $this->redirectToRoute('dashboard_entreprise');
     }
 }

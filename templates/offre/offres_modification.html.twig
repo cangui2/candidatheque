@@ -1,0 +1,242 @@
+{% extends 'base_entreprise.html.twig' %}
+{% form_theme offreUpdateForm 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/offre.css">
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="card mt-2 p-4">
+            <div class="card-body">
+                <div class="row mt-2 mb-5">
+                    <div class="col-12">
+                    <span class="text-left"><h3>Modification d'une offre d'emploi</h3>
+                        <p class="help-msg">Le menu de saisie sémi-automatique s'affiche lorsque vous commencez à taper un métier ou la localisation de l'offre.</br>
+                            Après avoir entré la ville, le département et la région seront sélectionnés automatiquement.</p>
+                    <hr></span>
+                    </div>
+                </div>
+                {{ form_start(offreUpdateForm) }}
+                <div class="row mt-5">
+                    <div class="col-12">
+                        {{ form_label(offreUpdateForm.titre) }}
+                        {{ form_widget(offreUpdateForm.titre) }}
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        {{ form_label(offreUpdateForm.metier) }}
+                        {{ form_widget(offreUpdateForm.metier) }}
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        {{ form_row(offreUpdateForm.description) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_row(offreUpdateForm.profil) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_row(offreUpdateForm.type) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(offreUpdateForm.localisation) }}
+                    </div>
+                    {#                SWITH LOCATION FRANCE/ABROAD               #}
+                    <div class="col-md-9">
+                        <div class="row" id="loc-fr">
+                            <div class="col-lg-4 col-sm-12">
+                                {{ form_row(offreUpdateForm.ville) }}
+                            </div>
+                            <div class="col-lg-4 col-sm-12">
+                                {{ form_row(offreUpdateForm.departement) }}
+                            </div>
+                            <div class="col-lg-4 col-sm-12">
+                                {{ form_row(offreUpdateForm.region) }}
+                            </div>
+                        </div>
+                        <div class="row" id="loc-etr">
+                            <div class="col">
+                                {{ form_row(offreUpdateForm.pays) }}
+                            </div>
+                        </div>
+                    </div>
+                    {#                END SWITH LOCATION FRANCE/ABROAD               #}
+                </div>
+                <div id="js-datepicker" class="row">
+                    <div class="col-md-6">
+                        {{ form_label(offreUpdateForm.dateDebut) }}
+                        {{ form_widget(offreUpdateForm.dateDebut, {'attr': {'placeholder': 'JJ/MM/AAAA'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(offreUpdateForm.dateFin) }}
+                        {{ form_widget(offreUpdateForm.dateFin, {'attr': {'placeholder': 'JJ/MM/AAAA'}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(offreUpdateForm.duree) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(offreUpdateForm.salaire) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(offreUpdateForm.urgent) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(offreUpdateForm.possibiliteCDI) }}
+                    </div>
+                </div>
+
+                <div class="row mt-5 mb-5">
+                    <div class="col-md-12 text-center">
+                        {{ form_row(offreUpdateForm.save, {'label': "Valider les modifications"}) }}
+                    </div>
+                </div>
+
+                {{ form_end(offreUpdateForm)}}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        let reg="";
+        let dep="";
+        $(document).ready(function(){
+
+            console.log($.datepicker.regional['fr']);
+
+            $('.js-datepicker').datepicker({
+                monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+                dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+                dayNamesShort: ["Dim.", "Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam."],
+                dayNamesMin: ["D", "L", "Ma", "Me", "J", "V", "S"],
+                todayHighlight: true,
+                orientation: 'bottom right',
+                autoclose: true,
+                dateFormat: "dd/mm/yy",
+                firstDay: 1,
+                minDate: 'today'
+            });
+        });
+
+        $(function() {
+
+            $( "#offre_metier" ).autocomplete({
+                source: "{{ path('metier_autocomplete') }}",
+                minLength: 2,
+                select: function( event, ui ) {
+                    console.log( ui.item ?
+                        "Selected: " + ui.item.value + " aka " + ui.item.id :
+                        "Nothing selected, input was " + this.value );
+                }
+            });
+        });
+
+        $(function() {
+
+
+            $( "#offre_region" ).autocomplete({
+                source: "{{ path('region_autocomplete') }}",
+                minLength: 1,
+                select: function( event, ui ) {
+                    console.log( "Selected: " + ui.item.value );
+                    reg=ui.item.value;
+                }
+            });
+
+
+            $( "#offre_departement" ).autocomplete({
+                source: "{{ path('departement_autocomplete') }}",
+                minLength: 1,
+                select: function( event, ui ) {
+                    console.log( "Selected: " + ui.item.value );
+                    dep=ui.item.value;
+                    console.log(dep);
+                    $.get("/api/departements?nom=" + ui.item.value , function(data) {
+                        $("#offre_region").val(data[0].region.nom)
+
+                    });
+                }
+            });
+
+            $( "#offre_departement" ).change(function() {
+                dep=$("#offre_departement").val();
+            });
+
+            $( "#offre_ville" ).on("input",function() {
+                $("#offre_departement").val("");
+                $("#offre_region").val("");
+                dep="";
+                reg="";
+            });
+
+
+            $( "#offre_ville" ).autocomplete({
+                source: "{{ path('ville_autocomplete') }}",
+                search: function() {
+
+                    $( "#offre_ville" ).autocomplete({source:"{{ path('ville_autocomplete') }}?dep="+dep});
+                },
+                minLength: 1,
+                select: function( event, ui ) {
+
+                    console.log( "Selected: " + ui.item.value  );
+                    $.get("/api/villes?nom=" + ui.item.value , function(data) {
+                        $("#offre_departement").val(data[0].departement.nom)
+                        $("#offre_region").val(data[0].departement.region.nom)
+
+                    });
+
+                }
+            });
+        });
+    </script>
+
+        CHANGE IF LOCATION IS FRANCE OR ABROAD
+    <script>
+        $(document).ready(function () {
+
+            $('#offre_localisation_0, #offre_localisation_1').click(function () {
+
+                //console.log(this)
+                if ($(this).attr("value") == "1") {
+                    console.log("France");
+                    $('#loc-fr').show();
+                    $('#loc-etr').hide();
+
+                }
+                if ($(this).attr("value") == "2") {
+                    console.log("Etranger");
+                    $('#loc-etr').show();
+                    $('#loc-fr').hide();
+                    $("#{{ offreUpdateForm.ville.vars.id }}").val("");
+                    $("#{{ offreUpdateForm.departement.vars.id }}").val("");
+                    $("#{{ offreUpdateForm.region.vars.id }}").val("");
+                }
+            });
+
+            $('#offre_localisation_0').trigger('click');  // trigger the event
+        });
+
+    </script>
+
+{% endblock %}
