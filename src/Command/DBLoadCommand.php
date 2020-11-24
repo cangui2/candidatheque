@@ -357,7 +357,7 @@ class DBLoadCommand extends Command
                 $lat = $line[7];
                 $departement = $repo->findOneBy([ "code" => $dep]);
                 $ville = new Ville();
-                $ville->setNom($nom);
+                $ville->setNom($nom . " (" . $cp . ")");
                 $ville->setCodePostal($cp);
                 $ville->setLongitude($lon);
                 $ville->setLatitude($lat);
