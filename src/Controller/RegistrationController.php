@@ -141,6 +141,7 @@ class RegistrationController extends AbstractController
 
                 $user->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
 
+//                dd($proForm);
                 $this->em->persist($en);
                 $this->em->persist($rc);
                 $this->em->persist($user);
@@ -154,15 +155,16 @@ class RegistrationController extends AbstractController
 
                 $url = $this->generateUrl('app_confirm', ['token' => $authToken], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                // TODO SEND AN EMAIL AFTER VERIFICATION
-//                $nom = $rc->getNom();
-//                $prenom = $rc->getPrenom();
-//                $mail = $user->getEmail();
-
-//                $this->ms->sendAccountActivationMessage($user, $mail, $url, $nom, $prenom);
+                // TODO SEND AN EMAIL TO ADMIN AFTER REGISTRATION
+                $nom = $rc->getNom();
+                $prenom = $rc->getPrenom();
+                $mail = $user->getEmail();
 
                 $this->addFlash("success", "Votre demande d'inscription pour le compte de votre entreprise a bien été enregistrée. Après l'étude de celle-ci et confirmation de la part de votre société, un lien d'activation vous sera envoyé par email.");
+
+                $this->ms->sendAlertMessage($rc, $mail, $url);
                 return $this->redirectToRoute('app_login');
+
             }
 
             return $this->render('registration/pro_register.html.twig', [

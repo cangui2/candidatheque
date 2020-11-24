@@ -1,0 +1,58 @@
+{% apply inline_css(source('@css/email.css')) %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title></title>
+    </head>
+    <body>
+    <table border="0" width="100%" class="besttnetfont">
+        <tr>
+            <td id="t-header" class="besttnetelement" style="background-color:#da70d6; text-align: left">
+
+                <p><span class="header_span"> [ Candidatheque ]</span></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="80%" align="center" border="0" style="padding-right:30px; padding-left:30px;" >
+                    <tr><td style="height: 15px;" ></td></tr>
+
+                    <tr >
+                        <td class="besttnetcadre" style="margin-bottom: 15px; padding-top:30px;">
+                            <h2>Bonjour,</h2>
+                            <p>Une nouvelle demande d'ouverture de compte sur l'espace recruteur de la Candidathèque vous a été soumise.
+                                Vous trouverez ci-dessous les détails qui vous permettront d'identifier et de gérer cette demande dans l'espace admin.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 15px;" ></td></tr>
+                    <tr style="margin-bottom: 15px;">
+                        <td class="besttnetcadre" style="padding-top:30px; padding-bottom: 30px;";>
+                            <p><b>NOM :</b> {{ rc.nom }}</p>
+                            <p><b>PRENOM :</b> {{ rc.prenom }}</p>
+                            <p><b>EMAIL :</b> {{ mail }}</p>
+                            <hr>
+                            <p><b>ENTREPRISE : </b> {{ rc.entreprise.raisonSociale }}</p>
+                            <p><b>SIRET : </b> {{ rc.entreprise.siret }}</p>
+                            <p><b>TElEPHONE : </b> {{ rc.entreprise.telephone }}</p>
+                            <p><b>EMAIL :</b> {{ rc.entreprise.email }}</p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 15px;" ></td></tr>
+
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td id="t-footer" class="besttnetelement" style="background-color:#da70d6; text-align: center">
+
+                <p><span class="footer_span">©</span><span class="footer_span"> 2020&nbsp;Candidatheque</span></p>
+            </td>
+        </tr>
+    </table>
+
+
+    </body></html>
+
+{% endapply %}
