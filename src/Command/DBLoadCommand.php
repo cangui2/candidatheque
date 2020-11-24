@@ -320,7 +320,9 @@ class DBLoadCommand extends Command
                 $li = $line[3];
                 $re = $line[1];
                 $region = $repo->find($re);
-                $dep = new Departement($co, $li);
+                $dep = new Departement();
+                $dep->setCode($co);
+                $dep->setNom($li . " (" . $co . ")");
                 $dep->setRegion($region);
                 $this->manager->persist($dep);
                 $counter++;
@@ -353,7 +355,7 @@ class DBLoadCommand extends Command
                 $dep = $line[1];
                 $lon = $line[6];
                 $lat = $line[7];
-                $departement = $repo->find($dep);
+                $departement = $repo->findOneBy([ "code" => $dep]);
                 $ville = new Ville();
                 $ville->setNom($nom);
                 $ville->setCodePostal($cp);
