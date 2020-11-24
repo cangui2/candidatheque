@@ -7,11 +7,23 @@
 {% block body %}
 
 <div class="container">
+    <div class="row">
+        <div class="col-12">
+            {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
+                {% for message in messages %}
+                    <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
 <div class="row">
   <div class="col-12">
-      <h3 class="text-left mt-5"><b>SOCIÉTÉ {{ app.user.recruteur.entreprise | upper }} - </b> Offres actives: {{ liste_offres | length }} </h3>
-      <a href="#"><h5 class="font-weight-lighter"><b>Voir uniquement les offres que vous avez créées</b></h5></a><br>
-      <hr>
+      <span class="content-title">
+      <h3 class="mt-5"><b>SOCIÉTÉ {{ app.user.recruteur.entreprise | upper }} - </b> Offres actives: {{ liste_offres | length }} </h3>
+          <a href="{{ path('offres_recruteur') }}"><h5 class="font-weight-lighter"><b>Voir uniquement les offres que vous avez créées</b></h5></a></span><br>
+
     {% for offre_recruteur in offres_recruteur %}
 <!-- Card -->
 <div class="card liste-card mb-2">
@@ -96,13 +108,17 @@
                     <div class="row">
                         <div class="col-12">
                             <!-- Update Button -->
-                            <a href="#" class="btn btn-outline-info p-1 mx-0 mb-2">Modifier l'offre</a>
+                            <a href="{{ path('offres_modification', {offre: offre_recruteur.id}) }}" class="btn btn-outline-info p-1 mx-0 mb-2">Modifier l'offre</a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <!-- Delete Button -->
-                            <a href="#" class="btn btn-outline-secondary p-1 mx-0 mb-0">Supprimer l'offre</a>
+                            <form method="post" action="{{ url('offres_suppression', {offre: offre_recruteur.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette offre?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value= "{{ csrf_token('delete' ~ offre_recruteur.id) }}">
+                                <input type="submit" id="cancel" class="btn btn-outline-secondary p-1 mx-0 mb-0" value ="Supprimer l'offre">
+                            </form>
                         </div>
                     </div>
                     <hr class="hr-card">
