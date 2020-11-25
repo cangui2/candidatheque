@@ -26,6 +26,7 @@ class DBLoadCommand extends Command
     public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
+        $this->manager->getConnection()->getConfiguration()->setSQLLogger(null);
 
         parent::__construct();
     }

@@ -5,6 +5,9 @@ import FormProfil from './FormProfil.js';
 import Dialog from './Dialog.js';
 import Templates from './Templates.js';
 import './CV.css';
+import FormCompetences from './FormCompetences.js';
+import FormLangues from './FormLangues.js';
+import FormReseaux from './FormReseaux.js';
 
 class CV extends React.Component {
     constructor(props) {
@@ -16,7 +19,9 @@ class CV extends React.Component {
                 adresse: "Carnaby Street",
                 ville: "London",
                 phone: "+33 6 58 96 52 14",
-                email: "jodo@yahoo.com"
+                email: "jodo@yahoo.com",
+                titre: "Développeur Web",
+                description: "bla bla bla"
             },
             experiences: [
                 { 
@@ -40,22 +45,25 @@ class CV extends React.Component {
                 }
             ],
             competences: [
-                { libelle: "Javascript", niveau: "2" },
+                { libelle: "Javascript", niveau: "5" },
                 { libelle: "PHP", niveau: "2" },
-                { libelle: "Javascript", niveau: "2" },
-                { libelle: "Javascript", niveau: "2" },
+                { libelle: "Symfony", niveau: "1" },
+                { libelle: "React", niveau: "3" },
             ],
             langues: [
-                
+                { libelle: "Anglais", niveau: "5" },
+                { libelle: "Allemand", niveau: "2" }
             ],
             reseaux: [
-                
+                { type: "LinkedIn", url: "https://linkedin.com/..." },
+                { type: "GitHub", url: "https://github.com/..." }
             ],
         }
     }
     handleProfilChange(pro) {
         this.setState({ profil: pro });
     }
+    //////////////////////////////////////////////////////////////
     handleAddExperience(evt) {
         let experiences = this.state.experiences;
         experiences.push({ date: "2020-10-03", mission: "bla bla bla22" });
@@ -71,6 +79,12 @@ class CV extends React.Component {
         experiences[i] = exp;
         this.setState({ experiences });
     }
+    //////////////////////////////////////////////////////////////
+    handleAddFormation(evt) {
+        let formations = this.state.formations;
+        formations.push({ dateDebut: "", dateFin: "", ecole: "", niveau: "", diplome: "", desciption: "" });
+        this.setState({ formations });
+    }
     handleDelFormation(i) {
         let formations = this.state.formations;
         formations.splice(i, 1);
@@ -81,15 +95,65 @@ class CV extends React.Component {
         formations[i] = exp;
         this.setState({ formations });
     }
+    //////////////////////////////////////////////////////////////
+    handleAddCompetence(evt) {
+        let competences = this.state.competences;
+        competences.push({ libelle: "", niveau: ""});
+        this.setState({ competences });
+    }
+    handleDelCompetence(i) {
+        let competences = this.state.competences;
+        competences.splice(i, 1);
+        this.setState({ competences });
+    }
+    handleChangeCompetence(i, exp) {
+        let competences = this.state.competences;
+        competences[i] = exp;
+        this.setState({ competences });
+    }
+    //////////////////////////////////////////////////////////////
+    handleAddLangue(evt) {
+        let langues = this.state.langues;
+        langues.push({ libelle: "", niveau: ""});
+        this.setState({ langues });
+    }
+    handleDelLangue(i) {
+        let langues = this.state.langues;
+        langues.splice(i, 1);
+        this.setState({ langues });
+    }
+    handleChangeLangue(i, exp) {
+        let langues = this.state.langues;
+        langues[i] = exp;
+        this.setState({ langues });
+    }
+    //////////////////////////////////////////////////////////////
+    handleAddReseau(evt) {
+        let reseaux = this.state.reseaux;
+        reseaux.push({ type: "", url: ""});
+        this.setState({ reseaux });
+    }
+    handleDelReseau(i) {
+        let reseaux = this.state.reseaux;
+        reseaux.splice(i, 1);
+        this.setState({ reseaux });
+    }
+    handleChangeReseau(i, exp) {
+        let reseaux = this.state.reseaux;
+        reseaux[i] = exp;
+        this.setState({ reseaux });
+    }
     render() {
         return (
             <div className="row">
-                <div className="col-12">
+                <div className="col-6">
                     <Dialog />
+                </div>
+                <div className="col-6 text-right">
                     <Templates />
                 </div>
                 
-                <div className="col-sm-5">
+                <div className="col-sm-6">
                     <h1>Module de création de CV.</h1>
                     Cliquez sur les onglets ci-dessous pour compléter les différentes rubriques de votre CV
 
@@ -119,8 +183,8 @@ class CV extends React.Component {
                                         </button>
                                     </h2>
                                 </div>
-                                <div id="collapse2" class="collapse " data-parent="#accordion1">
-                                    <div class="card-body">
+                                <div id="collapse2" className="collapse " data-parent="#accordion1">
+                                    <div className="card-body">
                                     <FormExperiences
                                         value={this.state.experiences}
                                         addExperience={(evt) => this.handleAddExperience(evt)}
@@ -130,16 +194,16 @@ class CV extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header" id="heading2">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse3" >
+                            <div className="card">
+                                <div className="card-header" id="heading2">
+                                    <h2 className="mb-0">
+                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse3" >
                                             Formation                                
                                         </button>
                                     </h2>
                                 </div>
-                                <div id="collapse3" class="collapse " data-parent="#accordion1">
-                                    <div class="card-body">
+                                <div id="collapse3" className="collapse " data-parent="#accordion1">
+                                    <div className="card-body">
                                     <FormFormations
                                         value={this.state.formations}
                                         addFormation={(evt) => this.handleAddFormation(evt)}
@@ -149,12 +213,69 @@ class CV extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            <div className="card">
+                                <div className="card-header" id="heading2">
+                                    <h2 className="mb-0">
+                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse4" >
+                                            Competences                                
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse4" className="collapse " data-parent="#accordion1">
+                                    <div className="card-body">
+                                    <FormCompetences
+                                        value={this.state.competences}
+                                        addCompetence={(evt) => this.handleAddCompetence(evt)}
+                                        delCompetence={(i) => this.handleDelCompetence(i)}
+                                        changeCompetence={(i, exp) => this.handleChangeCompetence(i, exp)}
+                                    />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card">
+                                <div className="card-header" id="heading2">
+                                    <h2 className="mb-0">
+                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse5" >
+                                            Langues                                
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse5" className="collapse " data-parent="#accordion1">
+                                    <div className="card-body">
+                                    <FormLangues
+                                        value={this.state.langues}
+                                        addLangue={(evt) => this.handleAddLangue(evt)}
+                                        delLangue={(i) => this.handleDelLangue(i)}
+                                        changeLangue={(i, exp) => this.handleChangeLangue(i, exp)}
+                                    />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card">
+                                <div className="card-header" id="heading2">
+                                    <h2 className="mb-0">
+                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse6" >
+                                            Réseaux sociaux                                
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse6" className="collapse " data-parent="#accordion1">
+                                    <div className="card-body">
+                                    <FormReseaux
+                                        value={this.state.reseaux}
+                                        addReseau={(evt) => this.handleAddReseau(evt)}
+                                        delReseau={(i) => this.handleDelReseau(i)}
+                                        changeReseau={(i, exp) => this.handleChangeReseau(i, exp)}
+                                    />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     
                 </div>
 
-                <div  className="col-sm-7 ">
+                <div  className="col-sm-6 paper-container">
 
                     <div className="paper">
                         <section className="identite">
@@ -171,28 +292,25 @@ class CV extends React.Component {
                             <div className="email">{this.state.profil.email}</div>
                         </section>
                         <section className="titre">
-                            <div className="poste">Developpeur Logiciel</div>
+                            <div className="poste">{this.state.profil.titre}</div>
                         </section>
                         <section className="intro">
                             <header>Profil</header>
-                            <div className="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas
-                                corrupti odio architecto ipsa libero a totam iusto odit saepe. Tempore debitis error
-                                beatae. Earum totam consequatur accusantium repellendus, veritatis commodi!
-                            </div>
+                            <div className="text">{this.state.profil.description}</div>
                         </section>
                         <section className="experiences">
                             <header>Experiences</header>
                             <div >
                                 {
-                                    this.state.experiences.map((experience) =>
-                                        <div className="experience">
-                                            <div class="date-debut">{experience.dateDebut}</div>
-                                            <div class="date-fin">{experience.dateFin}</div>
-                                            <div class="entreprise">{experience.entreprise}</div>
-                                            <div class="ville">{experience.ville}</div>
-                                            <div class="logo">{experience.logo}</div>
-                                            <div class="titre">{experience.titre}</div>
-                                            <div class="desciption">{experience.description}</div>
+                                    this.state.experiences.map((experience, index) =>
+                                        <div className="experience"  key={index}>
+                                            <div className="date-debut">{experience.dateDebut}</div>
+                                            <div className="date-fin">{experience.dateFin}</div>
+                                            <div className="entreprise">{experience.entreprise}</div>
+                                            <div className="ville">{experience.ville}</div>
+                                            <div className="logo">{experience.logo}</div>
+                                            <div className="titre">{experience.titre}</div>
+                                            <div className="desciption">{experience.description}</div>
                                         </div>
                                     )
                                 }
@@ -202,15 +320,13 @@ class CV extends React.Component {
                             <header>Formations</header>
                             <div >
                                 {
-                                    this.state.formations.map((formation) =>
-                                        <div className="formation">
-                                            <div class="date-debut">{formation.dateDebut}</div>
-                                            <div class="date-fin">{formation.dateFin}</div>
-                                            <div class="entreprise">{formation.entreprise}</div>
-                                            <div class="ville">{formation.ville}</div>
-                                            <div class="logo">{formation.logo}</div>
-                                            <div class="titre">{formation.titre}</div>
-                                            <div class="desciption">{formation.description}</div>
+                                    this.state.formations.map((formation, index) =>
+                                        <div className="formation"  key={index}>
+                                            <div className="date-debut">{formation.dateDebut}</div>
+                                            <div className="date-fin">{formation.dateFin}</div>
+                                            <div className="ecole">{formation.entreprise}</div>
+                                            <div className="titre">{formation.titre}</div>
+                                            <div className="desciption">{formation.description}</div>
                                         </div>
                                     )
                                 }
@@ -220,15 +336,10 @@ class CV extends React.Component {
                             <header>Competences</header>
                             <div >
                                 {
-                                    this.state.competences.map((competence) =>
-                                        <div className="competence">
-                                            <div class="date-debut">{competence.dateDebut}</div>
-                                            <div class="date-fin">{competence.dateFin}</div>
-                                            <div class="entreprise">{competence.entreprise}</div>
-                                            <div class="ville">{competence.ville}</div>
-                                            <div class="logo">{competence.logo}</div>
-                                            <div class="titre">{competence.titre}</div>
-                                            <div class="desciption">{competence.description}</div>
+                                    this.state.competences.map((competence, index) =>
+                                        <div className="competence"  key={index}>
+                                            <div className="libelle">{competence.libelle}</div>
+                                            <div className="niveau">{competence.niveau}</div>
                                         </div>
                                     )
                                 }
@@ -238,15 +349,10 @@ class CV extends React.Component {
                             <header>Langues</header>
                             <div >
                                 {
-                                    this.state.langues.map((langue) =>
-                                        <div className="langue">
-                                            <div class="date-debut">{langue.dateDebut}</div>
-                                            <div class="date-fin">{langue.dateFin}</div>
-                                            <div class="entreprise">{langue.entreprise}</div>
-                                            <div class="ville">{langue.ville}</div>
-                                            <div class="logo">{langue.logo}</div>
-                                            <div class="titre">{langue.titre}</div>
-                                            <div class="desciption">{langue.description}</div>
+                                    this.state.langues.map((langue, index) =>
+                                        <div className="langue"  key={index}>
+                                            <div className="libelle">{langue.libelle}</div>
+                                            <div className="niveau">{langue.niveau}</div>
                                         </div>
                                     )
                                 }
@@ -256,15 +362,13 @@ class CV extends React.Component {
                             <header>Réseaux</header>
                             <div >
                                 {
-                                    this.state.reseaux.map((reseau) =>
-                                        <div className="reseau">
-                                            <div class="date-debut">{reseau.dateDebut}</div>
-                                            <div class="date-fin">{reseau.dateFin}</div>
-                                            <div class="entreprise">{reseau.entreprise}</div>
-                                            <div class="ville">{reseau.ville}</div>
-                                            <div class="logo">{reseau.logo}</div>
-                                            <div class="titre">{reseau.titre}</div>
-                                            <div class="desciption">{reseau.description}</div>
+                                    this.state.reseaux.map((reseau, index) =>
+                                        <div className="reseau"  key={index}>
+                                            <div className="libelle">{reseau.type}</div>
+                                            <div className="libelle">{reseau.url}</div>
+                                            <div className="niveau">
+                                                <a href="{reseau.url}">{reseau.type}</a>
+                                            </div>
                                         </div>
                                     )
                                 }
