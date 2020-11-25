@@ -74,7 +74,8 @@ class MailService {
 
             ->from('candidatheque<nepasrepondre@candidatheque.com>')
             ->to('mihaeladeaca@gmail.com')
-            ->subject("Nouveau compte professionnel à confirmer sur la Candidathèque")
+            ->cc('francois@be4web.fr')
+            ->subject("Nouveau compte professionnel à confirmer sur Candidathèque")
             ->htmlTemplate('emails/new_registration_alert.html.twig')
             ->context([
                 'rc' => $rc,

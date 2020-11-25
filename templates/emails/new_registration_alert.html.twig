@@ -21,7 +21,7 @@
                     <tr >
                         <td class="besttnetcadre" style="margin-bottom: 15px; padding-top:30px;">
                             <h2>Bonjour,</h2>
-                            <p>Une nouvelle demande d'ouverture de compte sur l'espace recruteur de la <a href="{{ url('home') }}">Candidathèque</a> vous a été soumise.
+                            <p>Une nouvelle demande d'ouverture de compte sur l'espace recruteur de <a href="{{ url('home') }}">Candidathèque</a> vous a été soumise.
                                 Vous trouverez ci-dessous les détails qui vous permettront d'identifier et de gérer cette demande dans l'espace admin.
                             </p>
                         </td>
@@ -30,12 +30,12 @@
                     <tr style="margin-bottom: 15px;">
                         <td class="besttnetcadre" style="padding-top:30px; padding-bottom: 30px;";>
                             <p><b>NOM :</b> {{ rc.nom }}</p>
-                            <p><b>PRENOM :</b> {{ rc.prenom }}</p>
+                            <p><b>PRÉNOM :</b> {{ rc.prenom }}</p>
                             <p><b>EMAIL :</b> {{ mail }}</p>
                             <hr>
                             <p><b>ENTREPRISE : </b> {{ rc.entreprise.raisonSociale }}</p>
                             <p><b>SIRET : </b> {{ rc.entreprise.siret }}</p>
-                            <p><b>TElEPHONE : </b> {{ rc.entreprise.telephone }}</p>
+                            <p><b>TÉLÉPHONE : </b> {{ rc.entreprise.telephone }}</p>
                             <p><b>EMAIL :</b> {{ rc.entreprise.email }}</p>
                         </td>
                     </tr>
