@@ -44,84 +44,14 @@
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                      aria-labelledby="v-pills-home-tab">
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div >
-
-{#                                {% for user in session|slice(0, 10) %}#}
-
-
-
-{#                                    <li id="test" data-libelle="{{ user.libelle| raw }}" data-count="{{ user.1|e('html_attr') }}">{{ user.libelle|e('html_attr') }}</li>#}
-{#                                    <li >{{ user.1|e }}</li>#}
-
-{#                                {% endfor %}#}
-
-                            </div>
                             <div class="row">
                                 <div class="col-lg-8">
                                 <canvas style= "height:20vh; width:40vw" id="myChart"></canvas>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
 {# block reporting #}
                     <div class="row blockreporting">
-                        <div class="col-lg-4 col-sm-12">
-                            <h4 class="colorBG-3E68D4Cdtk text-center" style="border-radius: 10px;">CLIENT</h4>
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
-                                               role="tab"
-                                               aria-controls="home" aria-selected="true">Reporting Client</a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile"
-                                               role="tab"
-                                               aria-controls="profile" aria-selected="false">Dernier ajout</a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact"
-                                               role="tab"
-                                               aria-controls="contact" aria-selected="false">En attente</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="home" role="tabpanel"
-                                             aria-labelledby="home-tab">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Reporting</h5>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="profile" role="tabpanel"
-                                             aria-labelledby="profile-tab">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Dernier ajout</h5>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="contact" role="tabpanel"
-                                             aria-labelledby="contact-tab">
-                                            <div class="card-body">
-                                                <h5 class="card-title">En attente</h5>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-lg-4 col-sm-12">
                             <h4>OFFRES</h4>
                             <div class="card text-center">
