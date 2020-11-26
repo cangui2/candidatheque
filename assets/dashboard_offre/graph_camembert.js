@@ -2,7 +2,7 @@ import Chart from 'chart.js';
 
 var ctx = document.getElementById('myChart').getContext('2d');
 
-var test = document.getElementById('test');
+
 
 
 var myPieChart;
@@ -45,4 +45,3 @@ myPieChart = new Chart(ctx, {
         }
     },
 });
-console.log(test);
