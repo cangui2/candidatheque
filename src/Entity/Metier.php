@@ -69,12 +69,26 @@ class Metier
      */
     private $rome;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Mobilite::class, mappedBy="metierSource")
+     */
+    private $mobilites1;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Mobilite::class, mappedBy="metierCible")
+     */
+    private $mobilites2;
+
+
     public function __construct($ogr, $libelle)
     {
         $this->CVs = new ArrayCollection();
         $this->offres = new ArrayCollection();
         $this->id=$ogr;
         $this->libelle = $libelle;
+        $this->mobilites1 = new ArrayCollection();
+        $this->mobilites2 = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,33 +181,67 @@ class Metier
         return $this;
     }
 
-    public function getOgr1(): ?string
-    {
-        return $this->ogr1;
-    }
 
-    public function setOgr1(?string $ogr1): self
-    {
-        $this->ogr1 = $ogr1;
 
-        return $this;
-    }
 
-    public function getOgr2(): ?string
-    {
-        return $this->ogr2;
-    }
-
-    public function setOgr2(?string $ogr2): self
-    {
-        $this->ogr2 = $ogr2;
-
-        return $this;
-    }
 
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * @return Collection|Mobilite[]
+     */
+    public function getMobilites1(): Collection
+    {
+        return $this->mobilites1;
+    }
+
+    public function addMobilites1(Mobilite $mobilites1): self
+    {
+        if (!$this->mobilites1->contains($mobilites1)) {
+            $this->mobilites1[] = $mobilites1;
+            $mobilites1->addMetierSource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMobilites1(Mobilite $mobilites1): self
+    {
+        if ($this->mobilites1->removeElement($mobilites1)) {
+            $mobilites1->removeMetierSource($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mobilite[]
+     */
+    public function getMobilites2(): Collection
+    {
+        return $this->mobilites2;
+    }
+
+    public function addMobilites2(Mobilite $mobilites2): self
+    {
+        if (!$this->mobilites2->contains($mobilites2)) {
+            $this->mobilites2[] = $mobilites2;
+            $mobilites2->addMetierCible($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMobilites2(Mobilite $mobilites2): self
+    {
+        if ($this->mobilites2->removeElement($mobilites2)) {
+            $mobilites2->removeMetierCible($this);
+        }
+
+        return $this;
     }
 
 
