@@ -49,8 +49,7 @@ class OffreRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('o')
             ->select('m.libelle','count(m.libelle) as compteur')
-            //->from('offre o')
-                ->join('o.metier', 'm')
+            ->join('o.metier', 'm')
             ->where('o.recruteur = :recruteur')
             ->setParameters(['recruteur' => $recruteur_id])
             ->groupBy('m.libelle')

@@ -37,7 +37,7 @@ class EntrepriseController extends AbstractController
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
-        //dd($result);
+
         $global_data = [];
         $global_label = [];
         foreach ($result as $ligne) {
