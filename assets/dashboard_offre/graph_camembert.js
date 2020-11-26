@@ -5,24 +5,34 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var test = document.getElementById('test');
 
 
-
-
-
-
-
-
-
-var myPieChart = new Chart(ctx, {
+var myPieChart;
+myPieChart = new Chart(ctx, {
     type: 'pie',
     data: {
         labels: global_label,
         datasets: [{
             label: '# of Votes',
             data: global_data,
-
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgb(235,54,117)',
+                'rgba(255,206,86,0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgb(235,54,117)',
+                'rgba(255,206,86,0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
 
 
         }],
+
         options: {
             layout: {
                 padding: {
