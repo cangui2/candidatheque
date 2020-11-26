@@ -19,10 +19,14 @@ class CandidatController extends AbstractController
     public function dashboard(PostuleRepository $repo): Response 
     {
 
-        $compteur = $repo->countByCandidat(1);
+        $candidat_id = $this->getUser()->getCandidat()->getId();
 
-        dd($compteur);
+        $compteur = $repo->countByCandidat($candidat_id);
 
-        return $this->render('candidat/dashboard_candidat.html.twig');
+        //dd($compteur);
+
+        return $this->render('candidat/dashboard_candidat.html.twig',[
+            'compteur'=>$compteur,
+        ]);
     }
 }
