@@ -20,21 +20,25 @@ class Mobilite
 
     /**
      * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="mobilites1")
+     * @ORM\JoinTable(name="mobilite_rome1")
      */
     private $romeSource;
 
     /**
      * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="mobilites2")
+     * @ORM\JoinTable(name="mobilite_rome2")
      */
     private $romeCible;
 
     /**
      * @ORM\ManyToMany(targetEntity=Metier::class, inversedBy="mobilites1")
+     * @ORM\JoinTable(name="mobilite_metier1")
      */
     private $metierSource;
 
     /**
      * @ORM\ManyToMany(targetEntity=Metier::class, inversedBy="mobilites2")
+     * @ORM\JoinTable(name="mobilite_metier2")
      */
     private $metierCible;
 

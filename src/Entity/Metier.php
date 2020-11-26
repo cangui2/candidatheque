@@ -182,9 +182,6 @@ class Metier
     }
 
 
-
-
-
     public function __toString()
     {
         return $this->libelle;
