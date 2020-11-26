@@ -30,9 +30,14 @@ class Rome
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=191)
+     * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -45,16 +50,29 @@ class Rome
     private $metiers;
 
 
-    public function __construct($code, $libelle)
+    public function __construct($ogr, $code, $libelle)
     {
         $this->metiers = new ArrayCollection();
-        $this->id = $code;
+        $this->id = $ogr;
+        $this->code = $code;
         $this->libelle = $libelle;
     }
 
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     public function getLibelle(): ?string

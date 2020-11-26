@@ -43,7 +43,6 @@ class Metier
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -53,8 +52,6 @@ class Metier
      * @Groups({"read"})
      */
     private $libelle;
-
-
 
     /**
      * @ORM\OneToMany(targetEntity=CV::class, mappedBy="metier")
@@ -72,21 +69,12 @@ class Metier
      */
     private $rome;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $ogr1;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $ogr2;
-
-
-    public function __construct()
+    public function __construct($ogr, $libelle)
     {
         $this->CVs = new ArrayCollection();
         $this->offres = new ArrayCollection();
+        $this->id=$ogr;
+        $this->libelle = $libelle;
     }
 
     public function getId(): ?int
