@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompetenceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +30,6 @@ class Competence
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -39,13 +40,31 @@ class Competence
     private $libelle;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $type;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $code;
+    private $libelleType;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="competences")
+     */
+    private $rome;
+
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __construct()
+    {
+        $this->rome = new ArrayCollection();
     }
 
     public function getLibelle(): ?string
@@ -60,15 +79,52 @@ class Competence
         return $this;
     }
 
-    public function getCode(): ?string
+    public function getType(): ?int
     {
-        return $this->code;
+        return $this->type;
     }
 
-    public function setCode(?string $code): self
+    public function setType(?int $type): self
     {
-        $this->code = $code;
+        $this->type = $type;
 
         return $this;
     }
+
+    public function getLibelleType(): ?string
+    {
+        return $this->libelleType;
+    }
+
+    public function setLibelleType(?string $libelleType): self
+    {
+        $this->libelleType = $libelleType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rome[]
+     */
+    public function getRome(): Collection
+    {
+        return $this->rome;
+    }
+
+    public function addRome(Rome $rome): self
+    {
+        if (!$this->rome->contains($rome)) {
+            $this->rome[] = $rome;
+        }
+
+        return $this;
+    }
+
+    public function removeRome(Rome $rome): self
+    {
+        $this->rome->removeElement($rome);
+
+        return $this;
+    }
+
 }
