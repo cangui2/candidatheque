@@ -80,6 +80,9 @@ input {
     color: #C4A2FC;
     background-color: transparent;
 }
+#offre_description, #offre_profil{
+    height: 150px !important;
+}
 
 @media
 only screen

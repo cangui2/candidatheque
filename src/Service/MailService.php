@@ -65,6 +65,28 @@ class MailService {
 //        END  ACCOUNT ACTIVATION MAIL
 
 
+//  ADMIN ALERT MAIL AFTER PRO REGISTRATION
+
+    public function sendAlertMessage($rc, $mail, $url)
+    {
+
+        $email = (new TemplatedEmail())
+
+            ->from('candidatheque<nepasrepondre@candidatheque.com>')
+            ->to('mihaeladeaca@gmail.com')
+            ->cc('francois@be4web.fr')
+            ->subject("Nouveau compte professionnel à confirmer sur Candidathèque")
+            ->htmlTemplate('emails/new_registration_alert.html.twig')
+            ->context([
+                'rc' => $rc,
+                'mail' => $mail,
+                'url' => $url,
+
+            ]);
+
+        $this->mailer->send($email);
+    }
+
 
 
 
