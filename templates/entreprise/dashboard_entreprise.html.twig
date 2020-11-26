@@ -2,9 +2,15 @@
 {% block stylesheets %}
 
     <link rel="stylesheet" href="{{ asset("assets/css/dashboard_entreprise.css") }}"/>
-<div class="test" id="{{ session|json_encode() }}></div>
+
 {% endblock %}
+
 {% block body %}
+
+
+
+
+
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -32,11 +38,8 @@
                    aria-controls="v-pills-settings" aria-selected="false">Candidats</a>
             </div>
         </div>
-        <div class="tab-pane fade" id="v-pills-profils" role="tabpanel"
-             aria-labelledby="v-pills-settings-tab">
-            {{ include ('entreprise/profils.html.twig') }}
-        </div>
-{# Fiche Client #}
+
+{# Fiche dashboard #}
         <div class="col-lg-11 col-sm-12">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
@@ -44,7 +47,25 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <h5>test</h5>
+                            <div >
+
+{#                                {% for user in session|slice(0, 10) %}#}
+
+
+
+{#                                    <li id="test" data-libelle="{{ user.libelle| raw }}" data-count="{{ user.1|e('html_attr') }}">{{ user.libelle|e('html_attr') }}</li>#}
+{#                                    <li >{{ user.1|e }}</li>#}
+
+{#                                {% endfor %}#}
+
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                <canvas style= "height:20vh; width:40vw" id="myChart"></canvas>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -230,5 +251,14 @@
     </div>
 
 
+
+{% endblock %}
+{% block javascripts  %}
+    <script>
+        var global_data = {{ global_data|raw }};
+        var global_label = {{ global_label|raw }};
+    </script>
+{#    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>#}
+    {{ encore_entry_script_tags('dashboard_offre') }}
 
 {% endblock %}

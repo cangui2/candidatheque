@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,24 +30,26 @@ class EntrepriseController extends AbstractController
 
     /**
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
-     * @param SessionInterface $session
-     * @return Response
+     *
      */
     public function dashboard(OffreRepository $repo): Response {
 
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
-
-
-//        $repository = $this->getDoctrine()
-//            ->getManager()
-//            ->getRepository('OffreRepository:Offre');
-
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
+        //dd($result);
+        $global_data = [];
+        $global_label = [];
+        foreach ($result as $ligne) {
+            $global_data[] = $ligne["compteur"];
+            $global_label[] = $ligne["libelle"];
+        }
 
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
-            'session'=>$result,
+            'global_data' => json_encode($global_data),
+            'global_label' => json_encode($global_label),
+
         ]);
     }
 
