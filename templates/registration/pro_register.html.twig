@@ -10,7 +10,7 @@
             <div class="card card-signin m-5" style="background-color: #f8f9fa">
                 <div class="card-body">
                     <h4 class="card-title text-center color-principale1 pt-1">Créer un compte</h4>
-                    <form class="mb-3 mb-lg-4 py-3">
+
 {#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
                     {% for label, messages in app.flashes(['info', 'danger']) %}
                         {% for message in messages %}
@@ -20,7 +20,7 @@
                         {% endfor %}
                     {% endfor %}
                    
-                    {{ form_start(proForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                    {{ form_start(proForm) }}
                     <div class="form-group ">
                         {{ form_errors(proForm) }}
                     </div>
@@ -59,7 +59,7 @@
                     </div>
                         <button  type="submit" id="signup_button" class="btn text-light bg-color-principale1 text-uppercase">Valider</button>
                     {{ form_end(proForm) }}
-                    </form>
+
                 </div>
             </div>
         </div>

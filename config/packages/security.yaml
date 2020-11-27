@@ -51,5 +51,6 @@ security:
         - { path: ^/login_success, allow_if: "is_authenticated()"}
         - { path: ^/candidat/inscription, roles: IS_ANONYMOUS }
         - { path: ^/entreprise/inscription, roles: IS_ANONYMOUS }
+        - { path: ^/entreprise/dashboard, roles: [ROLE_RECRUTEUR, ROLE_ADMIN] }
         - { path: ^/entreprise/offre_creation, roles: [ROLE_RECRUTEUR, ROLE_ADMIN] }
 

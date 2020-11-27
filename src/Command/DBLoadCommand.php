@@ -26,6 +26,7 @@ class DBLoadCommand extends Command
     public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
+        $this->manager->getConnection()->getConfiguration()->setSQLLogger(null);
 
         parent::__construct();
     }
@@ -147,6 +148,7 @@ class DBLoadCommand extends Command
         $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
     }
 
+    //charge les table rome et metier (appelation) les ids sont chargés avec les codes ogr du Rome
     protected function loadRome(OutputInterface $output)
     {
 
@@ -165,20 +167,17 @@ class DBLoadCommand extends Command
                 $co3 = $line[2];
                 $libelle_rome = $line[3];
                 $libelle_metier = $line[4];
-                $ogr_metier1 = $line[8];
-                $ogr_metier2 = $line[9];
+                $ogr_rome = $line[8];
+                $ogr_metier = $line[9];
                 if ($co1 && $co2 && $co3) {
-                    $ro = new Rome($co1.$co2.$co3, $libelle_rome);
+                    $ro = new Rome($ogr_rome, $co1.$co2.$co3, $libelle_rome);
                     $this->manager->persist($ro);
                     $counter1++;
                 }
                 elseif (!$co1 && !$co2 && !$co3 && $libelle_metier) {
-                    $me = new Metier();
+                    $me = new Metier($ogr_metier, $libelle_metier);
                     $this->manager->persist($me);
                     $me->setRome($ro);
-                    $me->setLibelle($libelle_metier);
-                    $me->setOgr1($ogr_metier1);
-                    $me->setOgr2($ogr_metier2);
                     $counter2++;
                 }
 
@@ -223,32 +222,93 @@ class DBLoadCommand extends Command
         $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
     }
 
-
     protected function loadCompetence(OutputInterface $output)
     {
-        $csv_file = 'competences.csv';
-        $output->write("Loading <info>Competence</info> from <info>" . $csv_file . "</info>");
-        $csv = fopen(dirname(__FILE__).'/../../doc/csv/'.$csv_file, 'r');
+        $repo_rome = $this->manager->getRepository(Rome::class);
+        $repo_competence = $this->manager->getRepository(Competence::class);
+
+        $csv_file = '21-item_v344_utf8.csv';
+        $output->writeln("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
+        $line = fgetcsv($csv);
+        $items = [];
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>4) {
+                $items[] = $line;
+            }
+        }
+        fclose($csv);
+        //OK: $items contient la table item [code_ogr_activite, libelle, code_type ...]
+
+        $csv_file = '22-coherence_item_v344_utf8.csv';
+        $output->write("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
         $line = fgetcsv($csv);
         $counter=0;
+
         while (!feof($csv)) {
-            $line = fgetcsv($csv, 0, ",", '"');
-            if ($line) {
-                $co = new Competence();
-                $code = $line[0];
-                $libelle = $line[1];
-                $co->setLibelle(str_replace("''", "'", $libelle));
-                $co->setCode($code);
-                $this->manager->persist($co);
+            $line = fgetcsv($csv);
+            if ($line && count($line)>1) {
+                $code_rome = $line[0];
+                $code_ogr = $line[1];
+                $rome = $repo_rome->findOneBy([ "code" => $code_rome ]);
+                $competence = $repo_competence->find($code_ogr);
+                if ($competence) {
+
+                }
+                else {
+                    $comp_rome = $this->findRomeCompetences($code_ogr, $items);
+                    $competence = new Competence($code_ogr);
+                    $competence->setLibelle($comp_rome[0]);
+                    $competence->setType($comp_rome[1]);
+                    $this->manager->persist($competence);
+                }
+                $competence->addRome($rome);
                 $counter++;
             }
         }
-
+        $this->manager->flush();
         fclose($csv);
 
-        $this->manager->flush();
-        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+        $output->writeln(" ... <question>" . $counter . "</question> Competences lines inserted");
+
     }
+
+    protected function findRomeCompetences(string $ogr, array $items) {
+        foreach ($items as $line) {
+            if ($line[0]==$ogr) {
+                return [ $line[1], $line[2] ];
+            }
+        }
+    }
+
+
+//    protected function loadCompetence(OutputInterface $output)
+//    {
+//        $csv_file = 'competences.csv';
+//        $output->write("Loading <info>Competence</info> from <info>" . $csv_file . "</info>");
+//        $csv = fopen(dirname(__FILE__).'/../../doc/csv/'.$csv_file, 'r');
+//        $line = fgetcsv($csv);
+//        $counter=0;
+//        while (!feof($csv)) {
+//            $line = fgetcsv($csv, 0, ",", '"');
+//            if ($line) {
+//                $co = new Competence();
+//                $code = $line[0];
+//                $libelle = $line[1];
+//                $co->setLibelle(str_replace("''", "'", $libelle));
+//                $co->setCode($code);
+//                $this->manager->persist($co);
+//                $counter++;
+//            }
+//        }
+//
+//        fclose($csv);
+//
+//        $this->manager->flush();
+//        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+//    }
 
     protected function loadPays(OutputInterface $output)
     {
@@ -320,7 +380,9 @@ class DBLoadCommand extends Command
                 $li = $line[3];
                 $re = $line[1];
                 $region = $repo->find($re);
-                $dep = new Departement($co, $li);
+                $dep = new Departement();
+                $dep->setCode($co);
+                $dep->setNom($li . " (" . $co . ")");
                 $dep->setRegion($region);
                 $this->manager->persist($dep);
                 $counter++;
@@ -353,9 +415,9 @@ class DBLoadCommand extends Command
                 $dep = $line[1];
                 $lon = $line[6];
                 $lat = $line[7];
-                $departement = $repo->find($dep);
+                $departement = $repo->findOneBy([ "code" => $dep]);
                 $ville = new Ville();
-                $ville->setNom($nom);
+                $ville->setNom($nom . " (" . $cp . ")");
                 $ville->setCodePostal($cp);
                 $ville->setLongitude($lon);
                 $ville->setLatitude($lat);

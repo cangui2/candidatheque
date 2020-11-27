@@ -17,10 +17,11 @@ class EntrepriseController extends AbstractController
      */
     public function index(): Response {
 
-    if($this->isGranted("IS_AUTHENTICATED_REMEMBERED"))
-        {
-            return $this->redirectToRoute("login_success");
-        }
+        // Laisser le recruteur connecté voir l'espace entreprise
+//        if ($this->isGranted("IS_AUTHENTICATED_REMEMBERED"))
+//        {
+//            return $this->redirectToRoute("login_success");
+//        }
 
 
         return $this->render('entreprise/espace_entreprise.html.twig', [

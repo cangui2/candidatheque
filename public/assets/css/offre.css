@@ -7,9 +7,15 @@
     background-color: #4169E1 !important;
 }
 
+
 label.required:before {
     content: "* " !important;
     color: red;
+
+}
+
+.content-title {
+    text-align: justify !important;
 
 }
 
@@ -75,6 +81,9 @@ input {
     color: #C4A2FC;
     background-color: transparent;
 }
+#offre_description, #offre_profil{
+    height: 150px !important;
+}
 
 @media
 only screen
@@ -82,6 +91,16 @@ and (max-width: 768px), (min-device-width: 400px)
 and (max-device-width: 992px)
 {
     .form-control{
-        font-size: .8rem;
+        font-size: .9rem;
+    }
+    h3 {
+        font-size: 1.25rem;
+    }
+    h5 {
+        font-size: 1.15rem;
+        line-height: 1;
+    }
+    h4 {
+        font-size: 1.20rem;
     }
 }

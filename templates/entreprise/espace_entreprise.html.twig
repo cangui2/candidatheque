@@ -1,4 +1,4 @@
-{% extends 'base_entreprise.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
 
@@ -70,7 +70,7 @@
                             </button>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                             <hr>
-                            <div class="text-center"><a href="{{ path("entreprise_inscription") }}">Vous n'avez pas encore de compte, inscrivez-vous !</a></div>
+                            <div class="text-center">Vous n'avez pas encore de compte? <a href="{{ path("entreprise_inscription") }}">Inscrivez-vous !</a></div>
                         </form>
                     </div>
                 </div>

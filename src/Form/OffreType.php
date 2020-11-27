@@ -69,7 +69,7 @@ class OffreType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'attr' => ['class' => 'form-control js-datepicker'],
-                'format' => 'dd/mm/yyyy',
+                'format' => 'dd/MM/yyyy',
                 'required' => false,
                 'error_bubbling' => true
             ])
@@ -78,7 +78,7 @@ class OffreType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'attr' => ['class' => 'form-control js-datepicker'],
-                'format' => 'dd/mm/yyyy',
+                'format' => 'dd/MM/yyyy',
                 'required' => false,
                 'error_bubbling' => true
             ])
@@ -141,7 +141,7 @@ class OffreType extends AbstractType
             ])
             ->add('localisation', ChoiceType::class, [
                 'mapped' => false,
-                'label' => 'Lie de travail',
+                'label' => 'Lieu de travail',
                 'required' => false,
                 'choices' => [
                     'France' => 1,

@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Entity\Entreprise;
 use App\Repository\OffreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -93,8 +94,6 @@ class Offre
     private $duree;
 
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
      */
@@ -146,11 +145,33 @@ class Offre
      */
     private $pays;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModification;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="offres")
+     */
+    private $competences;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $competencesComplementaires;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Habilitation::class, inversedBy="offres")
+     */
+    private $habilitations;
+
 
 
     public function __construct()
     {
         $this->postules = new ArrayCollection();
+        $this->competences = new ArrayCollection();
+        $this->habilitations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -270,12 +291,12 @@ class Offre
         return $this;
     }
 
-    public function getDuree(): ?integer
+    public function getDuree(): ?string
     {
         return $this->duree;
     }
 
-    public function setDuree(?integer $duree): self
+    public function setDuree(?string $duree): self
     {
         $this->duree = $duree;
 
@@ -412,6 +433,78 @@ class Offre
     public function setPays(?Pays $pays): self
     {
         $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function getDateModification(): ?\DateTimeInterface
+    {
+        return $this->dateModification;
+    }
+
+    public function setDateModification(?\DateTimeInterface $dateModification): self
+    {
+        $this->dateModification = $dateModification;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Competence[]
+     */
+    public function getCompetences(): Collection
+    {
+        return $this->competences;
+    }
+
+    public function addCompetence(Competence $competence): self
+    {
+        if (!$this->competences->contains($competence)) {
+            $this->competences[] = $competence;
+        }
+
+        return $this;
+    }
+
+    public function removeCompetence(Competence $competence): self
+    {
+        $this->competences->removeElement($competence);
+
+        return $this;
+    }
+
+    public function getCompetencesComplementaires(): ?string
+    {
+        return $this->competencesComplementaires;
+    }
+
+    public function setCompetencesComplementaires(?string $competencesComplementaires): self
+    {
+        $this->competencesComplementaires = $competencesComplementaires;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Habilitation[]
+     */
+    public function getHabilitations(): Collection
+    {
+        return $this->habilitations;
+    }
+
+    public function addHabilitation(Habilitation $habilitation): self
+    {
+        if (!$this->habilitations->contains($habilitation)) {
+            $this->habilitations[] = $habilitation;
+        }
+
+        return $this;
+    }
+
+    public function removeHabilitation(Habilitation $habilitation): self
+    {
+        $this->habilitations->removeElement($habilitation);
 
         return $this;
     }

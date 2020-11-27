@@ -40,7 +40,8 @@ class Departement
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=190)
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     private $id;
 
@@ -67,15 +68,18 @@ class Departement
      */
     private $offres;
 
-    public function __construct($code, $nom)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $code;
+
+    public function __construct()
     {
-        $this->id = $code;
-        $this->nom = $nom;
         $this->villes = new ArrayCollection();
         $this->offres = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -167,5 +171,17 @@ class Departement
     public function __toString()
     {
         return $this->nom;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
     }
 }
