@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Offre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\This;
 
 /**
  * @method Offre|null find($id, $lockMode = null, $lockVersion = null)
@@ -44,7 +45,22 @@ class OffreRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function findCustomOfferByIdRecruteur($recruteur_id){
 
+        return $this->createQueryBuilder('o')
+            ->select('m.libelle','count(m.libelle) as compteur')
+            ->join('o.metier', 'm')
+            ->where('o.recruteur = :recruteur')
+            ->setParameters(['recruteur' => $recruteur_id])
+            ->groupBy('m.libelle')
+            ->getQuery()
+            ->getResult()
+            ;
+
+
+
+
+    }
 
 
 }

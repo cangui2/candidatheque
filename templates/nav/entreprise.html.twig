@@ -1,0 +1,37 @@
+<nav class="navbar navigation-corner navbar-expand-lg bg-color-principale2 pb-0 pt-0">
+    <a class="navbar-brand text-light" href="{{ path("home") }}">CANDIDATHEQUE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link barre-log color-principale3 presence pt-3  {{ activeMenu("dashboard_entreprise") }}" href="{{ path("dashboard_entreprise") }}">Tableau de bord</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link color-principale3 presence pt-3  {{ activeMenu("offres_creation") }}" href="{{ path('offres_creation') }}">Déposer une offre</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("offres_liste") }}" href="{{ path('offres_liste') }}">Liste des offres</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("blog") }}" href="{{ path("blog") }}">Blog</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 mx-3 my-lg-0">
+            <div class="dropdown user-profile nav-item py-3 text-center"  >
+                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    R
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-user " aria-labelledby="dropdownMenuButton">
+
+                    <a class=" dropdown-item" href="#">Profil</a>
+                    <div class="dropdown-divider "></div>
+                    <a class=" dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>

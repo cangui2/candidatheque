@@ -1,0 +1,29 @@
+<div class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand titre1 mr-auto" id="brand" href="{{ path("home") }}">CANDIDATHE<i class="fa fa-search" aria-hidden="true"></i>UE</a>
+
+    <div>
+        <a href="{{ path("login") }}" class="btn zoom-bouton candidat-corner btn-sm text-white" role="button">Se connecter</a><a href="{{ path("candidat_inscription") }}" class="btn zoom-bouton login-corner btn-sm" role="button">S'inscrire <i class="fa fa-sign-in" aria-hidden="true"></i></a>
+        <a href="{{ path("espace_entreprise") }}" class="btn zoom-bouton entreprise-corner btn-sm" role="button">Espace entreprise</a>
+    </div>
+    <button class="navbar-toggler mx-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+<nav class="navbar navigation-corner navbar-expand-md navbar-light bg-light py-0">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul id="menu" class="navbar-nav margin-navbar">
+
+            <li class="nav-item">
+                <a class="nav-link presence {{ activeMenu("recherche_liste") }} mx-2 px-0" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link presence {{ activeMenu("candidat_cv") }} mx-2 px-0" href="{{ path("candidat_cv") }}">Atelier CV</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link presence {{ activeMenu("blog") }} mx-2 px-0" href="{{ path('blog') }}">Blog</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>

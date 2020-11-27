@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\APE;
+use App\Entity\Candidat;
 use App\Entity\CV;
 use App\Entity\Departement;
 use App\Entity\Entreprise;
@@ -51,9 +52,9 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $password = $this->encoder->encodePassword($u2, '123456');
         $u2->setPassword($password);
         $u2->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
-        $u2->setAuthToken("654654654654");
+        $u2->setAuthToken(null);
         $u2->setRecruteur($rec1);
-        //$u2->setActif(true);
+        $u2->setActif(true);
         $manager->persist($u2);
 
         $rec2 = new Recruteur();
@@ -67,9 +68,9 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $password = $this->encoder->encodePassword($u3, '123456');
         $u3->setPassword($password);
         $u3->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
-        $u3->setAuthToken("654654654654987");
+        $u3->setAuthToken(null);
         $u3->setRecruteur($rec2);
-        //$u2->setActif(true);
+        $u3->setActif(true);
         $manager->persist($u3);
 
 
@@ -98,9 +99,9 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $password = $this->encoder->encodePassword($u4, '123456');
         $u4->setPassword($password);
         $u4->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
-        $u4->setAuthToken("654654654654987");
+        $u4->setAuthToken(null);
         $u4->setRecruteur($rec3);
-        //$u2->setActif(true);
+        $u4->setActif(true);
         $manager->persist($u4);
 
         $of1 = new Offre();
@@ -146,6 +147,22 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of4->setTitre("Développeur");
         $of4->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
         $manager->persist($of4);
+
+
+        $can1 = new Candidat();
+        $can1->setNom("Muray");
+        $can1->setPrenom("Bill");
+        $manager->persist($can1);
+
+        $u5 = new User();
+        $u5->setEmail('can1@be4web.fr');
+        $password = $this->encoder->encodePassword($u5, '123456');
+        $u5->setPassword($password);
+        $u5->setRoles(["ROLE_USER", "ROLE_CANDIDAT"]);
+        $u5->setAuthToken(null);
+        $u5->setCandidat($can1);
+        $u5->setActif(true);
+        $manager->persist($u5);
 
 
         $manager->flush();
