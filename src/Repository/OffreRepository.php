@@ -58,8 +58,18 @@ class OffreRepository extends ServiceEntityRepository
             ;
 
 
+    }
+    Public function findAllOfferByIdRecruteurLimit5($recruteur_id){
 
-
+        return $this->createQueryBuilder('o')
+            ->join('o.metier', 'm')
+            ->where('o.recruteur = :recruteur')
+            ->setParameters(['recruteur' => $recruteur_id])
+            ->orderBy('o.datePublication', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
 
