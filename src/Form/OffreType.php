@@ -51,7 +51,7 @@ class OffreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre', TextType::clss, [
+            ->add('titre', TextType::class, [
                 'required' => false,
                 'label' => "Intitulé de l'offre",
                 'error_bubbling' => true
