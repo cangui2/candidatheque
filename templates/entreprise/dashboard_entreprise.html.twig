@@ -25,6 +25,7 @@
         </div>
     </div>
 {# Navbar laterale #}
+    {#
     <div class="row navbarVertical">
         <div class="col-lg-1 col-sm-9 ">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -38,7 +39,7 @@
                    aria-controls="v-pills-settings" aria-selected="false">Candidats</a>
             </div>
         </div>
-
+    #}
 {# Fiche dashboard #}
         <div class="col-lg-11 col-sm-12">
             <div class="tab-content" id="v-pills-tabContent">
@@ -46,13 +47,13 @@
                      aria-labelledby="v-pills-home-tab">
                             <div class="row">
                                 <div class="col-lg-8">
-                                <canvas style= "height:20vh; width:40vw" id="myChart"></canvas>
+                                <canvas class="graph"style= "height:20vh; width:40vw" id="myChart"></canvas>
                                 </div>
                             </div>
 
 {# block reporting #}
                     <div class="row blockreporting">
-                        <div class="col-lg-4 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <h4>OFFRES</h4>
                             <div class="card text-center">
                                 <div class="card-header">
@@ -65,7 +66,7 @@
                                         <li class="nav-item" role="presentation">
                                             <a class="nav-link" id="offerwait-tap" data-toggle="tab" href="#offerwait"
                                                role="tab"
-                                               aria-controls="profile" aria-selected="false">Validate Offre</a>
+                                               aria-controls="profile" aria-selected="false">5 dernières offres parues </a>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <a class="nav-link" id="offerValidate-tab" data-toggle="tab"
@@ -77,19 +78,42 @@
                                         <div class="tab-pane fade show active" id="offer" role="tabpanel"
                                              aria-labelledby="home-tab">
                                             <div class="card-body">
-                                                <h5 class="card-title">Nombre d'offre Actif</h5>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                <h5 class="card-title">Nombres d'offres Actifs</h5>
+                                                <p class="card-text">{{ NombreOffre }}</p>
+                                                <a href="#" class="btn btn-primary">Voir toutes les offres</a>
                                             </div>
                                         </div>
+                                        {{ dump(offreLimite) }}
                                         <div class="tab-pane fade" id="offerwait" role="tabpanel"
                                              aria-labelledby="profile-tab">
                                             <div class="card-body">
                                                 <h5 class="card-title">Offres en attentes de validations</h5>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                <p class="card-text">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+
+                                                        <th scope="col">Offre numéro</th>
+                                                        <th scope="col">Metier</th>
+                                                        <th scope="col">Entreprise</th>
+                                                        <th scope="col">Date de debut</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for offre in offreLimite %}
+                                                    <tr>
+
+                                                        <td>{{ offre.id }}</td>
+                                                        <td>{{ offre.metier.libelle }}</td>
+                                                        <td>{{ offre.recruteur.entreprise }}</td>
+                                                       {#  <td>{{ offre.postules.dateDebut }}</td>#}
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                                </p>
+                                                <a href="#" class="btn btn-primary">Voir toutes les offres</a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="offertValidate" role="tabpanel"
@@ -107,7 +131,7 @@
                         </div>
 
 
-                        <div class="col-lg-4 col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <h4>CANDIDATS</h4>
                             <div class="card text-center">
                                 <div class="card-header">
@@ -162,7 +186,7 @@
                         </div>
                     </div>
                 </div>
-
+{#
 {# block offre #}
                 <div class="tab-pane fade" id="v-pills-offre" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     {{ include ('entreprise/offre.html.twig') }}
