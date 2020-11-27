@@ -38,6 +38,7 @@ class EntrepriseController extends AbstractController
 
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
+        $name_recruteur=$this->getUser();
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
 
         $global_data = [];
@@ -56,6 +57,7 @@ class EntrepriseController extends AbstractController
             'global_label' => json_encode($global_label),
             'NombreOffre' => array_sum($global_data),
             'offreLimite'=>$offreLimite,
+            'name'=>$name_recruteur,
 
         ]);
     }

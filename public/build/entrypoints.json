@@ -21,13 +21,6 @@
       "css": [
         "/build/vendors~react_recherche.css"
       ]
-    },
-    "dashboard_offre": {
-      "js": [
-        "/build/runtime.js",
-        "/build/vendors~dashboard_offre.js",
-        "/build/dashboard_offre.js"
-      ]
     }
   }
 }
