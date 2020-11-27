@@ -55,7 +55,7 @@ class Rome
     private $environnements;
 
     /**
-     * @ORM\OneToMany(targetEntity=Competence::class, mappedBy="rome")
+     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="rome")
      */
     private $competences;
 

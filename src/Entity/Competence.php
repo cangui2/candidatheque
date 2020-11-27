@@ -55,6 +55,11 @@ class Competence
      */
     private $rome;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
+     */
+    private $offres;
+
 
 
     public function getId(): ?int
@@ -65,6 +70,7 @@ class Competence
     public function __construct()
     {
         $this->rome = new ArrayCollection();
+        $this->offres = new ArrayCollection();
     }
 
     public function getLibelle(): ?string
@@ -130,6 +136,33 @@ class Competence
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * @return Collection|Offre[]
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offre $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->addCompetence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offre $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            $offre->removeCompetence($this);
+        }
+
+        return $this;
     }
 
 }

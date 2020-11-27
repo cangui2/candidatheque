@@ -17,7 +17,7 @@
             <div class="row mt-2 mb-5">
                 <div class="col-12">
                     <span class="text-left"><h3>Déposez votre offre d'emploi ici</h3>
-                        <p class="help-msg">Le menu de saisie sémi-automatique s'affiche lorsque vous commencez à taper un métier ou la localisation de l'offre.</br>
+                        <p class="help-msg">Le menu de saisie sémi-automatique s'affiche lorsque vous commencez à taper l'intitulé de l'offre, un métier ou la localisation de l'offre.</br>
                             Après avoir entré la ville, le département et la région seront sélectionnés automatiquement.</p>
                     <hr></span>
                 </div>
@@ -140,18 +140,30 @@
             });
         });
 
+        // autocomplete fields
+
+        {#$(function() {#}
+
+        {#    $( "#offre_titre" ).autocomplete({#}
+        {#        source: "{{ path('metier_autocomplete') }}",#}
+        {#        minLength: 1,#}
+        {#        select: function( event, ui ) {#}
+        {#            console.log( "Selected: " + ui.item.value );#}
+        {#        }#}
+        {#    });#}
+        {#});#}
+
         $(function() {
 
             $( "#offre_metier" ).autocomplete({
                 source: "{{ path('metier_autocomplete') }}",
-                minLength: 2,
+                minLength: 1,
                 select: function( event, ui ) {
-                    console.log( ui.item ?
-                        "Selected: " + ui.item.value + " aka " + ui.item.id :
-                        "Nothing selected, input was " + this.value );
+                    console.log( "Selected: " + ui.item.value );
                 }
             });
         });
+
 
          $(function() {
 
