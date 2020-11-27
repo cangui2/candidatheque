@@ -34,14 +34,13 @@ myPieChart = new Chart(ctx, {
         }],
 
         options: {
-            layout: {
-                padding: {
-                    left: 50,
-                    right: 0,
-                    top: 0,
-                    bottom: 0
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: 'black'
                 }
-            }
+            },
+
         }
     },
 });
