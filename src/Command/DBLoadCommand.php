@@ -3,13 +3,14 @@
 namespace App\Command;
 
 use App\Entity\APE;
-use App\Entity\Competence;
-use App\Entity\Departement;
-use App\Entity\Metier;
 use App\Entity\Pays;
-use App\Entity\Region;
 use App\Entity\Rome;
 use App\Entity\Ville;
+use App\Entity\Metier;
+use App\Entity\Region;
+use App\Entity\Competence;
+use App\Entity\Departement;
+use App\Entity\Description;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -52,6 +53,9 @@ class DBLoadCommand extends Command
             case "competence":
                 $this->loadCompetence($output);
                 break;
+            case "description":
+                $this->loadDescription($output);
+                break;
             case "pays":
                 $this->loadPays($output);
                 break;
@@ -78,7 +82,7 @@ class DBLoadCommand extends Command
                 $this->loadAPE($output);
                 $this->loadRome($output);
                 $this->loadCompetence($output);
-                //$this->loadMetier($output);
+                $this->loadDescription($output);
                 $this->loadPays($output);
                 $this->loadRegion($output);
                 $this->loadDepartement($output);
@@ -134,7 +138,7 @@ class DBLoadCommand extends Command
                 if (strlen($co)==5) {
                     $li = $line[1];
                     $ape = new APE($co, $li);
-
+                    
                     $this->manager->persist($ape);
                     $counter++;
                 }
@@ -153,7 +157,7 @@ class DBLoadCommand extends Command
     {
 
         $csv_file = '23-cr_gd_dp_appellations_v344_utf8.csv';
-        $output->write("Loading <info>Rome</info> from <info>" . $csv_file . "</info>");
+        $output->write("Loading <info>Rome & Appelations</info> from <info>" . $csv_file . "</info>");
         $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
         $line = fgetcsv($csv);
         $counter1=0;
@@ -228,7 +232,7 @@ class DBLoadCommand extends Command
         $repo_competence = $this->manager->getRepository(Competence::class);
 
         $csv_file = '6-referentiel_competence_v344_utf8.csv';
-        $output->writeln("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
+        $output->writeln("Loading <info>Référentiel compétences ROME</info> from <info>" . $csv_file . "</info>");
         $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
         $line = fgetcsv($csv);
         $liste_competences = [];
@@ -241,8 +245,8 @@ class DBLoadCommand extends Command
         fclose($csv);
         //OK: $items contient la table item [code_ogr_activite, libelle, code_type ...]
 
-        $csv_file = '6-referentiel_competence_v344_utf8.csv';
-        $output->writeln("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
+        $csv_file = '7-referentiel_activite_v344_utf8.csv'; // 
+        $output->writeln("Loading <info>Référentiel item ROME</info> from <info>" . $csv_file . "</info>");
         $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
         $line = fgetcsv($csv);
         $liste_savoirfaire = [];
@@ -272,12 +276,22 @@ class DBLoadCommand extends Command
 
                 }
                 else {
-                    $comp_rome = $this->findRomeCompetences($code_ogr, $liste_competences);
+                    $comp_rome = $this->findRome($code_ogr, $liste_competences);
+                    $acti_rome = $this->findRome($code_ogr, $liste_savoirfaire);
                     if ($comp_rome) {
                         $competence = new Competence($code_ogr);
-                        $competence->setLibelle($comp_rome[0]);
-                        $competence->setType($comp_rome[1]);
+                        $competence->setLibelle($comp_rome[1]);
+                        $competence->setType($comp_rome[2]);
+                        $competence->setLibelleType($comp_rome[3]);
                         $this->manager->persist($competence);
+                    }elseif ($acti_rome) {
+                        if ($acti_rome[2]==3) {
+                            $competence = new Competence($code_ogr);
+                            $competence->setLibelle($acti_rome[1]);
+                            $competence->setType(intval($acti_rome[2]));
+                            $competence->setLibelleType($acti_rome[5]);
+                            $this->manager->persist($competence);
+                        }
                     }
                 }
                 if ($competence) {
@@ -293,13 +307,53 @@ class DBLoadCommand extends Command
 
     }
 
-    protected function findRomeCompetences(string $ogr, array $items) {
+    protected function findRome(string $ogr, array $items) {
         foreach ($items as $line) {
             if ($line[0]==$ogr) {
-                return [ $line[1], 1 ];
+                return $line;
             }
         }
         return null;
+    }
+
+
+    protected function loadDescription(OutputInterface $output)
+    {
+        $repo_rome = $this->manager->getRepository(Rome::class);
+        $repo_competence = $this->manager->getRepository(Competence::class);
+
+        $csv_file = '11-texte_v344_utf8.csv';
+        $output->write("Loading <info>Description</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
+        $line = fgetcsv($csv);
+        $counter=0;
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>1) {
+                $code_rome = $line[0];
+                $position = $line[1];
+                $type = $line[2];
+                $libelle = $line[3];
+                $libelle_type = $line[4];
+                $rome = $repo_rome->findOneBy([ "code" => $code_rome ]);
+                if ($rome) {
+                    $description = new Description();
+                    $description->setLibelle($libelle);
+                    $description->setPosition($position);
+                    $description->setIdType($type);
+                    $description->setLibelleType($libelle_type);
+                    $description->addRome($rome);
+                    $counter++;
+                    $this->manager->persist($description);
+                }
+            }
+        }
+        $this->manager->flush();
+        fclose($csv);
+
+        $output->writeln(" ... <question>" . $counter . "</question> Description lines inserted");
+
     }
 
 
