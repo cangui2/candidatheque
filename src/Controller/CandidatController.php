@@ -20,4 +20,7 @@ class CandidatController extends AbstractController
 
         return $this->render('candidat/dashboard_candidat.html.twig');
     }
+
+
+
 }
