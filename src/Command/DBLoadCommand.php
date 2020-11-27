@@ -227,15 +227,29 @@ class DBLoadCommand extends Command
         $repo_rome = $this->manager->getRepository(Rome::class);
         $repo_competence = $this->manager->getRepository(Competence::class);
 
-        $csv_file = '21-item_v344_utf8.csv';
+        $csv_file = '6-referentiel_competence_v344_utf8.csv';
         $output->writeln("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
         $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
         $line = fgetcsv($csv);
-        $items = [];
+        $liste_competences = [];
         while (!feof($csv)) {
             $line = fgetcsv($csv);
             if ($line && count($line)>4) {
-                $items[] = $line;
+                $liste_competences[] = $line;
+            }
+        }
+        fclose($csv);
+        //OK: $items contient la table item [code_ogr_activite, libelle, code_type ...]
+
+        $csv_file = '6-referentiel_competence_v344_utf8.csv';
+        $output->writeln("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
+        $line = fgetcsv($csv);
+        $liste_savoirfaire = [];
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>4) {
+                $liste_savoirfaire[] = $line;
             }
         }
         fclose($csv);
@@ -258,14 +272,18 @@ class DBLoadCommand extends Command
 
                 }
                 else {
-                    $comp_rome = $this->findRomeCompetences($code_ogr, $items);
-                    $competence = new Competence($code_ogr);
-                    $competence->setLibelle($comp_rome[0]);
-                    $competence->setType($comp_rome[1]);
-                    $this->manager->persist($competence);
+                    $comp_rome = $this->findRomeCompetences($code_ogr, $liste_competences);
+                    if ($comp_rome) {
+                        $competence = new Competence($code_ogr);
+                        $competence->setLibelle($comp_rome[0]);
+                        $competence->setType($comp_rome[1]);
+                        $this->manager->persist($competence);
+                    }
                 }
-                $competence->addRome($rome);
-                $counter++;
+                if ($competence) {
+                    $competence->addRome($rome);
+                    $counter++;
+                }
             }
         }
         $this->manager->flush();
@@ -278,9 +296,10 @@ class DBLoadCommand extends Command
     protected function findRomeCompetences(string $ogr, array $items) {
         foreach ($items as $line) {
             if ($line[0]==$ogr) {
-                return [ $line[1], $line[2] ];
+                return [ $line[1], 1 ];
             }
         }
+        return null;
     }
 
 
