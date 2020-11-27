@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+{{ rome.libelle}}
+<h2>Competences</h2>
+{% for comp in rome.competences %}
+    <div>
+        {{ comp.type }}
+-
+        {{ comp.libelle }}
+    </div>
+{% endfor %}
+
+{% endblock %}
