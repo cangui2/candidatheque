@@ -67,8 +67,9 @@ class Competence
         return $this->id;
     }
 
-    public function __construct()
+    public function __construct($ogr)
     {
+        $this->id = $ogr;
         $this->rome = new ArrayCollection();
         $this->offres = new ArrayCollection();
     }

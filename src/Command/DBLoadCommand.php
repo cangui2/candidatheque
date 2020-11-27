@@ -224,8 +224,11 @@ class DBLoadCommand extends Command
 
     protected function loadCompetence(OutputInterface $output)
     {
+        $repo_rome = $this->manager->getRepository(Rome::class);
+        $repo_competence = $this->manager->getRepository(Competence::class);
+
         $csv_file = '21-item_v344_utf8.csv';
-        $output->write("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
+        $output->writeln("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
         $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
         $line = fgetcsv($csv);
         $items = [];
@@ -236,10 +239,50 @@ class DBLoadCommand extends Command
             }
         }
         fclose($csv);
+        //OK: $items contient la table item [code_ogr_activite, libelle, code_type ...]
 
+        $csv_file = '22-coherence_item_v344_utf8.csv';
+        $output->write("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/'.$csv_file , 'r');
+        $line = fgetcsv($csv);
+        $counter=0;
 
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>1) {
+                $code_rome = $line[0];
+                $code_ogr = $line[1];
+                $rome = $repo_rome->findOneBy([ "code" => $code_rome ]);
+                $competence = $repo_competence->find($code_ogr);
+                if ($competence) {
+
+                }
+                else {
+                    $comp_rome = $this->findRomeCompetences($code_ogr, $items);
+                    $competence = new Competence($code_ogr);
+                    $competence->setLibelle($comp_rome[0]);
+                    $competence->setType($comp_rome[1]);
+                    $this->manager->persist($competence);
+                }
+                $competence->addRome($rome);
+                $counter++;
+            }
+        }
+        $this->manager->flush();
+        fclose($csv);
+
+        $output->writeln(" ... <question>" . $counter . "</question> Competences lines inserted");
 
     }
+
+    protected function findRomeCompetences(string $ogr, array $items) {
+        foreach ($items as $line) {
+            if ($line[0]==$ogr) {
+                return [ $line[1], $line[2] ];
+            }
+        }
+    }
+
 
 //    protected function loadCompetence(OutputInterface $output)
 //    {
