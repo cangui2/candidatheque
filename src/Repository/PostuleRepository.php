@@ -19,6 +19,16 @@ class PostuleRepository extends ServiceEntityRepository
         parent::__construct($registry, Postule::class);
     }
 
+    public function findViewsCandidatForRecruteur($recruteur_id){
+
+        return $this->createQueryBuilder('p')
+            ->join('p.offre', 'o')
+            ->where('o.recruteur = :recruteur')
+            ->setParameters(['recruteur' => $recruteur_id])
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Postule[] Returns an array of Postule objects
     //  */
