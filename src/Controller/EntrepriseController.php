@@ -44,11 +44,13 @@ class EntrepriseController extends AbstractController
             $global_data[] = $ligne["compteur"];
             $global_label[] = $ligne["libelle"];
         }
-
+         $offreLimite = $repo->findAllOfferByIdRecruteurLimit5($recruteur_id);
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
             'global_data' => json_encode($global_data),
             'global_label' => json_encode($global_label),
+            'NombreOffre' => array_sum($global_data),
+            'offreLimite'=>$offreLimite,
 
         ]);
     }
