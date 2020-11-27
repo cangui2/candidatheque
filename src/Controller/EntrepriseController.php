@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Repository\PostuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,7 +34,7 @@ class EntrepriseController extends AbstractController
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
-    public function dashboard(OffreRepository $repo): Response {
+    public function dashboard(OffreRepository $repo, PostuleRepository $repo2): Response {
 
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
@@ -46,6 +47,9 @@ class EntrepriseController extends AbstractController
             $global_label[] = $ligne["libelle"];
         }
          $offreLimite = $repo->findAllOfferByIdRecruteurLimit5($recruteur_id);
+
+         $test = $repo2->findViewsCandidatForRecruteur($recruteur_id);
+
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
             'global_data' => json_encode($global_data),
