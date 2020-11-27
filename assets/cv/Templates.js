@@ -2,7 +2,7 @@ import React, { useState }  from 'react';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 function Templates() {
-    const [style, setStyle] = useState("/template3-2.css");
+    const [style, setStyle] = useState("/assets/css/template3-2.css");
   
     return (
         <span>
