@@ -51,6 +51,16 @@ class EntrepriseController extends AbstractController
 
          $test = $repo2->findViewsCandidatForRecruteur($recruteur_id);
 
+        // algo comparaison competence pour un seul candidat.
+        $competenceAnnonce = array("a" => "green", "red", "blue", "red");
+        $competenceCandidat = array("b" => "green", "yellow", "red");
+        for ($i=count($competenceCandidat);$i<=(count($competenceAnnonce)-1);$i++){
+            array_push($competenceCandidat,"");
+        }
+        $res = array_diff($competenceCandidat, $competenceAnnonce);
+        $diff=count($competenceAnnonce)-count($res);
+        $match=($diff/count($competenceAnnonce))*100;
+
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
             'global_data' => json_encode($global_data),
@@ -58,6 +68,7 @@ class EntrepriseController extends AbstractController
             'NombreOffre' => array_sum($global_data),
             'offreLimite'=>$offreLimite,
             'name'=>$name_recruteur,
+            'res'=>$match,
 
         ]);
     }
