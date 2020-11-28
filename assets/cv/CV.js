@@ -1,13 +1,17 @@
 import React from 'react';
+import { Col, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+
 import FormExperiences from './FormExperiences.js';
 import FormFormations from './FormFormations.js';
 import FormProfil from './FormProfil.js';
 import Dialog from './Dialog.js';
 import Templates from './Templates.js';
-import './CV.css';
 import FormCompetences from './FormCompetences.js';
 import FormLangues from './FormLangues.js';
 import FormReseaux from './FormReseaux.js';
+
+import './CV.css';
 
 class CV extends React.Component {
     constructor(props) {
@@ -60,8 +64,15 @@ class CV extends React.Component {
             ],
         }
     }
+    handleSaveLocal() {
+        localStorage.setItem('be4web_cv', JSON.stringify(this.state));
+    }
+    handleLoadLocal() {
+        this.setState(JSON.parse(localStorage.getItem('be4web_cv')));
+    }
     handleProfilChange(pro) {
         this.setState({ profil: pro });
+        this.handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     handleAddExperience(evt) {
@@ -78,6 +89,7 @@ class CV extends React.Component {
         let experiences = this.state.experiences;
         experiences[i] = exp;
         this.setState({ experiences });
+
     }
     //////////////////////////////////////////////////////////////
     handleAddFormation(evt) {
@@ -146,15 +158,24 @@ class CV extends React.Component {
     render() {
         return (
             <div className="row">
-                <div className="col-6">
+                <div className="col-6 no-print">
                     <Dialog />
                 </div>
-                <div className="col-6 text-right">
+                <div className="col-6 text-right no-print">
                     <Templates />
                 </div>
                 
-                <div className="col-sm-6">
-                    <h1>Module de création de CV.</h1>
+                <div className="col-sm-6 no-print">
+                    <div className="row">
+                        <div className="col-9">
+                            <h1>Module de création de CV.</h1>
+                        </div>
+                        <div className="col-3 text-right">
+                        <Button variant="secondary" onClick={ () => { this.handleSaveLocal(); } }>Save</Button>&nbsp;
+                        <Button variant="secondary" onClick={ () => { this.handleLoadLocal(); } }>Load</Button>
+                        </div>
+                    </div>
+                    
                     Cliquez sur les onglets ci-dessous pour compléter les différentes rubriques de votre CV
 
                         <div className="accordion mt-5" id="accordion1">
@@ -339,7 +360,7 @@ class CV extends React.Component {
                                     this.state.competences.map((competence, index) =>
                                         <div className="competence"  key={index}>
                                             <div className="libelle">{competence.libelle}</div>
-                                            <div className="niveau">{competence.niveau}</div>
+                                            <div className={"niveau niveau-" + competence.niveau}>{competence.niveau}</div>
                                         </div>
                                     )
                                 }

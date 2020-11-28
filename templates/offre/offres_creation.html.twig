@@ -35,6 +35,40 @@
                     {{ form_widget(offreForm.metier) }}
                 </div>
             </div>
+
+            <!-- Modal trigger -->
+            <div class="row">
+                <a class="" href="#myModal" data-toggle="modal" data-target="#myModal">
+                </a>
+            </div>
+
+            <!-- Modal Compétences -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Savoirs et savoir-faire</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="list-group1">
+                                <a href="#" class="list-group-item list-group-item">Langage informatique Java</a>
+                                <a href="#" class="list-group-item list-group-item">Langage informatique Perl</a>
+                                <a href="#" class="list-group-item list-group-item">Langage informatique PHP</a>
+                                <a href="#" class="list-group-item list-group-item">Développer, programmer une application informatique en utilisant un IDE (Integrated Development Environment)</a>
+                                <a href="#" class="list-group-item list-group-item">Programmer dans un langage informatique spécifique</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn agence-button" href="#">Ajouter</a>
+                            <button type="button" class="btn agence-button" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# modal end #}
             <div class="row mt-2">
                 <div class="col-12">
                     {{ form_row(offreForm.description) }}
@@ -46,8 +80,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-md-8">
                     {{ form_row(offreForm.type) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(offreForm.duree) }}
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    {{ form_row(offreForm.habilitations) }}
                 </div>
             </div>
             <div class="row">
@@ -77,25 +119,17 @@
             </div>
             <div id="js-datepicker" class="row">
                 <div class="col-md-6">
-                    {{ form_label(offreForm.dateDebut) }}
-                    {{ form_widget(offreForm.dateDebut, {'attr': {'placeholder': 'JJ/MM/AAAA'}}) }}
+                    {{ form_row(offreForm.urgent) }}
                 </div>
                 <div class="col-md-6">
-                    {{ form_label(offreForm.dateFin) }}
-                    {{ form_widget(offreForm.dateFin, {'attr': {'placeholder': 'JJ/MM/AAAA'}}) }}
+
+                    {{ form_widget(offreForm.dateDebut, {'attr': {'placeholder': 'Date au format jj/mm/aaaa'}}) }}
                 </div>
+
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(offreForm.duree) }}
-                </div>
                 <div class="col-md-6">
                     {{ form_row(offreForm.salaire) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(offreForm.urgent) }}
                 </div>
                 <div class="col-md-6">
                     {{ form_row(offreForm.possibiliteCDI) }}
@@ -142,16 +176,7 @@
 
         // autocomplete fields
 
-        {#$(function() {#}
 
-        {#    $( "#offre_titre" ).autocomplete({#}
-        {#        source: "{{ path('metier_autocomplete') }}",#}
-        {#        minLength: 1,#}
-        {#        select: function( event, ui ) {#}
-        {#            console.log( "Selected: " + ui.item.value );#}
-        {#        }#}
-        {#    });#}
-        {#});#}
 
         $(function() {
 
@@ -160,6 +185,9 @@
                 minLength: 1,
                 select: function( event, ui ) {
                     console.log( "Selected: " + ui.item.value );
+                    // setTimeout(function() {
+                    //     $('#myModal').modal();
+                    // }, 1000);
                 }
             });
         });
@@ -250,6 +278,24 @@
 
             $('#offre_localisation_0').trigger('click');  // trigger the event
         });
+
+    //    MANAGE DATE DEBUT
+
+        $("#offre_urgent").change(function() {
+
+            if($("#offre_urgent").is(":checked")){
+                $("#offre_dateDebut").attr("disabled", true);
+                $("#offre_dateDebut").val("");
+
+            }
+            else{
+                $("#offre_dateDebut").attr("disabled", false);
+            }
+        });
+
+        $("#offre_urgent").change();
+
+    //    END DATE
 
     </script>
 

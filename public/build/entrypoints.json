@@ -4,22 +4,22 @@
       "js": [
         "/build/runtime.d94b3b43.js",
         "/build/0.ae3186dd.js",
-        "/build/2.d381c52d.js",
-        "/build/cv.c867f9ed.js"
+        "/build/1.d77723b6.js",
+        "/build/cv.c3ed2797.js"
       ],
       "css": [
-        "/build/cv.f9e6ed65.css"
+        "/build/cv.a9bfb2ea.css"
       ]
     },
     "react_recherche": {
       "js": [
         "/build/runtime.d94b3b43.js",
         "/build/0.ae3186dd.js",
-        "/build/1.e5d49fc4.js",
-        "/build/react_recherche.c4c88971.js"
+        "/build/2.a05db056.js",
+        "/build/react_recherche.5ba7ff3a.js"
       ],
       "css": [
-        "/build/1.d39511b7.css"
+        "/build/2.d39511b7.css"
       ]
     }
   }

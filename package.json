@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@babel/preset-react": "^7.12.5",
+        "axios": "^0.21.0",
         "bootstrap": "^4.5.3",
         "isomorphic-fetch": "^3.0.0",
         "jquery": "^3.5.1",
