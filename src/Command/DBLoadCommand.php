@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\APE;
+use App\Entity\Pcs;
 use App\Entity\Pays;
 use App\Entity\Rome;
 use App\Entity\Ville;
@@ -50,6 +51,9 @@ class DBLoadCommand extends Command
             case "metier":
                 //$this->loadMetier($output);
                 break;
+            case "pcs":
+                $this->loadPCS($output);
+                break;
             case "competence":
                 $this->loadCompetence($output);
                 break;
@@ -81,6 +85,7 @@ class DBLoadCommand extends Command
                 $this->loadBaseData($output);
                 $this->loadAPE($output);
                 $this->loadRome($output);
+                $this->loadPCS($output);
                 $this->loadCompetence($output);
                 $this->loadDescription($output);
                 $this->loadPays($output);
@@ -146,9 +151,7 @@ class DBLoadCommand extends Command
         }
 
         fclose($csv);
-
         $this->manager->flush();
-
         $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
     }
 
@@ -184,14 +187,10 @@ class DBLoadCommand extends Command
                     $me->setRome($ro);
                     $counter2++;
                 }
-
-
-
             }
         }
         $this->manager->flush();
         fclose($csv);
-
         $this->manager->flush();
         $output->writeln(" ... <question>" . $counter1 . "</question> Rome <question>" . $counter2 . "</question> Metier lines inserted");
     }
@@ -223,6 +222,71 @@ class DBLoadCommand extends Command
         fclose($csv);
 
         $this->manager->flush();
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+    }
+
+    protected function loadPCS(OutputInterface $output)
+    {
+        $csv_file = 'pcs.csv';
+        $output->write("Loading <info>PCS</info> from <info>" . $csv_file . "</info>");
+        $counter=0;
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/' . $csv_file, 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv, 0, ";", '"');
+            if ($line) {
+                $code = $line[0];
+                $libelle = $line[1];
+                $pcs = new Pcs();
+                $pcs->setCode($code);
+                $pcs->setLibelle($libelle);
+                $this->manager->persist($pcs);
+                $counter++;
+            }
+        }
+
+        fclose($csv);
+        $this->manager->flush();
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+
+
+        $repo_rome = $this->manager->getRepository(Rome::class);
+        $repo_pcs = $this->manager->getRepository(Pcs::class);
+
+        $csv_file = 'pcs_rome.csv';
+        $output->write("Loading <info>PCS-ROME</info> from <info>" . $csv_file . "</info>");
+        $counter=0;
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/' . $csv_file, 'r');
+        
+        $precedent_code_pcs = "";
+        while (!feof($csv)) {
+            $line = fgetcsv($csv, 0, ";", '"');
+            if ($line) {
+                $code_pcs = $line[0];
+                $code_rome = $line[1];
+                if ($code_pcs && $code_rome) {
+                    $rome = $repo_rome->findOneBy([ "code" => $code_rome ]);
+                    $pcs = $repo_pcs->findOneBy([ "code" => $code_pcs ]);
+                    $rome->addCodesPc($pcs);
+                    $precedent_code_pcs = $code_pcs;
+                    $this->manager->flush();
+                }
+                elseif ($code_rome && $code_pcs=="") {
+                    $rome = $repo_rome->findOneBy([ "code" => $code_rome ]);
+                    $pcs = $repo_pcs->findOneBy([ "code" => $precedent_code_pcs ]);
+                    $rome->addCodesPc($pcs);
+                    $this->manager->flush();
+                }
+            }
+        }
+
+        fclose($csv);
+
+        $this->manager->flush();
+
         $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
     }
 
