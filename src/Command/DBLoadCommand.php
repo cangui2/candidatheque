@@ -232,7 +232,6 @@ class DBLoadCommand extends Command
         $counter=0;
 
         $csv = fopen(dirname(__FILE__).'/../../doc/csv/' . $csv_file, 'r');
-        $line = fgetcsv($csv);
 
         while (!feof($csv)) {
             $line = fgetcsv($csv, 0, ";", '"');
