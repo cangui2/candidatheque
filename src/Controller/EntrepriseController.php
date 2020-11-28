@@ -51,15 +51,6 @@ class EntrepriseController extends AbstractController
 
          $test = $repo2->findViewsCandidatForRecruteur($recruteur_id);
 
-        // algo comparaison competence pour un seul candidat.
-        $competenceAnnonce = array("a" => "green", "red", "blue", "red");
-        $competenceCandidat = array("b" => "green", "yellow", "red");
-        for ($i=count($competenceCandidat);$i<=(count($competenceAnnonce)-1);$i++){
-            array_push($competenceCandidat,"");
-        }
-        $res = array_diff($competenceCandidat, $competenceAnnonce);
-        $diff=count($competenceAnnonce)-count($res);
-        $match=($diff/count($competenceAnnonce))*100;
 
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
@@ -68,10 +59,29 @@ class EntrepriseController extends AbstractController
             'NombreOffre' => array_sum($global_data),
             'offreLimite'=>$offreLimite,
             'name'=>$name_recruteur,
-            'res'=>$match,
+
 
         ]);
     }
+    /*
+     *  En attente des relations competence entre le candidat et la table competence
+     * squellete de matching competence a completer lors de la mise en place des relation
+     *
+    public function mactchingCandidat($idCandidat,$idOffre){
 
+        $idCandidat="1";
 
+        $idoffre="550";
+
+        $competenceAnnonce = array("a" => "green", "red", "blue", "red");
+        $competenceCandidat = array("b" => "green", "yellow", "red");
+        for ($i=count($competenceCandidat);$i<=(count($competenceAnnonce)-1);$i++){
+            array_push($competenceCandidat,"");
+        }
+        $res = array_diff($competenceCandidat, $competenceAnnonce);
+        $diff=count($competenceAnnonce)-count($res);
+        $match=($diff/count($competenceAnnonce))*100;
+        $candidat=array($idoffre=>array($idCandidat=>$match));
+    }
+*/
 }
