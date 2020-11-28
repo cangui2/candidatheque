@@ -271,13 +271,11 @@ class DBLoadCommand extends Command
                     $pcs = $repo_pcs->findOneBy([ "code" => $code_pcs ]);
                     $rome->addCodesPc($pcs);
                     $precedent_code_pcs = $code_pcs;
-                    $this->manager->flush();
                 }
                 elseif ($code_rome && $code_pcs=="") {
                     $rome = $repo_rome->findOneBy([ "code" => $code_rome ]);
                     $pcs = $repo_pcs->findOneBy([ "code" => $precedent_code_pcs ]);
                     $rome->addCodesPc($pcs);
-                    $this->manager->flush();
                 }
             }
         }
