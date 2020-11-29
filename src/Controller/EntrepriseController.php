@@ -52,7 +52,7 @@ class EntrepriseController extends AbstractController
 
          // algorithme de comparaison des competence offre vs candidat(s) //
          // En attente de de mise en place fonction et des varibales via la tables.
-        // Test ok vi a dd()
+        // Test
         $idOffre = "offre n°150";
 
         $competenceOffre = array( "A1101", "A1102", "A1120","A1115");
