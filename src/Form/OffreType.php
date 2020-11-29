@@ -126,7 +126,7 @@ class OffreType extends AbstractType
             ])
             ->add('habilitations', EntityType::class, [
                 'class' => Habilitation::class,
-                'label' => 'Habilitation',
+                'label' => 'Permis et habilitations',
                 'choice_label' => 'libelle',
                 'expanded' => false,
                 'placeholder' => '',

@@ -7,6 +7,7 @@ use App\Repository\RomeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\String_;
 
 /**
  * @ORM\Entity(repositoryClass=RomeRepository::class)
@@ -154,7 +155,7 @@ class Rome
 
         return $this;
     }
-    public function __toString(){
+    public function __toString(): String {
         return $this->id;
     }
 
