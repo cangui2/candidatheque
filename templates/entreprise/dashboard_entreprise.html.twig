@@ -1,19 +1,269 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset("assets/css/dashboard_entreprise.css") }}"/>
+
+{% endblock %}
+
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
-                {% for message in messages %}
-                    <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
-                        {{ message }}
-                    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
+                    {% for message in messages %}
+                        <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-            <br><br><br><br><br><br>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At commodi consequuntur culpa, delectus dolorum eaque expedita illo laborum magni modi obcaecati officia pariatur possimus quisquam quos sequi tempore totam veritatis?
-            <br><br><br><br><br><br>
+            </div>
         </div>
     </div>
-</div>
+</br>
+    <div class="container-fluid">
+        <div class="row">
+           <div class="col-lg-3 ">
+               <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                   <div class="card-body">
+                       <h5 class="card-title text-center">Offres deposées</h5>
+                       <p class="card-text text-center">{{ nombreOffre }}</p>
+                   </div>
+               </div>
+           </div>
+            <div class="col-lg-3">
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Nombre(s) de Matching </h5>
+                        <p class="card-text text-center ">10</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Retour des Candidatures</h5>
+                        <p class="card-text text-center">5</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Moyenne visite des offres</h5>
+                        <p class="card-text text-center">50%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</br>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <div class="card card-waves">
+                    <div class="card-header"> Dernier Cv mise en ligne sur CANDIDATHEQUE </div>
+                    <div class="card-body text-center">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Id Candidat</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prenom</th>
+                                <th scope="col">Contrat rechercher</th>
+                            </tr>
+                            </thead>
+                        {%for cv in cvs %}
+                            <tbody>
+                            <tr>
+                                <th>{{cv.id}}</th>
+                                <td>{{cv.candidat.nom}}&nbsp;{{ cv.candidat.prenom}}</td>
+                                <td>{{ cv.metier }}</td>
+                                <td><span class="badge badge-primary offset-md-3">CDI</span></td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Dernière offre</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Offre numéro</th>
+                                <th scope="col">Metier</th>
+                                <th scope="col">Entreprise</th>
+                                <th scope="col">Date de debut</th>
+                                <th scope="col">Candidat</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for offre in offreLimite %}
+                                <tr>
+                                    <td>{{ offre.id }}</td>
+                                    <td data-toggle="modal" data-target="#exampleModal">{{ offre.metier.libelle }}</td>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Titre annonce : {{ offre.titre }}</p>
+                                                    <p>Date de publication : {{ offre.datePublication |date('d/m/Y') }}</p>
+                                                    <p>Descriptif: {{ offre.description }}</p>
+                                                    <p>Metier: {{ offre.metier }}</p>
+                                                    <p>Date de début:{{ offre.dateDebut|date('d/m/Y') }}</p>
+                                                    <p>Date de fIN:{{ offre.dateFin|date('d/m/Y') }}</p>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary"id="{{ offre.id }}"  onclick="window.location.href ={{path('offres_modification',{offre: offre.id}) }})"}}>modifier</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <td>{{ offre.recruteur.entreprise }}</td>
+                                    <td>{{ offre.dateDebut| date('d/m/Y') }}</td>
+                                    <td>
+                                             <span class="badge badge-light offset-md-3">9</span>
+
+                                        </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card card-waves">
+                    <div class="card-header">Matching offre Potentiel Candidat</div>
+                    <div class="card-body">
+                        <table class="table table-info">
+                            <thead>
+                            <tr>
+                                <th scope="col">N°offre</th>
+                                <th scope="col">Nom de l'offre</th>
+                                <th scope="col">Nombre de Candidat</th>
+                                <th scope="col">Contrat</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td><span class="badge badge-light offset-md-3">9</span></td>
+                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td><span class="badge badge-light offset-md-3">9</span></td>
+                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td><span class="badge badge-light offset-md-3">9</span></td>
+                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card card-waves">
+                    <div class="card-header">5 dernières Candidatures</div>
+                    <div class="card-body">
+                        <table class="table table-info">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date de postul</th>
+                                <th scope="col">Numero de l'offre</th>
+                                <th scope="col">Nom de Candidat</th>
+                                <th scope="col">status</th>
+                            </tr>
+                            </thead>
+                            {% for last in lastCanditature %}
+                            <tbody>
+                            <tr>
+                                <th>{{ last.dateSelection | date('d/m/Y') }}</th>
+                                <td>{{ last.offre.id }}</td>
+                                <td>{{ last.candidat.nom }}</td>
+                                <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</br>
+
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+
 {% endblock %}

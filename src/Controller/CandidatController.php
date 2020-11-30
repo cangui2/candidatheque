@@ -33,4 +33,7 @@ class CandidatController extends AbstractController
             'compteur'=>$compteur,
         ]);
     }
+
+
+
 }

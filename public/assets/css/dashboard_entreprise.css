@@ -1,0 +1,35 @@
+body {
+    background-image: url("/assets/images/test11.jpg");
+}
+
+.graph{
+
+}
+
+.chiffreRecap{
+    font-size: 100px;
+}
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+.chip img {
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.card{
+
+    border-radius: 10px 10px 10px 10px !important;
+}
+.modal-body{
+    color: black;
+}

@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+
+use App\Repository\CVRepository;
+use App\Repository\PostuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\OffreRepository;
+
 
 class EntrepriseController extends AbstractController
 {
@@ -27,12 +32,71 @@ class EntrepriseController extends AbstractController
 
     /**
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
+     *
      */
-    public function dashboard(): Response {
+    public function dashboard(OffreRepository $repo, PostuleRepository $repo2,CVRepository $repo3): Response {
 
 
-        return $this->render('entreprise/dashboard_entreprise.html.twig');
+        $recruteur_id = $this->getUser()->getRecruteur()->getId();
+
+        $nameRecruteur=$this->getUser();
+        $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
+
+        $lastCanditature=$repo2->findViewsCandidatForRecruteur($recruteur_id);
+        $cvs=$repo3->findAll();
+
+
+        $global_data = [];
+        $global_label = [];
+        foreach ($result as $ligne) {
+            $global_data[] = $ligne["compteur"];
+            $global_label[] = $ligne["libelle"];
+        }
+         $offreLimite = $repo->findAllOfferByIdRecruteurLimit5($recruteur_id);
+
+         $test = $repo2->findViewsCandidatForRecruteur($recruteur_id);
+
+
+         // algorithme de comparaison des competences offre(s) vs candidat(s) //
+         // En attente de de mise en place fonction et des varibales via la tables.
+        // Test
+        $idOffre = "offre n°150";
+
+        $competenceOffre = array( "A1101", "A1102", "A1120","A1115");
+
+
+
+        $competenceCvCandidat = array (
+            "cv1" => array("A1102", "A1101", "A1115"),
+            "cv2" => array("A1104", "A1103", "A1101"),
+            "cv3" => array("A1102", "A1108", "A1109")
+        );
+        $results=[];
+        foreach ($competenceCvCandidat as $key => $value) {
+
+            for ($i=0; $i <1 ; $i++) {
+                $result = array_intersect($value, $competenceOffre);
+                $results[$idOffre][$key]=ceil((count($result)*100)/count($competenceOffre));
+
+            }
+        }
+
+
+
+
+        return $this->render('entreprise/dashboard_entreprise.html.twig',[
+
+            'nombreOffre' => array_sum($global_data),
+            'offreLimite'=>$offreLimite,
+            'name'=>$nameRecruteur,
+            'lastCanditature'=>$lastCanditature,
+            'cvs'=>$cvs,
+
+
+        ]);
     }
+
+
 
 
 }

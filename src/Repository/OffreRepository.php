@@ -45,16 +45,6 @@ class OffreRepository extends ServiceEntityRepository
             ;
     }
 
-public function countByCandidat($candidat_id)
-{
-    return $this->createQueryBuilder('o')
-    ->join('postule', 'p')
-    ->Where('p.candidat = :candidat_id')
-    ->setParameters(['candidat_id' => $candidat_id])
-    ->getQuery()
-    ->getResult();
-    
-}
 
 
 }

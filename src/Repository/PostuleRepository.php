@@ -19,9 +19,6 @@ class PostuleRepository extends ServiceEntityRepository
         parent::__construct($registry, Postule::class);
     }
 
-    
-
-
     // /**
     //  * @return Postule[] Returns an array of Postule objects
     //  */

@@ -381,12 +381,12 @@ class CV
         return $this;
     }
 
-    public function getDeposePar(): ?Entreprise
+    public function getDeposePar(): ?Recruteur
     {
         return $this->deposePar;
     }
 
-    public function setDeposePar(?Entreprise $deposePar): self
+    public function setDeposePar(?Recruteur $deposePar): self
     {
         $this->deposePar = $deposePar;
 
