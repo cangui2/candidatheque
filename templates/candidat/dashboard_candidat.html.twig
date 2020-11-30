@@ -39,7 +39,7 @@
         {# J'appelle le graphique offre/mois #}
 
     <h3>Graphique nombre d'offres par mois </h3>
-    <div class="chart-container" style="position: relative; height:20vh; width:20vw">
+    <div class="chart-container" style="position: relative; height:25vh; width:20vw">
     <canvas id="Chart" width="400" height="400"></canvas>
     </div>
 
@@ -174,7 +174,7 @@ var ctx = document.getElementById('Chart');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Janvier','Février','Mars','Avril','Mai'],
+        labels: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'],
         datasets: [{
             label: ' Nombre offres dans le mois ',
             data: [compteur],
