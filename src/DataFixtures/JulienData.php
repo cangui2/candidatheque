@@ -332,6 +332,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre1=new Offre();
         $offre1->setMetier($manager->getRepository(Metier::class)->find(10200));
         $offre1->setType($manager->getRepository(TypeContrat::class)->find(2));
+        $offre1->setDescription('Le numérique dynamise les effets systémiques du métacontexte.');
         $offre1->setRecruteur($rec1);
         $offre1->setEntreprise($ent1);
         $offre1->setVille($manager->getRepository(Ville::class)->find(1));
@@ -340,7 +341,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre1->setPays($manager->getRepository(Pays::class)->find(67)) ;
         $offre1->setTitre('test annonce 1');
         $offre1->setDatePublication(new \DateTime());
-        $offre1->setSalaire('15000');
+        $offre1->setSalaire('45000');
         $offre1->setDateDebut(new \DateTime('06/04/2014'));
         $offre1->setDateFin(new \DateTime('06/04/2014'));
         $manager->persist($offre1);
@@ -359,7 +360,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre2->setPays($manager->getRepository(Pays::class)->find(67)) ;
         $offre2->setTitre('test annonce 2');
         $offre2->setDatePublication(new \DateTime());
-        $offre2->setSalaire('15000');
+        $offre2->setSalaire('20000');
         $offre2->setDateDebut(new \DateTime('06/04/2014'));
         $offre2->setDateFin(new \DateTime('06/04/2014'));
         $manager->persist($offre2);
@@ -376,7 +377,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre3->setPays($manager->getRepository(Pays::class)->find(67)) ;
         $offre3->setTitre('test annonce 3');
         $offre3->setDatePublication(new \DateTime());
-        $offre3->setSalaire('15000');
+        $offre3->setSalaire('35000');
         $offre3->setDateDebut(new \DateTime('06/04/2014'));
         $offre3->setDateFin(new \DateTime('06/04/2014'));
         $manager->persist($offre3);
@@ -393,7 +394,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre4->setPays($manager->getRepository(Pays::class)->find(67)) ;
         $offre4->setTitre('test annonce 4');
         $offre4->setDatePublication(new \DateTime());
-        $offre4->setSalaire('15000');
+        $offre4->setSalaire('27000');
         $offre4->setDateDebut(new \DateTime('06/04/2014'));
         $offre4->setDateFin(new \DateTime('06/04/2014'));
         $manager->persist($offre4);
@@ -410,10 +411,10 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre5->setPays($manager->getRepository(Pays::class)->find(67)) ;
         $offre5->setTitre('test annonce 5');
         $offre5->setDatePublication(new \DateTime());
-        $offre5->setSalaire('15000');
+        $offre5->setSalaire('35000');
         $offre5->setDateDebut(new \DateTime('06/04/2014'));
         $offre5->setDateFin(new \DateTime('06/04/2014'));
-        $manager->persist($offre1);
+        $manager->persist($offre5);
 
         $postule1=new Postule();
         $postule1->setCandidat($cand1);
