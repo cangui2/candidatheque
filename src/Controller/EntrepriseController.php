@@ -39,11 +39,11 @@ class EntrepriseController extends AbstractController
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
 
-        $name_recruteur=$this->getUser();
+        $nameRecruteur=$this->getUser();
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
 
-        $lastcanditature=$repo2->findViewsCandidatForRecruteur($recruteur_id);
-        $allCv=$repo3->findAll();
+        $lastCanditature=$repo2->findViewsCandidatForRecruteur($recruteur_id);
+        $cvs=$repo3->findAll();
 
 
         $global_data = [];
@@ -86,11 +86,11 @@ class EntrepriseController extends AbstractController
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
 
-            'NombreOffre' => array_sum($global_data),
+            'nombreOffre' => array_sum($global_data),
             'offreLimite'=>$offreLimite,
-            'name'=>$name_recruteur,
-            'lastcanditature'=>$lastcanditature,
-            'allCv'=>$allCv,
+            'name'=>$nameRecruteur,
+            'lastCanditature'=>$lastCanditature,
+            'cvs'=>$cvs,
 
 
         ]);
