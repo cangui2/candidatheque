@@ -38,9 +38,11 @@ class EntrepriseController extends AbstractController
 
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
+
         $name_recruteur=$this->getUser();
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
-        $lastcanditature=$repo2->findAll();
+
+        $lastcanditature=$repo2->findViewsCandidatForRecruteur($recruteur_id);
         $allCv=$repo3->findAll();
 
 
@@ -53,6 +55,7 @@ class EntrepriseController extends AbstractController
          $offreLimite = $repo->findAllOfferByIdRecruteurLimit5($recruteur_id);
 
          $test = $repo2->findViewsCandidatForRecruteur($recruteur_id);
+
 
          // algorithme de comparaison des competences offre(s) vs candidat(s) //
          // En attente de de mise en place fonction et des varibales via la tables.
@@ -82,8 +85,7 @@ class EntrepriseController extends AbstractController
 
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
-            'global_data' => json_encode($global_data),
-            'global_label' => json_encode($global_label),
+
             'NombreOffre' => array_sum($global_data),
             'offreLimite'=>$offreLimite,
             'name'=>$name_recruteur,
