@@ -50,7 +50,7 @@ class EntrepriseController extends AbstractController
 
          $test = $repo2->findViewsCandidatForRecruteur($recruteur_id);
 
-         // algorithme de comparaison des competence offre vs candidat(s) //
+         // algorithme de comparaison des competences offre(s) vs candidat(s) //
          // En attente de de mise en place fonction et des varibales via la tables.
         // Test
         $idOffre = "offre n°150";
