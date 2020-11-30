@@ -44,7 +44,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $ent1->setCodePostal("75003");
         $ent1->setVille("Paris");
         $manager->persist($ent1);
-        $manager->flush($ent1);
+
 
         $rec1 = new Recruteur();
         $rec1->setNom("Gates");
@@ -129,7 +129,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $u6->setPassword($password);
         $u6->setRoles(["ROLE_USER", "ROLE_RECRUTEUR", "ROLE_TO_VERIFY"]);
         $u6->setAuthToken(null);
-        $u6->setRecruteur($rec1);
+        $u6->setRecruteur($rec5);
         $u6->setActif(true);
         $manager->persist($u6);
 
