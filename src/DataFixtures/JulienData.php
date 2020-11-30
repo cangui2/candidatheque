@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\APE;
+
 use App\Entity\Candidat;
 use App\Entity\Consulte;
 use App\Entity\CV;
@@ -18,7 +18,7 @@ use App\Entity\Region;
 use App\Entity\TypeContrat;
 use App\Entity\User;
 use App\Entity\Ville;
-use App\Repository\VilleRepository;
+
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -263,12 +263,12 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cv3->setMetier($manager->getRepository(Metier::class)->find(12550));
         $manager->persist($cv3);
         // cv numero 4
-        /*
+
         $cv4=new CV();
-        $cv4->setDeposePar($manager->getRepository(Recruteur::class)->find(5));
+        $cv4->setDeposePar($rec3);
         $cv4->setMetier($manager->getRepository(Metier::class)->find(12556));
         $manager->persist($cv4);
-*/
+
         $formation= new Formation();
         $formation->setCv($cv1);
         $formation->setDateDebut(new \DateTime('06/04/2014'));
