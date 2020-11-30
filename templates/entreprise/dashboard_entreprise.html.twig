@@ -77,39 +77,15 @@
                                 <th scope="col">Contrat rechercher</th>
                             </tr>
                             </thead>
-
+                        {%for cv in allCv %}
                             <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
+                                <th>{{cv.id}}</th>
+                                <td>{{cv.candidat}}</td>
+                                <td>{{ cv.metier }}</td>
+                                <td><span class="badge badge-primary offset-md-3">CDI</span></td>
                             </tr>
-
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -245,31 +221,22 @@
                         <table class="table table-info">
                             <thead>
                             <tr>
-                                <th scope="col">N°offre</th>
-                                <th scope="col">Nom de l'offre</th>
+                                <th scope="col">Date de postul</th>
+                                <th scope="col">Numero de l'offre</th>
                                 <th scope="col">Nom de Candidat</th>
                                 <th scope="col">status</th>
                             </tr>
                             </thead>
+                            {% for last in lastcanditature %}
                             <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Claire</td>
+                                <th>{{ last.dateSelection | date('d/m/Y') }}</th>
+                                <td>{{ last.offre.id }}</td>
+                                <td>{{ last.candidat.nom }}</td>
                                 <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Claire</td>
-                                <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>Claire</td>
-                                <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
-                            </tr>
+                            {% endfor %}
+
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">

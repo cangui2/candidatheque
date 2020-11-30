@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Repository\CVRepository;
 use App\Repository\PostuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,12 +34,15 @@ class EntrepriseController extends AbstractController
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
-    public function dashboard(OffreRepository $repo, PostuleRepository $repo2): Response {
+    public function dashboard(OffreRepository $repo, PostuleRepository $repo2,CVRepository $repo3): Response {
 
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
         $name_recruteur=$this->getUser();
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
+        $lastcanditature=$repo2->findAll();
+        $allCv=$repo3->findAll();
+
 
         $global_data = [];
         $global_label = [];
@@ -83,6 +87,8 @@ class EntrepriseController extends AbstractController
             'NombreOffre' => array_sum($global_data),
             'offreLimite'=>$offreLimite,
             'name'=>$name_recruteur,
+            'lastcanditature'=>$lastcanditature,
+            'allCv'=>$allCv,
 
 
         ]);
