@@ -21,13 +21,6 @@
       "css": [
         "/build/2.d39511b7.css"
       ]
-    },
-    "dashboard_offre": {
-      "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/1.6d5bdf5b.js",
-        "/build/dashboard_offre.868b1025.js"
-      ]
     }
   }
 }
