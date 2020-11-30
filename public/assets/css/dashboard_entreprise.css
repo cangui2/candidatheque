@@ -30,3 +30,6 @@ body {
 
     border-radius: 10px 10px 10px 10px !important;
 }
+.modal-body{
+    color: black;
+}
