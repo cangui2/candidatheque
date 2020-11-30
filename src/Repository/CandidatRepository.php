@@ -47,4 +47,14 @@ class CandidatRepository extends ServiceEntityRepository
         ;
     }
     */
+    /*public function countByCv ($candidat_id)
+    {
+        return $this->createQueryBuilder('c')
+        ->join('c.cv', 'c')
+        ->Where('p.candidat = :candidat_id')
+        ->setParameters(['candidat_id' =>$candidat_id])
+        ->getQuery()
+        ->getResult();
+    }
+    */
 }

@@ -1,0 +1,28 @@
+
+body{
+    background-color: azure;
+}
+h3 {
+    font-size: 1rem;
+}
+
+
+
+
+
+.jumbotron {
+    flex: auto;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: blue;
+    border-radius: .3rem;
+    
+
+}
+
+canvas#Chart.chartjs-render-monitor {
+    
+    margin-right: 15px;
+    margin-bottom: 0;
+    margin-left: 15px;
+}
