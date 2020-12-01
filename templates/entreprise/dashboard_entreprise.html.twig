@@ -73,7 +73,7 @@
                         <table class="table">
                             <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Id Candidat</th>
+
                                 <th scope="col">Nom/Prenom</th>
                                 <th scope="col">Metier</th>
                                 <th scope="col">Contrat rechercher</th>
@@ -83,7 +83,7 @@
                             {% for cv in cvs %}
                             <tbody>
                             <tr>
-                                <th>{{ cv.id }}</th>
+
                                 <td>{{ cv.candidat }}</td>
                                 <td>{{ cv.metier }}</td>
                                 <td><span class="badge badge-primary offset-md-3">CDI</span></td>
@@ -103,12 +103,12 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">Offre numéro</th>
-                                <th> Nombre(s) poustulant(s)</th>
+                                <th> Nom annonce</th>
+                                <th> Nombre(s) postulant(s)</th>
                                 <th scope="col">Metier</th>
-                                <th scope="col">Entreprise</th>
+
                                 <th scope="col">Date de debut mission</th>
-                                <th scope="col">Date de fin mission</th>
+
                                 <th scope="col">Publication depuis :</th>
                             </tr>
                             </thead>
@@ -118,7 +118,7 @@
                             {% for offre in limitOffer %}
 
                                 <tr>
-                                    <td>{{ offre.id }}</td>
+                                   <td>{{ offre.titre }}</td>
 
                                     {% if offre.postules is not empty %}
 
@@ -131,7 +131,7 @@
                                     <td>
                                         {% endif %}
                                     <td>{{ offre.metier.libelle }}</td>
-                                    <td>{{ offre.recruteur.entreprise }}</td>
+
                                     <td class="text-center">{{ offre.dateDebut| date('d/m/Y') }}</td>
                                     <td class="text-center">{{ offre.dateFin| date('d/m/Y') }}</td>
                                     <td>
@@ -180,7 +180,7 @@
                         <table class="table table-info">
                             <thead>
                             <tr>
-                                <th scope="col">N°offre</th>
+
                                 <th scope="col">Nom de l'offre</th>
                                 <th scope="col">Nombre de Candidat</th>
                                 <th scope="col">Contrat</th>
@@ -188,19 +188,19 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <th scope="row">1</th>
+
                                 <td>Mark</td>
                                 <td><span class="badge badge-light offset-md-3">9</span></td>
                                 <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
                             </tr>
                             <tr>
-                                <th scope="row">2</th>
+
                                 <td>Jacob</td>
                                 <td><span class="badge badge-light offset-md-3">9</span></td>
                                 <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
                             </tr>
                             <tr>
-                                <th scope="row">3</th>
+
                                 <td>Larry</td>
                                 <td><span class="badge badge-light offset-md-3">9</span></td>
                                 <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
@@ -230,7 +230,7 @@
                         <table class="table table-info">
                             <thead>
                             <tr>
-                                <th scope="col">Date de postul</th>
+                                <th scope="col">Date de postule</th>
                                 <th scope="col">Numero de l'offre</th>
                                 <th scope="col">Nom de Candidat</th>
                                 <th scope="col">status</th>
