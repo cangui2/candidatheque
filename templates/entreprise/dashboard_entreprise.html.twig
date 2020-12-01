@@ -27,7 +27,7 @@
                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                    <div class="card-body">
                        <h5 class="card-title text-center">Offres deposées</h5>
-                       <p class="card-text text-center">{{ nombreOffre }}</p>
+                       <p class="card-text text-center">{{ offerNumber }}</p>
                    </div>
                </div>
            </div>
@@ -112,7 +112,7 @@
                             </thead>
                             <tbody>
 
-                            {% for offre in offreLimite %}
+                            {% for offre in limitOffer %}
                                 <tr>
                                     <td>{{ offre.id }}</td>
                                     <td>{{ offre.metier.libelle }}</td>
