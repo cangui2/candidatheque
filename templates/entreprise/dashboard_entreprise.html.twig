@@ -20,18 +20,19 @@
             </div>
         </div>
     </div>
-</br>
+    </br>
 
     <div class="container-fluid">
         <div class="row">
-           <div class=" col-6 col-lg-3 col-sm-3">
-               <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                   <div class="card-body">
-                       <h5 class="card-title text-center">Offres deposées par : {{ name.recruteur.nom }} {{ name.recruteur.prenom }}</h5>
-                       <p class="card-text text-center">{{ offerNumber }}</p>
-                   </div>
-               </div>
-           </div>
+            <div class=" col-6 col-lg-3 col-sm-3">
+                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Offres deposées par
+                            : {{ name.recruteur.nom }} {{ name.recruteur.prenom }}</h5>
+                        <p class="card-text text-center">{{ offerNumber }}</p>
+                    </div>
+                </div>
+            </div>
             <div class="col-6 col-lg-3 col-sm-3">
                 <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                     <div class="card-body">
@@ -60,14 +61,14 @@
         </div>
     </div>
 
-</br>
+    </br>
 
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-sm-12 col-lg-4">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
                 <div class="card card-waves">
-                    <div class="card-header"> Dernier Cv mise en ligne sur CANDIDATHEQUE </div>
+                    <div class="card-header"> Dernier Cv mise en ligne sur CANDIDATHEQUE</div>
                     <div class="card-body text-center">
                         <table class="table">
                             <thead class="thead-dark">
@@ -79,11 +80,11 @@
                             </tr>
                             </thead>
 
-                        {%for cv in cvs %}
+                            {% for cv in cvs %}
                             <tbody>
                             <tr>
-                                <th>{{cv.id}}</th>
-                                <td>{{cv.candidat}}</td>
+                                <th>{{ cv.id }}</th>
+                                <td>{{ cv.candidat }}</td>
                                 <td>{{ cv.metier }}</td>
                                 <td><span class="badge badge-primary offset-md-3">CDI</span></td>
                             </tr>
@@ -95,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-lg-8">
+            <div class="col-12 col-sm-12 col-lg-12 col-xl-8">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-header">Dernière(s) offre(s) postée(s)</div>
                     <div class="card-body">
@@ -117,7 +118,7 @@
                             {% for offre in limitOffer %}
 
                                 <tr>
-                                    <td>{{ offre.id}}</td>
+                                    <td>{{ offre.id }}</td>
 
                                     {% if offre.postules is not empty %}
 
@@ -126,7 +127,7 @@
                                             Voir <span class="badge badge-light">{{ offre.postules|length }}</span>
                                             <span class="sr-only">unread messages</span>
                                         </button>
-                                    {% elseif offre.postules is empty %}
+                                        {% elseif offre.postules is empty %}
                                     <td>
                                         {% endif %}
                                     <td>{{ offre.metier.libelle }}</td>
@@ -138,7 +139,7 @@
                                              <span class="badge badge-light offset-md-3">
                                                  {% set datePost = offre.datePublication|date('d-m-Y') %}
                                                  {% set today = "now"|date('d-m-Y') %}
-                                                 {% set difference = date(today).diff(date(datePost))%}
+                                                 {% set difference = date(today).diff(date(datePost)) %}
                                                  {% set leftDays = difference.days %}
                                                  {% if datePost == today %}
                                                      1 day
@@ -147,7 +148,7 @@
                                                  {% endif %}
                                              </span>
 
-                                        </td>
+                                    </td>
                                 </tr>
 
                             {% endfor %}
@@ -172,7 +173,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-lg-6">
+            <div class="col-12 col-sm-12 col-lg-6 ">
                 <div class="card card-waves">
                     <div class="card-header">Matching offre Potentiel Candidat</div>
                     <div class="card-body">
@@ -265,7 +266,7 @@
             </div>
         </div>
     </div>
-</br>
+    </br>
 
 
 {% endblock %}
