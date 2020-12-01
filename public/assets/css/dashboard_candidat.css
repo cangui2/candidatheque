@@ -54,9 +54,11 @@ canvas#Chart.chartjs-render-monitor {
 
 
 /*Tableau */
+
+
 .table {
-    text-align: center;
-    width: 10%;
+    
+    width: 30%;
     
 }
 
