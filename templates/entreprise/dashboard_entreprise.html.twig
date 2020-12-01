@@ -24,7 +24,7 @@
 
     <div class="container-fluid">
         <div class="row">
-           <div class="col-lg-3 ">
+           <div class="col-lg-3 col-sm-3">
                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                    <div class="card-body">
                        <h5 class="card-title text-center">Offres deposées par : {{ name.recruteur.nom }} {{ name.recruteur.prenom }}</h5>
@@ -32,7 +32,7 @@
                    </div>
                </div>
            </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-3">
                 <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title text-center">Nombre(s) de Matching </h5>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-3">
                 <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title text-center">Retour des Candidatures</h5>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-3">
                 <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
 
                     <div class="card-body">
@@ -65,7 +65,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4">
+            <div class="col-4 col-sm-12 ">
                 <div class="card card-waves">
                     <div class="card-header"> Dernier Cv mise en ligne sur CANDIDATHEQUE </div>
                     <div class="card-body text-center">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8">
+            <div class="col-8 col-sm-12">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-header">Dernière(s) offre(s) postée(s)</div>
                     <div class="card-body">
@@ -172,7 +172,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 col-sm-12">
                 <div class="card card-waves">
                     <div class="card-header">Matching offre Potentiel Candidat</div>
                     <div class="card-body">
@@ -222,7 +222,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-sm-12">
                 <div class="card card-waves">
                     <div class="card-header">5 dernières Candidatures</div>
                     <div class="card-body">
@@ -241,7 +241,7 @@
                                 <th>{{ last.dateSelection | date('d/m/Y') }}</th>
                                 <td>{{ last.offre.id }}</td>
                                 <td>{{ last.candidat.nom }}</td>
-                                <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
+                                <td><span class="badge badge-danger ">en attente</span></td>
                             </tr>
                             {% endfor %}
 
