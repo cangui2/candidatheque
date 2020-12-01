@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Repository\CVRepository;
 use App\Repository\PostuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,12 +34,17 @@ class EntrepriseController extends AbstractController
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
-    public function dashboard(OffreRepository $repo, PostuleRepository $repo2): Response {
+    public function dashboard(OffreRepository $repo, PostuleRepository $repo2,CVRepository $repo3): Response {
 
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
-        $name_recruteur=$this->getUser();
+
+        $nameRecruteur=$this->getUser();
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
+
+        $lastCanditature=$repo2->findViewsCandidatForRecruteur($recruteur_id);
+        $cvs=$repo3->findAll();
+
 
         $global_data = [];
         $global_label = [];
@@ -46,30 +52,31 @@ class EntrepriseController extends AbstractController
             $global_data[] = $ligne["compteur"];
             $global_label[] = $ligne["libelle"];
         }
-         $offreLimite = $repo->findAllOfferByIdRecruteurLimit5($recruteur_id);
+         $offerLimit = $repo->findAllOfferByIdRecruteurLimit5($recruteur_id);
 
          $test = $repo2->findViewsCandidatForRecruteur($recruteur_id);
 
-         // algorithme de comparaison des competence offre vs candidat(s) //
+
+         // algorithme de comparaison des competences offre(s) vs candidat(s) //
          // En attente de de mise en place fonction et des varibales via la tables.
         // Test
-        $idOffre = "offre n°150";
+        $idOffer = "offre n°150";
 
-        $competenceOffre = array( "A1101", "A1102", "A1120","A1115");
+        $skillOffer = array( "A1101", "A1102", "A1120","A1115");
 
 
 
-        $competenceCvCandidat = array (
+        $skillCvCandidat = array (
             "cv1" => array("A1102", "A1101", "A1115"),
             "cv2" => array("A1104", "A1103", "A1101"),
             "cv3" => array("A1102", "A1108", "A1109")
         );
         $results=[];
-        foreach ($competenceCvCandidat as $key => $value) {
+        foreach ($skillCvCandidat as $key => $value) {
 
             for ($i=0; $i <1 ; $i++) {
-                $result = array_intersect($value, $competenceOffre);
-                $results[$idOffre][$key]=ceil((count($result)*100)/count($competenceOffre));
+                $result = array_intersect($value, $skillOffer);
+                $results[$idOffer][$key]=ceil((count($result)*100)/count($skillOffer));
 
             }
         }
@@ -78,11 +85,12 @@ class EntrepriseController extends AbstractController
 
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
-            'global_data' => json_encode($global_data),
-            'global_label' => json_encode($global_label),
-            'NombreOffre' => array_sum($global_data),
-            'offreLimite'=>$offreLimite,
-            'name'=>$name_recruteur,
+
+            'offerNumber' => array_sum($global_data),
+            'limitOffer'=>$offerLimit,
+            'name'=>$nameRecruteur,
+            'lastCanditature'=>$lastCanditature,
+            'cvs'=>$cvs,
 
 
         ]);

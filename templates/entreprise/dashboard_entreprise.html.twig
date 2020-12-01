@@ -27,7 +27,7 @@
                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                    <div class="card-body">
                        <h5 class="card-title text-center">Offres deposées</h5>
-                       <p class="card-text text-center">{{ NombreOffre }}</p>
+                       <p class="card-text text-center">{{ offerNumber }}</p>
                    </div>
                </div>
            </div>
@@ -62,6 +62,7 @@
 
 </br>
 
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-4">
@@ -72,50 +73,31 @@
                             <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Id Candidat</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
+                                <th scope="col">Nom/Prenom</th>
+                                <th scope="col">Metier</th>
                                 <th scope="col">Contrat rechercher</th>
                             </tr>
                             </thead>
+
+                        {%for cv in cvs %}
                             <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
+                                <th>{{cv.id}}</th>
+                                <td>{{cv.candidat}}</td>
+                                <td>{{ cv.metier }}</td>
+                                <td><span class="badge badge-primary offset-md-3">CDI</span></td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
+                            {% endfor %}
                             </tbody>
+
                         </table>
+                        <button type="button" class="btn btn-primary offset-md-10">Ajouter un Cv</button>
                     </div>
                 </div>
             </div>
             <div class="col-8">
                 <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">Dernière offre</div>
+                    <div class="card-header">Dernière(s) offre(s) postée(s)</div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -123,19 +105,33 @@
                                 <th scope="col">Offre numéro</th>
                                 <th scope="col">Metier</th>
                                 <th scope="col">Entreprise</th>
-                                <th scope="col">Date de debut</th>
-                                <th scope="col">Candidat</th>
+                                <th scope="col">Date de debut mission</th>
+                                <th scope="col">Date de fin mission</th>
+                                <th scope="col">Publication depuis :</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for offre in offreLimite %}
+
+                            {% for offre in limitOffer %}
                                 <tr>
                                     <td>{{ offre.id }}</td>
                                     <td>{{ offre.metier.libelle }}</td>
                                     <td>{{ offre.recruteur.entreprise }}</td>
-                                    <td>{{ offre.dateDebut| date('d/m/Y') }}</td>
+                                    <td class="text-center">{{ offre.dateDebut| date('d/m/Y') }}</td>
+                                    <td class="text-center">{{ offre.dateFin| date('d/m/Y') }}</td>
                                     <td>
-                                             <span class="badge badge-light offset-md-3">9</span>
+
+                                             <span class="badge badge-light offset-md-3">
+                                                 {% set datePost = offre.datePublication|date('d-m-Y') %}
+                                                 {% set today = "now"|date('d-m-Y') %}
+                                                 {% set difference = date(today).diff(date(datePost))%}
+                                                 {% set leftDays = difference.days %}
+                                                 {% if datePost == today %}
+                                                     1 day
+                                                 {% else %}
+                                                     {{ leftDays }}
+                                                 {% endif %}
+                                             </span>
 
                                         </td>
                                 </tr>
@@ -144,6 +140,7 @@
                             </tbody>
 
                         </table>
+
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
                                 <li class="page-item disabled">
@@ -160,6 +157,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-6">
                 <div class="card card-waves">
                     <div class="card-header">Matching offre Potentiel Candidat</div>
@@ -217,31 +215,22 @@
                         <table class="table table-info">
                             <thead>
                             <tr>
-                                <th scope="col">N°offre</th>
-                                <th scope="col">Nom de l'offre</th>
+                                <th scope="col">Date de postul</th>
+                                <th scope="col">Numero de l'offre</th>
                                 <th scope="col">Nom de Candidat</th>
                                 <th scope="col">status</th>
                             </tr>
                             </thead>
+                            {% for last in lastCanditature %}
                             <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Claire</td>
+                                <th>{{ last.dateSelection | date('d/m/Y') }}</th>
+                                <td>{{ last.offre.id }}</td>
+                                <td>{{ last.candidat.nom }}</td>
                                 <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Claire</td>
-                                <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>Claire</td>
-                                <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
-                            </tr>
+                            {% endfor %}
+
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">
