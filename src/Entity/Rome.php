@@ -7,6 +7,7 @@ use App\Repository\RomeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\String_;
 
 /**
  * @ORM\Entity(repositoryClass=RomeRepository::class)
@@ -74,6 +75,11 @@ class Rome
      */
     private $mobilites2;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Pcs::class, mappedBy="codesRome")
+     */
+    private $codesPcs;
+
 
 
     public function __construct($ogr, $code, $libelle)
@@ -87,6 +93,7 @@ class Rome
         $this->descriptions = new ArrayCollection();
         $this->mobilites1 = new ArrayCollection();
         $this->mobilites2 = new ArrayCollection();
+        $this->codesPcs = new ArrayCollection();
 
     }
 
@@ -148,8 +155,8 @@ class Rome
 
         return $this;
     }
-    public function __toString(){
-        return $this->getCode();
+    public function __toString(): String {
+        return $this->id;
     }
 
     /**
@@ -285,6 +292,33 @@ class Rome
     {
         if ($this->mobilites2->removeElement($mobilites2)) {
             $mobilites2->removeRomeCible($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Pcs[]
+     */
+    public function getCodesPcs(): Collection
+    {
+        return $this->codesPcs;
+    }
+
+    public function addCodesPc(Pcs $codesPc): self
+    {
+        if (!$this->codesPcs->contains($codesPc)) {
+            $this->codesPcs[] = $codesPc;
+            $codesPc->addCodesRome($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCodesPc(Pcs $codesPc): self
+    {
+        if ($this->codesPcs->removeElement($codesPc)) {
+            $codesPc->removeCodesRome($this);
         }
 
         return $this;

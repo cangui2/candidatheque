@@ -83,10 +83,6 @@ class Offre
      */
     private $dateDebut;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $dateFin;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -279,17 +275,6 @@ class Offre
         return $this;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->dateFin;
-    }
-
-    public function setDateFin(?\DateTimeInterface $dateFin): self
-    {
-        $this->dateFin = $dateFin;
-
-        return $this;
-    }
 
     public function getDuree(): ?string
     {

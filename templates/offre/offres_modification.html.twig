@@ -80,9 +80,8 @@
                         {{ form_label(offreUpdateForm.dateDebut) }}
                         {{ form_widget(offreUpdateForm.dateDebut, {'attr': {'placeholder': 'JJ/MM/AAAA'}}) }}
                     </div>
-                    <div class="col-md-6">
-                        {{ form_label(offreUpdateForm.dateFin) }}
-                        {{ form_widget(offreUpdateForm.dateFin, {'attr': {'placeholder': 'JJ/MM/AAAA'}}) }}
+                    <div class="col-md-6 mt-4">
+                        {{ form_row(offreUpdateForm.urgent) }}
                     </div>
                 </div>
                 <div class="row">
@@ -93,10 +92,12 @@
                         {{ form_row(offreUpdateForm.salaire) }}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        {{ form_row(offreUpdateForm.urgent) }}
+                <div class="row mt-2">
+                    <div class="col-12">
+                        {{ form_row(offreUpdateForm.habilitations) }}
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         {{ form_row(offreUpdateForm.possibiliteCDI) }}
                     </div>

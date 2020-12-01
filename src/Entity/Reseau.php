@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProfilRepository;
+use App\Repository\ReseauRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProfilRepository::class)
+ * @ORM\Entity(repositoryClass=ReseauRepository::class)
  */
-class Profil
+class Reseau
 {
     /**
      * @ORM\Id
@@ -28,7 +28,7 @@ class Profil
     private $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="profils")
+     * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="reseaux")
      */
     private $cv;
 
