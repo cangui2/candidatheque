@@ -30,13 +30,7 @@
     </div>
   </div>
 
-  <div class="column">
-    <div class="card">
-      <h3>Candidature en attente de réponses</h3>
-      <p>9</p>
-     
-    </div>
-  </div>
+ 
   
   <div class="column">
     <div class="card">
@@ -56,30 +50,68 @@
 </div>
 
  
-
+<br>
 {# J'appelle le graphique offre/mois #}
-
-<h4>Statistiques</h4>
+<div>
+<p>Statistiques</p>
 
     <h3>Graphique nombre d'offres par mois </h3>
     <div class="chart-container" style="position: relative; height:25vh; width:20vw">
     <canvas id="Chart" width="400" height="400"></canvas>
     </div>
+</div>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
     
 
 {#Fin graphique #}
            
+    <!-- DEBUT TABLEAU ATTENTE DE REPONSE OFFRE-->
     
-    
-
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Entreprise</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
           
 
 
        
     
     
-  </div>
+  
   
 
 <br><br><br><br><br><br><br><br><br><br><br>
@@ -135,43 +167,6 @@ var myChart = new Chart(ctx, {
 </script>
 
 
-<script>
-  var compteur = {{compteur}}
-</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<script type="text/javascript">
-var ctx = document.getElementById('Chart');
-var myChart = new Chart(ctx, {
-    type: 'Doughnut',
-    data: {
-        labels: ['Nombre de visites'],
-        datasets: [{
-            label: ' Nombre de visites ',
-            data: [compteur],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-              
-               
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-            
-            ],
-            
-            borderWidth: 2
-        }] 
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                tgridLines: {
-                  offsetGridLines: true
-                }
-            }]
-        }
-    }
-});
 
-</script>
 {% endblock %}
 
