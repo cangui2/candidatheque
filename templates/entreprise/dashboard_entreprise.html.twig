@@ -136,7 +136,7 @@
                                     <td class="text-center">{{ offre.dateFin| date('d/m/Y') }}</td>
                                     <td>
 
-                                             <span class="badge badge-light offset-md-3">
+                                             <span class="badge badge-pill badge-success offset-md-3">
                                                  {% set datePost = offre.datePublication|date('d-m-Y') %}
                                                  {% set today = "now"|date('d-m-Y') %}
                                                  {% set difference = date(today).diff(date(datePost)) %}
