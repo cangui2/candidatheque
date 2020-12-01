@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Departement;
+use App\Entity\Habilitation;
 use App\Entity\Metier;
 use App\Entity\Offre;
 use App\Entity\Pays;
@@ -13,6 +14,7 @@ use App\Form\DataTransformer\DepartementToStringTransformer;
 use App\Form\DataTransformer\MetierToStringTransformer;
 use App\Form\DataTransformer\RegionToStringTransformer;
 use App\Form\DataTransformer\VilleToStringTransformer;
+use App\Repository\HabilitationRepository;
 use App\Repository\PaysRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -65,7 +67,7 @@ class OffreType extends AbstractType
                 'error_bubbling' => true
             ])
             ->add('dateDebut', DateType::class, [
-                'label' => 'De...',
+                'label' => '',
                 'widget' => 'single_text',
                 'html5' => false,
                 'attr' => ['class' => 'form-control js-datepicker'],
@@ -73,15 +75,7 @@ class OffreType extends AbstractType
                 'required' => false,
                 'error_bubbling' => true
             ])
-            ->add('dateFin', DateType::class, [
-                'label' => "Jusqu'à...",
-                'widget' => 'single_text',
-                'html5' => false,
-                'attr' => ['class' => 'form-control js-datepicker'],
-                'format' => 'dd/MM/yyyy',
-                'required' => false,
-                'error_bubbling' => true
-            ])
+
             ->add('duree', TextType::class, [
                 'label' => 'Durée',
                 'required' => false,
@@ -102,21 +96,12 @@ class OffreType extends AbstractType
                 'placeholder' => false,
                 'error_bubbling' => true
             ])
-            ->add('urgent', ChoiceType::class, [
-                'label' => 'Urgent',
-                'choices' => [
-                    'Oui' => true,
-                    'Non' => false
-                ],
-                'label_attr' => [
-                    'class' => 'radio-inline'
-                ],
+
+            ->add('urgent', CheckboxType::class, [
+                'label' => 'Dès que possible',
                 'required' => false,
-                'expanded' => true,
-                'multiple' => false,
-                'placeholder' => false,
-                'error_bubbling' => true
             ])
+
             ->add('profil', TextareaType::class, [
                 'label' => 'Profil requis',
                 'error_bubbling' => true
@@ -139,6 +124,28 @@ class OffreType extends AbstractType
                 'required' => false,
                 'error_bubbling' => true
             ])
+            ->add('habilitations', EntityType::class, [
+                'class' => Habilitation::class,
+                'label' => 'Permis et habilitations',
+                'choice_label' => 'libelle',
+                'expanded' => false,
+                'placeholder' => '',
+                'multiple' =>true,
+                'required' => false,
+
+            ])
+
+//            ->add('competences', EntityType::class, [
+//                'class' => Competence::class,
+//                'label' => 'Compétences',
+//                'choice_label' => 'libelle',
+//                'expanded' => false,
+//                'placeholder' => '',
+//                'multiple' =>true,
+//                'required' => false,
+//
+//            ])
+
             ->add('localisation', ChoiceType::class, [
                 'mapped' => false,
                 'label' => 'Lieu de travail',

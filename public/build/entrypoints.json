@@ -3,23 +3,22 @@
     "cv": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.ae3186dd.js",
-        "/build/3.60b8b450.js",
-        "/build/cv.b6be0a33.js"
+        "/build/0.be034f81.js",
+        "/build/1.93fc0b75.js",
+        "/build/cv.7aa05431.js"
       ],
       "css": [
-        "/build/cv.f9e6ed65.css"
+        "/build/cv.b095b8bc.css"
       ]
     },
     "react_recherche": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.ae3186dd.js",
-        "/build/2.a05db056.js",
-        "/build/react_recherche.5ba7ff3a.js"
+        "/build/0.be034f81.js",
+        "/build/react_recherche.e8af1b51.js"
       ],
       "css": [
-        "/build/2.d39511b7.css"
+        "/build/react_recherche.d39511b7.css"
       ]
     }
   }

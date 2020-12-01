@@ -86,9 +86,9 @@ class CV
     private $titre;
 
     /**
-     * @ORM\OneToMany(targetEntity=Profil::class, mappedBy="cv")
+     * @ORM\OneToMany(targetEntity=Reseau::class, mappedBy="cv")
      */
-    private $profils;
+    private $reseaux;
 
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="cv")
@@ -110,7 +110,7 @@ class CV
         $this->favoris = new ArrayCollection();
         $this->consultes = new ArrayCollection();
         $this->experiences = new ArrayCollection();
-        $this->profils = new ArrayCollection();
+        $this->reseaux = new ArrayCollection();
         $this->formations = new ArrayCollection();
         $this->langues = new ArrayCollection();
     }
@@ -292,29 +292,29 @@ class CV
     }
 
     /**
-     * @return Collection|Profil[]
+     * @return Collection|Reseau[]
      */
-    public function getProfils(): Collection
+    public function getReseaux(): Collection
     {
-        return $this->profils;
+        return $this->reseaux;
     }
 
-    public function addProfil(Profil $profil): self
+    public function addReseau(Reseau $reseau): self
     {
-        if (!$this->profils->contains($profil)) {
-            $this->profils[] = $profil;
-            $profil->setCv($this);
+        if (!$this->reseaux->contains($reseau)) {
+            $this->reseaux[] = $reseau;
+            $reseau->setCv($this);
         }
 
         return $this;
     }
 
-    public function removeProfil(Profil $profil): self
+    public function removeReseau(Reseau $reseau): self
     {
-        if ($this->profils->removeElement($profil)) {
+        if ($this->reseaux->removeElement($reseau)) {
             // set the owning side to null (unless already changed)
-            if ($profil->getCv() === $this) {
-                $profil->setCv(null);
+            if ($reseau->getCv() === $this) {
+                $reseau->setCv(null);
             }
         }
 
