@@ -248,18 +248,18 @@ class JulienData extends Fixture implements FixtureGroupInterface
          // Cv numero 1
         $cv1=new CV();
         $cv1->setCandidat($cand1);
-        $cv1->setMetier($manager->getRepository(Metier::class)->findOneBy([ "libelle" => "Développeur / Développeuse web"]));
+        $cv1->setMetier($manager->getRepository(Metier::class)->find(14250));
         $manager->persist($cv1);
 
         // Cv numero 2
         $cv2=new CV();
-        $cv2->setCandidat($cand1);
+        $cv2->setCandidat($cand2);
         $cv2->setMetier($manager->getRepository(Metier::class)->find(14250));
         $manager->persist($cv2);
 
         //Cv numero 3
         $cv3=new CV();
-        $cv3->setCandidat($cand2);
+        $cv3->setCandidat($cand3);
         $cv3->setMetier($manager->getRepository(Metier::class)->find(12550));
         $manager->persist($cv3);
         // cv numero 4
