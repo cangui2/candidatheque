@@ -33,3 +33,6 @@ body {
 .modal-body{
     color: black;
 }
+.table {
+    table-layout: fixed;
+}
