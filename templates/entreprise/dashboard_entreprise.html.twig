@@ -103,6 +103,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Offre numéro</th>
+                                <th> Nombre(s) poustulant(s)</th>
                                 <th scope="col">Metier</th>
                                 <th scope="col">Entreprise</th>
                                 <th scope="col">Date de debut mission</th>
@@ -112,9 +113,22 @@
                             </thead>
                             <tbody>
 
+
                             {% for offre in limitOffer %}
+
                                 <tr>
-                                    <td>{{ offre.id }}</td>
+                                    <td>{{ offre.id}}</td>
+
+                                    {% if offre.postules is not empty %}
+
+                                    <td>
+                                        <button type="button" class="btn btn-danger">
+                                            Voir <span class="badge badge-light">{{ countOfferCandidat.count }}</span>
+                                            <span class="sr-only">unread messages</span>
+                                        </button>
+                                    {% elseif offre.postules is empty %}
+                                    <td>
+                                        {% endif %}
                                     <td>{{ offre.metier.libelle }}</td>
                                     <td>{{ offre.recruteur.entreprise }}</td>
                                     <td class="text-center">{{ offre.dateDebut| date('d/m/Y') }}</td>
@@ -135,8 +149,8 @@
 
                                         </td>
                                 </tr>
-                            {% endfor %}
 
+                            {% endfor %}
                             </tbody>
 
                         </table>

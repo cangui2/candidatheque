@@ -38,11 +38,13 @@ class EntrepriseController extends AbstractController
 
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
-
+        $recruteur_id2=$this->getUser()->getRecruteur()->getEntreprise()->getId();
         $nameRecruteur=$this->getUser();
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
 
         $lastCanditature=$repo2->findViewsCandidatForRecruteur($recruteur_id);
+        $countOfferCandidat=array('id'=>$recruteur_id2,'count'=>count($lastCanditature));
+
         $cvs=$repo3->findAll();
 
 
@@ -91,6 +93,7 @@ class EntrepriseController extends AbstractController
             'name'=>$nameRecruteur,
             'lastCanditature'=>$lastCanditature,
             'cvs'=>$cvs,
+            'countOfferCandidat'=>$countOfferCandidat,
 
 
         ]);
