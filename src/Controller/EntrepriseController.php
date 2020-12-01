@@ -43,7 +43,7 @@ class EntrepriseController extends AbstractController
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
 
         $lastCanditature=$repo2->findViewsCandidatForRecruteur($recruteur_id);
-        $countOfferCandidat=array('id'=>$recruteur_id2,'count'=>count($lastCanditature));
+
 
         $cvs=$repo3->findAll();
 
@@ -91,9 +91,10 @@ class EntrepriseController extends AbstractController
             'offerNumber' => array_sum($global_data),
             'limitOffer'=>$offerLimit,
             'name'=>$nameRecruteur,
+            'candidateReturn'=> count($lastCanditature),
             'lastCanditature'=>$lastCanditature,
             'cvs'=>$cvs,
-            'countOfferCandidat'=>$countOfferCandidat,
+
 
 
         ]);

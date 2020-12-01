@@ -21,12 +21,13 @@
         </div>
     </div>
 </br>
+
     <div class="container-fluid">
         <div class="row">
            <div class="col-lg-3 ">
                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                    <div class="card-body">
-                       <h5 class="card-title text-center">Offres deposées</h5>
+                       <h5 class="card-title text-center">Offres deposées par : {{ name.recruteur.nom }} {{ name.recruteur.prenom }}</h5>
                        <p class="card-text text-center">{{ offerNumber }}</p>
                    </div>
                </div>
@@ -41,10 +42,9 @@
             </div>
             <div class="col-lg-3">
                 <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-
                     <div class="card-body">
                         <h5 class="card-title text-center">Retour des Candidatures</h5>
-                        <p class="card-text text-center">5</p>
+                        <p class="card-text text-center">{{ candidateReturn }}</p>
                     </div>
                 </div>
             </div>
