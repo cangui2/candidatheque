@@ -23,119 +23,120 @@
                 </div>
             </div>
             {{ form_start(offreForm) }}
-            <div class="row mt-5">
-                <div class="col-12">
-                    {{ form_label(offreForm.titre) }}
-                    {{ form_widget(offreForm.titre, {'attr': {'placeholder':'ex. Assistant Commercial (H/F), Infographiste Junior (H/F)...'}}) }}
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-12 text-left mb-3"><h6 class="mb-3">1. MÉTIER / COMPÉTENCES</h6>
+                        <p class="help-msg">
+                            <span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x"></i>
+                                <i class="fa fa-exclamation fa-stack-1x fa-inverse" style="color:red;"></i>
+                            </span>
+                            Vous devez indiquer clairement que l'offre s’adresse indifféremment aux hommes et aux femmes en ajoutant le libellé <em>« Cadre H/F »</em> ou <em>« Employé(e) »</em>
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-12">
-                    {{ form_label(offreForm.metier) }}
-                    {{ form_widget(offreForm.metier) }}
+                <div class="row mt-2">
+                    <div class="col-12">
+                        {{ form_label(offreForm.titre) }}
+                        {{ form_widget(offreForm.titre, {'attr': {'placeholder':'ex. Assistant Commercial (H/F), Infographiste Junior (H/F)...'}}) }}
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        {{ form_label(offreForm.metier) }}
+                        {{ form_widget(offreForm.metier) }}
+                    </div>
+                </div>
+                <div class="row mt-2 d-none" id="compet">
+                    <div class="col-12">
+                        {{ form_label(offreForm.competences) }}
+                        {{ form_widget(offreForm.competences,  {'attr': {'class': 'item-comp'}}) }}
+                    </div>
+                </div>
+                <div class="row mt-2 d-none" id="compet2">
+                    <div class="col-12">
+                        {{ form_label(offreForm.competencesComplementaires) }}
+                        {{ form_widget(offreForm.competencesComplementaires, {'attr': {'placeholder': 'Autres compétences, ex. Langues'}}) }}
+                    </div>
+                </div>
+                <div class="row mt-2 d-none" id="permis">
+                    <div class="col-12">
+                        {{ form_row(offreForm.habilitations) }}
+                    </div>
                 </div>
             </div>
 
-            <!-- Modal trigger -->
-            <div class="row">
-                <a class="" href="#myModal" data-toggle="modal" data-target="#myModal">
-                </a>
-            </div>
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-12 text-left mb-3"><h6>2. CONTRAT / LOCALISATION DU POSTE</h6></div>
+                </div>
+                <div class="row">
+                    <div class="col" id="col-type">
+                        {{ form_row(offreForm.type) }}
+                    </div>
+                    <div class="col" id="col-duree">
+                        {{ form_row(offreForm.duree) }}
+                    </div>
+                    <div class="col" id="col-posib">
+                        {{ form_row(offreForm.possibiliteCDI) }}
+                    </div>
+                </div>
+                <div id="js-datepicker" class="row mt-3">
+                    <div class="col-md-4">
+                        {{ form_row(offreForm.urgent) }}
+                    </div>
+                    <div class="col-md-8">
 
-            <!-- Modal Compétences -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Savoirs et savoir-faire</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="list-group1">
-                                <a href="#" class="list-group-item list-group-item">Langage informatique Java</a>
-                                <a href="#" class="list-group-item list-group-item">Langage informatique Perl</a>
-                                <a href="#" class="list-group-item list-group-item">Langage informatique PHP</a>
-                                <a href="#" class="list-group-item list-group-item">Développer, programmer une application informatique en utilisant un IDE (Integrated Development Environment)</a>
-                                <a href="#" class="list-group-item list-group-item">Programmer dans un langage informatique spécifique</a>
+                        {{ form_widget(offreForm.dateDebut, {'attr': {'placeholder': 'Date au format jj/mm/aaaa'}}) }}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_label(offreForm.salaire) }}
+                        {{ form_widget(offreForm.salaire, {'attr': {'placeholder': 'Salaire brut annuel indicatif '}}) }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        {{ form_row(offreForm.localisation) }}
+                    </div>
+                    {#                SWITH LOCATION FRANCE/ABROAD               #}
+                    <div class="col-md-9">
+                        <div class="row" id="loc-fr">
+                            <div class="col-lg-4 col-sm-12">
+                                {{ form_row(offreForm.ville) }}
+                            </div>
+                            <div class="col-lg-4 col-sm-12">
+                                {{ form_row(offreForm.departement) }}
+                            </div>
+                            <div class="col-lg-4 col-sm-12">
+                                {{ form_row(offreForm.region) }}
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <a class="btn agence-button" href="#">Ajouter</a>
-                            <button type="button" class="btn agence-button" data-dismiss="modal">Fermer</button>
+                        <div class="row" id="loc-etr">
+                            <div class="col">
+                                {{ form_row(offreForm.pays) }}
+                            </div>
                         </div>
+                    </div>
+                    {#                END SWITH LOCATION FRANCE/ABROAD               #}
+                </div>
+            </div>
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-12 text-left"><h6>3. DESCRIPTION / PROFIL</h6></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        {{ form_row(offreForm.description) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_row(offreForm.profil) }}
                     </div>
                 </div>
             </div>
-            {# modal end #}
-            <div class="row mt-2">
-                <div class="col-12">
-                    {{ form_row(offreForm.description) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    {{ form_row(offreForm.profil) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    {{ form_row(offreForm.type) }}
-                </div>
-                <div class="col-md-4">
-                    {{ form_row(offreForm.duree) }}
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-12">
-                    {{ form_row(offreForm.habilitations) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    {{ form_row(offreForm.localisation) }}
-                </div>
-{#                SWITH LOCATION FRANCE/ABROAD               #}
-                <div class="col-md-9">
-                    <div class="row" id="loc-fr">
-                        <div class="col-lg-4 col-sm-12">
-                            {{ form_row(offreForm.ville) }}
-                        </div>
-                        <div class="col-lg-4 col-sm-12">
-                            {{ form_row(offreForm.departement) }}
-                        </div>
-                        <div class="col-lg-4 col-sm-12">
-                            {{ form_row(offreForm.region) }}
-                        </div>
-                    </div>
-                    <div class="row" id="loc-etr">
-                        <div class="col">
-                            {{ form_row(offreForm.pays) }}
-                        </div>
-                    </div>
-                </div>
-{#                END SWITH LOCATION FRANCE/ABROAD               #}
-            </div>
-            <div id="js-datepicker" class="row">
-                <div class="col-md-6">
-                    {{ form_row(offreForm.urgent) }}
-                </div>
-                <div class="col-md-6">
-
-                    {{ form_widget(offreForm.dateDebut, {'attr': {'placeholder': 'Date au format jj/mm/aaaa'}}) }}
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(offreForm.salaire) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_row(offreForm.possibiliteCDI) }}
-                </div>
-            </div>
-
             <div class="row mt-5 mb-5">
                 <div class="col-md-12 text-center">
                     {{ form_row(offreForm.save, {'label': "Déposer l'offre"}) }}
@@ -177,6 +178,7 @@
         // autocomplete fields
 
 
+        //AUTOCOMPLETE METIER & DISPLAY COMPÉTENCES
 
         $(function() {
 
@@ -184,10 +186,28 @@
                 source: "{{ path('metier_autocomplete') }}",
                 minLength: 1,
                 select: function( event, ui ) {
-                    console.log( "Selected: " + ui.item.value );
-                    // setTimeout(function() {
-                    //     $('#myModal').modal();
-                    // }, 1000);
+                    console.log( ui.item.value );
+                    setTimeout(function() {
+                        $("#offre_metier").val(ui.item.label)
+                    }, 100);
+                    $.get("{{ path('competences_ajax') }}?metier="+ ui.item.value, function(data) {
+                        console.log(data);
+                        $("#compet").removeClass("d-none");
+
+                        $("#offre_competences").html("");
+                        let tags="";
+                        for (const com of data) {
+                            let id = com.id;
+                            let libelle = com.libelle;
+                            tags += "<div class=\"form-check\">        " +
+                                "<input type=\"checkbox\" id=\"offre_competences_"+id+"\" name=\"offre[competences][]\" class=\"form-check-input\" value=\""+id+"\">\n" +
+                                "        <label class=\"form-check-label\" for=\"offre_competences_"+id+"\">"+libelle+"</label></div>";
+                        }
+                        $("#offre_competences").html(tags)
+                        $("#compet2").removeClass("d-none");
+                        $("#permis").removeClass("d-none");
+
+                    });
                 }
             });
         });
@@ -296,6 +316,29 @@
         $("#offre_urgent").change();
 
     //    END DATE
+
+    //    MANAGE TYPE CONTRAT / DUREE
+        $("#offre_type").change(function() {
+            $(this).find("option:selected").each(function(){
+                var optionValue = $(this).text();
+                if(optionValue == "CDI"){
+                    $('#col-duree').hide();
+                    $('#col-posib').hide();
+                    $("#col-type").addClass("col-md-12");
+                } else if(optionValue == "CTT/Interim"){
+                    $('#col-duree').show();
+                    $('#col-posib').show();
+                    $("#col-type").removeClass("col-md-12").addClass("col-md-4");
+                }else
+                {
+                    $('#col-duree').show();
+                    $('#col-posib').hide();
+                    $("#col-type").removeClass("col-md-12").addClass("col-md-8");
+                }
+            });
+        });
+
+        $("#offre_type").trigger("change");
 
     </script>
 

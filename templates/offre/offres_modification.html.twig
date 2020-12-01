@@ -35,6 +35,17 @@
                         {{ form_widget(offreUpdateForm.metier) }}
                     </div>
                 </div>
+{#                <div class="row mt-2" id="compet">#}
+{#                    <div class="col-12">#}
+{#                        {{ form_label(offreUpdateForm.competences) }}#}
+{#                        {{ form_widget(offreUpdateForm.competences,  {'attr': {'class': 'item-comp'}}) }}#}
+{#                    </div>#}
+{#                </div>#}
+                <div class="row mt-2">
+                    <div class="col-12">
+                        {{ form_row(offreUpdateForm.competencesComplementaires) }}
+                    </div>
+                </div>
                 <div class="row mt-2">
                     <div class="col-12">
                         {{ form_row(offreUpdateForm.description) }}
@@ -108,6 +119,8 @@
                         {{ form_row(offreUpdateForm.save, {'label': "Valider les modifications"}) }}
                     </div>
                 </div>
+                {% do offreUpdateForm.competences.setRendered() %}
+                {% do offreUpdateForm.habilitations.setRendered() %}
 
                 {{ form_end(offreUpdateForm)}}
             </div>

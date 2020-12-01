@@ -67,27 +67,9 @@ class Langue
         return $this;
     }
 
-    public function getNiveau(): ?int
-    {
-        return $this->niveau;
-    }
 
-    public function setNiveau(int $niveau): self
-    {
-        $this->niveau = $niveau;
 
-        return $this;
-    }
-
-    public function getCv(): ?CV
-    {
-        return $this->cv;
-    }
-
-    public function setCv(?CV $cv): self
-    {
-        $this->cv = $cv;
-
-        return $this;
+    public function __toString(){
+        return $this->nom;
     }
 }
