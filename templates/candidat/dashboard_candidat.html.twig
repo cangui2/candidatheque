@@ -14,7 +14,7 @@
     <div class="thumb-lg member-thumb mx-auto"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle img-thumbnail" alt="pro" height="100" width="100">
  </div>
  <br>
-<h4>Bonjour John Doe</h4>
+<h4>Bonjour {{app.user.candidat.prenom ~ ' ' ~ app.user.candidat.nom}}  </h4>
 <p>Content de vous revoir aujourd'hui</p>
 </div>
 
@@ -74,8 +74,9 @@
 {#Fin graphique #}
            
     <!-- DEBUT TABLEAU ATTENTE DE REPONSE OFFRE-->
-    
+   
     <table class="table table-striped">
+      <h3>Tableau des offres</h3>
       <thead>
         <tr>
           <th scope="col">Entreprise</th>
@@ -107,8 +108,36 @@
     </table>
           
 
+<!-- DEBUT TABLEAU VISITEURS CV-->
+<br>
 
-       
+<table class="table table-striped">
+  <h3>Visites des entreprises</h3>
+  <thead>
+    <tr>
+      <th scope="col">Entreprises</th>
+      <th scope="col">CV</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Google</th>
+      <td>Cv 1</td>
+      
+    </tr>
+    <tr>
+      <th scope="row">Amazon</th>
+      <td>Cv 2</td>
+      
+    </tr>
+    <tr>
+      <th scope="row">Facebook</th>
+      <td>Cv 3</td>
+      
+    </tr>
+  </tbody>
+</table>
     
     
   
