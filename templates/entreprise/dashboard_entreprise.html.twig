@@ -122,8 +122,8 @@
                                     {% if offre.postules is not empty %}
 
                                     <td>
-                                        <button type="button" class="btn btn-danger">
-                                            Voir <span class="badge badge-light">{{ countOfferCandidat.count }}</span>
+                                        <button type="button" class="btn btn-danger offset-md-3">
+                                            Voir <span class="badge badge-light">{{ offre.postules|length }}</span>
                                             <span class="sr-only">unread messages</span>
                                         </button>
                                     {% elseif offre.postules is empty %}
