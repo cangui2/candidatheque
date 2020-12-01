@@ -78,11 +78,12 @@
                                 <th scope="col">Contrat rechercher</th>
                             </tr>
                             </thead>
+                            {{ dump(cvs) }}
                         {%for cv in cvs %}
                             <tbody>
                             <tr>
                                 <th>{{cv.id}}</th>
-                                <td>{{cv.candidat.nom}}&nbsp;{{ cv.candidat.prenom}}</td>
+                                <td>{{cv.candidat}}&nbsp;{{ cv.candidat}}</td>
                                 <td>{{ cv.metier }}</td>
                                 <td><span class="badge badge-primary offset-md-3">CDI</span></td>
                             </tr>
