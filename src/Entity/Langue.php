@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LangueRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,15 +40,6 @@ class Langue
      */
     private $nom;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $niveau;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="langues")
-     */
-    private $cv;
 
     public function getId(): ?int
     {
@@ -65,27 +58,9 @@ class Langue
         return $this;
     }
 
-    public function getNiveau(): ?int
-    {
-        return $this->niveau;
-    }
 
-    public function setNiveau(int $niveau): self
-    {
-        $this->niveau = $niveau;
 
-        return $this;
-    }
-
-    public function getCv(): ?CV
-    {
-        return $this->cv;
-    }
-
-    public function setCv(?CV $cv): self
-    {
-        $this->cv = $cv;
-
-        return $this;
+    public function __toString(){
+        return $this->nom;
     }
 }

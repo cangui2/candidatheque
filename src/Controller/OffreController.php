@@ -7,6 +7,8 @@ use App\Entity\Ville;
 use App\Entity\Region;
 use App\Entity\Departement;
 use App\Form\OffreType;
+use App\Repository\CompetenceRepository;
+use App\Repository\MetierRepository;
 use App\Repository\OffreRepository;
 use App\Repository\PaysRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,14 +27,18 @@ class OffreController extends AbstractController
     protected $security;
     protected $pRepo;
     protected $offRepo;
+    protected $compRepo;
+    protected $mtRepo;
 
 
-    public function __construct(EntityManagerInterface $em, SessionInterface $session, Security $security, PaysRepository $pRepo, OffreRepository $offRepo){
+    public function __construct(EntityManagerInterface $em, SessionInterface $session, Security $security, PaysRepository $pRepo, OffreRepository $offRepo, CompetenceRepository $compReepo, MetierRepository $mtRepo){
         $this->em = $em;
         $this->session = $session;
         $this->security = $security;
         $this->pRepo = $pRepo;
         $this->offRepo = $offRepo;
+        $this->compRepo = $compReepo;
+        $this->mtRepo = $mtRepo;
     }
 
 //    AUTOCOMPLETE FOR METIER, REGION, DEPARTEMENT, VILLE
@@ -42,7 +48,6 @@ class OffreController extends AbstractController
      */
     public function autocompleteMetierAction(Request $request)
     {
-        $names = array();
         $term = trim(strip_tags($request->get('term')));
 
         $entities = $this->em->getRepository('App\Entity\Metier')->createQueryBuilder('c')
@@ -53,11 +58,57 @@ class OffreController extends AbstractController
         $libelles=[];
         foreach ($entities as $entity)
         {
-            $libelles[] = $entity->getLibelle();
+            $libelles[] = [ "value" => $entity->getId(), "label" => $entity->getLibelle()];
+            // $libelles[] = $entity->getLibelle();
         }
 
         $response = new JsonResponse();
         $response->setData($libelles);
+
+        return $response;
+    }
+
+    /**
+     * @Route("/competences_ajax", name="competences_ajax")
+     */
+    public function listeCompetences(Request $request) {
+
+        $id_metier = $request->query->get("metier");
+//        dd($id_metier);
+        $metier = $this->mtRepo->find($id_metier);
+//
+
+        $rome = $metier->getRome()->getId();
+//        dd($rome);
+        $competences = $this->compRepo->findCompetencesByRome($rome);
+
+
+        $response = new JsonResponse();
+        $response->setData($competences);
+
+        return $response;
+    }
+
+    /**
+     * @Route("/langues/autocomplete", name="langues_autocomplete")
+     */
+    public function listeLangues(Request $request) {
+
+        $term = trim(strip_tags($request->get('term')));
+
+        $entities = $this->em->getRepository('App\Entity\Langue')->createQueryBuilder('l')
+            ->where('l.nom LIKE :nom')
+            ->setParameter('nom', '%'.$term.'%')
+            ->getQuery()
+            ->getResult();
+        $noms=[];
+        foreach ($entities as $entity)
+        {
+            $noms[] = $entity->getNom();
+        }
+
+        $response = new JsonResponse();
+        $response->setData($noms);
 
         return $response;
     }

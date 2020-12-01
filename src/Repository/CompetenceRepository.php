@@ -22,19 +22,21 @@ class CompetenceRepository extends ServiceEntityRepository
     // /**
     //  * @return Competence[] Returns an array of Competence objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findCompetencesByRome($rome)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select(array('c.libelle', 'c.id'))
+            ->join('c.rome', 'r')
+            ->andWhere('r.id = :rome')
+            ->setParameter('rome', $rome)
             ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+//            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Competence

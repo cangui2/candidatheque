@@ -1,3 +1,5 @@
+/* CRÉATION OFFRE & LISTE */
+
 .ui-datepicker-header {
     background-color: #4169E1 !important;
 }
@@ -6,7 +8,17 @@
     border-color: #4169E1 !important;
     background-color: #4169E1 !important;
 }
-
+.jumbotron {
+    padding-top: 1.4rem;
+}
+.item-comp {
+    background-color: #eee;
+    padding-left: 2rem;
+    column-count: 2;
+}
+.li-comp{
+    column-count: 2;
+}
 
 label.required:before {
     content: "* " !important;
@@ -24,8 +36,11 @@ label.required:before {
     overflow-x: hidden;
     overflow-y: scroll !important;
     padding:  3px 6px 3px !important;
-    max-width: 62.5vw !important;
+    max-width: 57vw !important;
     max-height: 300px;
+}
+.ui-widget.ui-widget-content {
+    max-width: 57vw !important;
 }
 
 
@@ -51,7 +66,9 @@ input {
     border-color: #1a1a1a;
 }
 .help-msg{
-    font-size: .85rem;
+    font-size: .9rem;
+    text-align: justify;
+
 }
 
 /*.classic-tabs{*/
@@ -83,6 +100,13 @@ input {
 }
 #offre_description, #offre_profil{
     height: 150px !important;
+}
+
+.fa-square {
+    color: white !important;
+}
+.fa .fa-exclamation{
+    color: red;
 }
 
 @media
