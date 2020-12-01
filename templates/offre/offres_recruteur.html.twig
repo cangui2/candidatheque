@@ -62,14 +62,11 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <p class="font-small text-muted mx-1">DATE DE DÉBUT <br>
+                                                        {% if offre_recruteur.dateDebut is not empty %}
                                                         <span>{{offre_recruteur.dateDebut | date("d/m/Y")}}</span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <p class="font-small text-muted mx-1">DATE DE FIN</br>
-                                                        <span>{{offre_recruteur.dateFin | date("d/m/Y")}}</span>
+                                                        {% elseif offre_recruteur.urgent is not empty %}
+                                                        <span><p>Dès que possible</p></span>
+                                                    {% endif %}
                                                     </p>
                                                 </div>
                                             </div>

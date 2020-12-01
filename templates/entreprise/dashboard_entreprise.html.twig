@@ -20,18 +20,20 @@
             </div>
         </div>
     </div>
-</br>
+    </br>
+
     <div class="container-fluid">
         <div class="row">
-           <div class="col-lg-3 ">
-               <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                   <div class="card-body">
-                       <h5 class="card-title text-center">Offres deposées</h5>
-                       <p class="card-text text-center">{{ nombreOffre }}</p>
-                   </div>
-               </div>
-           </div>
-            <div class="col-lg-3">
+            <div class=" col-6 col-lg-3 col-sm-3">
+                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Offres deposées par
+                            : {{ name.recruteur.nom }} {{ name.recruteur.prenom }}</h5>
+                        <p class="card-text text-center">{{ offerNumber }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 col-sm-3">
                 <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title text-center">Nombre(s) de Matching </h5>
@@ -39,16 +41,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-6 col-lg-3 col-sm-3">
                 <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-
                     <div class="card-body">
                         <h5 class="card-title text-center">Retour des Candidatures</h5>
-                        <p class="card-text text-center">5</p>
+                        <p class="card-text text-center">{{ candidateReturn }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-6 col-lg-3 col-sm-3">
                 <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
 
                     <div class="card-body">
@@ -60,95 +61,101 @@
         </div>
     </div>
 
-</br>
+    </br>
 
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
                 <div class="card card-waves">
-                    <div class="card-header"> Dernier Cv mise en ligne sur CANDIDATHEQUE </div>
+                    <div class="card-header"> Dernier Cv mise en ligne sur CANDIDATHEQUE</div>
                     <div class="card-body text-center">
                         <table class="table">
                             <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Id Candidat</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
+                                <th scope="col">Nom/Prenom</th>
+                                <th scope="col">Metier</th>
                                 <th scope="col">Contrat rechercher</th>
                             </tr>
                             </thead>
-                        {%for cv in cvs %}
+
+                            {% for cv in cvs %}
                             <tbody>
                             <tr>
-                                <th>{{cv.id}}</th>
-                                <td>{{cv.candidat.nom}}&nbsp;{{ cv.candidat.prenom}}</td>
+                                <th>{{ cv.id }}</th>
+                                <td>{{ cv.candidat }}</td>
                                 <td>{{ cv.metier }}</td>
                                 <td><span class="badge badge-primary offset-md-3">CDI</span></td>
                             </tr>
                             {% endfor %}
                             </tbody>
+
                         </table>
+                        <button type="button" class="btn btn-primary offset-md-10">Ajouter un Cv</button>
                     </div>
                 </div>
             </div>
-            <div class="col-8">
+            <div class="col-12 col-sm-12 col-lg-12 col-xl-8">
                 <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">Dernière offre</div>
+                    <div class="card-header">Dernière(s) offre(s) postée(s)</div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
                             <tr>
                                 <th scope="col">Offre numéro</th>
+                                <th> Nombre(s) poustulant(s)</th>
                                 <th scope="col">Metier</th>
                                 <th scope="col">Entreprise</th>
-                                <th scope="col">Date de debut</th>
-                                <th scope="col">Candidat</th>
+                                <th scope="col">Date de debut mission</th>
+                                <th scope="col">Date de fin mission</th>
+                                <th scope="col">Publication depuis :</th>
                             </tr>
                             </thead>
                             <tbody>
 
-                            {% for offre in offreLimite %}
+
+                            {% for offre in limitOffer %}
+
                                 <tr>
                                     <td>{{ offre.id }}</td>
-                                    <td data-toggle="modal" data-target="#exampleModal">{{ offre.metier.libelle }}</td>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Titre annonce : {{ offre.titre }}</p>
-                                                    <p>Date de publication : {{ offre.datePublication |date('d/m/Y') }}</p>
-                                                    <p>Descriptif: {{ offre.description }}</p>
-                                                    <p>Metier: {{ offre.metier }}</p>
-                                                    <p>Date de début:{{ offre.dateDebut|date('d/m/Y') }}</p>
-                                                    <p>Date de fIN:{{ offre.dateFin|date('d/m/Y') }}</p>
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary"id="{{ offre.id }}"  onclick="window.location.href ={{path('offres_modification',{offre: offre.id}) }})"}}>modifier</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <td>{{ offre.recruteur.entreprise }}</td>
-                                    <td>{{ offre.dateDebut| date('d/m/Y') }}</td>
+                                    {% if offre.postules is not empty %}
+
                                     <td>
-                                             <span class="badge badge-light offset-md-3">9</span>
+                                        <button type="button" class="btn btn-danger offset-md-3">
+                                            Voir <span class="badge badge-light">{{ offre.postules|length }}</span>
+                                            <span class="sr-only">unread messages</span>
+                                        </button>
+                                        {% elseif offre.postules is empty %}
+                                    <td>
+                                        {% endif %}
+                                    <td>{{ offre.metier.libelle }}</td>
+                                    <td>{{ offre.recruteur.entreprise }}</td>
+                                    <td class="text-center">{{ offre.dateDebut| date('d/m/Y') }}</td>
+                                    <td class="text-center">{{ offre.dateFin| date('d/m/Y') }}</td>
+                                    <td>
 
-                                        </td>
+                                             <span class="badge badge-pill badge-success offset-md-3">
+                                                 {% set datePost = offre.datePublication|date('d-m-Y') %}
+                                                 {% set today = "now"|date('d-m-Y') %}
+                                                 {% set difference = date(today).diff(date(datePost)) %}
+                                                 {% set leftDays = difference.days %}
+                                                 {% if datePost == today %}
+                                                     1 day
+                                                 {% else %}
+                                                     {{ leftDays }}
+                                                 {% endif %}
+                                             </span>
+
+                                    </td>
                                 </tr>
-                            {% endfor %}
 
+                            {% endfor %}
                             </tbody>
 
                         </table>
+
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
                                 <li class="page-item disabled">
@@ -166,7 +173,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-lg-6 ">
                 <div class="card card-waves">
                     <div class="card-header">Matching offre Potentiel Candidat</div>
                     <div class="card-body">
@@ -216,7 +223,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-lg-6">
                 <div class="card card-waves">
                     <div class="card-header">5 dernières Candidatures</div>
                     <div class="card-body">
@@ -235,7 +242,7 @@
                                 <th>{{ last.dateSelection | date('d/m/Y') }}</th>
                                 <td>{{ last.offre.id }}</td>
                                 <td>{{ last.candidat.nom }}</td>
-                                <td><span class="badge badge-danger offset-md-3"">en attente</span></td>
+                                <td><span class="badge badge-danger ">en attente</span></td>
                             </tr>
                             {% endfor %}
 
@@ -259,7 +266,7 @@
             </div>
         </div>
     </div>
-</br>
+    </br>
 
 
 {% endblock %}

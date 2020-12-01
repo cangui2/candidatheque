@@ -40,6 +40,8 @@ class Langue
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * // 1->bilingue, 2->courant, 3->notion, 4->technique
      */
     private $niveau;
 
