@@ -109,7 +109,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of1->setDatePublication(new \DateTime());
         $of1->setDescription("Nous recherchons des développeurs Web...");
         $of1->setMetier($manager->getRepository(Metier::class)->findOneBy([ "libelle" => "Développeur / Développeuse web"]));
-        $of1->setProfil("De formation supérieure BAC+5, vous justifiez d'une expérience de minimum trois ans sur un poste similaire");
+        $of1->setReseau("De formation supérieure BAC+5, vous justifiez d'une expérience de minimum trois ans sur un poste similaire");
         $of1->setSalaire(45632);
         $of1->setTitre("Développeur");
         $of1->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
@@ -120,7 +120,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of2->setDatePublication(new \DateTime());
         $of2->setDescription("Nous recherchons des ...");
         $of2->setMetier($manager->getRepository(Metier::class)->findOneBy([ "libelle" => "Développeur / Développeuse web"]));
-        $of2->setProfil("");
+        $of2->setReseau("");
         $of2->setSalaire(45632);
         $of2->setTitre("Développeur");
         $of2->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
@@ -131,7 +131,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of3->setDatePublication(new \DateTime());
         $of3->setDescription("Nous recherchons des ...");
         $of3->setMetier($manager->getRepository(Metier::class)->findOneBy([ "libelle" => "Développeur / Développeuse web"]));
-        $of3->setProfil("");
+        $of3->setReseau("");
         $of3->setSalaire(45632);
         $of3->setTitre("Développeur");
         $of3->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
@@ -142,7 +142,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of4->setDatePublication(new \DateTime());
         $of4->setDescription("Nous recherchons des ...");
         $of4->setMetier($manager->getRepository(Metier::class)->findOneBy([ "libelle" => "Développeur / Développeuse web"]));
-        $of4->setProfil("");
+        $of4->setReseau("");
         $of4->setSalaire(45632);
         $of4->setTitre("Développeur");
         $of4->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));

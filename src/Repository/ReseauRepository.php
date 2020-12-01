@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Profil;
+use App\Entity\Reseau;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Profil|null find($id, $lockMode = null, $lockVersion = null)
- * @method Profil|null findOneBy(array $criteria, array $orderBy = null)
- * @method Profil[]    findAll()
- * @method Profil[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Reseau|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Reseau|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Reseau[]    findAll()
+ * @method Reseau[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProfilRepository extends ServiceEntityRepository
+class ReseauRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Profil::class);
+        parent::__construct($registry, Reseau::class);
     }
 
     // /**
-    //  * @return Profil[] Returns an array of Profil objects
+    //  * @return Reseau[] Returns an array of Reseau objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ProfilRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Profil
+    public function findOneBySomeField($value): ?Reseau
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')
