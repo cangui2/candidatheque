@@ -38,7 +38,7 @@ class EntrepriseController extends AbstractController
 
 
         $recruteur_id = $this->getUser()->getRecruteur()->getId();
-        $recruteur_id2=$this->getUser()->getRecruteur()->getEntreprise()->getId();
+
         $nameRecruteur=$this->getUser();
         $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
 
@@ -56,11 +56,11 @@ class EntrepriseController extends AbstractController
         }
          $offerLimit = $repo->findAllOfferByIdRecruteurLimit5($recruteur_id);
 
-         $test = $repo2->findViewsCandidatForRecruteur($recruteur_id);
+
 
 
          // algorithme de comparaison des competences offre(s) vs candidat(s) //
-         // En attente de de mise en place fonction et des varibales via la tables.
+         // En attente de  mise en place fonction et des varibales via la tables.
         // Test
         $idOffer = "offre n°150";
 
