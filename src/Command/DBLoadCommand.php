@@ -466,10 +466,10 @@ class DBLoadCommand extends Command
                         $competence->setLibelleType($comp_rome[3]);
                         $this->manager->persist($competence);
                     }elseif ($acti_rome) {
-                        if ($acti_rome[2]==3) {
+                        if ($acti_rome[4]==3) {
                             $competence = new Competence($code_ogr);
-                            $competence->setLibelle($acti_rome[1]);
-                            $competence->setType(intval($acti_rome[2]));
+                            $competence->setLibelle($acti_rome[2]);
+                            $competence->setType(intval($acti_rome[4]));
                             $competence->setLibelleType($acti_rome[5]);
                             $this->manager->persist($competence);
                         }
