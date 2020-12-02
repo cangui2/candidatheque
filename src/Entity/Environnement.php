@@ -28,8 +28,10 @@ class Environnement
      */
     private $rome;
 
-    public function __construct()
+    public function __construct($code, $libelle)
     {
+        $this->id=$code;
+        $this->libelle=$libelle;
         $this->rome = new ArrayCollection();
     }
 

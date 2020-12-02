@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\APE;
+use App\Entity\Environnement;
 use App\Entity\Pcs;
 use App\Entity\Pays;
 use App\Entity\Rome;
@@ -54,6 +55,9 @@ class DBLoadCommand extends Command
             case "pcs":
                 $this->loadPCS($output);
                 break;
+            case "environnement":
+                $this->loadEnvironnement($output);
+                break;
             case "competence":
                 $this->loadCompetence($output);
                 break;
@@ -85,6 +89,7 @@ class DBLoadCommand extends Command
                 $this->loadBaseData($output);
                 $this->loadAPE($output);
                 $this->loadRome($output);
+                $this->loadEnvironnement($output);
                 $this->loadPCS($output);
                 $this->loadCompetence($output);
                 $this->loadDescription($output);
@@ -286,6 +291,67 @@ class DBLoadCommand extends Command
 
         $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
     }
+
+    protected function loadEnvironnement(OutputInterface $output)
+    {
+        $csv_file = '5-referentiel_env_travail_v344_utf8.csv';
+        $output->write("Loading <info>Environnement</info> from <info>" . $csv_file . "</info>");
+        $counter=0;
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/' . $csv_file, 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>4) {
+                $code = $line[0];
+                $libelle = $line[1];
+                $type = $line[2];
+
+                $pcs = new Environnement($code, $libelle);
+                $this->manager->persist($pcs);
+                $counter++;
+            }
+        }
+
+        fclose($csv);
+        $this->manager->flush();
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+
+
+        $repo_environnement = $this->manager->getRepository(Environnement::class);
+        $repo_rome = $this->manager->getRepository(Rome::class);
+
+        $csv_file = '4-liens_rome_referentiels_v344_utf8.csv';
+        $output->write("Loading <info>ROME-Environnement</info> from <info>" . $csv_file . "</info>");
+        $counter=0;
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/' . $csv_file, 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>4) {
+                $code_rome = $line[0];
+                $code_ogr_env = $line[1];
+                $type_referentiel = $line[4];
+                if ($code_ogr_env && $code_rome && $type_referentiel=="5") {
+                    $rome = $repo_rome->findOneBy([ "code" => $code_rome ]);
+                    $environnement = $repo_environnement->find($code_ogr_env);
+                    $rome->addEnvironnement($environnement);
+                    $counter++;
+                }
+
+            }
+        }
+
+        fclose($csv);
+
+        $this->manager->flush();
+
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+    }
+
 
     protected function loadCompetence(OutputInterface $output)
     {
