@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+
 use App\Repository\CVRepository;
 use App\Repository\PostuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,6 +59,8 @@ class EntrepriseController extends AbstractController
 
 
         $cvs=$this->cvRepo->findAll();
+
+
 
 
         $globalData = [];
