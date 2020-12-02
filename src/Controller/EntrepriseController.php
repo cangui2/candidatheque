@@ -13,6 +13,19 @@ use App\Repository\OffreRepository;
 
 class EntrepriseController extends AbstractController
 {
+    protected $offreRepo;
+    protected $postuleRepo;
+    protected $cvRepo;
+
+    public function __construct(OffreRepository $offreRepo, PostuleRepository $postuleRepo,CVRepository $cvRepo){
+
+        $this->offreRepo=$offreRepo;
+        $this->postuleRepo=$postuleRepo;
+        $this->cvRepo=$cvRepo;
+
+    }
+
+
     /**
      * @Route("/entreprise/espace_entreprise", name="espace_entreprise")
      */
@@ -34,27 +47,26 @@ class EntrepriseController extends AbstractController
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
-    public function dashboard(OffreRepository $repo, PostuleRepository $repo2,CVRepository $repo3): Response {
+    public function dashboard(): Response {
 
 
-        $recruteur_id = $this->getUser()->getRecruteur()->getId();
+        $recruteurId = $this->getUser()->getRecruteur()->getId();
 
-        $nameRecruteur=$this->getUser();
-        $result = $repo->findCustomOfferByIdRecruteur($recruteur_id);
+        $result = $this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
 
-        $lastCanditature=$repo2->findViewsCandidatForRecruteur($recruteur_id);
-
-
-        $cvs=$repo3->findAll();
+        $lastCanditature=$this->postuleRepo->findViewsCandidatForRecruteur($recruteurId);
 
 
-        $global_data = [];
-        $global_label = [];
+        $cvs=$this->cvRepo->findAll();
+
+
+        $globalData = [];
+        $globalLabel = [];
         foreach ($result as $ligne) {
-            $global_data[] = $ligne["compteur"];
-            $global_label[] = $ligne["libelle"];
+            $globalData[] = $ligne["compteur"];
+            $globalLabel[] = $ligne["libelle"];
         }
-         $offerLimit = $repo->findAllOfferByIdRecruteurLimit5($recruteur_id);
+        $limitOffer = $this->offreRepo->findAllOfferByIdRecruteurLimit5($recruteurId);
 
 
 
@@ -88,9 +100,8 @@ class EntrepriseController extends AbstractController
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
 
-            'offerNumber' => array_sum($global_data),
-            'limitOffer'=>$offerLimit,
-            'name'=>$nameRecruteur,
+            'offerNumber' => array_sum($globalData),
+            'limitOffer'=>$limitOffer,
             'candidateReturn'=> count($lastCanditature),
             'lastCanditature'=>$lastCanditature,
             'cvs'=>$cvs,

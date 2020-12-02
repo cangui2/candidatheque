@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Departement;
 use App\Entity\Habilitation;
+use App\Entity\Langue;
 use App\Entity\Metier;
+use App\Entity\Competence;
 use App\Entity\Offre;
 use App\Entity\Pays;
 use App\Entity\Region;
@@ -15,6 +17,7 @@ use App\Form\DataTransformer\MetierToStringTransformer;
 use App\Form\DataTransformer\RegionToStringTransformer;
 use App\Form\DataTransformer\VilleToStringTransformer;
 use App\Repository\HabilitationRepository;
+use App\Repository\LangueRepository;
 use App\Repository\PaysRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,7 +30,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 
 class OffreType extends AbstractType
@@ -117,11 +123,11 @@ class OffreType extends AbstractType
             ])
             ->add('type', EntityType::class, [
                 'class' => TypeContrat::class,
-                'label' => 'Type de contrat',
+                'label' => 'Contrat',
                 'choice_label' => 'libelle',
                 'expanded' => false,
                 'placeholder' => 'Choisissez le type de contrat',
-                'required' => false,
+                'required' => true,
                 'error_bubbling' => true
             ])
             ->add('habilitations', EntityType::class, [
@@ -135,16 +141,23 @@ class OffreType extends AbstractType
 
             ])
 
-//            ->add('competences', EntityType::class, [
-//                'class' => Competence::class,
-//                'label' => 'Compétences',
-//                'choice_label' => 'libelle',
-//                'expanded' => false,
-//                'placeholder' => '',
-//                'multiple' =>true,
-//                'required' => false,
-//
-//            ])
+            ->add('competences', EntityType::class, [
+                'class' => Competence::class,
+                'label' => 'Compétences',
+                'choice_label' => 'libelle',
+                'expanded' => true,
+                'placeholder' => '',
+                'multiple' =>true,
+                'required' => false,
+
+            ])
+
+            ->add('competencesComplementaires', TextareaType::class, [
+                'label' => 'Autres compétences',
+                'error_bubbling' => true,
+                'required' => false,
+            ])
+
 
             ->add('localisation', ChoiceType::class, [
                 'mapped' => false,
@@ -152,7 +165,7 @@ class OffreType extends AbstractType
                 'required' => false,
                 'choices' => [
                     'France' => 1,
-                    'Etranger' => 2
+                    'Étranger' => 2
                 ],
                 'label_attr' => [
                     'class' => 'radio-inline'
