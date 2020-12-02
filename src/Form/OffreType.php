@@ -72,6 +72,22 @@ class OffreType extends AbstractType
                 'required' => false,
                 'error_bubbling' => true
             ])
+            ->add('typeSalaire', ChoiceType::class, [
+                'label' => 'Type de rémunération',
+                'choices' => [
+                    "par an" => 1,
+                    "par mois" => 2,
+                    "par jour" => 3,
+                    "par heure" => 4
+                ],
+                'placeholder' => 'Choisissez la fréquence de rémunération',
+                'mapped' => true,
+                'multiple'  => false,
+                'expanded' => false,
+                'required' => false,
+                'error_bubbling' => true
+            ])
+
             ->add('dateDebut', DateType::class, [
                 'label' => '',
                 'widget' => 'single_text',

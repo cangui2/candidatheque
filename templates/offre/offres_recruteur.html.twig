@@ -114,7 +114,18 @@
                                             <div class="row mb-3">
                                                 <div class="col-12">
                                                     <p class="font-small text-muted mx-1 mb-2">SALAIRE</br>
-                                                        <span>{{offre_recruteur.salaire}}</span>
+                                                        <span>
+                                                            {{offre_recruteur.salaire}} €
+                                                                {% if offre_recruteur.typeSalaire is same as(1) %}
+                                                                    par an
+                                                                {% elseif offre_recruteur.typeSalaire is same as(2) %}
+                                                                    par mois
+                                                                {% elseif offre_recruteur.typeSalaire is same as(3) %}
+                                                                    par jour
+                                                                {% elseif offre_recruteur.typeSalaire is same as(4) %}
+                                                                    par heure
+                                                                {% endif %}
+                                                        </span>
                                                     </p>
                                                 </div>
                                             </div>

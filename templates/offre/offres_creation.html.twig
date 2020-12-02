@@ -80,20 +80,28 @@
                         {{ form_row(offreForm.possibiliteCDI) }}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6 mt-3">
+                        <p>Prise de poste</p>
+                    </div>
+                </div>
                 <div id="js-datepicker" class="row mt-3">
                     <div class="col-md-4">
                         {{ form_row(offreForm.urgent) }}
                     </div>
                     <div class="col-md-8">
-
                         {{ form_widget(offreForm.dateDebut, {'attr': {'placeholder': 'Date au format jj/mm/aaaa'}}) }}
                     </div>
 
                 </div>
-                <div class="row">
-                    <div class="col-12">
+                <div class="row mt-3">
+                    <div class="col-4">
                         {{ form_label(offreForm.salaire) }}
-                        {{ form_widget(offreForm.salaire, {'attr': {'placeholder': 'Salaire brut annuel indicatif '}}) }}
+                        {{ form_widget(offreForm.salaire, {'attr': {'placeholder': 'Salaire indicatif '}}) }}
+                    </div>
+                    <div class="col-8">
+                        {{ form_label(offreForm.typeSalaire) }}
+                        {{ form_widget(offreForm.typeSalaire) }}
                     </div>
                 </div>
                 <div class="row mt-3">

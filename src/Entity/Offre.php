@@ -161,6 +161,11 @@ class Offre
      */
     private $habilitations;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $typeSalaire; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
+
 
 
     public function __construct()
@@ -496,5 +501,17 @@ class Offre
 
     public function __toString(): String{
         return $this->id;
+    }
+
+    public function getTypeSalaire(): ?int
+    {
+        return $this->typeSalaire;
+    }
+
+    public function setTypeSalaire(?int $typeSalaire): self
+    {
+        $this->typeSalaire = $typeSalaire;
+
+        return $this;
     }
 }
