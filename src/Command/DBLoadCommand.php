@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\APE;
 use App\Entity\Environnement;
+use App\Entity\Mobilite;
 use App\Entity\Pcs;
 use App\Entity\Pays;
 use App\Entity\Rome;
@@ -49,6 +50,9 @@ class DBLoadCommand extends Command
             case "rome":
                 $this->loadRome($output);
                 break;
+            case "mobilite":
+                $this->loadMobilite($output);
+                break;
             case "metier":
                 //$this->loadMetier($output);
                 break;
@@ -89,6 +93,7 @@ class DBLoadCommand extends Command
                 $this->loadBaseData($output);
                 $this->loadAPE($output);
                 $this->loadRome($output);
+                $this->loadMobilite($output);
                 $this->loadEnvironnement($output);
                 $this->loadPCS($output);
                 $this->loadCompetence($output);
@@ -199,6 +204,55 @@ class DBLoadCommand extends Command
         $this->manager->flush();
         $output->writeln(" ... <question>" . $counter1 . "</question> Rome <question>" . $counter2 . "</question> Metier lines inserted");
     }
+
+    protected function loadMobilite(OutputInterface $output)
+    {
+        $csv_file = '12-rubrique_mobilite_v344_utf8.csv';
+        $output->write("Loading <info>Mobilite</info> from <info>" . $csv_file . "</info>");
+        $counter=0;
+
+        $repo_metier = $this->manager->getRepository(Metier::class);
+        $repo_rome = $this->manager->getRepository(Rome::class);
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/' . $csv_file, 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>4) {
+                $code_rome_source = $line[0];
+                $code_rome_cible = $line[1];
+                $code_metier_source = $line[2];
+                $code_metier_cible = $line[3];
+                $type = $line[5];
+
+                if ($code_rome_source && $code_rome_cible && $type) {
+                    $rome_source = $repo_rome->findOneBy([ "code" => $code_rome_source ]);
+                    $rome_cible = $repo_rome->findOneBy([ "code" => $code_rome_cible ]);
+                    $mobilite = new Mobilite();
+                    $mobilite->setRomeSource($rome_source);
+                    $mobilite->setRomeCible($rome_cible);
+                    if ($code_metier_source && $code_metier_cible) {
+                        $metier_source = $repo_metier->find($code_metier_source);
+                        $metier_cible = $repo_metier->find($code_metier_cible);
+                        $mobilite->setMetierSource($metier_source);
+                        $mobilite->setMetierCible($metier_cible);
+                    }
+                    $mobilite->setType($type);
+                    $this->manager->persist($mobilite);
+                    $counter++;
+                }
+
+            }
+        }
+
+        fclose($csv);
+
+        $this->manager->flush();
+
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+    }
+
 
     protected function loadMetier(OutputInterface $output)
     {

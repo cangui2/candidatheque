@@ -65,20 +65,22 @@ class Rome
      */
     private $descriptions;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Mobilite::class, mappedBy="romeSource")
-     */
-    private $mobilites1;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Mobilite::class, mappedBy="romeCible")
-     */
-    private $mobilites2;
 
     /**
      * @ORM\ManyToMany(targetEntity=Pcs::class, mappedBy="codesRome")
      */
     private $codesPcs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="romeSource")
+     */
+    private $mobilitesSources;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="romeCible")
+     */
+    private $mobilitesCibles;
 
 
 
@@ -91,9 +93,9 @@ class Rome
         $this->environnements = new ArrayCollection();
         $this->competences = new ArrayCollection();
         $this->descriptions = new ArrayCollection();
-        $this->mobilites1 = new ArrayCollection();
-        $this->mobilites2 = new ArrayCollection();
         $this->codesPcs = new ArrayCollection();
+        $this->mobilitesSources = new ArrayCollection();
+        $this->mobilitesCibles = new ArrayCollection();
 
     }
 
@@ -243,59 +245,7 @@ class Rome
         return $this;
     }
 
-    /**
-     * @return Collection|Mobilite[]
-     */
-    public function getMobilites1(): Collection
-    {
-        return $this->mobilites1;
-    }
 
-    public function addMobilites1(Mobilite $mobilites1): self
-    {
-        if (!$this->mobilites1->contains($mobilites1)) {
-            $this->mobilites1[] = $mobilites1;
-            $mobilites1->addRomeSource($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMobilites1(Mobilite $mobilites1): self
-    {
-        if ($this->mobilites1->removeElement($mobilites1)) {
-            $mobilites1->removeRomeSource($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Mobilite[]
-     */
-    public function getMobilites2(): Collection
-    {
-        return $this->mobilites2;
-    }
-
-    public function addMobilites2(Mobilite $mobilites2): self
-    {
-        if (!$this->mobilites2->contains($mobilites2)) {
-            $this->mobilites2[] = $mobilites2;
-            $mobilites2->addRomeCible($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMobilites2(Mobilite $mobilites2): self
-    {
-        if ($this->mobilites2->removeElement($mobilites2)) {
-            $mobilites2->removeRomeCible($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Pcs[]
@@ -319,6 +269,66 @@ class Rome
     {
         if ($this->codesPcs->removeElement($codesPc)) {
             $codesPc->removeCodesRome($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mobilite[]
+     */
+    public function getMobilitesSources(): Collection
+    {
+        return $this->mobilitesSources;
+    }
+
+    public function addMobilitesSource(Mobilite $mobilitesSource): self
+    {
+        if (!$this->mobilitesSources->contains($mobilitesSource)) {
+            $this->mobilitesSources[] = $mobilitesSource;
+            $mobilitesSource->setRomeSource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMobilitesSource(Mobilite $mobilitesSource): self
+    {
+        if ($this->mobilitesSources->removeElement($mobilitesSource)) {
+            // set the owning side to null (unless already changed)
+            if ($mobilitesSource->getRomeSource() === $this) {
+                $mobilitesSource->setRomeSource(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mobilite[]
+     */
+    public function getMobilitesCibles(): Collection
+    {
+        return $this->mobilitesCibles;
+    }
+
+    public function addMobilitesCible(Mobilite $mobilitesCible): self
+    {
+        if (!$this->mobilitesCibles->contains($mobilitesCible)) {
+            $this->mobilitesCibles[] = $mobilitesCible;
+            $mobilitesCible->setRomeCible($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMobilitesCible(Mobilite $mobilitesCible): self
+    {
+        if ($this->mobilitesCibles->removeElement($mobilitesCible)) {
+            // set the owning side to null (unless already changed)
+            if ($mobilitesCible->getRomeCible() === $this) {
+                $mobilitesCible->setRomeCible(null);
+            }
         }
 
         return $this;
