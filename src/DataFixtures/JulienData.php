@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 
 use App\Entity\Candidat;
+use App\Entity\Competence;
 use App\Entity\Consulte;
 use App\Entity\CV;
 use App\Entity\Departement;
@@ -15,6 +16,7 @@ use App\Entity\Pays;
 use App\Entity\Postule;
 use App\Entity\Recruteur;
 use App\Entity\Region;
+use App\Entity\Rome;
 use App\Entity\TypeContrat;
 use App\Entity\User;
 use App\Entity\Ville;
@@ -245,28 +247,46 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $usCandid4->setActif(true);
         $manager->persist($usCandid4);
 
-         // Cv numero 1
+         // Cv x2 candidat  1
         $cv1=new CV();
         $cv1->setCandidat($cand1);
         $cv1->setMetier($manager->getRepository(Metier::class)->find(14250));
         $manager->persist($cv1);
+        $cv1=new CV();
+        $cv1->setCandidat($cand1);
+        $cv1->setMetier($manager->getRepository(Metier::class)->find(17302));
+        $manager->persist($cv1);
 
-        // Cv numero 2
+
+        // Cv x2 candidat  2
         $cv2=new CV();
         $cv2->setCandidat($cand2);
         $cv2->setMetier($manager->getRepository(Metier::class)->find(14250));
         $manager->persist($cv2);
+        $cv2=new CV();
+        $cv2->setCandidat($cand2);
+        $cv2->setMetier($manager->getRepository(Metier::class)->find(20381));
+        $manager->persist($cv2);
 
-        //Cv numero 3
+        //Cv x2 candidat  3
         $cv3=new CV();
         $cv3->setCandidat($cand3);
         $cv3->setMetier($manager->getRepository(Metier::class)->find(12550));
         $manager->persist($cv3);
-        // cv numero 4
+        $cv3=new CV();
+        $cv3->setCandidat($cand3);
+        $cv3->setMetier($manager->getRepository(Metier::class)->find(126547));
+        $manager->persist($cv3);
+
+        //Cv x2 candidat  4
 
         $cv4=new CV();
         $cv4->setDeposePar($rec3);
         $cv4->setMetier($manager->getRepository(Metier::class)->find(12556));
+        $manager->persist($cv4);
+        $cv4=new CV();
+        $cv4->setDeposePar($rec3);
+        $cv4->setMetier($manager->getRepository(Metier::class)->find(140884));
         $manager->persist($cv4);
 
         $formation= new Formation();
@@ -279,8 +299,38 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $formation->setNiveau('bac+2');
         $manager->persist($formation);
 
+        $formation= new Formation();
+        $formation->setCv($cv1);
+        $formation->setDateDebut(new \DateTime('06/04/2014'));
+        $formation->setDateFin(new \DateTime('06/04/2012'));
+        $formation->setDescription('diplome professionelle ');
+        $formation->setDiplome('diplome fin d etude');
+        $formation->setEcole('lycee notre dame');
+        $formation->setNiveau('bac pro commerce');
+        $manager->persist($formation);
+
+        $formation= new Formation();
+        $formation->setCv($cv1);
+        $formation->setDateDebut(new \DateTime('06/04/2014'));
+        $formation->setDateFin(new \DateTime('06/04/2014'));
+        $formation->setDescription('brevet');
+        $formation->setDiplome('brevet professionnel');
+        $formation->setEcole('lycee notre dames');
+        $formation->setNiveau('bep vente');
+        $manager->persist($formation);
+
         $formation2= new Formation();
-        $formation2->setCv($cv1);
+        $formation2->setCv($cv2);
+        $formation2->setDateDebut(new \DateTime('06/04/2014'));
+        $formation2->setDateFin(new \DateTime('06/04/2016'));
+        $formation2->setDescription('test');
+        $formation2->setDiplome('diplome superieur');
+        $formation2->setEcole('Acor Alternance');
+        $formation2->setNiveau('bac+2');
+        $manager->persist($formation2);
+
+        $formation2= new Formation();
+        $formation2->setCv($cv2);
         $formation2->setDateDebut(new \DateTime('06/04/2014'));
         $formation2->setDateFin(new \DateTime('06/04/2012'));
         $formation2->setDescription('diplome professionelle ');
@@ -289,45 +339,15 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $formation2->setNiveau('bac pro commerce');
         $manager->persist($formation2);
 
-        $formation3= new Formation();
-        $formation3->setCv($cv1);
-        $formation3->setDateDebut(new \DateTime('06/04/2014'));
-        $formation3->setDateFin(new \DateTime('06/04/2014'));
-        $formation3->setDescription('brevet');
-        $formation3->setDiplome('brevet professionnel');
-        $formation3->setEcole('lycee notre dames');
-        $formation3->setNiveau('bep vente');
-        $manager->persist($formation3);
-
-        $formation4= new Formation();
-        $formation4->setCv($cv2);
-        $formation4->setDateDebut(new \DateTime('06/04/2014'));
-        $formation4->setDateFin(new \DateTime('06/04/2016'));
-        $formation4->setDescription('test');
-        $formation4->setDiplome('diplome superieur');
-        $formation4->setEcole('Acor Alternance');
-        $formation4->setNiveau('bac+2');
+        $formation= new Formation();
+        $formation->setCv($cv2);
+        $formation->setDateDebut(new \DateTime('06/04/2014'));
+        $formation->setDateFin(new \DateTime('06/04/2014'));
+        $formation->setDescription('brevet');
+        $formation->setDiplome('brevet professionnel');
+        $formation->setEcole('lycee notre dames');
+        $formation->setNiveau('bep vente');
         $manager->persist($formation);
-
-        $formation5= new Formation();
-        $formation5->setCv($cv2);
-        $formation5->setDateDebut(new \DateTime('06/04/2014'));
-        $formation5->setDateFin(new \DateTime('06/04/2012'));
-        $formation5->setDescription('diplome professionelle ');
-        $formation5->setDiplome('diplome fin d etude');
-        $formation5->setEcole('lycee notre dame');
-        $formation5->setNiveau('bac pro commerce');
-        $manager->persist($formation2);
-
-        $formation6= new Formation();
-        $formation6->setCv($cv1);
-        $formation6->setDateDebut(new \DateTime('06/04/2014'));
-        $formation6->setDateFin(new \DateTime('06/04/2014'));
-        $formation6->setDescription('brevet');
-        $formation6->setDiplome('brevet professionnel');
-        $formation6->setEcole('lycee notre dames');
-        $formation6->setNiveau('bep vente');
-        $manager->persist($formation3);
         // offre 1
         $offre1=new Offre();
         $offre1->setMetier($manager->getRepository(Metier::class)->find(10200));
@@ -343,10 +363,10 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre1->setDatePublication(new \DateTime());
         $offre1->setSalaire('45000');
         $offre1->setDateDebut(new \DateTime('06/04/2014'));
-        $offre1->setDateFin(new \DateTime('06/04/2014'));
+
         $manager->persist($offre1);
-        $manager->flush($offre1);
-        $id=$offre1->getId();
+
+
         // offre 2
         $offre2=new Offre();
         $offre2->setMetier($manager->getRepository(Metier::class)->find(10500));
@@ -362,7 +382,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre2->setDatePublication(new \DateTime());
         $offre2->setSalaire('20000');
         $offre2->setDateDebut(new \DateTime('06/04/2014'));
-        $offre2->setDateFin(new \DateTime('06/04/2014'));
+
         $manager->persist($offre2);
         // offre 3
         $offre3=new Offre();
@@ -379,7 +399,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre3->setDatePublication(new \DateTime());
         $offre3->setSalaire('35000');
         $offre3->setDateDebut(new \DateTime('06/04/2014'));
-        $offre3->setDateFin(new \DateTime('06/04/2014'));
+
         $manager->persist($offre3);
         // offre 4
         $offre4=new Offre();
@@ -396,7 +416,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre4->setDatePublication(new \DateTime());
         $offre4->setSalaire('27000');
         $offre4->setDateDebut(new \DateTime('06/04/2014'));
-        $offre4->setDateFin(new \DateTime('06/04/2014'));
+
         $manager->persist($offre4);
         // offre 5
         $offre5=new Offre();
@@ -413,13 +433,147 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $offre5->setDatePublication(new \DateTime());
         $offre5->setSalaire('35000');
         $offre5->setDateDebut(new \DateTime('06/04/2014'));
-        $offre5->setDateFin(new \DateTime('06/04/2014'));
+
         $manager->persist($offre5);
+
+        //COMPETENCE OFFRE 1
+
+        $comptA=($manager->getRepository(Competence::class)->find(200039));
+        $comptB=($manager->getRepository(Competence::class)->find(200059));
+        $comptC=($manager->getRepository(Competence::class)->find(103163));
+        $comptD=($manager->getRepository(Competence::class)->find(106963));
+        $comptE=($manager->getRepository(Competence::class)->find(119000));
+        $comptA->addOffre($offre1);
+        $comptB->addOffre($offre1);
+        $comptC->addOffre($offre1);
+        $comptD->addOffre($offre1);
+        $comptE->addOffre($offre1);
+        $manager->persist($comptA);
+        $manager->persist($comptB);
+        $manager->persist($comptC);
+        $manager->persist($comptD);
+        $manager->persist($comptE);
+
+        // COMPETENCE OFFRE 2
+
+        $compt1=($manager->getRepository(Competence::class)->find(100007));
+        $compt2=($manager->getRepository(Competence::class)->find(100010));
+        $compt3=($manager->getRepository(Competence::class)->find(100015));
+        $compt4=($manager->getRepository(Competence::class)->find(100018));
+        $compt5=($manager->getRepository(Competence::class)->find(100019));
+        $compt1->addOffre($offre2);
+        $compt2->addOffre($offre2);
+        $compt3->addOffre($offre2);
+        $compt4->addOffre($offre2);
+        $compt5->addOffre($offre2);
+        $manager->persist($compt1);
+        $manager->persist($compt2);
+        $manager->persist($compt3);
+        $manager->persist($compt4);
+        $manager->persist($compt5);
+
+        // COMPETENCE OFFRE 3
+        $compt1=($manager->getRepository(Competence::class)->find(102216));
+        $compt2=($manager->getRepository(Competence::class)->find(120617));
+        $compt3=($manager->getRepository(Competence::class)->find(102631));
+        $compt4=($manager->getRepository(Competence::class)->find(115962));
+        $compt5=($manager->getRepository(Competence::class)->find(115974));
+        $compt1->addOffre($offre3);
+        $compt2->addOffre($offre3);
+        $compt3->addOffre($offre3);
+        $compt4->addOffre($offre3);
+        $compt5->addOffre($offre3);
+        $manager->persist($compt1);
+        $manager->persist($compt2);
+        $manager->persist($compt3);
+        $manager->persist($compt4);
+        $manager->persist($compt5);
+
+        // COMPETENCE OFFRE 4
+        $compt1=($manager->getRepository(Competence::class)->find(116448));
+        $compt2=($manager->getRepository(Competence::class)->find(116449));
+        $compt3=($manager->getRepository(Competence::class)->find(116447));
+        $compt4=($manager->getRepository(Competence::class)->find(116446));
+        $compt5=($manager->getRepository(Competence::class)->find(116445));
+        $compt1->addOffre($offre4);
+        $compt2->addOffre($offre4);
+        $compt3->addOffre($offre4);
+        $compt4->addOffre($offre4);
+        $compt5->addOffre($offre4);
+        $manager->persist($compt1);
+        $manager->persist($compt2);
+        $manager->persist($compt3);
+        $manager->persist($compt4);
+        $manager->persist($compt5);
+
+        // COMPETENCE OFFRE 5
+
+        $compt1=($manager->getRepository(Competence::class)->find(117879));
+        $compt2=($manager->getRepository(Competence::class)->find(118975));
+        $compt3=($manager->getRepository(Competence::class)->find(119258));
+        $compt4=($manager->getRepository(Competence::class)->find(120433));
+        $compt5=($manager->getRepository(Competence::class)->find(122685));
+        $compt1->addOffre($offre5);
+        $compt2->addOffre($offre5);
+        $compt3->addOffre($offre5);
+        $compt4->addOffre($offre5);
+        $compt5->addOffre($offre5);
+        $manager->persist($compt1);
+        $manager->persist($compt2);
+        $manager->persist($compt3);
+        $manager->persist($compt4);
+        $manager->persist($compt5);
+
+        
+
+
 
         $postule1=new Postule();
         $postule1->setCandidat($cand1);
         $postule1->setAgence($ent1);
-        $postule1->setOffre($manager->getRepository(Offre::class)->find($id));
+        $postule1->setOffre($offre1);
+        $postule1->setDateSelection(new \DateTime());
+        $manager->persist($postule1);
+
+        $postule1=new Postule();
+        $postule1->setCandidat($cand1);
+        $postule1->setAgence($ent1);
+        $postule1->setOffre($offre3);
+        $postule1->setDateSelection(new \DateTime());
+        $manager->persist($postule1);
+
+        $postule1=new Postule();
+        $postule1->setCandidat($cand2);
+        $postule1->setAgence($ent1);
+        $postule1->setOffre($offre2);
+        $postule1->setDateSelection(new \DateTime());
+        $manager->persist($postule1);
+
+        $postule1=new Postule();
+        $postule1->setCandidat($cand3);
+        $postule1->setAgence($ent1);
+        $postule1->setOffre($offre3);
+        $postule1->setDateSelection(new \DateTime());
+        $manager->persist($postule1);
+
+        $postule1=new Postule();
+        $postule1->setCandidat($cand4);
+        $postule1->setAgence($ent1);
+        $postule1->setOffre($offre4);
+        $postule1->setDateSelection(new \DateTime());
+        $manager->persist($postule1);
+
+        $postule1=new Postule();
+        $postule1->setCandidat($cand4);
+        $postule1->setAgence($ent1);
+        $postule1->setOffre($offre1);
+        $postule1->setDateSelection(new \DateTime());
+        $manager->persist($postule1);
+
+        $postule1=new Postule();
+        $postule1->setCandidat($cand5);
+        $postule1->setAgence($ent1);
+        $postule1->setOffre($offre5);
         $postule1->setDateSelection(new \DateTime());
         $manager->persist($postule1);
 
@@ -428,6 +582,15 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $consult->setCv($cv2);
         $manager->persist($consult);
 
+        $consult=new Consulte();
+        $consult->setEntreprise($ent1);
+        $consult->setCv($cv1);
+        $manager->persist($consult);
+
+        $consult=new Consulte();
+        $consult->setEntreprise($ent1);
+        $consult->setCv($cv3);
+        $manager->persist($consult);
 
 
 
