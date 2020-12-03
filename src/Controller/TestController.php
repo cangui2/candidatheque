@@ -32,18 +32,6 @@ class TestController extends AbstractController
            
         ]);
     }
-    /**
-     * @Route("/test/fiche_metier", name="fiche_metier")
-     */
-    public function afficheMetier(RomeRepository $repo): Response
-    {
-        $rome = $repo->findOneBy(["code" => "m1805"]);
 
-
-        return $this->render('metier/fiche_metier.html.twig', [
-            'rome' => $rome,
-
-        ]);
-    }
 
 }

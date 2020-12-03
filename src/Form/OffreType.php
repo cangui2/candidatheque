@@ -25,6 +25,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -67,23 +68,34 @@ class OffreType extends AbstractType
                 'label' => "Description de l'offre",
                 'error_bubbling' => true
             ])
-            ->add('salaire', NumberType::class, [
-                'label' => 'Salaire',
+            ->add('salaire', MoneyType::class, [
+                'label' => 'Salaire brut',
+                'currency' => 'EUR',
                 'required' => false,
                 'error_bubbling' => true
-            ])
+            ]
+            )
+//            ->add('salaire', NumberType::class, [
+//                'label' => 'Salaire brut',
+//                'html5' => true,
+//                'attr' => [
+//                    'step'=> 0.01,
+//                ],
+//                'required' => false,
+//                'error_bubbling' => true
+//            ])
             ->add('typeSalaire', ChoiceType::class, [
-                'label' => 'Type de rémunération',
+                'label' => 'Type',
                 'choices' => [
                     "par an" => 1,
                     "par mois" => 2,
                     "par jour" => 3,
                     "par heure" => 4
                 ],
-                'placeholder' => 'Choisissez la fréquence de rémunération',
+                'placeholder' => false,
                 'mapped' => true,
                 'multiple'  => false,
-                'expanded' => false,
+                'expanded' => true,
                 'required' => false,
                 'error_bubbling' => true
             ])

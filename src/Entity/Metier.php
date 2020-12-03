@@ -70,12 +70,12 @@ class Metier
     private $rome;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="metierSource")
+     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="metierCible")
      */
     private $mobilitesSources;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="metierCible")
+     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="metierSource")
      */
     private $mobilitesCibles;
 

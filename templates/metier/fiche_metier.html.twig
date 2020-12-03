@@ -1,44 +1,156 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="/assets/css/fiche_metier.css">
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row mt-4 mb-4">
             <div class="col-12 text-center">
-                <h5> {{ rome.code ~ " - " ~ rome.libelle }}</h5>
+                <h5 class="pg-title"> {{ rome.code ~ " - " ~ rome.libelle }}</h5>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 text-left mt-2 mb-2">
-                <h6>Appellations</h6>
+        <div class="main mb-2">
+            <div class="row mt-2 mb-4 title-section">
+                <div class="col-12 text-center">
+                    <h6>Description</h6>
+                    <hr>
+                </div>
             </div>
-            <ul>
-                {% for metier in rome.metiers %}
-                    <li>{{ metier.libelle }}</li>
-                {% endfor %}
-            </ul>
+            <ol type="1">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <li><h6>Définition</h6></li>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 col-list">
+                        <ul type="circle">
+                            {% for def in definitions %}
+                                <li>{{ def.libelle }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <li><h6>Accès à l'emploi métier</h6></li>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 col-list">
+                        <ul type="circle">
+                            {% for acc in acces %}
+                                <li>{{ acc.libelle }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <li><h6>Conditions d'exercice de l'activité</h6></li>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 col-list">
+                        <ul type="circle">
+                            {% for cond in conditions %}
+                                <li>{{ cond.libelle }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </ol>
         </div>
-        <div class="row">
-            <div class="col-12 text-left">
-                <h6>Description</h6>
-                {% for description in rome.descriptions %}
-                <p>{{ description.libelle }}</p>
-                {% endfor %}
+        <div class="main">
+            <div class="row mt-2 mb-4 title-section">
+                <div class="col-12 text-center">
+                    <h6>Appellations</h6>
+                    <hr>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12 col-list">
+                    <ul>
+                        {% for metier in rome.metiers %}
+                            <li>{{ metier.libelle }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 text-left">
-                <h6>Compétences</h6>
-                {% for competence in rome.competences %}
-                    <p>{{ competence.libelle }}</p>
-                {% endfor %}
+        <br>
+
+        <div class="main">
+            <div class="row mt-2 mb-4 title-section">
+                <div class="col-12 text-center">
+                    <h6>Savoirs et Savoir-faire</h6>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12 text-left">
-                <h6>Environnement</h6>
-                {% for environnement in rome.environnements %}
-                    <p>{{ environnement.libelle }}</p>
-                {% endfor %}
+            <ol type="I">
+                <li><h6>Savoirs</h6></li>
+            <hr>
+            <div class="row mb-2">
+                <div class="col-12 col-list">
+                    <ul type="circle">
+                        {% for sv in savoirs %}
+                            <li>{{ sv.libelle }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        </div>
+            <hr>
+            <div class="row mt-2 mb-4 ">
+                <div class="col-12">
+                    <li><h6>Savoir-faire</h6></li>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-list">
+                    <ul type="square">
+                        {% for svf in svFaire %}
+                            <li>{{ svf.libelle }}
+                        {% endfor %}
+                            </li>
+                    </ul>
+                </div>
+            </div>
+            </ol>
+        </div><br>
+        <div class="main">
+            <div class="row mt-2 mb-4 title-section">
+                <div class="col-12 text-center">
+                    <h6>Environnements de travail</h6>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-list mb-3">
+                    <ul type="disc">
+                        {% for environnement in rome.environnements %}
+                            <li>{{ environnement.libelle }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row mt-3 mb-4 title-section">
+                <div class="col-12 text-center">
+                    <h6>Mobilité professionnelle</h6>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-list">
+                    <ul type="circle">
+                        {% for mobilite in rome.mobilitesCibles %}
+                            <li>{{ mobilite.romeCible.code }} - {{ mobilite.romeCible.libelle }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div><br>
     </div>
 {% endblock %}

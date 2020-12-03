@@ -1,0 +1,32 @@
+.col-list{
+    column-count: 2;
+}
+
+.main {
+    /*max-width: 800px;*/
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: .9em;
+    font-weight: normal;
+    /*line-height: 25px;*/
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #555;
+
+}
+.pg-title {
+    border: 1px solid darkblue;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+}
+.title-section {
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 2em !important;
+    color: #4169E1;
+
+}

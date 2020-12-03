@@ -58,11 +58,15 @@ class DepartementToStringTransformer implements DataTransformerInterface
         ;
 
         if (null === $departement) {
-            // causes a validation error
-            // this message is not shown to the user
-            // see the invalid_message option
-            throw new TransformationFailedException(sprintf('Aucun département ne correspond à votre saisie!', $nom
-            ));
+            $privateErrorMessage = sprintf('Aucun département ne correspond au nom "%s"!', $nom);
+            $publicErrorMessage = "Votre saisie n'est pas valide. Veuillez sélectionner un département de la liste de complétion automatique.";
+
+            $failure = new TransformationFailedException($privateErrorMessage);
+            $failure->setInvalidMessage($publicErrorMessage, [
+                '{{ value }}' => $nom,
+            ]);
+
+            throw $failure;
         }
 
         return $departement;

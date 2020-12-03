@@ -22,19 +22,22 @@ class MobiliteRepository extends ServiceEntityRepository
     // /**
     //  * @return Mobilite[] Returns an array of Mobilite objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findMobilitesByRome($rome)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('m.libelle')
+            ->join('c.rome', 'r')
+            ->andWhere('r.id = :rome')
+//            ->andWhere('c.type = :type')
+//            ->setParameters(['rome' => $rome, 'type' =>3 ])
             ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+//            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Mobilite

@@ -23,15 +23,12 @@
                 </div>
             </div>
             {{ form_start(offreForm) }}
+            <div class="form-group">
+                {{ form_errors(offreForm) }}
+            </div>
             <div class="jumbotron">
                 <div class="row">
                     <div class="col-12 text-left mb-3"><h6 class="mb-3">1. MÉTIER / COMPÉTENCES</h6>
-                        <p class="help-msg">
-                            <span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x"></i>
-                                <i class="fa fa-exclamation fa-stack-1x fa-inverse" style="color:red;"></i>
-                            </span>
-                            Vous devez indiquer clairement que l'offre s’adresse indifféremment aux hommes et aux femmes en ajoutant le libellé <em>« Cadre H/F »</em> ou <em>« Employé(e) »</em>
-                        </p>
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -63,6 +60,10 @@
                         {{ form_row(offreForm.habilitations) }}
                     </div>
                 </div>
+                <div class="row mt-2 d-none" id="p-choices">
+                    <div class="col-12">
+                    </div>
+                </div>
             </div>
 
             <div class="jumbotron">
@@ -81,27 +82,28 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mt-3">
+                    <div class="col-md-8 mt-3">
                         <p>Prise de poste</p>
+                        <div id="js-datepicker" class="row mt-3">
+                            <div class="col-md-4">
+                                {{ form_row(offreForm.urgent) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_widget(offreForm.dateDebut, {'attr': {'placeholder': 'jj/mm/aaaa'}}) }}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div id="js-datepicker" class="row mt-3">
-                    <div class="col-md-4">
-                        {{ form_row(offreForm.urgent) }}
-                    </div>
-                    <div class="col-md-8">
-                        {{ form_widget(offreForm.dateDebut, {'attr': {'placeholder': 'Date au format jj/mm/aaaa'}}) }}
-                    </div>
-
-                </div>
-                <div class="row mt-3">
-                    <div class="col-4">
-                        {{ form_label(offreForm.salaire) }}
-                        {{ form_widget(offreForm.salaire, {'attr': {'placeholder': 'Salaire indicatif '}}) }}
-                    </div>
-                    <div class="col-8">
-                        {{ form_label(offreForm.typeSalaire) }}
-                        {{ form_widget(offreForm.typeSalaire) }}
+                    <div class="col-md-4 mt-3">
+                        <div class="row">
+                            <div class="col">
+                                    {{ form_label(offreForm.salaire) }}
+                                    {{ form_widget(offreForm.salaire) }}
+                            </div>
+                            <div class="col">
+{#                                {{ form_label(offreForm.typeSalaire) }}#}
+                                {{ form_widget(offreForm.typeSalaire) }}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -346,7 +348,12 @@
             });
         });
 
-        $("#offre_type").trigger("change");
+        // $("#offre_type").trigger("change");
+        //
+        // $("#offre_habilitations").change(function(){
+        //     console.log( $(this).find('option').filter(':selected').text());
+        //
+        // });
 
     </script>
 
