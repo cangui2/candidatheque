@@ -144,9 +144,9 @@
                                                  {% set difference = date(today).diff(date(datePost)) %}
                                                  {% set leftDays = difference.days %}
                                                  {% if datePost == today %}
-                                                     3jour
+
                                                  {% else %}
-                                                     {{ leftDays }}
+                                                     {{ leftDays }} jour
                                                  {% endif %}
                                              </span>
 
