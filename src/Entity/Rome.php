@@ -76,12 +76,12 @@ class Rome
     private $codesPcs;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="romeSource")
+     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="romeCible")
      */
     private $mobilitesSources;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="romeCible")
+     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="romeSource")
      */
     private $mobilitesCibles;
 
