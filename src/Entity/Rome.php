@@ -53,18 +53,18 @@ class Rome
     private $metiers;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Environnement::class, mappedBy="rome")
+     * @ORM\ManyToMany(targetEntity=Environnement::class, mappedBy="romes")
      */
     private $environnements;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="rome")
+     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="romes")
      * @Groups("read")
      */
     private $competences;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Description::class, mappedBy="rome")
+     * @ORM\ManyToMany(targetEntity=Description::class, mappedBy="romes")
      */
     private $descriptions;
 
