@@ -59,13 +59,16 @@
                                                         </ul>
                                                     </p>
                                                     <hr>
+                                                    {% if offre_recruteur.competencesComplementaires is not empty %}
                                                     <p class="font-small text-muted mx-1">AUTRES COMPÉTENCES <br>
                                                         <span class="li-comp">
                                                             {{ offre_recruteur.competencesComplementaires }}
                                                         </span>
                                                     </p>
+                                                    {% endif %}
                                                 </div>
                                             </div>
+                                            {% if offre_recruteur.habilitations is not empty %}
                                             <div class="row">
                                                 <div class="col-12 text-justify">
                                                     <p class="font-small text-muted mx-1">HABILITATIONS<br>
@@ -77,6 +80,7 @@
                                                     </p>
                                                 </div>
                                             </div>
+                                            {% endif %}
                                             <div class="row mt-3">
                                                 <div class="col-12 text-justify">
                                                     <p class="font-small text-muted mx-1">DESCRIPTION <br>
