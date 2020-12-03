@@ -144,7 +144,7 @@
                                                  {% set difference = date(today).diff(date(datePost)) %}
                                                  {% set leftDays = difference.days %}
                                                  {% if datePost == today %}
-                                                     1 jour
+                                                     3jour
                                                  {% else %}
                                                      {{ leftDays }}
                                                  {% endif %}
@@ -245,6 +245,7 @@
                                 <td>{{ last.offre.id }}</td>
                                 <td>{{ last.candidat.nom }}</td>
                                 <td><span class="badge badge-danger ">en attente</span></td>
+
                             </tr>
                             {% endfor %}
 
