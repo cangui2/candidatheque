@@ -27,7 +27,7 @@ class CompetenceRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->select(array('c.libelle', 'c.id'))
-            ->join('c.rome', 'r')
+            ->join('c.romes', 'r')
             ->andWhere('r.id = :rome')
             ->andWhere('c.type = :type')
             ->setParameters(['rome' => $rome, 'type' =>1 ])
@@ -45,7 +45,7 @@ class CompetenceRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->select(array('c.libelle', 'c.id'))
-            ->join('c.rome', 'r')
+            ->join('c.romes', 'r')
             ->andWhere('r.id = :rome')
             ->andWhere('c.type = :type')
             ->setParameters(['rome' => $rome, 'type' =>3 ])

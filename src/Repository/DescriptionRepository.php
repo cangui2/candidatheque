@@ -27,7 +27,7 @@ class DescriptionRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
             ->select('d.libelle')
-            ->join('d.rome', 'r')
+            ->join('d.romes', 'r')
             ->andWhere('r.id = :rome')
             ->andWhere('d.idType = :idType')
             ->setParameters(['rome'=> $rome, 'idType' => 1])
@@ -41,7 +41,7 @@ class DescriptionRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
             ->select('d.libelle')
-            ->join('d.rome', 'r')
+            ->join('d.romes', 'r')
             ->andWhere('r.id = :rome')
             ->andWhere('d.idType = :idType')
             ->setParameters(['rome'=> $rome, 'idType' => 2])
@@ -55,7 +55,7 @@ class DescriptionRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
             ->select('d.libelle')
-            ->join('d.rome', 'r')
+            ->join('d.romes', 'r')
             ->andWhere('r.id = :rome')
             ->andWhere('d.idType = :idType')
             ->setParameters(['rome'=> $rome, 'idType' => 3])
