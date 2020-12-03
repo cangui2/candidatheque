@@ -4,7 +4,7 @@ namespace App\Controller;
 
 
 
-use App\Entity\Offre;
+
 use App\Repository\CVRepository;
 use App\Repository\PostuleRepository;
 use App\Service\MatchingService;
@@ -78,12 +78,6 @@ class EntrepriseController extends AbstractController
             $globalLabel[] = $ligne["libelle"];
         }
         $limitOffer = $this->offreRepo->findAllOfferByIdRecruteurLimit5($recruteurId);
-
-
-
-
-
-
 
 
 

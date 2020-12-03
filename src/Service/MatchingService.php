@@ -17,11 +17,14 @@ class MatchingService {
 
         $this->offreRepo=$offreRepo;
 
-
-
     }
 
-    public function matchingOfferVsCvCandidat($idOffer,$skillCvCandidat){
+    /**
+     * @param $idOffer
+     * @param $skillCvCandidat
+     * @return array
+     */
+    public function matchingOfferVsCvCandidat($idOffer, $skillCvCandidat){
 
 
      /* jeux de test local
@@ -50,7 +53,7 @@ class MatchingService {
                     $candidat=$value2;
                     $result[$key2] = array_intersect($offer, $candidat);
 
-                    $results['idOffre'][$idOffer]['idCandidat'][$key2]=(count($result[$key2])*100)/(count($offer));
+                    $results ['idOffre'][$idOffer]['idCandidat'][$key2]=(count($result[$key2])*100)/(count($offer));
 
         }
         return $results;
