@@ -61,6 +61,7 @@ class EntrepriseController extends AbstractController
 
 
         $cvs=$this->cvRepo->findAll();
+        // algo en test
         $idOffert=5;
         $skillCvCandidat = array (
             "gilles" => array("103163", "106963", "119000"),
@@ -68,7 +69,7 @@ class EntrepriseController extends AbstractController
             "claire" => array("119000", "A1108", "A1109")
         );
         $test=$matchingService->matchingOfferVsCvCandidat($idOffert,$skillCvCandidat);
-
+        //-------------------------------------------------------------------------------//
 
         $globalData = [];
         $globalLabel = [];
