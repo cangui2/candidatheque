@@ -3,17 +3,18 @@
 namespace App\Command;
 
 use App\Entity\APE;
-use App\Entity\Environnement;
-use App\Entity\Mobilite;
 use App\Entity\Pcs;
 use App\Entity\Pays;
 use App\Entity\Rome;
 use App\Entity\Ville;
 use App\Entity\Metier;
 use App\Entity\Region;
+use App\Entity\Mobilite;
 use App\Entity\Competence;
 use App\Entity\Departement;
 use App\Entity\Description;
+use App\Entity\Habilitation;
+use App\Entity\Environnement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -68,6 +69,9 @@ class DBLoadCommand extends Command
             case "description":
                 $this->loadDescription($output);
                 break;
+            case "habilitation":
+                $this->loadHabilitation($output);
+                break;    
             case "pays":
                 $this->loadPays($output);
                 break;
@@ -98,6 +102,7 @@ class DBLoadCommand extends Command
                 $this->loadPCS($output);
                 $this->loadCompetence($output);
                 $this->loadDescription($output);
+                $this->loadHabilitation($output);
                 $this->loadPays($output);
                 $this->loadRegion($output);
                 $this->loadDepartement($output);
@@ -527,6 +532,34 @@ class DBLoadCommand extends Command
                     $description->addRome($rome);
                     $counter++;
                     $this->manager->persist($description);
+                }
+            }
+        }
+        $this->manager->flush();
+        fclose($csv);
+
+        $output->writeln(" ... <question>" . $counter . "</question> Description lines inserted");
+
+    }
+
+
+    protected function loadHabilitation(OutputInterface $output)
+    {
+        $csv_file = 'habilitations.csv';
+        $output->write("Loading <info>Habilitations</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/'.$csv_file , 'r');
+        //$line = fgetcsv($csv);
+        $counter=0;
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>1) {
+                $libelle = $line[1];
+                if ($libelle) {
+                    $habilitation = new Habilitation();
+                    $habilitation->setLibelle($libelle);
+                    $counter++;
+                    $this->manager->persist($habilitation);
                 }
             }
         }
