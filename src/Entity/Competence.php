@@ -43,6 +43,7 @@ class Competence
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("read")
      */
     private $type;
 
@@ -55,7 +56,7 @@ class Competence
     /**
      * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="competences")
      */
-    private $rome;
+    private $romes;
 
     /**
      * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
@@ -72,7 +73,7 @@ class Competence
     public function __construct($ogr)
     {
         $this->id = $ogr;
-        $this->rome = new ArrayCollection();
+        $this->romes = new ArrayCollection();
         $this->offres = new ArrayCollection();
     }
 
@@ -115,15 +116,15 @@ class Competence
     /**
      * @return Collection|Rome[]
      */
-    public function getRome(): Collection
+    public function getRomes(): Collection
     {
-        return $this->rome;
+        return $this->romes;
     }
 
     public function addRome(Rome $rome): self
     {
-        if (!$this->rome->contains($rome)) {
-            $this->rome[] = $rome;
+        if (!$this->romes->contains($rome)) {
+            $this->romes[] = $rome;
         }
 
         return $this;
@@ -131,7 +132,7 @@ class Competence
 
     public function removeRome(Rome $rome): self
     {
-        $this->rome->removeElement($rome);
+        $this->romes->removeElement($rome);
 
         return $this;
     }

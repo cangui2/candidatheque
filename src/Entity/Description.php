@@ -42,7 +42,7 @@ class Description
     /**
      * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="descriptions")
      */
-    private $rome;
+    private $romes;
 
 
 
@@ -96,15 +96,15 @@ class Description
     /**
      * @return Collection|Rome[]
      */
-    public function getRome(): Collection
+    public function getRomes(): Collection
     {
-        return $this->rome;
+        return $this->romes;
     }
 
     public function addRome(Rome $rome): self
     {
-        if (!$this->rome->contains($rome)) {
-            $this->rome[] = $rome;
+        if (!$this->romes->contains($rome)) {
+            $this->romes[] = $rome;
         }
 
         return $this;
@@ -112,7 +112,7 @@ class Description
 
     public function removeRome(Rome $rome): self
     {
-        $this->rome->removeElement($rome);
+        $this->romes->removeElement($rome);
 
         return $this;
     }

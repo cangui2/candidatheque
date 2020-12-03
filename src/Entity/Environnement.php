@@ -26,10 +26,12 @@ class Environnement
     /**
      * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="environnements")
      */
-    private $rome;
+    private $romes;
 
-    public function __construct()
+    public function __construct($code, $libelle)
     {
+        $this->id=$code;
+        $this->libelle=$libelle;
         $this->rome = new ArrayCollection();
     }
 
@@ -53,15 +55,15 @@ class Environnement
     /**
      * @return Collection|Rome[]
      */
-    public function getRome(): Collection
+    public function getRomes(): Collection
     {
-        return $this->rome;
+        return $this->romes;
     }
 
     public function addRome(Rome $rome): self
     {
-        if (!$this->rome->contains($rome)) {
-            $this->rome[] = $rome;
+        if (!$this->romes->contains($rome)) {
+            $this->romes[] = $rome;
         }
 
         return $this;
@@ -69,7 +71,7 @@ class Environnement
 
     public function removeRome(Rome $rome): self
     {
-        $this->rome->removeElement($rome);
+        $this->romes->removeElement($rome);
 
         return $this;
     }

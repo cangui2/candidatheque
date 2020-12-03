@@ -9,9 +9,12 @@ use App\Entity\Rome;
 use App\Entity\Ville;
 use App\Entity\Metier;
 use App\Entity\Region;
+use App\Entity\Mobilite;
 use App\Entity\Competence;
 use App\Entity\Departement;
 use App\Entity\Description;
+use App\Entity\Habilitation;
+use App\Entity\Environnement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -48,11 +51,17 @@ class DBLoadCommand extends Command
             case "rome":
                 $this->loadRome($output);
                 break;
+            case "mobilite":
+                $this->loadMobilite($output);
+                break;
             case "metier":
                 //$this->loadMetier($output);
                 break;
             case "pcs":
                 $this->loadPCS($output);
+                break;
+            case "environnement":
+                $this->loadEnvironnement($output);
                 break;
             case "competence":
                 $this->loadCompetence($output);
@@ -60,6 +69,9 @@ class DBLoadCommand extends Command
             case "description":
                 $this->loadDescription($output);
                 break;
+            case "habilitation":
+                $this->loadHabilitation($output);
+                break;    
             case "pays":
                 $this->loadPays($output);
                 break;
@@ -85,9 +97,12 @@ class DBLoadCommand extends Command
                 $this->loadBaseData($output);
                 $this->loadAPE($output);
                 $this->loadRome($output);
+                $this->loadMobilite($output);
+                $this->loadEnvironnement($output);
                 $this->loadPCS($output);
                 $this->loadCompetence($output);
                 $this->loadDescription($output);
+                $this->loadHabilitation($output);
                 $this->loadPays($output);
                 $this->loadRegion($output);
                 $this->loadDepartement($output);
@@ -195,6 +210,55 @@ class DBLoadCommand extends Command
         $output->writeln(" ... <question>" . $counter1 . "</question> Rome <question>" . $counter2 . "</question> Metier lines inserted");
     }
 
+    protected function loadMobilite(OutputInterface $output)
+    {
+        $csv_file = '12-rubrique_mobilite_v344_utf8.csv';
+        $output->write("Loading <info>Mobilite</info> from <info>" . $csv_file . "</info>");
+        $counter=0;
+
+        $repo_metier = $this->manager->getRepository(Metier::class);
+        $repo_rome = $this->manager->getRepository(Rome::class);
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/' . $csv_file, 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>4) {
+                $code_rome_source = $line[0];
+                $code_rome_cible = $line[1];
+                $code_metier_source = $line[2];
+                $code_metier_cible = $line[3];
+                $type = $line[5];
+
+                if ($code_rome_source && $code_rome_cible && $type) {
+                    $rome_source = $repo_rome->findOneBy([ "code" => $code_rome_source ]);
+                    $rome_cible = $repo_rome->findOneBy([ "code" => $code_rome_cible ]);
+                    $mobilite = new Mobilite();
+                    $mobilite->setRomeSource($rome_source);
+                    $mobilite->setRomeCible($rome_cible);
+                    if ($code_metier_source && $code_metier_cible) {
+                        $metier_source = $repo_metier->find($code_metier_source);
+                        $metier_cible = $repo_metier->find($code_metier_cible);
+                        $mobilite->setMetierSource($metier_source);
+                        $mobilite->setMetierCible($metier_cible);
+                    }
+                    $mobilite->setType($type);
+                    $this->manager->persist($mobilite);
+                    $counter++;
+                }
+
+            }
+        }
+
+        fclose($csv);
+
+        $this->manager->flush();
+
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+    }
+
+
     protected function loadMetier(OutputInterface $output)
     {
         $csv_file = 'rome.csv';
@@ -287,6 +351,67 @@ class DBLoadCommand extends Command
         $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
     }
 
+    protected function loadEnvironnement(OutputInterface $output)
+    {
+        $csv_file = '5-referentiel_env_travail_v344_utf8.csv';
+        $output->write("Loading <info>Environnement</info> from <info>" . $csv_file . "</info>");
+        $counter=0;
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/' . $csv_file, 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>4) {
+                $code = $line[0];
+                $libelle = $line[1];
+                $type = $line[2];
+
+                $pcs = new Environnement($code, $libelle);
+                $this->manager->persist($pcs);
+                $counter++;
+            }
+        }
+
+        fclose($csv);
+        $this->manager->flush();
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+
+
+        $repo_environnement = $this->manager->getRepository(Environnement::class);
+        $repo_rome = $this->manager->getRepository(Rome::class);
+
+        $csv_file = '4-liens_rome_referentiels_v344_utf8.csv';
+        $output->write("Loading <info>ROME-Environnement</info> from <info>" . $csv_file . "</info>");
+        $counter=0;
+
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/RefRomeCsv/' . $csv_file, 'r');
+        $line = fgetcsv($csv);
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>4) {
+                $code_rome = $line[0];
+                $code_ogr_env = $line[1];
+                $type_referentiel = $line[4];
+                if ($code_ogr_env && $code_rome && $type_referentiel=="5") {
+                    $rome = $repo_rome->findOneBy([ "code" => $code_rome ]);
+                    $environnement = $repo_environnement->find($code_ogr_env);
+                    $rome->addEnvironnement($environnement);
+                    $counter++;
+                }
+
+            }
+        }
+
+        fclose($csv);
+
+        $this->manager->flush();
+
+        $output->writeln(" ... <question>" . $counter . "</question> lines inserted");
+    }
+
+
     protected function loadCompetence(OutputInterface $output)
     {
         $repo_rome = $this->manager->getRepository(Rome::class);
@@ -346,10 +471,10 @@ class DBLoadCommand extends Command
                         $competence->setLibelleType($comp_rome[3]);
                         $this->manager->persist($competence);
                     }elseif ($acti_rome) {
-                        if ($acti_rome[2]==3) {
+                        if ($acti_rome[4]==3) {
                             $competence = new Competence($code_ogr);
-                            $competence->setLibelle($acti_rome[1]);
-                            $competence->setType(intval($acti_rome[2]));
+                            $competence->setLibelle($acti_rome[2]);
+                            $competence->setType(intval($acti_rome[4]));
                             $competence->setLibelleType($acti_rome[5]);
                             $this->manager->persist($competence);
                         }
@@ -407,6 +532,34 @@ class DBLoadCommand extends Command
                     $description->addRome($rome);
                     $counter++;
                     $this->manager->persist($description);
+                }
+            }
+        }
+        $this->manager->flush();
+        fclose($csv);
+
+        $output->writeln(" ... <question>" . $counter . "</question> Description lines inserted");
+
+    }
+
+
+    protected function loadHabilitation(OutputInterface $output)
+    {
+        $csv_file = 'habilitations.csv';
+        $output->write("Loading <info>Habilitations</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/'.$csv_file , 'r');
+        //$line = fgetcsv($csv);
+        $counter=0;
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>1) {
+                $libelle = $line[1];
+                if ($libelle) {
+                    $habilitation = new Habilitation();
+                    $habilitation->setLibelle($libelle);
+                    $counter++;
+                    $this->manager->persist($habilitation);
                 }
             }
         }

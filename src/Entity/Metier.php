@@ -69,16 +69,18 @@ class Metier
      */
     private $rome;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="metierSource")
+     */
+    private $mobilitesSources;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Mobilite::class, mappedBy="metierSource")
+     * @ORM\OneToMany(targetEntity=Mobilite::class, mappedBy="metierCible")
      */
-    private $mobilites1;
+    private $mobilitesCibles;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Mobilite::class, mappedBy="metierCible")
-     */
-    private $mobilites2;
+
+
 
 
     public function __construct($ogr, $libelle)
@@ -87,8 +89,9 @@ class Metier
         $this->offres = new ArrayCollection();
         $this->id=$ogr;
         $this->libelle = $libelle;
-        $this->mobilites1 = new ArrayCollection();
-        $this->mobilites2 = new ArrayCollection();
+        $this->mobilitesSources = new ArrayCollection();
+        $this->mobilitesCibles = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -190,25 +193,28 @@ class Metier
     /**
      * @return Collection|Mobilite[]
      */
-    public function getMobilites1(): Collection
+    public function getMobilitesSources(): Collection
     {
-        return $this->mobilites1;
+        return $this->mobilitesSources;
     }
 
-    public function addMobilites1(Mobilite $mobilites1): self
+    public function addMobilitesSource(Mobilite $mobilitesSource): self
     {
-        if (!$this->mobilites1->contains($mobilites1)) {
-            $this->mobilites1[] = $mobilites1;
-            $mobilites1->addMetierSource($this);
+        if (!$this->mobilitesSources->contains($mobilitesSource)) {
+            $this->mobilitesSources[] = $mobilitesSource;
+            $mobilitesSource->setMetierSource($this);
         }
 
         return $this;
     }
 
-    public function removeMobilites1(Mobilite $mobilites1): self
+    public function removeMobilitesSource(Mobilite $mobilitesSource): self
     {
-        if ($this->mobilites1->removeElement($mobilites1)) {
-            $mobilites1->removeMetierSource($this);
+        if ($this->mobilitesSources->removeElement($mobilitesSource)) {
+            // set the owning side to null (unless already changed)
+            if ($mobilitesSource->getMetierSource() === $this) {
+                $mobilitesSource->setMetierSource(null);
+            }
         }
 
         return $this;
@@ -217,29 +223,34 @@ class Metier
     /**
      * @return Collection|Mobilite[]
      */
-    public function getMobilites2(): Collection
+    public function getMobilitesCibles(): Collection
     {
-        return $this->mobilites2;
+        return $this->mobilitesCibles;
     }
 
-    public function addMobilites2(Mobilite $mobilites2): self
+    public function addMobilitesCible(Mobilite $mobilitesCible): self
     {
-        if (!$this->mobilites2->contains($mobilites2)) {
-            $this->mobilites2[] = $mobilites2;
-            $mobilites2->addMetierCible($this);
+        if (!$this->mobilitesCibles->contains($mobilitesCible)) {
+            $this->mobilitesCibles[] = $mobilitesCible;
+            $mobilitesCible->setMetierCible($this);
         }
 
         return $this;
     }
 
-    public function removeMobilites2(Mobilite $mobilites2): self
+    public function removeMobilitesCible(Mobilite $mobilitesCible): self
     {
-        if ($this->mobilites2->removeElement($mobilites2)) {
-            $mobilites2->removeMetierCible($this);
+        if ($this->mobilitesCibles->removeElement($mobilitesCible)) {
+            // set the owning side to null (unless already changed)
+            if ($mobilitesCible->getMetierCible() === $this) {
+                $mobilitesCible->setMetierCible(null);
+            }
         }
 
         return $this;
     }
+
+
 
 
 }
