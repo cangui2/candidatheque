@@ -4,9 +4,25 @@ namespace App\Service;
 
 
 
+use App\Repository\CVRepository;
+use App\Repository\OffreRepository;
+use App\Repository\PostuleRepository;
+
 class MatchingService {
 
-    public function matchingOfferVsCvCandidat($idOffer,$skillOffer,$skillCvCandidat){
+    protected $offreRepo;
+    protected $postuleRepo;
+    protected $cvRepo;
+
+    public function __construct(OffreRepository $offreRepo, PostuleRepository $postuleRepo,CVRepository $cvRepo){
+
+        $this->offreRepo=$offreRepo;
+        $this->postuleRepo=$postuleRepo;
+        $this->cvRepo=$cvRepo;
+
+    }
+
+    public function matchingOfferVsCvCandidat($idOffer,$skillCvCandidat){
 
 
         // algorithme de comparaison des competences offre(s) vs candidat(s) //
@@ -25,16 +41,27 @@ class MatchingService {
             "cv3" => array("A1102", "A1108", "A1109")
         );
         */
+        $skillOffer=$this->offreRepo->findCompetenceByOffer($idOffer);
+
+
+        $test1=[];
+        foreach ($skillOffer as $key =>$value){
+            $test1[]=$value['competence_id'];
+
+        }
         $results=[];
-        foreach ($skillCvCandidat as $key => $value) {
+        foreach ($skillCvCandidat as $key2 => $value2) {
 
-            for ($i=0; $i <1 ; $i++) {
-                $result = array_intersect($value, $skillOffer);
-                $results[$idOffer][$key]=ceil((count($result)*100)/count($skillOffer));
+                    $test2=$value2;
+                    $result[$key2] = array_intersect($test1, $test2);
 
-            }
+                    $results[$idOffer][$key2]=(count($result[$key2])*100)/(count($test1));
+
         }
 
+
+
+        return $results;
     }
 
 
