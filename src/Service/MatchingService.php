@@ -38,24 +38,35 @@ class MatchingService {
         );
         */
         // On recupere le tableau des competence par rapport a l'ID
-        $skillOffer=$this->offreRepo->findCompetenceByOffer($idOffer);
+        //$skillOffer=$this->offreRepo->findCompetenceByOffer($idOffer);
+        $skillOffer2 = $this->offreRepo->find($idOffer)->getCompetences();
+        $skillOffer2->count();
+
+
+
 
         // On lis le tableau tableau competence offre pour extraire juste les données de competences
         $offer=[];
-        foreach ($skillOffer as $key =>$value){
-            $offer[]=$value['competence_id'];
+        foreach ($skillOffer2 as $key =>$value){
+            $offer[]=$value->getId();
 
         }
+
         // on lit les competences du cv et on le compare avec les competences offres
-        $results=[];
+
         foreach ($skillCvCandidat as $key2 => $value2) {
 
                     $candidat=$value2;
                     $result[$key2] = array_intersect($offer, $candidat);
+                    $results [$idOffer][$key2]=(count($result[$key2])*100)/(count($offer));
 
-                    $results ['idOffre'][$idOffer]['idCandidat'][$key2]=(count($result[$key2])*100)/(count($offer));
+                    //$results[]=array($idOffer=>array((count($result[$key2])*100)/(count($offer))));
+
 
         }
+
+
+
         return $results;
     }
 

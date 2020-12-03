@@ -68,6 +68,7 @@ class EntrepriseController extends AbstractController
             "alex" => array("A1104", "103163", "A1101"),
             "claire" => array("119000", "A1108", "A1109")
         );
+
         $test=$matchingService->matchingOfferVsCvCandidat($idOffert,$skillCvCandidat);
         //-------------------------------------------------------------------------------//
 
