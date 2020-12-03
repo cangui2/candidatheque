@@ -11,6 +11,58 @@
                 <h5 class="pg-title"> {{ rome.code ~ " - " ~ rome.libelle }}</h5>
             </div>
         </div>
+        <div class="main mb-2">
+            <div class="row mt-2 mb-4 title-section">
+                <div class="col-12 text-center">
+                    <h6>Description</h6>
+                    <hr>
+                </div>
+            </div>
+            <ol type="1">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <li><h6>Définition</h6></li>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 col-list">
+                        <ul type="circle">
+                            {% for def in definitions %}
+                                <li>{{ def.libelle }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <li><h6>Accès à l'emploi métier</h6></li>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 col-list">
+                        <ul type="circle">
+                            {% for acc in acces %}
+                                <li>{{ acc.libelle }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <li><h6>Conditions d'exercice de l'activité</h6></li>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12 col-list">
+                        <ul type="circle">
+                            {% for cond in conditions %}
+                                <li>{{ cond.libelle }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </ol>
+        </div>
         <div class="main">
             <div class="row mt-2 mb-4 title-section">
                 <div class="col-12 text-center">
@@ -29,28 +81,15 @@
             </div>
         </div>
         <br>
-        <div class="main mb-2">
-            <div class="row mt-2 mb-4 title-section">
-                <div class="col-12 text-center">
-                    <h6>Description</h6>
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 text-justify">
-                        {% for description in rome.descriptions %}
-                            <p>{{ description.libelle }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+
         <div class="main">
             <div class="row mt-2 mb-4 title-section">
                 <div class="col-12 text-center">
-                    <h6>Savoirs et Savoirs-faire</h6>
+                    <h6>Savoirs et Savoir-faire</h6>
                 </div>
             </div>
-            <h6 class="text-center">Savoirs</h6>
+            <ol type="I">
+                <li><h6>Savoirs</h6></li>
             <hr>
             <div class="row mb-2">
                 <div class="col-12 col-list">
@@ -62,9 +101,9 @@
                 </div>
             </div>
             <hr>
-            <div class="row mt-2 mb-4 title-section">
-                <div class="col-12 text-center">
-                    <h6>Savoir-faire</h6>
+            <div class="row mt-2 mb-4 ">
+                <div class="col-12">
+                    <li><h6>Savoir-faire</h6></li>
                     <hr>
                 </div>
             </div>
@@ -78,33 +117,38 @@
                     </ul>
                 </div>
             </div>
+            </ol>
         </div><br>
         <div class="main">
             <div class="row mt-2 mb-4 title-section">
                 <div class="col-12 text-center">
-                    <h6>Environnement</h6>
+                    <h6>Environnements de travail</h6>
                     <hr>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 text-left">
-                    {% for environnement in rome.environnements %}
-                        <p>{{ environnement.libelle }}</p>
-                    {% endfor %}
+                <div class="col-12 col-list mb-3">
+                    <ul type="disc">
+                        {% for environnement in rome.environnements %}
+                            <li>{{ environnement.libelle }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
             <hr>
-            <div class="row mt-2 mb-4 title-section">
+            <div class="row mt-3 mb-4 title-section">
                 <div class="col-12 text-center">
                     <h6>Mobilité professionnelle</h6>
                     <hr>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 text-left">
-                    {% for mobilite in rome.mobilitesSources %}
-                        <p>{{ mobilite.id }}</p>
-                    {% endfor %}
+                <div class="col-12 col-list">
+                    <ul type="circle">
+                        {% for mobilite in rome.mobilitesCibles %}
+                            <li>{{ mobilite.romeCible.code }} - {{ mobilite.romeCible.libelle }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div><br>

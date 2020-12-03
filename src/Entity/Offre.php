@@ -10,6 +10,7 @@ use App\Repository\OffreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OffreRepository::class)
@@ -75,7 +76,12 @@ class Offre
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "Le montant du salaire proposé doit être égal ou supérieur à {{ compared_value }}"
+     * )
      */
+
     private $salaire;
 
     /**

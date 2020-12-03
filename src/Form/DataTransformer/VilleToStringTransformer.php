@@ -58,11 +58,15 @@ class VilleToStringTransformer implements DataTransformerInterface
         ;
 
         if (null === $ville) {
-            // causes a validation error
-            // this message is not shown to the user
-            // see the invalid_message option
-            throw new TransformationFailedException(sprintf('Aucune ville ne correspond à votre saisie!', $nom
-            ));
+            $privateErrorMessage = sprintf('Aucune ville ne correspond au nom "%s"!', $nom);
+            $publicErrorMessage = "Votre saisie n'est pas valide. Veuillez sélectionner une ville de la liste de complétion automatique.";
+
+            $failure = new TransformationFailedException($privateErrorMessage);
+            $failure->setInvalidMessage($publicErrorMessage, [
+                '{{ value }}' => $nom,
+            ]);
+
+            throw $failure;
         }
 
         return $ville;

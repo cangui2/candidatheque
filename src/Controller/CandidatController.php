@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\CandidatRegistrationFormType;
 use App\Repository\CompetenceRepository;
+use App\Repository\DescriptionRepository;
 use App\Repository\MetierRepository;
 use App\Repository\RomeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,11 +19,13 @@ class CandidatController extends AbstractController
     protected $romeRepo;
     protected $metierRepo;
     protected $compRepo;
+    protected $descRepo;
 
-    public function __construct(RomeRepository $romeRepo, MetierRepository $metierRepo, CompetenceRepository $compRepo){
+    public function __construct(RomeRepository $romeRepo, MetierRepository $metierRepo, CompetenceRepository $compRepo, DescriptionRepository $descRepo){
         $this->romeRepo = $romeRepo;
         $this->metierRepo = $metierRepo;
         $this->compRepo = $compRepo;
+        $this->descRepo = $descRepo;
     }
 
 
@@ -35,6 +38,9 @@ class CandidatController extends AbstractController
         $rome = $this->romeRepo->findOneBy(["code" => "m1805"]);
         $savoirs = $this->compRepo->findCompetencesByRome($rome);
         $svFaire = $this->compRepo->findCompetences2ByRome($rome);
+        $definitions = $this->descRepo->findDefinitionsByRome($rome);
+        $acces = $this->descRepo->findAccesMetierByRome($rome);
+        $conditions = $this->descRepo->findConditionsByRome($rome);
 
 
 
@@ -42,7 +48,9 @@ class CandidatController extends AbstractController
             'rome' => $rome,
             'savoirs' => $savoirs,
             'svFaire' => $svFaire,
-
+            'definitions' => $definitions,
+            'acces' => $acces,
+            'conditions'=> $conditions
         ]);
     }
 

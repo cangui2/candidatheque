@@ -30,6 +30,9 @@ label.required:before {
     text-align: justify !important;
 
 }
+.badge{
+    display: none;
+}
 
 .ui-autocomplete {
     position: relative !important;
