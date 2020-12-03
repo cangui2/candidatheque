@@ -32,7 +32,7 @@ class Environnement
     {
         $this->id=$code;
         $this->libelle=$libelle;
-        $this->rome = new ArrayCollection();
+        $this->romes = new ArrayCollection();
     }
 
     public function getId(): ?int
