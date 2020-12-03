@@ -30,7 +30,7 @@ public function transform($metier)
 }
 
     if (!$metier instanceof Metier) {
-        throw new \LogicException('Erreur!');
+        throw new \LogicException('Aucun métier ne correspond à votre saisie. Veuillez recommencer!');
     }
 //    return $metier->getSomethingUnique();
         return $metier->getLibelle();
@@ -57,11 +57,15 @@ public function reverseTransform($libelle)
     ;
 
     if (null === $metier) {
-    // causes a validation error
-    // this message is not shown to the user
-    // see the invalid_message option
-    throw new TransformationFailedException(sprintf('Aucun métier ne correspond à votre saisie!', $libelle
-    ));
+        $privateErrorMessage = sprintf('Aucun métier ne correspond au libelle "%s"!', $libelle);
+        $publicErrorMessage = "Votre saisie n'est pas valide. Veuillez sélectionner un métier de la liste de complétion automatique.";
+
+        $failure = new TransformationFailedException($privateErrorMessage);
+        $failure->setInvalidMessage($publicErrorMessage, [
+            '{{ value }}' => $libelle,
+        ]);
+
+        throw $failure;
 }
 
     return $metier;

@@ -22,19 +22,49 @@ class DescriptionRepository extends ServiceEntityRepository
     // /**
     //  * @return Description[] Returns an array of Description objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findDefinitionsByRome($rome) // return definition - type 1
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('d.libelle')
+            ->join('d.romes', 'r')
+            ->andWhere('r.id = :rome')
+            ->andWhere('d.idType = :idType')
+            ->setParameters(['rome'=> $rome, 'idType' => 1])
             ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function findAccesMetierByRome($rome) // return acces à l'emploi - type 2
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.libelle')
+            ->join('d.romes', 'r')
+            ->andWhere('r.id = :rome')
+            ->andWhere('d.idType = :idType')
+            ->setParameters(['rome'=> $rome, 'idType' => 2])
+            ->orderBy('d.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findConditionsByRome($rome) // return conditions - type 3
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.libelle')
+            ->join('d.romes', 'r')
+            ->andWhere('r.id = :rome')
+            ->andWhere('d.idType = :idType')
+            ->setParameters(['rome'=> $rome, 'idType' => 3])
+            ->orderBy('d.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Description

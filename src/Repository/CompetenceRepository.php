@@ -20,22 +20,42 @@ class CompetenceRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Competence[] Returns an array of Competence objects
+    //  * @return Competence[] Returns an array of Competence objects 1- SAVOIRS
     //  */
 
     public function findCompetencesByRome($rome)
     {
         return $this->createQueryBuilder('c')
             ->select(array('c.libelle', 'c.id'))
-            ->join('c.rome', 'r')
+            ->join('c.romes', 'r')
             ->andWhere('r.id = :rome')
-            ->setParameter('rome', $rome)
+            ->andWhere('c.type = :type')
+            ->setParameters(['rome' => $rome, 'type' =>1 ])
             ->orderBy('c.id', 'ASC')
 //            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
+    // /**
+    //  * @return Competence[] Returns an array of Competence objects 2- SAVOIR-FAIRE
+    //  */
+
+    public function findCompetences2ByRome($rome)
+    {
+        return $this->createQueryBuilder('c')
+            ->select(array('c.libelle', 'c.id'))
+            ->join('c.romes', 'r')
+            ->andWhere('r.id = :rome')
+            ->andWhere('c.type = :type')
+            ->setParameters(['rome' => $rome, 'type' =>3 ])
+            ->orderBy('c.id', 'ASC')
+//            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
 
     /*

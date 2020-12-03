@@ -256,6 +256,10 @@ class OffreController extends AbstractController
                 $pays = $this->pRepo->findOneBy(['nom' => 'France']);
                 $offre->setPays($pays);
             }
+            if($offre->getTitre() != null){
+                $titre = $offre->getTitre();
+                $offre->setTitre($titre . " (H/F)");
+            }
 
             $offre->setRecruteur($recruteur);
             $offre->setEntreprise($entreprise);
