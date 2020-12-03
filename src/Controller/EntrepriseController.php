@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Offre;
 use App\Repository\CVRepository;
 use App\Repository\PostuleRepository;
+use App\Service\MatchingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,7 +50,7 @@ class EntrepriseController extends AbstractController
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
-    public function dashboard(): Response {
+    public function dashboard(MatchingService $matchingService): Response {
 
 
         $recruteurId = $this->getUser()->getRecruteur()->getId();
@@ -60,15 +61,13 @@ class EntrepriseController extends AbstractController
 
 
         $cvs=$this->cvRepo->findAll();
-
-        $test=$this->offreRepo->findCompetenceByOffer(5);
-
-        foreach ($test as $key=> $value){
-
-                $test2[]=$value['competence_id'];
-        }
-
-
+        $idOffert=5;
+        $skillCvCandidat = array (
+            "gilles" => array("103163", "106963", "119000"),
+            "alex" => array("A1104", "103163", "A1101"),
+            "claire" => array("119000", "A1108", "A1109")
+        );
+        $test=$matchingService->matchingOfferVsCvCandidat($idOffert,$skillCvCandidat);
 
 
         $globalData = [];
@@ -94,6 +93,7 @@ class EntrepriseController extends AbstractController
             'candidateReturn'=> count($lastCanditature),
             'lastCanditature'=>$lastCanditature,
             'cvs'=>$cvs,
+            'test'=>$test,
 
 
 
