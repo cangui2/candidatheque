@@ -62,6 +62,12 @@ class Competence
      * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
      */
     private $offres;
+    
+    
+    /**
+    * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
+    */
+    private $cvs;
 
 
 
@@ -73,6 +79,7 @@ class Competence
     public function __construct($ogr)
     {
         $this->id = $ogr;
+        $this->cvs = new ArrayCollection();
         $this->romes = new ArrayCollection();
         $this->offres = new ArrayCollection();
     }
@@ -136,6 +143,31 @@ class Competence
 
         return $this;
     }
+
+    /**
+     * @return Collection|CV[]
+     */
+    public function getCVs(): Collection
+    {
+        return $this->cvs;
+    }
+
+    public function addCV(CV $cv): self
+    {
+        if (!$this->cvs->contains($cv)) {
+            $this->cvs[] = $cv;
+        }
+
+        return $this;
+    }
+
+    public function removeCV(CV $cv): self
+    {
+        $this->cvs->removeElement($cv);
+
+        return $this;
+    }
+    
 
     public function __toString()
     {

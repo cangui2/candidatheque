@@ -105,9 +105,15 @@ class CV
      */
     private $deposePar;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="cvs")
+     */
+    private $competences;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
+        $this->competences = new ArrayCollection();
         $this->consultes = new ArrayCollection();
         $this->experiences = new ArrayCollection();
         $this->reseaux = new ArrayCollection();
@@ -214,6 +220,33 @@ class CV
     {
         if ($this->favoris->removeElement($favori)) {
             $favori->removeFavori($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Competence[]
+     */
+    public function getCompetences(): Collection
+    {
+        return $this->competence;
+    }
+
+    public function addCompetence(Competence $ompetence): self
+    {
+        if (!$this->competences->contains($competence)) {
+            $this->competences[] = $competence;
+            $competence->addCompetence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetence(Competence $competence): self
+    {
+        if ($this->competences->removeElement($competence)) {
+            $competence->removeCompetence($this);
         }
 
         return $this;
