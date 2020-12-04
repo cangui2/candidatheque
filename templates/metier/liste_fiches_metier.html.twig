@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/assets/css/fiche_metier.css">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <div class="row mt-4">
+        <div class="col-12">
+            {% if codesRome|length == 0 %}
+                <div class="jumbotron mt-5 mb-5 p-5">
+                    <h6 class="text-ko">Oops, votre recherche sur "{{ filtre }}" n'a retourné aucun résultat.</h6>
+                    <h6 class="text-ko">Conseil: Préférez les mots-clés entiers et pertinents et vérifiez qu'ils sont bien orthographiés.</h6>
+                </div>
+            {% elseif codesRome|length > 0 %}
+            <h6>Votre recherche a donné {{ codesRome|length }} résultat(s).</h6>
+                <div class="list-group">
+                    {% for codeRome in codesRome %}
+                        <span>
+                            <h5 class="mt-5 mb-3">{{ codeRome.code }} - {{ codeRome.libelle }}</h5>
+                            <a href="{{ path('fiche_metier', {codeRome: codeRome.code} )}}" role="button" class="btn btn-fm">Voir la fiche métier</a>
+                            <div class="col-metiers-lib text-justify mt-4 mb-4">
+                                {% for metier in codeRome.metiers %}
+                                    {{ metier.libelle }}
+                                {% endfor %}
+                            </div>
+                        </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

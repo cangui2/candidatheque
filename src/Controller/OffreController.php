@@ -89,29 +89,6 @@ class OffreController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/langues/autocomplete", name="langues_autocomplete")
-     */
-    public function listeLangues(Request $request) {
-
-        $term = trim(strip_tags($request->get('term')));
-
-        $entities = $this->em->getRepository('App\Entity\Langue')->createQueryBuilder('l')
-            ->where('l.nom LIKE :nom')
-            ->setParameter('nom', '%'.$term.'%')
-            ->getQuery()
-            ->getResult();
-        $noms=[];
-        foreach ($entities as $entity)
-        {
-            $noms[] = $entity->getNom();
-        }
-
-        $response = new JsonResponse();
-        $response->setData($noms);
-
-        return $response;
-    }
 
     /**
      * @Route("/region/autocomplete", name="region_autocomplete")

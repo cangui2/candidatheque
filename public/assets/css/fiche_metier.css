@@ -30,3 +30,40 @@
     color: #4169E1;
 
 }
+.h-subsection{
+    color: #4169E1;
+}
+
+/* liste fiche romes*/
+.col-metiers-lib{
+    column-count: 2;
+}
+
+.btn-fm {
+    background-color: #3E68D4 !important;
+    color: white;
+}
+
+
+/* fiche recherche */
+.text-ko{
+    /*color: #4169E1;*/
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+
+#fiche_metier_search_recherche {
+    background-color: #3E68D4;
+    height: 31px !important;
+    width: 130px;
+    font-size: .95rem;
+    padding: 0;
+}
+.col-search{
+    margin-right: auto;
+    margin-left: auto;
+}
+#fiche_metier_search_filtre {
+    height: 31px !important;
+    font-size: .95rem;
+}

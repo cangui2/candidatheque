@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Rome;
 use App\Entity\User;
 use App\Form\CandidatRegistrationFormType;
+use App\Form\FicheMetierSearchType;
 use App\Repository\CompetenceRepository;
 use App\Repository\DescriptionRepository;
 use App\Repository\MetierRepository;
@@ -31,11 +33,52 @@ class CandidatController extends AbstractController
 
 
     /**
-     * @Route("/candidat/fiche_metier", name="fiche_metier")
+     * @Route("/candidat/dashboard", name="dashboard_candidat")
      */
-    public function afficheMetier(): Response
+    public function dashboard(): Response {
+
+
+        return $this->render('candidat/dashboard_candidat.html.twig');
+    }
+
+
+
+
+     /**
+      * @Route("/candidat/metier/fiche_recherche", name="fiche_recherche")
+      */
+     public function recherche(Request $request){
+
+         $searchForm = $this->createForm(FicheMetierSearchType::class);
+         $searchForm->handleRequest($request);
+
+         if($searchForm->isSubmitted() && $searchForm->isValid())
+         {
+
+             $filtre = $searchForm->getData()['filtre'];
+//             dd($filtre);
+             $codesRome = $this->romeRepo->findBySearchTerm(preg_split("/[\s,]+/" ,$filtre));
+
+            return $this->render('metier/liste_fiches_metier.html.twig', [
+                'codesRome' =>$codesRome,
+                'filtre' => $filtre
+            ]);
+
+         }
+             return $this->render('metier/fiche_recherche.html.twig', [
+                 "searchForm" =>$searchForm ->createView()
+             ]);
+
+     }
+
+    /**
+     * @Route("/candidat/metier/fiche_metier/{codeRome}", name="fiche_metier")
+     */
+    public function afficheMetier($codeRome): Response
     {
-        $rome = $this->romeRepo->findOneBy(["code" => "m1805"]);
+//        dd($codeRome);
+        $rome = $this->romeRepo->findOneBy(['code' =>$codeRome]);
+
         $savoirs = $this->compRepo->findCompetencesByRome($rome);
         $svFaire = $this->compRepo->findCompetences2ByRome($rome);
         $definitions = $this->descRepo->findDefinitionsByRome($rome);
@@ -54,13 +97,4 @@ class CandidatController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/candidat/dashboard", name="dashboard_candidat")
-     */
-    public function dashboard(): Response {
-
-
-        return $this->render('candidat/dashboard_candidat.html.twig');
-    }
 }
