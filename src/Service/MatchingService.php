@@ -30,24 +30,29 @@ class MatchingService {
      */
     public function matchingAlgo1 (Offre $offre, $skillCandidat)
     {
-        $skillOffer2 = $this->offreRepo->find($offre)->getCompetences();
-        $skillOffer2->count();
+        // quels sont les cvs qui ont postulés à cetfe offre ?
+
+        $skillOffer2 = $offre->getCompetences();
+
+        //$skillOffer2->count();
+        //dd($skillOffer2);
 
         // On lis le tableau tableau competence offre pour extraire juste les données de competences
         $offer=[];
         foreach ($skillOffer2 as $key =>$value){
-            $offer[]=$value->getId();
+            $competences_offre[]=$value->getId();
 
         }
 
         // on lit les competences du cv et on le compare avec les competences offres
-        $results=array('id'=> $offre->getId());
-        foreach ($skillCandidat as $key2 => $value2) {
+        $results= []; //array('id'=> $offre->getId());
+        foreach ($skillCandidat as $nom => $competences_candidat) {
 
-            $candidat=$value2;
-            $result[$key2] = array_intersect($offer, $candidat);
-
-            $results['cv'][$key2]=(count($result[$key2])*100)/(count($offer));
+            $pourcentage = (count(array_intersect($competences_offre, $competences_candidat))*100)/(count($competences_offre)); ;
+            $results[] = [
+                "nom" => $nom,
+                "score" => $pourcentage
+            ];
         }
 
         return $results;
@@ -57,7 +62,7 @@ class MatchingService {
     /**
      * @param Offre $offre
      *
-     * Retourne la liste des cvs "classés" par rapport aux cadidats qui n'ont pas postulés
+     * Retourne la liste des cvs "classés" par rapport aux candidats qui n'ont pas postulés
      */
     public function matchingAlgo2 (Offre $offre)
     {
