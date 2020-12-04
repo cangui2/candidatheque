@@ -40,7 +40,7 @@ class MatchingService {
         // On recupere le tableau des competence par rapport a l'ID
         //$skillOffer=$this->offreRepo->findCompetenceByOffer($idOffer);
 
-       dd($postules);
+       //dd($postules);
 
         $skillOffer2 = $this->offreRepo->find($idOffer)->getCompetences();
         $skillOffer2->count();
