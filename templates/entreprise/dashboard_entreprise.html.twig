@@ -144,7 +144,7 @@
                                                  {% set difference = date(today).diff(date(datePost)) %}
                                                  {% set leftDays = difference.days %}
                                                  {% if datePost == today %}
-
+                                                        Aujourd'hui
                                                  {% else %}
                                                      {{ leftDays }} jour
                                                  {% endif %}
@@ -238,7 +238,7 @@
                                 <th scope="col">status</th>
                             </tr>
                             </thead>
-                            {{ dump(lastCanditature) }}
+
                             {% for last in lastCanditature %}
 
                             <tbody>
