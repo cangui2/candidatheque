@@ -412,7 +412,81 @@ class DBLoadCommand extends Command
     }
 
 
+   
+
+    protected function findRome(string $ogr, array $items) {
+        foreach ($items as $line) {
+            if ($line[0]==$ogr) {
+                return $line;
+            }
+        }
+        return null;
+    }
+
     protected function loadCompetence(OutputInterface $output)
+    {
+        $repo_rome = $this->manager->getRepository(Rome::class);
+        $repo_competence = $this->manager->getRepository(Competence::class);
+
+        $csv_file = 'candidatheque_competence.csv';
+        $output->write("Loading <info>Compétences</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/'.$csv_file , 'r');
+        $counter=0;
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>1) {
+                $comp_code = $line[0];
+                $comp_libelle = $line[1];
+                $type_code = $line[2];
+                $type_libelle = $line[3];
+                $competence = new Competence($comp_code);
+                $competence->setLibelle($comp_libelle);
+                $competence->setType($type_code);
+                $competence->setLibelleType($type_libelle);
+                $this->manager->persist($competence);
+                $counter++;
+            }
+        }
+        $this->manager->flush();
+        fclose($csv);
+
+        $output->writeln(" ... <question>" . $counter . "</question> Competences lines inserted");
+
+
+        $csv_file = 'candidatheque_competence_rome.csv';
+        $output->write("Loading <info>Liaison Compétences-Rome</info> from <info>" . $csv_file . "</info>");
+        $csv = fopen(dirname(__FILE__).'/../../doc/csv/'.$csv_file , 'r');
+        $counter=0;
+
+        $competences = [];
+        $romes = [];
+
+        while (!feof($csv)) {
+            $line = fgetcsv($csv);
+            if ($line && count($line)>1) {
+                $code_comp = $line[0];
+                $code_rome = $line[1];
+                if ($code_comp && $code_rome) {
+                    if (!\array_key_exists($code_rome, $romes)) {
+                        $romes[$code_rome] = $repo_rome->find($code_rome);
+                    }
+                    if (!\array_key_exists($code_comp, $competences)) {
+                        $competences[$code_comp] = $repo_competence->find($code_comp);
+                    }
+                    $competences[$code_comp]->addRome($romes[$code_rome]);
+                    $counter++;
+                }
+            }
+        }
+        $this->manager->flush();
+        fclose($csv);
+
+        $output->writeln(" ... <question>" . $counter . "</question> Competences lines inserted");
+
+    }
+
+    protected function loadCompetence__old(OutputInterface $output)
     {
         $repo_rome = $this->manager->getRepository(Rome::class);
         $repo_competence = $this->manager->getRepository(Competence::class);
@@ -493,14 +567,6 @@ class DBLoadCommand extends Command
 
     }
 
-    protected function findRome(string $ogr, array $items) {
-        foreach ($items as $line) {
-            if ($line[0]==$ogr) {
-                return $line;
-            }
-        }
-        return null;
-    }
 
 
     protected function loadDescription(OutputInterface $output)
