@@ -238,15 +238,22 @@
                                 <th scope="col">status</th>
                             </tr>
                             </thead>
+                            {{dump(lastCanditature)}}
                             {% for last in lastCanditature %}
+
                             <tbody>
                             <tr>
                                 <th>{{ last.dateSelection | date('d/m/Y') }}</th>
+
                                 <td>{{ last.offre.id }}</td>
+
+
                                 <td>{{ last.candidat.nom }}</td>
+
                                 <td><span class="badge badge-danger ">en attente</span></td>
 
                             </tr>
+
                             {% endfor %}
 
                             </tbody>

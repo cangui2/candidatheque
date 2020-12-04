@@ -57,8 +57,7 @@ class EntrepriseController extends AbstractController
 
         $result = $this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
 
-        $lastCanditature=$this->postuleRepo->findViewsCandidatForRecruteur($recruteurId);
-
+        $postules=$this->postuleRepo->findViewsCandidatForRecruteur($recruteurId);
 
         $cvs=$this->cvRepo->findAll();
         // algo en test
@@ -69,7 +68,7 @@ class EntrepriseController extends AbstractController
             "claire" => array("119000", "A1108", "A1109")
         );
 
-        $test=$matchingService->matchingOfferVsCvCandidat($idOffert,$skillCvCandidat);
+        $test=$matchingService->matchingOfferVsCvCandidat($postules);
         //-------------------------------------------------------------------------------//
 
         $globalData = [];
@@ -82,11 +81,14 @@ class EntrepriseController extends AbstractController
 
 
 
+
+
+
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
 
             'offerNumber' => array_sum($globalData),
             'limitOffer'=>$limitOffer,
-            'candidateReturn'=> count($lastCanditature),
+            'candidateReturn'=> count($postules),
             'lastCanditature'=>$lastCanditature,
             'cvs'=>$cvs,
             'test'=>$test,
