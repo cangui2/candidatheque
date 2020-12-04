@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RomeRepository;
 use Doctrine\Common\Collections\Collection;
@@ -12,6 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RomeRepository::class)
+ * @Table(indexes={@Index(name="rome_code_idx", columns={"code"})})
  * @ApiResource(
  *     collectionOperations={
  *                          "get"={},
