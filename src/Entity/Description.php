@@ -48,7 +48,7 @@ class Description
 
     public function __construct()
     {
-        $this->rome = new ArrayCollection();
+        $this->romes = new ArrayCollection();
     }
 
     public function getId(): ?int
