@@ -1,0 +1,225 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset("assets/css/dashboard_entreprise.css") }}"/>
+
+{% endblock %}
+
+{% block body %}
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% for label, messages in app.flashes(['info', 'notice', 'danger', 'success']) %}
+                    {% for message in messages %}
+                        <div class=" mt-4 alert alert-{{ label }}" role="alert" id="div_alertes">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="chip">
+        <img src={{ asset('assets/images/img_avatar2.png') }} alt="Person" width="96" height="96">Bonjour :
+    {{ name.recruteur.nom }}
+    </div>
+    <br>
+    {# Navbar laterale #}
+    {#
+    <div class="row navbarVertical">
+        <div class="col-lg-1 col-sm-9 ">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                   aria-controls="v-pills-home" aria-selected="false">Home</a>
+
+
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-offre" role="tab"
+                   aria-controls="v-pills-messages" aria-selected="false">Offres</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-candidats" role="tab"
+                   aria-controls="v-pills-settings" aria-selected="false">Candidats</a>
+            </div>
+        </div>
+    #}
+{# Fiche dashboard #}
+        <div class="col-lg-12 col-sm-12">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
+                            <div class="row">
+                                <div class="card col-lg-6" style="min-height: 300px;">
+                                <canvas class="graph"   id="myChart"></canvas>
+                                </div>
+                                <div class="card col-lg-6" style="min-height: 300px;">
+                                    <canvas class="graph"  id="myChart2"></canvas>
+                                </div>
+                            </div>
+
+{# block reporting #}
+                    <div class="row blockreporting">
+                        <div class="col-lg-6 col-sm-12">
+                            <h4>OFFRES</h4>
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link active" id="offer-tab" data-toggle="tab" href="#offer"
+                                               role="tab"
+                                               aria-controls="home" aria-selected="true">Nombre D'offre </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="offerwait-tap" data-toggle="tab" href="#offerwait"
+                                               role="tab"
+                                               aria-controls="profile" aria-selected="false">5 dernières offres parues </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="offerValidate-tab" data-toggle="tab"
+                                               href="#offertValidate" role="tab"
+                                               aria-controls="contact" aria-selected="false">En attente</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="offer" role="tabpanel"
+                                             aria-labelledby="home-tab">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Nombres d'offres Actifs</h5>
+                                                <p class="card-text chiffreRecap">{{ NombreOffre }}</p>
+                                                <a href={{ path('offres_liste') }} class="btn btn-primary">Voir toutes les offres</a>
+                                                <a href={{ path('offres_creation')}} class="btn btn-info">Crée une offre </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="offerwait" role="tabpanel"
+                                             aria-labelledby="profile-tab">
+                                            <div class="card-body">
+
+                                                <p class="card-text">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+
+                                                        <th scope="col">Offre numéro</th>
+                                                        <th scope="col">Metier</th>
+                                                        <th scope="col">Entreprise</th>
+                                                        <th scope="col">Date de debut</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for offre in offreLimite %}
+                                                    <tr>
+
+                                                        <td>{{ offre.id }}</td>
+                                                        <td>{{ offre.metier.libelle }}</td>
+                                                        <td>{{ offre.recruteur.entreprise }}</td>
+                                                        <td>{{ offre.dateDebut| date('d/m/Y') }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                                </p>
+                                                <a href="#" class="btn btn-primary">Voir toutes les offres</a>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="offertValidate" role="tabpanel"
+                                             aria-labelledby="contact-tab">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Offre en attente de publication</h5>
+                                                <p class="card-text">With supporting text below as a natural lead-in to
+                                                    additional content.</p>
+                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 col-sm-12">
+                            <h4>CANDIDATS</h4>
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link active" id="candidat-tab" data-toggle="tab"
+                                               href="#candidat" role="tab"
+                                               aria-controls="home" aria-selected="true">Nombre candidat</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="candidatwait-tab" data-toggle="tab"
+                                               href="#candidatwait" role="tab"
+                                               aria-controls="profile" aria-selected="false">En attente</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="candidatdelete-tab" data-toggle="tab"
+                                               href="#candidatdelete" role="tab"
+                                               aria-controls="contact" aria-selected="false">Rejeter</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="candidat" role="tabpanel"
+                                             aria-labelledby="home-tab">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Nombre de candidat</h5>
+                                                <p class="card-text">With supporting text below as a natural lead-in to
+                                                    additional content.</p>
+                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="candidatwait" role="tabpanel"
+                                             aria-labelledby="profile-tab">
+                                            <div class="card-body">
+                                                <h5 class="card-title">En attente de Validation</h5>
+                                                <p class="card-text">With supporting text below as a natural lead-in to
+                                                    additional content.</p>
+                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="candidatdelete" role="tabpanel"
+                                             aria-labelledby="contact-tab">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Demande canditature rejeter</h5>
+                                                <p class="card-text">With supporting text below as a natural lead-in to
+                                                    additional content.</p>
+                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{#
+{# block offre #}
+                <div class="tab-pane fade" id="v-pills-offre" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    {{ include ('entreprise/offre.html.twig') }}
+
+                </div>
+{# block canditat #}
+                <div class="tab-pane fade" id="v-pills-candidats" role="tabpanel"
+                     aria-labelledby="v-pills-settings-tab">
+                    {{ include ('entreprise/candidat.html.twig') }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block javascripts  %}
+    <script>
+        var global_data = {{ global_data|raw }};
+        var global_label = {{ global_label|raw }};
+    </script>
+{#    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>#}
+    {{ encore_entry_script_tags('dashboard_offre') }}
+
+{% endblock %}

@@ -44,7 +44,48 @@ class OffreRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function findCustomOfferByIdRecruteur($recruteur_id){
 
+        return $this->createQueryBuilder('o')
+            ->select('m.libelle','count(m.libelle) as compteur')
+            ->join('o.metier', 'm')
+            ->where('o.recruteur = :recruteur')
+            ->setParameters(['recruteur' => $recruteur_id])
+            ->groupBy('m.libelle')
+            ->getQuery()
+            ->getResult()
+            ;
+
+
+    }
+    Public function findAllOfferByIdRecruteurLimit5($recruteur_id){
+
+        return $this->createQueryBuilder('o')
+            ->join('o.metier', 'm')
+            ->where('o.recruteur = :recruteur')
+            ->setParameters(['recruteur' => $recruteur_id])
+            ->orderBy('o.datePublication', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findCompetenceByOffer($id){
+
+        $rawSql = "
+            SELECT  o2_.offre_id, o2_.competence_id 
+            FROM offre o0_ 
+            INNER JOIN offre_competence o2_ ON o0_.id = o2_.offre_id 
+            INNER JOIN competence c1_ ON c1_.id = o2_.competence_id 
+            WHERE o2_.offre_id = $id;";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
+        $stmt->execute();
+
+        return $stmt->fetchAllAssociative();
+
+    }
 
 
 }

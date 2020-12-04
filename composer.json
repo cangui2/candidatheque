@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^2.5",
+        "cmen/google-charts-bundle": "^4.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.1",
@@ -44,7 +45,8 @@
         "twig/cssinliner-extra": "^3.1",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
-        "webonyx/graphql-php": "^14.3"
+        "webonyx/graphql-php": "^14.3",
+      "ext-json": "*"
     },
     "require-dev": {
         "symfony/browser-kit": "^5.1",
