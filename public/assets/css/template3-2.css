@@ -1,3 +1,4 @@
+
 /* Habillage layout */
 .paper {
     display: flex;
@@ -8,12 +9,41 @@
     width: 21cm;
     min-height: 29.7cm;
     transform: scale(0.8);
+    overflow-wrap: break-word;
 }
+
+
+/********** Conditions d'impressions **********/
+
+@media print {
+    /* Sélection des zones */ 
+    body * { 
+        visibility: hidden; 
+    }
+    .no-print { 
+        display: none; 
+    }
+    .paper { 
+        visibility: visible; display: flex; 
+        margin-top: 0px !important; margin-left: 0px !important; transform: scale(1) !important;
+        border: 0px;
+        width: 100%;
+    }
+    
+    .paper * { 
+        visibility: visible; 
+    }
+    
+    /* Forçage impression background */ 
+    * { -webkit-print-color-adjust: exact !important;   /* Chrome, Safari */
+        color-adjust: exact !important;                 /*Firefox*/
+    }
+    
+    }
 
 
 /* Paramètres bloc Nom */
 .paper>.identite>.nom {
-    text-align: center;
     text-transform: uppercase;
     font-size: 3em;
 }
@@ -26,21 +56,16 @@
     color: gray;
     height: max-content;
 }
+.paper>.titre {
+    margin-top: -10px;
+    margin-left: auto;
+}
 
 
 /* Paramètres bloc Contact */
 .paper>.profil {
     background-color: #eeeeee;
     height: fit-content;
-}
-
-
-/* Masquage header Intro + Profil */
-.paper>.intro>header {
-    display: none;
-}
-.paper>.profil>header {
-    display: none;
 }
 
 
@@ -64,7 +89,7 @@
 .paper>.experiences>div>.experience>.date-debut, .paper>.experiences>div>.experience>.date-fin {
     font-weight: bold;
     display: inline-block;
-    width: 100px;
+    width: 120px;
 }
 /*.paper>.experiences>.experience>.date {
     font-weight: bold;
@@ -87,7 +112,7 @@
 .paper>.formations>div>.formation>.date-debut, .paper>.formations>div>.formation>.date-fin {
     font-weight: bold;
     display: inline-block;
-    width: 100px;
+    width: 120px;
 }
 .paper>.formations>div>.formation>.titre {
     font-weight: bold;
@@ -101,12 +126,6 @@
     text-transform: uppercase;
     font-size: 1.4em;
     border-top: 2px gray solid;
-}
-.paper>.competences>div>.competence>.libelle {
-    display: inline;
-}
-.paper>.competences>div>.competence>.niveau {
-    display: inline;
 }
 
 
@@ -169,3 +188,16 @@
     flex-basis: 33%;
     order: 8;
 } 
+
+
+/* Masquage header Intro + Profil */
+.paper>.intro>header {
+    display: none;
+}
+.paper>.profil>header {
+    display: none;
+}
+/* Masquage Competence Niveau */
+.paper>.competences>div>.competence>.niveau {
+    display: none;
+}
