@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-{{ dump(test) }}
+
 
 
     <div class="container">
@@ -30,7 +30,7 @@
                 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title text-center">Mes offres
-                            </h5>
+                        </h5>
                         <p class="card-text text-center">{{ offerNumber }}</p>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                             {% for offre in limitOffer %}
 
                                 <tr>
-                                   <td>{{ offre.titre }}</td>
+                                    <td>{{ offre.titre }}</td>
 
                                     {% if offre.postules is not empty %}
 
@@ -238,7 +238,7 @@
                                 <th scope="col">status</th>
                             </tr>
                             </thead>
-                            {{dump(lastCanditature)}}
+                            {{ dump(lastCanditature) }}
                             {% for last in lastCanditature %}
 
                             <tbody>
