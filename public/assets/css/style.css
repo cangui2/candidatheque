@@ -280,6 +280,18 @@
         display: inline-block;
     }
 }
+/* SEARCH FICHE SEACTION */
+
+#fiche_metier_search_filtre {
+    border-radius: 3px;
+    max-height: 200px !important;
+}
+#fiche_metier_search_recherche {
+    margin-top: 4px !important;
+    margin-bottom: -6px;
+    width: 100% !important;
+}
+
 
 /* Nouvelles règles si la fenêtre fait au plus 1024px de large */
 @media screen and (max-width: 320px)

@@ -21,7 +21,7 @@
             <ol type="1">
                 <div class="row mb-2">
                     <div class="col-12">
-                        <li><h6>Définition</h6></li>
+                        <li class="h-subsection"><h6>Définition</h6></li>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-12">
-                        <li><h6>Accès à l'emploi métier</h6></li>
+                        <li class="h-subsection"><h6>Accès à l'emploi métier</h6></li>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-12">
-                        <li><h6>Conditions d'exercice de l'activité</h6></li>
+                        <li class="h-subsection"><h6>Conditions d'exercice de l'activité</h6></li>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <ol type="I">
-                <li><h6>Savoirs</h6></li>
+                <li class="h-subsection"><h6>Savoirs</h6></li>
             <hr>
             <div class="row mb-2">
                 <div class="col-12 col-list">
@@ -103,7 +103,7 @@
             <hr>
             <div class="row mt-2 mb-4 ">
                 <div class="col-12">
-                    <li><h6>Savoir-faire</h6></li>
+                    <li class="h-subsection"><h6>Savoir-faire</h6></li>
                     <hr>
                 </div>
             </div>
@@ -146,7 +146,10 @@
                 <div class="col-12 col-list">
                     <ul type="circle">
                         {% for mobilite in rome.mobilitesCibles %}
-                            <li>{{ mobilite.romeCible.code }} - {{ mobilite.romeCible.libelle }}</li>
+                           <li>
+                               <a href="{{ path('fiche_metier', {codeRome: mobilite.romeCible.code} )}}" role="link" class="">{{ mobilite.romeCible.code }} - {{ mobilite.romeCible.libelle }}
+                               </a>
+                           </li>
                         {% endfor %}
                     </ul>
                 </div>

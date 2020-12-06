@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% form_theme searchForm 'bootstrap_4_layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/assets/css/fiche_metier.css">
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-search">
+            <div class="section mt-4 mb-4">
+                <h5 class="text-center mt-4 mb-4">Chercher une fiche métier</h5>
+                {{form_start(searchForm)}}
+                <div class="row mt-5">
+                    <div class="col-8">
+                        {{ form_widget(searchForm.filtre, {'attr': {'placeholder': "code ROME, Métier ou Compétence" }}) }}
+                    </div>
+                    <div class="col-4">
+                        {{ form_row(searchForm.recherche, {'attr': {'class': 'btn btn-recherche'}}) }}
+                    </div>
+                </div>
+                {{form_end(searchForm)}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

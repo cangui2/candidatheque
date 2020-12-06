@@ -22,19 +22,26 @@ class RomeRepository extends ServiceEntityRepository
     // /**
     //  * @return Recruteur[] Returns an array of Recruteur objects
     //  */
-    /*
-    public function findByExampleField($value)
+//    /*
+    public function findBySearchTerm($filtre)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+        //dd($filtre);
+        $query = $this->createQueryBuilder('r')
+            ->select()
+            ->distinct()
+            ->leftJoin('r.metiers', 'm')
+            ->join('r.competences', 'c');
+        foreach ($filtre as $k => $f)
+        $query->andWhere("r.code LIKE :filtre$k OR r.libelle LIKE :filtre$k OR m.libelle LIKE :filtre$k OR c.libelle LIKE :filtre$k")
+            ->setParameter("filtre$k", '%'.$f.'%');
+
+        return $query->orderBy('r.id', 'ASC')
+//            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Recruteur
