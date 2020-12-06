@@ -42,34 +42,34 @@ class CandidatController extends AbstractController
     }
 
 
+// ROUTE MOVED TO HOME CONTROLLER
 
-
-     /**
-      * @Route("/candidat/metier/fiche_recherche", name="fiche_recherche")
-      */
-     public function recherche(Request $request){
-
-         $searchForm = $this->createForm(FicheMetierSearchType::class);
-         $searchForm->handleRequest($request);
-
-         if($searchForm->isSubmitted() && $searchForm->isValid())
-         {
-
-             $filtre = $searchForm->getData()['filtre'];
-//             dd($filtre);
-             $codesRome = $this->romeRepo->findBySearchTerm(preg_split("/[\s,]+/" ,$filtre));
-
-            return $this->render('metier/liste_fiches_metier.html.twig', [
-                'codesRome' =>$codesRome,
-                'filtre' => $filtre
-            ]);
-
-         }
-             return $this->render('metier/fiche_recherche.html.twig', [
-                 "searchForm" =>$searchForm ->createView()
-             ]);
-
-     }
+//     /**
+//      * @Route("/candidat/metier/fiche_recherche", name="fiche_recherche")
+//      */
+//     public function recherche(Request $request){
+//
+//         $searchForm = $this->createForm(FicheMetierSearchType::class);
+//         $searchForm->handleRequest($request);
+//
+//         if($searchForm->isSubmitted() && $searchForm->isValid())
+//         {
+//
+//             $filtre = $searchForm->getData()['filtre'];
+////             dd($filtre);
+//             $codesRome = $this->romeRepo->findBySearchTerm(preg_split("/[\s,]+/" ,$filtre));
+//
+//            return $this->render('metier/liste_fiches_metier.html.twig', [
+//                'codesRome' =>$codesRome,
+//                'filtre' => $filtre
+//            ]);
+//
+//         }
+//             return $this->render('metier/fiche_recherche.html.twig', [
+//                 "searchForm" =>$searchForm ->createView()
+//             ]);
+//
+//     }
 
     /**
      * @Route("/candidat/metier/fiche_metier/{codeRome}", name="fiche_metier")

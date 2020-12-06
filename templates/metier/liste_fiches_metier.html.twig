@@ -10,11 +10,12 @@
         <div class="col-12">
             {% if codesRome|length == 0 %}
                 <div class="jumbotron mt-5 mb-5 p-5">
-                    <h6 class="text-ko">Oops, votre recherche sur "{{ filtre }}" n'a retourné aucun résultat.</h6>
-                    <h6 class="text-ko">Conseil: Préférez les mots-clés entiers et pertinents et vérifiez qu'ils sont bien orthographiés.</h6>
+                    <h6 class="text-ko">Oups, votre recherche sur "{{ filtre }}" n'a retourné aucun résultat.</h6>
+                    <h6 class="text-ko mb-4">Conseil: Préférez les mots-clés de plus de trois lettres et vérifiez qu'ils sont bien orthographiés.</h6>
+                    <span text-left><a href="{{ path('home') }}" class="btn-secondary btn-sm" role="button">Revenir à l'accueil</a></span>
                 </div>
             {% elseif codesRome|length > 0 %}
-            <h6>Votre recherche a donné {{ codesRome|length }} résultat(s).</h6>
+            <h6>Votre recherche sur "{{ filtre }}" a donné {{ codesRome|length }} résultat(s).</h6>
                 <div class="list-group">
                     {% for codeRome in codesRome %}
                         <span>
