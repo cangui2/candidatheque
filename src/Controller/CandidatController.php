@@ -16,7 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CandidatController extends AbstractController
 {
@@ -38,7 +37,7 @@ class CandidatController extends AbstractController
     /**
      * @Route("/candidat/dashboard", name="dashboard_candidat")
      */
-    public function dashboard(): Response {
+    public function accueilCandidat(): Response {
 
 
         return $this->render('candidat/dashboard_candidat.html.twig');
