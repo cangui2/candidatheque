@@ -142,7 +142,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-12 col-list">
                     <ul type="circle">
                         {% for mobilite in rome.mobilitesCibles %}
@@ -154,6 +154,11 @@
                     </ul>
                 </div>
             </div>
-        </div><br>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-md-6">
+                <span><a href="{{ path('home') }}" class="btn-secondary btn-sm" role="button">Revenir à l'accueil</a></span>
+            </div>
+        </div>
     </div>
 {% endblock %}
