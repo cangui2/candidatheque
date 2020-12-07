@@ -80,7 +80,7 @@ class EntrepriseController extends AbstractController
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
-    public function dashboard(Metier $metier): Response {
+    public function dashboard(): Response {
 
 
         $recruteurId = $this->getUser()->getRecruteur()->getId();
