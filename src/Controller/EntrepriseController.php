@@ -89,7 +89,9 @@ class EntrepriseController extends AbstractController
 
         $postules=$this->postuleRepo->findViewsCandidatForRecruteur($recruteurId);
 
+
         $cvs=$this->cvRepo->findAll();
+
         /*
         // algo en test
         $idOffert=5;
