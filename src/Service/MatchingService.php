@@ -5,6 +5,8 @@ namespace App\Service;
 
 
 
+use App\Entity\CV;
+use App\Entity\Offre;
 use App\Repository\OffreRepository;
 
 
@@ -19,69 +21,61 @@ class MatchingService {
 
     }
 
+
     /**
-     * @param $idOffer
-     * @param $skillCvCandidat
+     * @param Offre $offre
+     * @param $skillCandidat
      * @return array
+     * Retourne la liste des cvs "classés" par rapport aux cadidats qui ont postulés
      */
-    public function matchingOfferVsCvCandidat($postules){
+    public function matchingAlgo1 (Offre $offre, $skillCandidat)
+    {
+        // quels sont les cvs qui ont postulés à cetfe offre ?
 
+        $skillOffer2 = $offre->getCompetences();
 
-     /* jeux de test local
-
-        $idOffer = "offre n°150";
-        $skillOffer = array( "A1101", "A1102", "A1120","A1115");
-        $skillCvCandidat = array (
-            "cv1" => array("A1102", "A1101", "A1115"),
-            "cv2" => array("A1104", "A1103", "A1101"),
-            "cv3" => array("A1102", "A1108", "A1109")
-        );
-        */
-        // On recupere le tableau des competence par rapport a l'ID
-        //$skillOffer=$this->offreRepo->findCompetenceByOffer($idOffer);
-
-       //dd($postules);
-
-        $skillOffer2 = $this->offreRepo->find($idOffer)->getCompetences();
-        $skillOffer2->count();
-
-
-
+        //$skillOffer2->count();
+        //dd($skillOffer2);
 
         // On lis le tableau tableau competence offre pour extraire juste les données de competences
         $offer=[];
         foreach ($skillOffer2 as $key =>$value){
-            $offer[]=$value->getId();
+            $competences_offre[]=$value->getId();
 
         }
 
         // on lit les competences du cv et on le compare avec les competences offres
-        $results=array('id'=>$idOffer);
-        foreach ($skillCvCandidat as $key2 => $value2) {
+        $results= []; //array('id'=> $offre->getId());
+        foreach ($skillCandidat as $nom => $competences_candidat) {
 
-                    $candidat=$value2;
-                    $result[$key2] = array_intersect($offer, $candidat);
-
-                    $results['name'][$key2]=(count($result[$key2])*100)/(count($offer));
-
-                    //$results[]=array($idOffer=>array((count($result[$key2])*100)/(count($offer))));
-
-
+            $pourcentage = (count(array_intersect($competences_offre, $competences_candidat))*100)/(count($competences_offre)); ;
+            $results[] = [
+                "nom" => $nom,
+                "score" => $pourcentage
+            ];
         }
 
-        $test =(object)$results;
-
-
-        return $test;
+        return $results;
     }
 
 
     /**
      * @param Offre $offre
      *
-     * Retourne la liste des cvs "classés" par rapport aux cadidats qui ont postulés
+     * Retourne la liste des cvs "classés" par rapport aux candidats qui n'ont pas postulés
      */
-    public function matchingAlgo1 (Offre $offre)
+    public function matchingAlgo2 (Offre $offre)
+    {
+        $postules = $offre->getPostules();
+    }
+
+
+    /**
+     * @param Offre $offre
+     *
+     * Retourne la liste des cvs "classés" pour tous les cadidats (postulés ou non)
+     */
+    public function matchingAlgo3 (Offre $offre)
     {
         $postules = $offre->getPostules();
     }

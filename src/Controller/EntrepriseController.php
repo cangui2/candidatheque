@@ -5,7 +5,10 @@ namespace App\Controller;
 
 
 
+use App\Entity\Metier;
+use App\Entity\Offre;
 use App\Repository\CVRepository;
+use App\Repository\MetierRepository;
 use App\Repository\PostuleRepository;
 use App\Service\MatchingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,10 +50,37 @@ class EntrepriseController extends AbstractController
     }
 
     /**
+     * @Route("/entreprise/dashboard/test/{offre}", name="dashboard_entreprise_test")
+     *
+     */
+    public function dashboard_test(MatchingService $matchingService, Offre $offre): Response
+
+    {
+        $skillCvCandidat = array (
+            "gilles" => array("103163", "106963", "119000"),
+            "alex" => array("100007", "103163", "100010"),
+            "claire" => array("119000", "A1108", "A1109"),
+            "marine" => array("102216", "102631", "115962","115974","120617"),
+            "julien" => array("101360", "102788", "104564"),
+            "pierre" => array("119000", "A1108", "A1109")
+        );
+
+        $resultat = $matchingService->matchingAlgo1($offre,$skillCvCandidat);
+        dd($resultat);
+//        foreach ($resultat as $ligne) {
+//            $ligne["score"]
+//            $ligne["cv"]->getCandidat()->getNom() == // ligne.cv.candidat.nom
+//            $ligne["cv"]->getCV()->getTitre()
+//        }
+
+    }
+
+
+        /**
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
-    public function dashboard(MatchingService $matchingService): Response {
+    public function dashboard(): Response {
 
 
         $recruteurId = $this->getUser()->getRecruteur()->getId();
@@ -60,6 +90,7 @@ class EntrepriseController extends AbstractController
         $postules=$this->postuleRepo->findViewsCandidatForRecruteur($recruteurId);
 
         $cvs=$this->cvRepo->findAll();
+        /*
         // algo en test
         $idOffert=5;
         $skillCvCandidat = array (
@@ -67,8 +98,8 @@ class EntrepriseController extends AbstractController
             "alex" => array("A1104", "103163", "A1101"),
             "claire" => array("119000", "A1108", "A1109")
         );
-
-        $test=$matchingService->matchingOfferVsCvCandidat($postules);
+            */
+        //$test=$matchingService->matchingOfferVsCvCandidat($postules);
         //-------------------------------------------------------------------------------//
 
         $globalData = [];
@@ -79,9 +110,11 @@ class EntrepriseController extends AbstractController
         }
         $limitOffer = $this->offreRepo->findAllOfferByIdRecruteurLimit5($recruteurId);
 
-
-
-
+/*
+        $test=$metier->getLibelle();
+        $test2=json_encode($test);
+        dd($test);
+*/
 
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
@@ -89,9 +122,9 @@ class EntrepriseController extends AbstractController
             'offerNumber' => array_sum($globalData),
             'limitOffer'=>$limitOffer,
             'candidateReturn'=> count($postules),
-            'lastCanditature'=>$lastCanditature,
+            'lastCanditature'=>$postules,
             'cvs'=>$cvs,
-            'test'=>$test,
+
 
 
 
