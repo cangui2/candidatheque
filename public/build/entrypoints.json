@@ -2,23 +2,23 @@
   "entrypoints": {
     "cv": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.be034f81.js",
-        "/build/1.93fc0b75.js",
-        "/build/cv.7aa05431.js"
+        "/build/runtime.js",
+        "/build/vendors~cv~react_recherche.js",
+        "/build/vendors~cv.js",
+        "/build/cv.js"
       ],
       "css": [
-        "/build/cv.b095b8bc.css"
+        "/build/cv.css"
       ]
     },
     "react_recherche": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.be034f81.js",
-        "/build/react_recherche.e8af1b51.js"
+        "/build/runtime.js",
+        "/build/vendors~cv~react_recherche.js",
+        "/build/react_recherche.js"
       ],
       "css": [
-        "/build/react_recherche.d39511b7.css"
+        "/build/react_recherche.css"
       ]
     }
   }
