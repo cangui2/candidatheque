@@ -2,11 +2,21 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Langue;
+use App\Entity\Metier;
+use App\Entity\Reseau;
+use App\Entity\Candidat;
+use App\Entity\Consulte;
+use App\Entity\Formation;
+use App\Entity\Recruteur;
+use App\Entity\Competence;
+use App\Entity\Entreprise;
+use App\Entity\Experience;
 use App\Repository\CVRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CVRepository::class)
@@ -106,7 +116,7 @@ class CV
     private $deposePar;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="cvs")
+     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="cvs")
      */
     private $competences;
 

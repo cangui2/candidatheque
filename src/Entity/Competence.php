@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CompetenceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\CV;
+use App\Entity\Rome;
+use App\Entity\Offre;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CompetenceRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -65,7 +68,7 @@ class Competence
     
     
     /**
-    * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
+    * @ORM\ManyToMany(targetEntity=CV::class, mappedBy="competences")
     */
     private $cvs;
 
