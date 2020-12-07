@@ -159,6 +159,7 @@ class Competence
     {
         if (!$this->cvs->contains($cv)) {
             $this->cvs[] = $cv;
+            $cv->addCompetence($this);
         }
 
         return $this;
