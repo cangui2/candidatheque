@@ -25,7 +25,9 @@ Encore
      */
     .addEntry('cv', './assets/cv/index.js')
     .addEntry('react_recherche', './assets/react_recherche.js')
-    //.addEntry('dashboard_offre', './assets/dashboard_offre/graph_camembert.js')
+    //.addEntry('profession', './assets/indexRecherche/profession.js')
+    //.addEntry('lieu', './assets/indexRecherche/lieu.js')
+    //.addEntry('secteur', './assets/indexRecherche/secteur.js')
     //.addEntry('page1', './assets/page1.js')
     //.addEntry('page2', './assets/page2.js')
 
