@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\APERepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=APERepository::class)
@@ -23,18 +26,28 @@ use Doctrine\ORM\Mapping as ORM;
 
  *                 }
  * )
+ * @ApiFilter(
+ *       SearchFilter::class,
+ *       properties={
+ *              "nom": "partial"
+ *
+ *                  }
+ *
+ * )
  */
 class APE
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="string", length=191)
+     * @Groups("read")
      */
     private $id;
 
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $libelle;
 

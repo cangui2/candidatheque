@@ -31,7 +31,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "nom": "exact"
+ *              "nom": "partial"
  *
  *                  }
  *
@@ -70,7 +70,7 @@ class Ville
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="villes")
-     * @Groups("read")
+     *
      */
     private $departement;
 
