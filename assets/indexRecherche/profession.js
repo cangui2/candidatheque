@@ -19,7 +19,7 @@ const BasicExample = () => {
   const [options, setOptions] = useState([]);
 
   const recherche = (query) => {
-        console.log("test");
+        console.log("profession");
         setIsLoading(true);
 
         fetch(`${SEARCH_URI}?libelle=${query}`)

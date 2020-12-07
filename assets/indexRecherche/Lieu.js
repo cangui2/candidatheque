@@ -10,7 +10,7 @@ import { Form } from 'react-bootstrap';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 
-const SEARCH_URI = 'https://test.candidatheque.com/api/villes';
+const SEARCH_URI = 'https://127.0.0.1:8000/api/villes';
 
 
 const BasicExample = () => {
@@ -19,14 +19,14 @@ const BasicExample = () => {
     const [options, setOptions] = useState([]);
 
     const recherche = (query) => {
-        console.log("test");
+        console.log("villes");
         setIsLoading(true);
 
         fetch(`${SEARCH_URI}?nom=${query}`)
-            .then((resp) => resp.json())
+            .then((resp) => resp.json() )
             .then((items) => {
 
-
+                console.log(items);
                 setOptions(items);
                 setIsLoading(false);
             });
@@ -44,7 +44,7 @@ const BasicExample = () => {
                     options={options}
                     placeholder=""
                     selected={singleSelections}
-                    minLength={3}
+                    minLength={1}
                     onSearch={recherche}
                     renderMenuItemChildren={(option, props) => (
 
