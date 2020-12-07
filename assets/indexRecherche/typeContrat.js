@@ -8,21 +8,22 @@ import { Form } from 'react-bootstrap';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import Typeahead from "react-bootstrap-typeahead/lib/components/AsyncTypeahead";
 
 
-const SEARCH_URI = 'https://test.candidatheque.com/api/type_contrats';
+const SEARCH_URI = 'https://127.0.0.1:8000//api/type_contrats';
 
 
-const BasicExample = () => {
+const BasicExample = (handleSearch, filterBy) => {
     const [singleSelections, setSingleSelections] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [options, setOptions] = useState([]);
 
     const recherche = (query) => {
-        console.log("test");
+        console.log("contrat");
         setIsLoading(true);
 
-        fetch(`${SEARCH_URI}?nom=${query}`)
+        fetch(`${SEARCH_URI}?libelle=${query}`)
             .then((resp) => resp.json())
             .then((items) => {
 
@@ -35,27 +36,29 @@ const BasicExample = () => {
     return (
         <Fragment>
             <Form.Group>
-                <Form.Label>Type de Contrat</Form.Label>
+                <Form.Label>Single Selection</Form.Label>
                 <AsyncTypeahead
                     isLoading={isLoading}
                     id="basic-typeahead-single"
-                    labelKey="nom"
+                    labelKey="libelle"
                     onChange={setSingleSelections}
                     options={options}
                     placeholder=""
                     selected={singleSelections}
-                    minLength={3}
+                    //minLength={3}
                     onSearch={recherche}
                     renderMenuItemChildren={(option, props) => (
 
-                        <span>{option.nom}</span>
+                        <span>{option.libelle}</span>
 
                     )}
                 />
+
             </Form.Group>
-        </Fragment>
+
+                        </Fragment>
     );
 };
 /* example-end */
 
-ReactDOM.render(<BasicExample />, document.getElementById('contrats'));
+ReactDOM.render(<BasicExample />, document.getElementById('typeContrat'));
