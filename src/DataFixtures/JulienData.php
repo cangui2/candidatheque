@@ -436,6 +436,71 @@ class JulienData extends Fixture implements FixtureGroupInterface
 
         $manager->persist($offre5);
 
+        // CV Competence 1
+
+        $comptA=($manager->getRepository(Competence::class)->find(200039));
+        $comptB=($manager->getRepository(Competence::class)->find(200059));
+        $comptC=($manager->getRepository(Competence::class)->find(103163));
+        $comptD=($manager->getRepository(Competence::class)->find(106963));
+        $comptE=($manager->getRepository(Competence::class)->find(119000));
+        $comptA->addCV($cv1);
+        $comptB->addCV($cv1);
+        $comptC->addCV($cv1);
+        $comptD->addCV($cv1);
+        $comptE->addCV($cv1);
+        $manager->persist($comptA);
+        $manager->persist($comptB);
+        $manager->persist($comptC);
+        $manager->persist($comptD);
+        $manager->persist($comptE);
+
+        // CV2 competence
+        $comptA=($manager->getRepository(Competence::class)->find(200039));
+        $comptB=($manager->getRepository(Competence::class)->find(200059));
+        $comptC=($manager->getRepository(Competence::class)->find(103163));
+        $comptD=($manager->getRepository(Competence::class)->find(106963));
+        $comptE=($manager->getRepository(Competence::class)->find(102631));
+        $comptA->addCV($cv2);
+        $comptB->addCV($cv2);
+        $comptC->addCV($cv2);
+        $comptD->addCV($cv2);
+        $comptE->addCV($cv2);
+        $manager->persist($comptA);
+        $manager->persist($comptB);
+        $manager->persist($comptC);
+        $manager->persist($comptD);
+        $manager->persist($comptE);
+
+        // CV 3 Competence
+        $comptA=($manager->getRepository(Competence::class)->find(200039));
+        $comptC=($manager->getRepository(Competence::class)->find(103163));
+        $comptE=($manager->getRepository(Competence::class)->find(119000));
+        $comptA->addCV($cv3);
+        $comptC->addCV($cv3);
+        $comptE->addCV($cv3);
+        $manager->persist($comptA);
+        $manager->persist($comptC);
+        $manager->persist($comptE);
+
+        //CV 4 COMPETENCE
+
+        $compt1=($manager->getRepository(Competence::class)->find(100007));
+        $compt2=($manager->getRepository(Competence::class)->find(100010));
+        $compt3=($manager->getRepository(Competence::class)->find(100015));
+        $compt4=($manager->getRepository(Competence::class)->find(100018));
+        $compt5=($manager->getRepository(Competence::class)->find(100019));
+        $compt1->addCV($cv4);
+        $compt2->addCV($cv4);
+        $compt3->addCV($cv4);
+        $compt4->addCV($cv4);
+        $compt5->addCV($cv4);
+        $manager->persist($compt1);
+        $manager->persist($compt2);
+        $manager->persist($compt3);
+        $manager->persist($compt4);
+        $manager->persist($compt5);
+
+
         //COMPETENCE OFFRE 1
 
         $comptA=($manager->getRepository(Competence::class)->find(200039));
