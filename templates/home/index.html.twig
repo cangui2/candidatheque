@@ -42,8 +42,8 @@
           <label class="mb-0" for="rechercheInput3">Secteur</label>
           <input type="text" class="form-control form-control-sm" id="rechercheInput3">
         </div>
-        <div class="form-group mx-5">
-          <label id="typeContrat"class="mb-0" for="rechercheInput4">Type de contrat</label>
+        <div id="typeContrat" class="form-group mx-5">
+          <label class="mb-0" for="rechercheInput4">Type de contrat</label>
           <input type="text" class="form-control form-control-sm" id="rechercheInput4">
         </div>
         <div class="rech text-right">
@@ -121,5 +121,5 @@
     {{ encore_entry_script_tags('profession') }}
     {{ encore_entry_script_tags('lieu') }}
     {{ encore_entry_script_tags('secteur') }}
-   {# {{ encore_entry_script_tags('typeContrat') }} #}
+  {{ encore_entry_script_tags('typeContrat') }}
 {% endblock %}
