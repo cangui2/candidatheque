@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     itemOperations={
  *                          "get"={},
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"rm:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -41,18 +42,20 @@ class Rome
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"rm:read", "mt:read"})
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"rm:read", "mt:read"})
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=Metier::class, mappedBy="rome")
+     * @Groups("rm:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $metiers;
 
@@ -63,7 +66,8 @@ class Rome
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="romes")
-     * @Groups("read")
+     * @Groups("rm:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $competences;
 
@@ -72,10 +76,10 @@ class Rome
      */
     private $descriptions;
 
-
-
     /**
      * @ORM\ManyToMany(targetEntity=Pcs::class, mappedBy="codesRome")
+     * @Groups("rm:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $codesPcs;
 

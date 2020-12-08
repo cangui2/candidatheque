@@ -53,49 +53,50 @@ class EntrepriseController extends AbstractController
     public function dashboard(MatchingService $matchingService): Response {
 
 
-        $recruteurId = $this->getUser()->getRecruteur()->getId();
-
-        $result = $this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
-
-        $postules=$this->postuleRepo->findViewsCandidatForRecruteur($recruteurId);
-
-        $cvs=$this->cvRepo->findAll();
-        // algo en test
-        $idOffert=5;
-        $skillCvCandidat = array (
-            "gilles" => array("103163", "106963", "119000"),
-            "alex" => array("A1104", "103163", "A1101"),
-            "claire" => array("119000", "A1108", "A1109")
-        );
-
-        $test=$matchingService->matchingOfferVsCvCandidat($postules);
-        //-------------------------------------------------------------------------------//
-
-        $globalData = [];
-        $globalLabel = [];
-        foreach ($result as $ligne) {
-            $globalData[] = $ligne["compteur"];
-            $globalLabel[] = $ligne["libelle"];
-        }
-        $limitOffer = $this->offreRepo->findAllOfferByIdRecruteurLimit5($recruteurId);
-
-
-
-
-
-
-        return $this->render('entreprise/dashboard_entreprise.html.twig',[
-
-            'offerNumber' => array_sum($globalData),
-            'limitOffer'=>$limitOffer,
-            'candidateReturn'=> count($postules),
-            'lastCanditature'=>$lastCanditature,
-            'cvs'=>$cvs,
-            'test'=>$test,
-
-
-
-        ]);
+//        $recruteurId = $this->getUser()->getRecruteur()->getId();
+//
+//        $result = $this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
+//
+//        $postules=$this->postuleRepo->findViewsCandidatForRecruteur($recruteurId);
+//
+//        $cvs=$this->cvRepo->findAll();
+//        // algo en test
+//        $idOffert=5;
+//        $skillCvCandidat = array (
+//            "gilles" => array("103163", "106963", "119000"),
+//            "alex" => array("A1104", "103163", "A1101"),
+//            "claire" => array("119000", "A1108", "A1109")
+//        );
+//
+//        $test=$matchingService->matchingOfferVsCvCandidat($postules);
+//        //-------------------------------------------------------------------------------//
+//
+//        $globalData = [];
+//        $globalLabel = [];
+//        foreach ($result as $ligne) {
+//            $globalData[] = $ligne["compteur"];
+//            $globalLabel[] = $ligne["libelle"];
+//        }
+//        $limitOffer = $this->offreRepo->findAllOfferByIdRecruteurLimit5($recruteurId);
+//
+//
+//
+//
+//
+//
+//        return $this->render('entreprise/dashboard_entreprise.html.twig',[
+//
+//            'offerNumber' => array_sum($globalData),
+//            'limitOffer'=>$limitOffer,
+//            'candidateReturn'=> count($postules),
+//            'lastCanditature'=>$lastCanditature,
+//            'cvs'=>$cvs,
+//            'test'=>$test,
+//
+//
+//
+//        ]);
+        return new Response();
     }
 
 

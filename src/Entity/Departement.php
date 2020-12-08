@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DepartementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,7 +22,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     itemOperations={
  *                          "get"={},
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"dept:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -47,29 +48,33 @@ class Departement
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("dept:read")
      */
     private $nom;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="departements")
-     * @Groups("read")
+     * @Groups("dept:read")
      */
     private $region;
 
     /**
      * @ORM\OneToMany(targetEntity=Ville::class, mappedBy="departement")
-     * @Groups("read")
+     * @Groups("dept:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $villes;
 
     /**
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="departement")
+     * @Groups("dept:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $offres;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("dept:read")
      */
     private $code;
 

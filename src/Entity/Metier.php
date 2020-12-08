@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MetierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,7 +23,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     itemOperations={
  *                          "get"={},
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"mt:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -33,7 +34,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *       SearchFilter::class,
  *       properties={
  *              "libelle": "partial",
- *              "rome": "exact"
+ *              "rome.code": "exact"
  *
  *                  })
  *
@@ -49,23 +50,25 @@ class Metier
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read"})
+     * @Groups({"mt:read", "rm:read"})
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=CV::class, mappedBy="metier")
+     * @Groups("mt:read")
      */
     private $CVs;
 
     /**
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="metier")
+     * @Groups("mt:read")
      */
     private $offres;
 
     /**
      * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="metiers")
-     * @Groups({"read"})
+     * @Groups({"mt:read"})
      */
     private $rome;
 

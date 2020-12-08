@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,7 +22,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     itemOperations={
  *                          "get"={},
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"v:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -32,7 +33,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *       SearchFilter::class,
  *       properties={
  *              "nom": "exact"
- *
  *                  }
  *
  * )
@@ -48,13 +48,13 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("v:read")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("v:read")
      */
     private $codePostal;
 
@@ -70,12 +70,15 @@ class Ville
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="villes")
-     * @Groups("read")
+     * @Groups("v:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $departement;
 
     /**
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="ville")
+     * @Groups("v:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $offres;
 

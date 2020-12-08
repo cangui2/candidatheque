@@ -33,26 +33,17 @@ class CandidatController extends AbstractController
     }
 
 
-
-
     /**
      * @Route("/candidat/dashboard", name="dashboard_candidat")
      */
     public function dashboard(PostuleRepository $repo,CandidatRepository $repo2): Response
     {
 
-        $candidat_id = $this->getUser()->getCandidat()->getId();
+        $candidat = $this->getUser()->getCandidat();
 
-        $compteur = $repo->countByCandidat($candidat_id);
 
-        //dd($compteur);
 
-        //$test = $repo2 ->countByCV($candidat_id);
-        //dd($test);
-
-        return $this->render('candidat/dashboard_candidat.html.twig',[
-            'compteur'=>$compteur,
-        ]);
+        return $this->render('candidat/dashboard_candidat.html.twig');
     }
 
 
