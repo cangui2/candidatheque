@@ -49,10 +49,11 @@ const BasicExample = (handleSearch, filterBy) => {
                     onSearch={recherche}
                     renderMenuItemChildren={(option, props) => (
 
-                        <span>{option.libelle}</span>
+                        <span value={option.id}>{option.libelle}</span>
 
                     )}
                 />
+
 
             </Form.Group>
 
