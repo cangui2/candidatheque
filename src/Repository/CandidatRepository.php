@@ -47,7 +47,7 @@ class CandidatRepository extends ServiceEntityRepository
         ;
     }
     */
-    /*public function countByCv ($candidat_id)
+    public function countByCv ($candidat_id)
     {
         return $this->createQueryBuilder('c')
         ->join('c.cv', 'c')
@@ -56,5 +56,9 @@ class CandidatRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
-    */
+
+
+   
 }
+
+

@@ -16,6 +16,7 @@ use App\Entity\User;
 use App\Entity\Ville;
 use App\Entity\Postule;
 use App\Entity\Consulte;
+use App\Entity\Competence;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -116,6 +117,51 @@ class FredData extends Fixture implements FixtureGroupInterface
         $manager->persist($of5);
 
        
+
+
+
+        //Compétence offre 1 
+        $comptOffre1=($manager->getRepository(Competence::class)->findOneBy(["id" =>"126353"]));
+        $comptOffre2=($manager->getRepository(Competence::class)->findOneBy(["id" =>"126355"]));
+        $comptOffre1->addOffre($of1);
+        $comptOffre2->addOffre($of2);
+        $manager->persist($comptOffre1);
+
+        //Compétence offre 2
+        $comptOffre3=($manager->getRepository(Competence::class)->findOneBy(["id"=>"126088"]));
+        $comptOffre4=($manager->getRepository(Competence::class)->findOneBy(["id"=>"126208"]));
+        $comptOffre3->addOffre($of3);
+        $comptOffre4->addOffre($of4);
+        $manager->persist($comptOffre3);
+
+        // Compétence offre 3 
+        $comptOffre5=($manager->getRepository(Competence::class)->findOneBy(["id"=>"126237"]));
+        $comptOffre6=($manager->getRepository(Competence::class)->findOneBy(["id"=>"126215"]));
+        $comptOffre5->addOffre($of5);
+        $comptOffre6->addOffre($of3);
+        $manager->persist($comptOffre5);
+
+        //Compétence offre 4
+        $comptOffre7=($manager->getRepository(Competence::class)->findOneBy(["id"=>"126219"]));
+        $comptOffre8=($manager->getRepository(Competence::class)->findOneBy(["id"=>"126292"]));
+        $comptOffre7->addOffre($of1);
+        $comptOffre8->addOffre($of5);
+        $manager->persist($comptOffre7);
+
+        //Competence offre 5
+
+        $comptOffre9=($manager->getRepository(Competence::class)->findOneBy(["id"=>"126219"]));
+        $comptOffre10=($manager->getRepository(Competence::class)->findOneBy(["id"=>"126292"]));
+        $comptOffre9->addOffre($of2);
+        $comptOffre10->addOffre($of1);
+        $manager->persist($comptOffre9);
+
+
+
+
+
+
+
 
 
         $can1 = new Candidat();

@@ -48,8 +48,15 @@ class CVRepository extends ServiceEntityRepository
     }
     */
 
-  
 
+    /* Nombre de cv envoyés
+public function findCountcvsend($candidat_id){
+
+    return $this-> createQueryBuilder('c')
+    ->select ()
+}
+  
+*/
     
 
 }

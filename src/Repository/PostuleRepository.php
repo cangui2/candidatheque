@@ -28,6 +28,20 @@ class PostuleRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    /*
+    public function findViewsRecruteurForCandidat($candidat_id){
+
+        return $this->createQueryBuilder('p')
+            ->join('p.offre', 'o')
+            ->join('c.cv','c')
+            ->join('c.candidat','ca')
+            ->where('ca.candidat = :candidat')
+            ->setParameters(['candidat' => $candidat_id])
+            ->getQuery()
+            ->getResult()
+            ;
+    }*/
+    
     // /**
     //  * @return Postule[] Returns an array of Postule objects
     //  */
