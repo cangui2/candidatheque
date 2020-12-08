@@ -11,7 +11,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import Typeahead from "react-bootstrap-typeahead/lib/components/AsyncTypeahead";
 
 
-const SEARCH_URI = 'https://127.0.0.1:8000//api/type_contrats';
+const SEARCH_URI = 'https://127.0.0.1:8000/api/type_contrats';
 
 
 const BasicExample = (handleSearch, filterBy) => {
@@ -20,14 +20,14 @@ const BasicExample = (handleSearch, filterBy) => {
     const [options, setOptions] = useState([]);
 
     const recherche = (query) => {
-        console.log("contrat");
+
         setIsLoading(true);
 
         fetch(`${SEARCH_URI}?libelle=${query}`)
             .then((resp) => resp.json())
             .then((items) => {
 
-
+                console.log(items);
                 setOptions(items);
                 setIsLoading(false);
             });
@@ -36,7 +36,7 @@ const BasicExample = (handleSearch, filterBy) => {
     return (
         <Fragment>
             <Form.Group>
-                <Form.Label>Single Selection</Form.Label>
+                <Form.Label>Type de contact</Form.Label>
                 <AsyncTypeahead
                     isLoading={isLoading}
                     id="basic-typeahead-single"
@@ -45,7 +45,7 @@ const BasicExample = (handleSearch, filterBy) => {
                     options={options}
                     placeholder=""
                     selected={singleSelections}
-                    //minLength={3}
+                    minLength={1}
                     onSearch={recherche}
                     renderMenuItemChildren={(option, props) => (
 
