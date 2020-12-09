@@ -37,22 +37,22 @@ const BasicExample = (handleSearch, filterBy) => {
         <Fragment>
             <Form.Group>
                 <Form.Label>Type de contact</Form.Label>
-                <AsyncTypeahead
-                    isLoading={isLoading}
-                    id="basic-typeahead-single"
-                    labelKey="libelle"
-                    onChange={setSingleSelections}
-                    options={options}
-                    placeholder=""
-                    selected={singleSelections}
-                    minLength={1}
-                    onSearch={recherche}
-                    renderMenuItemChildren={(option, props) => (
+                {/*<AsyncTypeahead*/}
+                {/*    isLoading={isLoading}*/}
+                {/*    id="basic-typeahead-single"*/}
+                {/*    labelKey="libelle"*/}
+                {/*    onChange={setSingleSelections}*/}
+                {/*    options={options}*/}
+                {/*    placeholder=""*/}
+                {/*    selected={singleSelections}*/}
+                {/*    minLength={1}*/}
+                {/*    onSearch={recherche}*/}
+                {/*    renderMenuItemChildren={(option, props) => (*/}
 
-                        <span value={option.id}>{option.libelle}</span>
+                {/*        <span value={option.id}>{option.libelle}</span>*/}
 
-                    )}
-                />
+                {/*    )}*/}
+                {/*/>*/}
 
 
             </Form.Group>

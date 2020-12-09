@@ -25,10 +25,11 @@ Encore
      */
     .addEntry('cv', './assets/cv/index.js')
     .addEntry('react_recherche', './assets/react_recherche.js')
-    .addEntry('profession', './assets/indexRecherche/profession.js')
-    .addEntry('lieu', './assets/indexRecherche/lieu.js')
-    .addEntry('secteur', './assets/indexRecherche/secteur.js')
-    .addEntry('typeContrat', './assets/indexRecherche/typeContrat.js')
+    .addEntry('recherche1', './assets/indexRecherche/recherche.js')
+    //.addEntry('recherche', './assets/indexRecherche/rechercheindex.js')
+    //.addEntry('secteur', './assets/indexRecherche/secteur.js')
+    //.addEntry('typeContrat', './assets/indexRecherche/typeContrat.js')
+    .addEntry('recherche', './assets/indexRecherche/index.js')
     //.addEntry('page1', './assets/page1.js')
     //.addEntry('page2', './assets/page2.js')
 
@@ -38,6 +39,7 @@ Encore
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
+
 
     /*
      * FEATURE CONFIG
