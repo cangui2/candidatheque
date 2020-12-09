@@ -52,7 +52,6 @@ class EntrepriseController extends AbstractController
      */
     public function dashboard(MatchingService $matchingService): Response {
 
-        return new Response("");
 
         $recruteurId = $this->getUser()->getRecruteur()->getId();
 
