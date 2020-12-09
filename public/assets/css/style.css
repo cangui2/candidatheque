@@ -52,12 +52,13 @@
 ************************************************************************************************/
 
 .btn-profil {
-    border: 4px white solid;
+    border: 3px white solid;
     border-radius: 6px;
-    color: white;
-    padding-left: 10px;
-    padding-right: 12px;
+    padding-left: 12px;
+    padding-right: 14px;
     font-weight: bold;
+    color: #f8f9fa!important;
+    border-color: #f8f9fa!important;
 }
 
 /***********************************************************************************************
