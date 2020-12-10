@@ -60,12 +60,21 @@ class EntrepriseController extends AbstractController
 
         foreach ($offre->getPostules() as $postule) {
             $cvs=$postule->getCandidat()->getCVs();
+            $nom=$postule->getCandidat()->getNom();
 
             foreach ($cvs as $cv) {
+               $t= $cv->getCompetences()->getValues();
 
-                //dd($test);
-                $resultat = $matchingService->matchingAlgo1($offre,$cv->getCompetences());
-                //dd($resultat);
+                foreach ($t as $competence){
+
+                   $skill[$nom][]=$competence->getId();
+
+
+                }
+
+
+
+
                 //        foreach ($resultat as $ligne) {
                 //            $ligne["score"]
                 //            $ligne["cv"]->getCandidat()->getNom() == // ligne.cv.candidat.nom
@@ -74,6 +83,9 @@ class EntrepriseController extends AbstractController
             }
         }
 
+
+        $resultat = $matchingService->matchingAlgo1($offre,$skill);
+    dd($resultat);
 
 
     }
