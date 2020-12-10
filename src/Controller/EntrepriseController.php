@@ -125,7 +125,7 @@ class EntrepriseController extends AbstractController
             'limitOffer'=>$limitOffer,
             'candidateReturn'=> count($postules),
             'lastCanditature'=>$postules,
-            'cvs'=>$cvs,
+            'cvs'=>count($cvs),
 
 
 
