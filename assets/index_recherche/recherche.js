@@ -1,9 +1,7 @@
 import React, { Component , useState } from 'react'
 import AsyncSelect from 'react-select/async';
-import Select from 'react-select'
 import axios from 'axios'
 import {Col, Form,Button} from "react-bootstrap";
-import {array} from "prop-types";
 import {values} from "react-bootstrap-typeahead/lib/utils";
 
 
@@ -87,60 +85,60 @@ function App() {
     return (
 
         <form onSubmit={handleSubmit}>
-        <Form.Group>
-            <Form.Label>Profession</Form.Label>
+            <Form.Group>
+                <Form.Label>Profession</Form.Label>
 
-            <AsyncSelect
+                <AsyncSelect
 
-                placeholder=""
-                getOptionLabel={e => e.libelle}
-                getOptionValue={e =>  e.id}
-                loadOptions={loadOptions}
-                onInputChange={handleInputChange}
-                onChange={handleChange}
-                components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-            />
-            <Form.Label>Villes</Form.Label>
+                    placeholder=""
+                    getOptionLabel={e => e.libelle}
+                    getOptionValue={e =>  e.id}
+                    loadOptions={loadOptions}
+                    onInputChange={handleInputChange}
+                    onChange={handleChange}
+                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
+                />
+                <Form.Label>Villes</Form.Label>
 
-            <AsyncSelect
+                <AsyncSelect
 
-                placeholder=""
-                getOptionLabel={e => e.nom}
-                getOptionValue={e => e.id}
-                loadOptions={loadOptions2}
-                onInputChange={handleInputChange2}
-                onChange={handleChange2}
-                components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-            />
-            <Form.Label>Secteur</Form.Label>
+                    placeholder=""
+                    getOptionLabel={e => e.nom}
+                    getOptionValue={e => e.id}
+                    loadOptions={loadOptions2}
+                    onInputChange={handleInputChange2}
+                    onChange={handleChange2}
+                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
+                />
+                <Form.Label>Secteur</Form.Label>
 
-            <AsyncSelect
+                <AsyncSelect
 
-                placeholder=""
-                getOptionLabel={e => e.libelle}
-                getOptionValue={e => e.id}
-                loadOptions={loadOptions3}
-                onInputChange={handleInputChange3}
-                onChange={handleChange3}
-                components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-            />
-            <Form.Label>Type de contrat</Form.Label>
+                    placeholder=""
+                    getOptionLabel={e => e.libelle}
+                    getOptionValue={e => e.id}
+                    loadOptions={loadOptions3}
+                    onInputChange={handleInputChange3}
+                    onChange={handleChange3}
+                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
+                />
+                <Form.Label>Type de contrat</Form.Label>
 
-            <AsyncSelect
+                <AsyncSelect
 
-                placeholder=""
-                getOptionLabel={e => e.libelle}
-                getOptionValue={e => e.id}
-                loadOptions={loadOptions4}
-                onInputChange={handleInputChange4}
-                onChange={handleChange4}
-                components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-            />
+                    placeholder=""
+                    getOptionLabel={e => e.libelle}
+                    getOptionValue={e => e.id}
+                    loadOptions={loadOptions4}
+                    onInputChange={handleInputChange4}
+                    onChange={handleChange4}
+                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
+                />
 
-            <Button onClick={handleSubmit} type="submit" className="mb-2">
-                Submit
-            </Button>
-        </Form.Group>
+                <Button onClick={handleSubmit} type="submit" className="mb-2">
+                    Submit
+                </Button>
+            </Form.Group>
         </form>
     );
 }

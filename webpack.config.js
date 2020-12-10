@@ -25,8 +25,8 @@ Encore
      */
     .addEntry('cv', './assets/cv/index.js')
     .addEntry('react_recherche', './assets/react_recherche.js')
-    .addEntry('recherche1', './assets/indexRecherche/recherche.js')
-    .addEntry('recherche', './assets/indexRecherche/index.js')
+    .addEntry('recherche1', './assets/index_recherche/recherche.js')
+    .addEntry('recherche', './assets/index_recherche/index.js')
     //.addEntry('page1', './assets/page1.js')
     //.addEntry('page2', './assets/page2.js')
 
