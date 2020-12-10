@@ -3,6 +3,9 @@ import AsyncSelect from 'react-select/async';
 import Select from 'react-select'
 import axios from 'axios'
 import {Col, Form,Button} from "react-bootstrap";
+import {array} from "prop-types";
+import {values} from "react-bootstrap-typeahead/lib/utils";
+
 
 
 function App() {
@@ -15,11 +18,15 @@ function App() {
     const [selectedValue3, setSelectedValue3] = useState(null);
     const [inputValue4, setValue4] = useState('');
     const [selectedValue4, setSelectedValue4] = useState(null);
-
+    const [data,setdata]=useState(null);
+    const [data2,setdata2]=useState(null);
+    const [data3,setdata3]=useState(null);
+    const [data4,setdata4]=useState(null);
 
     // handle input change event
     const handleInputChange = value => {
         setValue(value);
+
     };
     const handleInputChange2 = value => {
         setValue(value);
@@ -35,16 +42,21 @@ function App() {
     // handle selection
     const handleChange = value => {
         setSelectedValue(value);
+        setdata({id:value.id});
     }
+
     const handleChange2 = value => {
         setSelectedValue(value);
+        setdata2({id:value.id});
     }
 
     const handleChange3 = value => {
         setSelectedValue(value);
+        setdata3({id:value.id});
     }
     const handleChange4 = value => {
         setSelectedValue(value);
+        setdata4({id:value.id});
     }
 
 
@@ -63,9 +75,18 @@ function App() {
     };
 
 
+    const handleSubmit = (e) => {
+
+        e.preventDefault()
+        console.log(data,data2,data3,data4);
+        // ... submit to API or something
+    };
+
 
 
     return (
+
+        <form onSubmit={handleSubmit}>
         <Form.Group>
             <Form.Label>Profession</Form.Label>
 
@@ -73,7 +94,7 @@ function App() {
 
                 placeholder=""
                 getOptionLabel={e => e.libelle}
-                getOptionValue={e => e.id}
+                getOptionValue={e =>  e.id}
                 loadOptions={loadOptions}
                 onInputChange={handleInputChange}
                 onChange={handleChange}
@@ -116,11 +137,11 @@ function App() {
                 components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
             />
 
-            <Button type="submit" className="mb-2">
+            <Button onClick={handleSubmit} type="submit" className="mb-2">
                 Submit
             </Button>
         </Form.Group>
-
+        </form>
     );
 }
 export default App;
