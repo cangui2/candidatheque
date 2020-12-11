@@ -3,7 +3,8 @@
     "cv": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~lieu~profession~react_recherche~secteur~typeContrat.js",
+        "/build/vendors~cv~react_recherche~recherche~recherche1.js",
+        "/build/vendors~cv~recherche~recherche1.js",
         "/build/vendors~cv.js",
         "/build/cv.js"
       ],
@@ -14,57 +15,30 @@
     "react_recherche": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.js",
+        "/build/vendors~cv~react_recherche~recherche~recherche1.js",
+        "/build/vendors~react_recherche.js",
         "/build/react_recherche.js"
       ],
       "css": [
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.css"
+        "/build/vendors~react_recherche.css"
       ]
     },
-    "profession": {
+    "recherche1": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/profession.js"
-      ],
-      "css": [
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.css"
+        "/build/vendors~cv~react_recherche~recherche~recherche1.js",
+        "/build/vendors~cv~recherche~recherche1.js",
+        "/build/vendors~recherche~recherche1.js",
+        "/build/recherche1.js"
       ]
     },
-    "lieu": {
+    "recherche": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/lieu.js"
-      ],
-      "css": [
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.css"
-      ]
-    },
-    "secteur": {
-      "js": [
-        "/build/runtime.js",
-        "/build/vendors~cv~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/secteur.js"
-      ],
-      "css": [
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.css"
-      ]
-    },
-    "typeContrat": {
-      "js": [
-        "/build/runtime.js",
-        "/build/vendors~cv~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.js",
-        "/build/vendors~typeContrat.js",
-        "/build/typeContrat.js"
-      ],
-      "css": [
-        "/build/vendors~lieu~profession~react_recherche~secteur~typeContrat.css"
+        "/build/vendors~cv~react_recherche~recherche~recherche1.js",
+        "/build/vendors~cv~recherche~recherche1.js",
+        "/build/vendors~recherche~recherche1.js",
+        "/build/recherche.js"
       ]
     }
   }

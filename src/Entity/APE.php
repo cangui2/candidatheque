@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "nom": "partial"
+ *              "libelle": "partial"
  *
  *                  }
  *

@@ -5,8 +5,10 @@ namespace App\Controller;
 
 
 
+use App\Entity\CV;
 use App\Entity\Metier;
 use App\Entity\Offre;
+use App\Entity\Postule;
 use App\Repository\CVRepository;
 use App\Repository\MetierRepository;
 use App\Repository\PostuleRepository;
@@ -54,29 +56,41 @@ class EntrepriseController extends AbstractController
      *
      */
     public function dashboard_test(MatchingService $matchingService, Offre $offre): Response
-
     {
-        $skillCvCandidat = array (
-            "gilles" => array("103163", "106963", "119000"),
-            "alex" => array("100007", "103163", "100010"),
-            "claire" => array("119000", "A1108", "A1109"),
-            "marine" => array("102216", "102631", "115962","115974","120617"),
-            "julien" => array("101360", "102788", "104564"),
-            "pierre" => array("119000", "A1108", "A1109")
-        );
 
-        $resultat = $matchingService->matchingAlgo1($offre,$skillCvCandidat);
-        dd($resultat);
-//        foreach ($resultat as $ligne) {
-//            $ligne["score"]
-//            $ligne["cv"]->getCandidat()->getNom() == // ligne.cv.candidat.nom
-//            $ligne["cv"]->getCV()->getTitre()
-//        }
+        foreach ($offre->getPostules() as $postule) {
+            $cvs=$postule->getCandidat()->getCVs();
+            $nom=$postule->getCandidat()->getNom();
+
+            foreach ($cvs as $cv) {
+               $t= $cv->getCompetences()->getValues();
+
+                foreach ($t as $competence){
+
+                   $skill[$nom][]=$competence->getId();
+
+
+                }
+
+
+
+
+                //        foreach ($resultat as $ligne) {
+                //            $ligne["score"]
+                //            $ligne["cv"]->getCandidat()->getNom() == // ligne.cv.candidat.nom
+                //            $ligne["cv"]->getCV()->getTitre()
+                //        }
+            }
+        }
+
+
+        $resultat = $matchingService->matchingAlgo1($offre,$skill);
+    dd($resultat);
+
 
     }
 
-
-        /**
+    /**
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
@@ -125,7 +139,7 @@ class EntrepriseController extends AbstractController
             'limitOffer'=>$limitOffer,
             'candidateReturn'=> count($postules),
             'lastCanditature'=>$postules,
-            'cvs'=>$cvs,
+            'cvs'=>count($cvs),
 
 
 

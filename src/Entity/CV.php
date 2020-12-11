@@ -120,6 +120,7 @@ class CV
      */
     private $competences;
 
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
@@ -240,7 +241,7 @@ class CV
      */
     public function getCompetences(): Collection
     {
-        return $this->competence;
+        return $this->competences;
     }
 
     public function addCompetence(Competence $competence): self

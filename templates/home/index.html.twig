@@ -30,24 +30,9 @@
   <div class="row image-background" style="background-image:url('{{ asset("assets/images/test" ~ variaTest ~ ".jpg") }}')">
     <div class="offset-md-1 col-lg-5 col-md-10 mt-4">
       <form class="bg-light rounded mt-5 mb-4 mb-lg-5 py-4">
-        <div id="profession" class="form-group mx-5">
+        <div id="villes" class="form-group mx-5">
           <label class="mb-0"  for="rechercheInput1">Profession</label>
           <input type="text" class="form-control form-control-sm" id="rechercheInput1">
-        </div>
-        <div id="villes"class="form-group mx-5">
-          <label class="mb-0" for="rechercheInput2">Lieu</label>
-          <input type="text" class="form-control form-control-sm" id="rechercheInput2">
-        </div>
-        <div id="ape"class="form-group mx-5">
-          <label class="mb-0" for="rechercheInput3">Secteur</label>
-          <input type="text" class="form-control form-control-sm" id="rechercheInput3">
-        </div>
-        <div class="form-group mx-5">
-          <label id="typeContrat"class="mb-0" for="rechercheInput4">Type de contrat</label>
-          <input type="text" class="form-control form-control-sm" id="rechercheInput4">
-        </div>
-        <div class="rech text-right">
-          <button type="submit" class="btn color-3E68D4 mt-1 mx-5">Rechercher des offres</button>
         </div>
       </form>
     </div>
@@ -118,8 +103,6 @@
 </body>
 {% endblock %}
 {% block javascripts %}
-    {{ encore_entry_script_tags('profession') }}
-    {{ encore_entry_script_tags('lieu') }}
-    {{ encore_entry_script_tags('secteur') }}
-   {# {{ encore_entry_script_tags('typeContrat') }} #}
+    {{ encore_entry_script_tags('recherche') }}
+
 {% endblock %}

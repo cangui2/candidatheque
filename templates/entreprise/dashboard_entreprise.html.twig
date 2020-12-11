@@ -26,37 +26,21 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class=" col-6 col-lg-3 col-sm-3">
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class=" col-6 col-lg-6 col-sm-6">
+                <div class="card w-75">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Mes offres
-                        </h5>
+                        <h5 class="card-title text-center">Nombre(s) d'offre(s) postée(s)</h5>
                         <p class="card-text text-center">{{ offerNumber }}</p>
+                        <a href="{{ path('offres_liste') }}" class="btn btn-primary pull-right">Voir</a>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-lg-3 col-sm-3">
-                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+            <div class="col-6 col-lg-6 col-sm-6">
+                <div class="card w-75">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Nombre(s) de Matching </h5>
-                        <p class="card-text text-center ">10</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-lg-3 col-sm-3">
-                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Retour des Candidatures</h5>
-                        <p class="card-text text-center">{{ candidateReturn }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-lg-3 col-sm-3">
-                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Moyenne visite des offres</h5>
-                        <p class="card-text text-center">50%</p>
+                        <h5 class="card-title text-center">Nombre(s) cv(s) disponible(s) sur canditatheque</h5>
+                        <p class="card-text text-center">{{ cvs }}</p>
+                        <a href="#" class="btn btn-primary pull-right">Voir</a>
                     </div>
                 </div>
             </div>
@@ -68,50 +52,21 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                <div class="card card-waves">
-                    <div class="card-header"> Dernier Cv mise en ligne sur CANDIDATHEQUE</div>
-                    <div class="card-body text-center">
-                        <table class="table">
-                            <thead class="thead-dark">
-                            <tr>
-
-                                <th scope="col">Nom/Prenom</th>
-                                <th scope="col">Metier</th>
-                                <th scope="col">Contrat rechercher</th>
-                            </tr>
-                            </thead>
-
-                            {% for cv in cvs %}
-                            <tbody>
-                            <tr>
-
-                                <td>{{ cv.candidat }}</td>
-                                <td>{{ cv.metier }}</td>
-                                <td><span class="badge badge-primary offset-md-3">CDI</span></td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-lg-12 col-xl-8">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">Dernière(s) offre(s) postée(s)</div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8">
+                <div class="card text-white bg-light mb-3" style="min-height: 100%;">
+                    <div class="card-header"style="color: black">Dernière(s) offre(s) postée(s)</div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
                             <tr>
                                 <th> Nom annonce</th>
-                                <th> Nombre(s) postulant(s)</th>
-                                <th scope="col">Metier</th>
+                                <th> Publication depuis :</th>
+                                <th scope="col">Date écheance</th>
 
-                                <th scope="col">Date de debut mission</th>
+                                <th scope="col">Nombre(s) de canditature(s)</th>
+                                <th scope="col">Nombre(s) de candidat(s) potentielle(s)</th>
 
-                                <th scope="col">Publication depuis :</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -120,159 +75,57 @@
                             {% for offre in limitOffer %}
 
                                 <tr>
-                                    <td>{{ offre.titre }}</td>
-
-                                    {% if offre.postules is not empty %}
-
+                                    <td ><a href="{{ path('offres_liste') }}" style="color: black">{{ offre.titre }}</a></td>
                                     <td>
-                                        <button type="button" class="btn btn-danger offset-md-3">
-                                            Voir <span class="badge badge-light">{{ offre.postules|length }}</span>
-                                            <span class="sr-only">unread messages</span>
-                                        </button>
-                                        {% elseif offre.postules is empty %}
-                                    <td>
-                                        {% endif %}
-                                    <td>{{ offre.metier.libelle }}</td>
-
-                                    <td class="text-center">{{ offre.dateDebut| date('d/m/Y') }}</td>
-
-                                    <td>
-
                                              <span class="badge badge-pill badge-success offset-md-3">
                                                  {% set datePost = offre.datePublication|date('d-m-Y') %}
                                                  {% set today = "now"|date('d-m-Y') %}
                                                  {% set difference = date(today).diff(date(datePost)) %}
                                                  {% set leftDays = difference.days %}
                                                  {% if datePost == today %}
-                                                        Aujourd'hui
+                                                     Aujourd'hui
                                                  {% else %}
                                                      {{ leftDays }} jour
                                                  {% endif %}
                                              </span>
-
                                     </td>
+                                    <td>
+                                        {{ offre.dateDebut | date('d/m/Y') }}
+                                    </td>
+
+                                    {% if offre.postules is not empty %}
+
+                                    <td>
+                                        <a href="#" class="badge badge-danger offset-md-3">Voir les :{{ offre.postules|length }}</a>
+                                        {% elseif offre.postules is empty %}
+                                    <td>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                    <td class="text-center">5</td>
                                 </tr>
-
-                            {% endfor %}
                             </tbody>
-
                         </table>
 
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
+
                     </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-
-            <div class="col-12 col-sm-12 col-lg-6 ">
-                <div class="card card-waves">
-                    <div class="card-header">Matching offre Potentiel Candidat</div>
-                    <div class="card-body">
-                        <table class="table table-info">
-                            <thead>
-                            <tr>
-
-                                <th scope="col">Nom de l'offre</th>
-                                <th scope="col">Nombre de Candidat</th>
-                                <th scope="col">Contrat</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-
-                                <td>Mark</td>
-                                <td><span class="badge badge-light offset-md-3">9</span></td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            <tr>
-
-                                <td>Jacob</td>
-                                <td><span class="badge badge-light offset-md-3">9</span></td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            <tr>
-
-                                <td>Larry</td>
-                                <td><span class="badge badge-light offset-md-3">9</span></td>
-                                <td><span class="badge badge-primary offset-md-3"">CDI</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-lg-6">
-                <div class="card card-waves">
-                    <div class="card-header">5 dernières Candidatures</div>
-                    <div class="card-body">
-                        <table class="table table-info">
-                            <thead>
-                            <tr>
-                                <th scope="col">Date de postule</th>
-                                <th scope="col">Numero de l'offre</th>
-                                <th scope="col">Nom de Candidat</th>
-                                <th scope="col">status</th>
-                            </tr>
-                            </thead>
-
-                            {% for last in lastCanditature %}
-
-                            <tbody>
-                            <tr>
-                                <th>{{ last.dateSelection | date('d/m/Y') }}</th>
-
-                                <td>{{ last.offre.id }}</td>
-
-
-                                <td>{{ last.candidat.nom }}</td>
-
-                                <td><span class="badge badge-danger ">en attente</span></td>
-
-                            </tr>
-
-                            {% endfor %}
-
-                            </tbody>
-                        </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
+            <div class="col-12 col-sm-12 col-lg-12 col-xl-4">
+                <canvas id="Chart" width="600" height="600" style="background-color: beige;"></canvas>
             </div>
         </div>
     </div>
@@ -281,6 +134,56 @@
 
 {% endblock %}
 {% block javascripts %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script type="text/javascript">
+    var ctx = document.getElementById('Chart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+            datasets: [{
+                label: 'Nombre de visite',
+                data: [12, 19, 3, 5, 2, 3, 20],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
 
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
 
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: false,
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 80
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    </script>
 {% endblock %}

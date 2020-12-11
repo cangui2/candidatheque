@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/dashboard_candidat.css') }}"/>
 
+{% endblock %}
 
 {% block body %}
 
@@ -9,156 +12,132 @@
 
 {#DEBUT PROFIL #}
 <br>
-{#<div class="half-float-bottom">
+<div class="half-float-bottom">
     <!--Photo du candidat-->
     <div class="thumb-lg member-thumb mx-auto"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle img-thumbnail" alt="pro" height="100" width="100">
  </div>
  <br>
-<h4>John Doe</h4>#}
-
-
-
-
-  
-
-  {# FIN NAVBAR ESPACE CANDIDAT #}
-  
-  {#DEBUT ONGLET ACCUEIL #}
- 
+<h4>Bonjour {{app.user.candidat.prenom ~ ' ' ~ app.user.candidat.nom}}  </h4>
+<p>Content de vous revoir aujourd'hui</p>
 </div>
 
 
-  {#<div class="tab-content">
-    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <h3>Bienvenue sur votre profil</h3>
-        <p>Ici vous allez choisir vos compétences, vous allez postuler à des offres, avoir la réponse à vos candidatures.</p>
-        <p>Ajouter ou créer votre cv</p>
+ 
 
-        <br>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <h3>Nombre de visiteurs sur votre cv</h3>
+      <p>8</p>
+      
+    </div>
+  </div>
 
-        {# J'appelle le graphique offre/mois #}
+ 
+  
+  <div class="column">
+    <div class="card">
+      <h3>Total de cv envoyés</h3>
+      <p>6</p>
+      
+    </div>
+  </div>
+  
+  <div class="column">
+    <div class="card">
+      <h3>Nombre de cv</h3>
+      <p>3</p>
+      
+    </div>
+  </div>
+</div>
+
+ 
+<br>
+{# J'appelle le graphique offre/mois #}
+<div>
+<p>Statistiques</p>
 
     <h3>Graphique nombre d'offres par mois </h3>
     <div class="chart-container" style="position: relative; height:25vh; width:20vw">
     <canvas id="Chart" width="400" height="400"></canvas>
     </div>
-
-    
-
-
-    
-
-
-    
-
-        {#Fin graphique #}
-
-       
-
-    {#<div class="container"> 
-            <div class="row">
-                <div class="col-5">
-
-                <div class="jumbotron">
-             <h1 class="display-8"> Vos compétences</h1>
-                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                    <hr class="my-8">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                    <a class="btn btn-primary btn-lg" href="{{ path('recherche_liste') }}" role="button">Choisir les compétences</a>
-                </div>   
-  
-              <div class="jumbotron">
-            <h1 class="display-8"> CV envoyés</h1>
-                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                    <hr class="my-8">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                    <a class="btn btn-primary btn-lg" href="{{ path('recherche_liste') }}" role="button">Nombre de cv</a>
-              </div>
-
-              <div class="jumbotron">
-            <h1 class="display-8">Nombre d'offres en attente de réponses </h1>
-                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                    <hr class="my-8">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                    <a class="btn btn-primary btn-lg" href="{{ path('recherche_liste') }}" role="button">Voir les offres</a>
-
-
-                    
-            </div>
-                </div>
-          </div>
-    </div>}#
-    
-      
-    
-
-    {#FIN ONGLET ACCUEIL#}
-
-
-
-
-    
-    
-    {#</div>
-    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab"> Ici mettre Atelier cv. Mettre des template de cv  </div>
-    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab"> Les offres </div>
-    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
-
-    <h3>Vos candidatures en attentes </h3>
-    
-
-    <div class="card">
-  <div class="card-body">
-    Offre N°1
-    <div class="progress">
-  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%"></div>
 </div>
-  </div>
-</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
     
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </div>
-    
-    {#DEBUT ONGLET VOS COMPETENCES #}
-    {#<div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-        <br>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-              <h3 class="display-6">Vos compétences</h3>
-              <p class="lead">Les compétences regroupent l'ensemble de vos savoirs, savoir-faire, savoir-être professionnels, langue et permis.</p>
-
-
-            </div>
-        </div>
-                </div>
-          </div>
-
-          {#DEBUT ACCORDEON #}
-          <!--Le candidat pourra noté ses compétences grace aux étoiles 1er étoiles: débutant, 2eme: Intermédiaire, 3eme: Avancé  
-          Auparavant le candidat aura choisi ses compétences via une page compétences (Cette page contiendra les compétences du métier ) voir API pour avoir des compétences prédéfini -->
-
+{#Fin graphique #}
+           
+    <!-- DEBUT TABLEAU ATTENTE DE REPONSE OFFRE-->
+   
+    <table class="table table-striped">
+      <h3>Tableau des offres</h3>
+      <thead>
+        <tr>
+          <th scope="col">Entreprise</th>
+          <th scope="col">Nom du poste</th>
+          <th scope="col">Réponses</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"> </th>
+          <td>Developpeur web</td>
+          <td>En attente de lecture</td>
+          
+        </tr>
+        <tr>
+          <th scope="row"> </th>
+          <td>Developpeur web</td>
+          <td>Rejeté</td>
+          
+        </tr>
+        <tr>
+          <th scope="row"></th> 
+          <td>Developpeur web</td>
+          <td>Vu</td>
+          
+        </tr>
+      </tbody>
+    </table>
           
 
+<!-- DEBUT TABLEAU VISITEURS CV-->
+<br>
 
-       
-    {#FIN ONGLET VOS COMPETENCES #}
+<table class="table table-striped">
+  <h3>Visites des entreprises</h3>
+  <thead>
+    <tr>
+      <th scope="col">Entreprises</th>
+      <th scope="col">CV</th>
+      
+      
+      <tbody>
+      <tr>
+          <th></th>
+          <td></td>
+          
+          
+      </tr>
     
-  </div>
+    </tr>
+  </thead>
+  <tbody>
+    
+</table>
+    
+    
+  
   
 
 <br><br><br><br><br><br><br><br><br><br><br>
@@ -214,43 +193,6 @@ var myChart = new Chart(ctx, {
 </script>
 
 
-<script>
-  var compteur = {{compteur}}
-</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<script type="text/javascript">
-var ctx = document.getElementById('Chart');
-var myChart = new Chart(ctx, {
-    type: 'Doughnut',
-    data: {
-        labels: ['Nombre de visites'],
-        datasets: [{
-            label: ' Nombre de visites ',
-            data: [compteur],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-              
-               
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-            
-            ],
-            
-            borderWidth: 2
-        }] 
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                tgridLines: {
-                  offsetGridLines: true
-                }
-            }]
-        }
-    }
-});
 
-</script>
 {% endblock %}
 

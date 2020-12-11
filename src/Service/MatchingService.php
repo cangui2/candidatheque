@@ -38,7 +38,7 @@ class MatchingService {
         //dd($skillOffer2);
 
         // On lis le tableau tableau competence offre pour extraire juste les données de competences
-        $offer=[];
+        $competences_offre=[];
         foreach ($skillOffer2 as $key =>$value){
             $competences_offre[]=$value->getId();
 
