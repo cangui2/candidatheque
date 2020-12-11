@@ -78,6 +78,9 @@ function App() {
         e.preventDefault()
         console.log(data,data2,data3,data4);
         // ... submit to API or something
+        fetch('https://127.0.0.1:8000/api/type_contrats?libelle=' + data).then( (res) =>  {
+            console.log(res.json());
+        });
     };
 
 

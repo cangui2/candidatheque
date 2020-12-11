@@ -44,6 +44,7 @@ class OffreRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
     public function findCustomOfferByIdRecruteur($recruteur_id){
 
         return $this->createQueryBuilder('o')
@@ -58,6 +59,7 @@ class OffreRepository extends ServiceEntityRepository
 
 
     }
+
     Public function findAllOfferByIdRecruteurLimit5($recruteur_id){
 
         return $this->createQueryBuilder('o')
