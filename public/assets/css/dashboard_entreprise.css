@@ -1,10 +1,10 @@
 body {
-    background-image: url("/assets/images/test11.jpg");
-
+    background-color: #ffffff;
+    background-image: url("/assets/images/test12.jpg") !important;
+    background-position: center;
+    background-size: cover;
 
 }
-
-
 html {
     height: 100%;
 }
@@ -14,13 +14,18 @@ html {
     font-size: 100px;
 }
 
-.card{
+.card-top{
 
     border-radius: 10px 10px 10px 10px !important;
+    opacity: 0.8 !important;
+    background-color: gainsboro!important;
 }
 .modal-body{
     color: black;
 }
 .table {
     table-layout: fixed;
+}
+.i{
+    font-size: 30px!important;
 }
