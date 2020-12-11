@@ -47,7 +47,7 @@ class OffreRepository extends ServiceEntityRepository
     public function findCustomOfferByIdRecruteur($recruteur_id){
 
         return $this->createQueryBuilder('o')
-            ->select('m.libelle','count(m.libelle) as compteur')
+            ->select('o.libelle','count(o) as compteur')
             ->join('o.metier', 'm')
             ->where('o.recruteur = :recruteur')
             ->setParameters(['recruteur' => $recruteur_id])

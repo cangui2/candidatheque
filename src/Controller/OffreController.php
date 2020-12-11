@@ -323,4 +323,19 @@ class OffreController extends AbstractController
 
         return $this->redirectToRoute('dashboard_entreprise');
     }
+    /**
+     * @Route("/entreprise/offre/{offre}", name="offre"))
+     *
+     */
+    public function singleOffre(Offre $offre) :Response
+    {
+
+        $offres=$this->offRepo->find($offre);
+        $competences=$offres->getCompetences();
+//dd($offres);
+        return $this->render('offre/offre_single.html.twig',[
+            'offre'=>$offres,
+            'competences'=>$competences,
+        ]);
+    }
 }
