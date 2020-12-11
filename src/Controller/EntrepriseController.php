@@ -6,6 +6,7 @@ namespace App\Controller;
 
 
 use App\Entity\CV;
+use App\Entity\Entreprise;
 use App\Entity\Metier;
 use App\Entity\Offre;
 use App\Entity\Postule;
@@ -75,9 +76,11 @@ dd($resultat);
     public function dashboard(): Response {
 
 
-        $recruteur = $this->getUser()->getRecruteur();
+        $entreprise = $this->getUser()->getRecruteur()->getEntreprise()->getId();
 
-        $offres = $recruteur->getOffres(); //$this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
+
+        $offres=$this->offreRepo->findByCompany($entreprise);
+        //$offres=$recruteur->getOffres(); //$this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
         $cvs=$this->cvRepo->findAll();
 
 
