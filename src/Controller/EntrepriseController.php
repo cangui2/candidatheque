@@ -58,33 +58,10 @@ class EntrepriseController extends AbstractController
     public function dashboard_test(MatchingService $matchingService, Offre $offre): Response
     {
 
-        foreach ($offre->getPostules() as $postule) {
-            $cvs=$postule->getCandidat()->getCVs();
-            $nom=$postule->getCandidat()->getNom();
-
-            foreach ($cvs as $cv) {
-               $t= $cv->getCompetences()->getValues();
-
-                foreach ($t as $competence){
-
-                   $skill[$nom][]=$competence->getId();
-
-
-                }
 
 
 
-
-                //        foreach ($resultat as $ligne) {
-                //            $ligne["score"]
-                //            $ligne["cv"]->getCandidat()->getNom() == // ligne.cv.candidat.nom
-                //            $ligne["cv"]->getCV()->getTitre()
-                //        }
-            }
-        }
-
-
-        $resultat = $matchingService->matchingAlgo1($offre,$skill);
+        $resultat = $matchingService->matchingAlgo1($offre);
     dd($resultat);
 
 
