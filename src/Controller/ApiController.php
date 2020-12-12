@@ -38,26 +38,26 @@ class ApiController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        // }
         return new JsonResponse($resultat);
     }
 
     /**
-     * @Route("/api/cv/competences/{id_rome}/{libelle}", name="api_cv_competences")
+     * @Route("/api/cv/competences/{id_metier}/{libelle}", name="api_cv_competences")
      */
-    public function searchCompetenceByRomeAndLibelle(string $id_rome, string $libelle)
+    public function searchCompetenceByRomeAndLibelle(string $id_metier, string $libelle="")
     {
         $entities = $this->competenceRepo->createQueryBuilder('c')
-            ->select('c.libelle as libelle')
+            ->select('c.id as id', 'c.libelle as libelle')
             ->join('c.romes', 'r')
+            ->join('r.metiers', 'm')
             ->where('c.libelle LIKE :libelle')
-            ->andWhere('r.id = :id_rome')
+            ->andWhere('m.id = :id_metier')
             ->setParameter('libelle', '%'.$libelle.'%')
-            ->setParameter('id_rome', $id_rome)
+            ->setParameter('id_metier', $id_metier)
+            ->setMaxResults(50)
             ->getQuery()
             ->getResult();
 
-        // }
         return new JsonResponse($entities);
     }
 
