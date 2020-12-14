@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Competence;
 use App\Repository\CompetenceRepository;
 use App\Repository\MetierRepository;
+use App\Repository\CVRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,11 +17,13 @@ class ApiController extends AbstractController
 
     protected $competenceRepo;
     protected $metierRepo;
+    protected $cvRepo;
 
 
-    public function __construct(CompetenceRepository $competenceRepo, MetierRepository $metierRepo){
+    public function __construct(CompetenceRepository $competenceRepo, MetierRepository $metierRepo, CVRepository $cvRepo){
         $this->competenceRepo = $competenceRepo;
         $this->metierRepo = $metierRepo;
+        $this->cvRepo = $cvRepo;
     }
 
     /**
@@ -55,6 +58,35 @@ class ApiController extends AbstractController
             ->setParameter('libelle', '%'.$libelle.'%')
             ->setParameter('id_metier', $id_metier)
             ->setMaxResults(50)
+            ->getQuery()
+            ->getResult();
+
+        return new JsonResponse($entities);
+    }
+
+
+    /**
+     * @Route("/api/sourcing/recherche/", name="api_sourcing_recherche")
+     */
+    public function searchCV(Request $request)
+    {
+        $term= $request->query->get("term");
+        $region= $request->query->get("region");
+        $departement= $request->query->get("departement");
+        $ville= $request->query->get("ville");
+
+        $query = $this->cvRepo->createQueryBuilder('c')
+            ->select('c.id as id', 'c.titre as titre', 'ca.nom as nom', 'ca.prenom as prenom')
+            ->join('c.candidat', 'ca')
+            ->join('c.competences', 'co');
+
+        if ($term) {
+            $query->andWhere('co.libelle = :term')
+            ->setParameter('term', '%'.$term.'%');
+        }
+
+
+        $entities = $query->setMaxResults(50)
             ->getQuery()
             ->getResult();
 
