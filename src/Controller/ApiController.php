@@ -81,11 +81,10 @@ class ApiController extends AbstractController
             ->join('c.candidat', 'ca')
             ->join('c.competences', 'co');
 
-        if ($term) {
-            $query->andWhere('co.libelle = :term')
-            ->setParameter('term', '%'.$term.'%');
-        }
-
+        if ($term) $query->andWhere('co.libelle like :term')->setParameter('term', '%'.$term.'%'); 
+        if ($region) $query->andWhere('ca.region = :region')->setParameter('region', '%'.$region.'%'); 
+        if ($departement) $query->andWhere('ca.departement = :departement')->setParameter('departement', '%'.$departement.'%'); 
+        if ($ville) $query->andWhere('ca.ville = :ville')->setParameter('ville', '%'.$ville.'%'); 
 
         $entities = $query->setMaxResults(50)
             ->getQuery()
