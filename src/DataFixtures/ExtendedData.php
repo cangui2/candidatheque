@@ -2,20 +2,21 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\APE;
-use App\Entity\Candidat;
 use App\Entity\CV;
-use App\Entity\Departement;
-use App\Entity\Entreprise;
-use App\Entity\Metier;
-use App\Entity\Offre;
-use App\Entity\Recruteur;
-use App\Entity\Region;
-use App\Entity\TypeContrat;
+use App\Entity\APE;
 use App\Entity\User;
+use App\Entity\Offre;
 use App\Entity\Ville;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\Metier;
+use App\Entity\Region;
+use App\Entity\Candidat;
+use App\Entity\Recruteur;
+use App\Entity\Competence;
+use App\Entity\Entreprise;
+use App\Entity\Departement;
+use App\Entity\TypeContrat;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -155,7 +156,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $manager->persist($can1);
 
         $u5 = new User();
-        $u5->setEmail('can1@be4web.fr');
+        $u5->setEmail('can5@be4web.fr');
         $password = $this->encoder->encodePassword($u5, '123456');
         $u5->setPassword($password);
         $u5->setRoles(["ROLE_USER", "ROLE_CANDIDAT"]);
@@ -163,6 +164,25 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $u5->setCandidat($can1);
         $u5->setActif(true);
         $manager->persist($u5);
+
+        $cv1=new CV();
+        $cv1->setCandidat($can1);
+        $cv1->setMetier($manager->getRepository(Metier::class)->find(14250));
+        $cv1->addCompetence($manager->getRepository(Competence::class)->find(100011));
+        $cv1->addCompetence($manager->getRepository(Competence::class)->find(100075));
+        $cv1->addCompetence($manager->getRepository(Competence::class)->find(100078));
+        $cv1->addCompetence($manager->getRepository(Competence::class)->find(100077));
+        $manager->persist($cv1);
+
+        $cv2=new CV();
+        $cv2->setCandidat($can1);
+        $cv2->setMetier($manager->getRepository(Metier::class)->find(17302));
+        $cv2->addCompetence($manager->getRepository(Competence::class)->find(100078));
+        $cv2->addCompetence($manager->getRepository(Competence::class)->find(100087));
+        $cv2->addCompetence($manager->getRepository(Competence::class)->find(100088));
+        $cv2->addCompetence($manager->getRepository(Competence::class)->find(100089));
+        $cv2->addCompetence($manager->getRepository(Competence::class)->find(100090));
+        $manager->persist($cv2);
 
 
         $manager->flush();
