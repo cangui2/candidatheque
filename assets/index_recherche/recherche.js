@@ -1,5 +1,4 @@
 import React, { Component , useState } from 'react'
-import AsyncSelect from 'react-select/async';
 import axios from 'axios'
 import {Col, Form,Button} from "react-bootstrap";
 import {values} from "react-bootstrap-typeahead/lib/utils";
