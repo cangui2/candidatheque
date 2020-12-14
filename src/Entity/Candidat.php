@@ -6,9 +6,38 @@ use App\Repository\CandidatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CandidatRepository::class)
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *                          "get"={},
+
+ *                          },
+ *     itemOperations={
+ *                          "get"={},
+ *                          },
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
+ *     attributes={
+ *                  "force_eager"=false
+
+ *                 }
+ * )
+ * @ApiFilter(
+ *       SearchFilter::class,
+ *       properties={
+ *              "libelle": "partial",
+ *
+ *
+ *                  })
+ *
+ * )
  */
 class Candidat
 {
@@ -16,16 +45,20 @@ class Candidat
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("read")
+     *
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $prenom;
 
@@ -36,16 +69,19 @@ class Candidat
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $codePostal;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $ville;
 
@@ -61,6 +97,7 @@ class Candidat
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $telephone;
 

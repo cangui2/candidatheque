@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
+
 
 /**
  * @ORM\Entity(repositoryClass=RegionRepository::class)
@@ -26,12 +29,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
  *                 }
  * )
+ * @ApiFilter(
+ *       SearchFilter::class,
+ *       properties={
+ *              "nom": "partial"
+ *
+ *                  }
+ *     )
  */
 class Region
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @Groups("read")
      */
     private $id;
 
