@@ -41,7 +41,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "id": "partial"
+ *              "id": "partial",
+ *              "deposePar.id" : "exact"
  *
  *                  }
  *     )
