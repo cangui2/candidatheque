@@ -77,6 +77,7 @@ class ApiController extends AbstractController
 
         $query = $this->cvRepo->createQueryBuilder('c')
             ->select('c.id as id', 'c.titre as titre', 'ca.nom as nom', 'ca.prenom as prenom')
+            ->distinct('c')
             ->join('c.candidat', 'ca')
             ->join('c.competences', 'co');
 
