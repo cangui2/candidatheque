@@ -65,7 +65,7 @@ class Competence
     
     
     /**
-    * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
+    * @ORM\ManyToMany(targetEntity=CV::class, mappedBy="competences")
     */
     private $cvs;
 

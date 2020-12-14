@@ -106,7 +106,7 @@ class CV
     private $deposePar;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="cvs")
+     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="cvs")
      */
     private $competences;
 
