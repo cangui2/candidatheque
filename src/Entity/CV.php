@@ -233,11 +233,11 @@ class CV
         return $this->competence;
     }
 
-    public function addCompetence(Competence $ompetence): self
+    public function addCompetence(Competence $competence): self
     {
         if (!$this->competences->contains($competence)) {
             $this->competences[] = $competence;
-            $competence->addCompetence($this);
+            $competence->addCV($this);
         }
 
         return $this;
