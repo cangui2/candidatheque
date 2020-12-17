@@ -70,9 +70,7 @@ class Competence
     
     
     /**
-    * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
-     * @Groups("read")
-     * @ApiProperty(readableLink=false, writableLink=false)
+    * @ORM\ManyToMany(targetEntity=CV::class, mappedBy="competences")
     */
     private $cvs;
 

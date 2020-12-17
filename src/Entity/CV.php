@@ -106,7 +106,7 @@ class CV
     private $deposePar;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="cvs")
+     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="cvs")
      */
     private $competences;
 
@@ -233,11 +233,11 @@ class CV
         return $this->competence;
     }
 
-    public function addCompetence(Competence $ompetence): self
+    public function addCompetence(Competence $competence): self
     {
         if (!$this->competences->contains($competence)) {
             $this->competences[] = $competence;
-            $competence->addCompetence($this);
+            $competence->addCV($this);
         }
 
         return $this;
