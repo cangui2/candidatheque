@@ -71,7 +71,7 @@ class Ville
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="villes")
-     *
+     * @Groups("read")
      */
     private $departement;
 

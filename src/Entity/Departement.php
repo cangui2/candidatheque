@@ -24,14 +24,15 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
- *                  "force_eager"=false
+ *                  "force_eager"=false,
+ *
 
  *                 }
  * )
  * @ApiFilter (
  *     SearchFilter::class,
  *       properties={
- *              "nom": "exact"
+ *              "nom": "partial"
  *
  *                  }
  * )
@@ -42,6 +43,7 @@ class Departement
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
+     * @Groups("read")
      */
     private $id;
 
@@ -59,7 +61,7 @@ class Departement
 
     /**
      * @ORM\OneToMany(targetEntity=Ville::class, mappedBy="departement")
-     * @Groups("read")
+     *
      */
     private $villes;
 

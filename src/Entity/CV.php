@@ -34,15 +34,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
- *                  "force_eager"=false
+ *                  "force_eager"=false,
+ *                  "pagination_items_per_page"=4
  *
  *                 }
  * )
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "id": "partial"
- *
+ *              "id": "partial",
+ *          "deposePar.id":"exact",
+ *            "candidat.ville":"exact"
  *                  }
  *     )
  */
@@ -78,7 +80,7 @@ class CV
 
     /**
      * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="CVs")
-     * @Groups("read")
+     *
      */
     private $metier;
 
@@ -100,6 +102,7 @@ class CV
 
     /**
      * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="cv")
+     * @Groups("read")
      */
     private $experiences;
 
@@ -115,11 +118,13 @@ class CV
 
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="cv")
+     * @Groups("read")
      */
     private $formations;
 
     /**
      * @ORM\OneToMany(targetEntity=Langue::class, mappedBy="cv")
+     * @Groups("read")
      */
     private $langues;
 
@@ -131,6 +136,7 @@ class CV
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="cvs")
+     * @Groups("read")
      */
     private $competences;
 

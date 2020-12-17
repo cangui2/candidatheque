@@ -6,6 +6,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
 /**
  * @ORM\Entity(repositoryClass=FormationRepository::class)
  * @ApiResource(
@@ -35,36 +38,43 @@ class Formation
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $ecole;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups("read")
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups("read")
      */
     private $dateFin;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $niveau;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $diplome;
 
     /**
      * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="formations")
+     * @Groups("read")
      */
     private $cv;
 
