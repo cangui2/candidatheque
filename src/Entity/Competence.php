@@ -58,6 +58,7 @@ class Competence
     /**
      * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="competences")
      * @Groups("read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $romes;
 

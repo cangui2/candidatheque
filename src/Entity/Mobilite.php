@@ -27,24 +27,24 @@ class Mobilite
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="mobilitesSources")
+     * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="mobilitesCibles")
      */
     private $romeSource;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="mobilitesCibles")
+     * @ORM\ManyToOne(targetEntity=Rome::class, inversedBy="mobilitesSources")
      */
     private $romeCible;
 
     /**
      * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="mobilitesSources")
      */
-    private $metierSource;
+    private $metierCible;
 
     /**
      * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="mobilitesCibles")
      */
-    private $metierCible;
+    private $metierSource;
 
     public function __construct()
     {

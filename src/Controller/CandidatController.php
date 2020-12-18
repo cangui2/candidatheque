@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Rome;
 use App\Entity\User;
+use App\Form\ProfilFormType;
 use App\Repository\PostuleRepository;
 use App\Repository\CandidatRepository;
 use App\Form\CandidatRegistrationFormType;
@@ -44,6 +45,29 @@ class CandidatController extends AbstractController
 
 
         return $this->render('candidat/dashboard_candidat.html.twig');
+    }
+
+    /**
+     * @Route("/candidat/profil", name="mon_profil")
+     */
+    public function profil_candidat(Request $request): Response
+    {
+
+        $candidat = $this->getUser()->getCandidat();
+        $pfForm = $this->createForm(ProfilFormType::class, $candidat);
+        $pfForm->handleRequest($request);
+
+        if ($pfForm->isSubmitted() && $pfForm->isValid()) {
+
+            return $this->render('candidat/profil.html.twig', [
+                'pfForm' => $pfForm->createView()
+            ]);
+
+        }
+
+        return $this->render('candidat/profil.html.twig', [
+            'pfForm' => $pfForm->createView()
+        ]);
     }
 
 

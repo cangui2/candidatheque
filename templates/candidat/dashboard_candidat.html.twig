@@ -1,27 +1,96 @@
 {% extends 'base.html.twig' %}
 
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/dashboard_candidat.css" rel="stylesheet">
+{% endblock %}
 {% block body %}
+    <div class="container px-4">
+        <div class="row gx-5 mt-5 mb-5">
+            <div class="col">
+                <div class="p-0">
+                    <div class="jumbotron jumbo-profil">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <img src="{{ asset("assets/images/user.png") }}" class="profile-icon">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="">Mon profil</h4>
+                            </div>
+                        </div>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4">
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="{{ path('mon_profil') }}" role="button">Modifier/Compléter</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-0">
+                    <div class="jumbotron jumbo-profil">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <img src="{{ asset("assets/images/cv.png") }}" class="profile-icon">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="">Mes CVs</h4>
+                            </div>
+                        </div>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4">
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gx-5 mb-5">
+            <div class="col">
+                <div class="p-0">
+                    <div class="jumbotron jumbo-profil">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <img src="{{ asset("assets/images/lettre.png") }}" class="profile-icon">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="">Mes lettres de motivation</h4>
+                            </div>
+                        </div>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4">
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-0">
+                    <div class="jumbotron jumbo-profil">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <img src="{{ asset("assets/images/job.png") }}" class="profile-icon">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="">Mes offres</h4>
+                            </div>
+                        </div>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4">
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
- <div class="container">
-     <div class="col-lg-12 mon-profil-wrapper">
-         Civilite<br>
-         Prénom, Nom, Ville, CP, Pays, Tél,
-<section>Votre parcours
-Dernier poste occupé
-    Niveau d'expérience
-    Niveau de formation - jeune diplômé, 1-2 ans, 3-5, 6-10, 11-20, plus
-</section>
-         <section>Projet professionnel</section>
-         Disponible choix - immédiat; avec préavis, en veille
-         Poste recherché
-         Type de contrat recherché
-         secteurs rfecherché
-         Salaire annuel brut souhaité
-         regions recherchées
-     </div>
-     Activer profil dans la cv-thèque
-     Activer l'alerte cv
- </div>
 {% endblock %}
 
