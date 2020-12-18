@@ -42,9 +42,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *       SearchFilter::class,
  *       properties={
  *              "id": "partial",
- *              "deposePar.id" : "exact"
+ *              "deposePar.id" : "exact",
+ *              "candidat.id":"exact"
  *
  *                  }
+ *
  *     )
  */
 class CV
@@ -101,11 +103,13 @@ class CV
 
     /**
      * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="cv")
+     * @Groups("read")
      */
     private $experiences;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $titre;
 
@@ -116,11 +120,13 @@ class CV
 
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="cv")
+     * @Groups("read")
      */
     private $formations;
 
     /**
      * @ORM\OneToMany(targetEntity=Langue::class, mappedBy="cv")
+     * @Groups("read")
      */
     private $langues;
 
@@ -132,6 +138,7 @@ class CV
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="cvs")
+     * @Groups("read")
      */
     private $competences;
 
