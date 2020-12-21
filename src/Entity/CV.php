@@ -115,6 +115,7 @@ class CV
 
     /**
      * @ORM\OneToMany(targetEntity=Reseau::class, mappedBy="cv")
+     * @Groups("read")
      */
     private $reseaux;
 
