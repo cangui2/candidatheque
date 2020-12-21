@@ -25,7 +25,7 @@ class CV extends React.Component {
                 email: "jodo@yahoo.com",
                 titre: "Développeur Web",
                 description: "Après une thèse de biochimie et un post-doc en chimiométrie pendant lesquels j'avais développé un certain nombre d'outils informatiques...",
-                photo: "https://test.candidatheque.com/assets/photos/profil4.png",
+                photo: "http://test.candidatheque.com/assets/photos/profil4.png",
                 metier: {}
             },
             experiences: [
@@ -34,7 +34,7 @@ class CV extends React.Component {
                     dateFin: "maintenant", 
                     titre: "Lead developer", 
                     entreprise: "TheBox", 
-                    logo:"https://test.candidatheque.com/assets/photos/logo1.png", 
+                    logo:"http://test.candidatheque.com/assets/photos/logo1.png", 
                     description: "azeazeaze" 
                 },
                 { 
@@ -42,7 +42,7 @@ class CV extends React.Component {
                     dateFin: "2018", 
                     titre: "stage de découverte", 
                     entreprise: "TheBox", 
-                    logo:"https://test.candidatheque.com/assets/photos/logo2.png", 
+                    logo:"http://test.candidatheque.com/assets/photos/logo2.png", 
                     description: "dfgdfgdfg" 
                 },
                 { 
@@ -50,7 +50,7 @@ class CV extends React.Component {
                     dateFin: "2012", 
                     titre: "stage de découverte", 
                     entreprise: "TheBox", 
-                    logo:"https://test.candidatheque.com/assets/photos/logo3.png", 
+                    logo:"http://test.candidatheque.com/assets/photos/logo3.png", 
                     description: "uiouiouio" 
                 }
             ],
@@ -135,6 +135,9 @@ class CV extends React.Component {
     }
     //////////////////////////////////////////////////////////////
     handleAddCompetence(evt, com) {
+        console.log("+++++++++++++++++++");
+        console.log(com);
+        console.log("-----------------");
         let competences = this.state.competences;
         competences.push({ libelle: com, niveau: "5"});
         this.setState({ competences });

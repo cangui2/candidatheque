@@ -27,7 +27,11 @@ class FormLangue extends React.Component {
                         </Col>
                         <Col xs={2}>
                             {/* technique, notion, courant, bilingue */}
-                            <Form.Control as="select" >
+                            <Form.Control as="select" 
+                                value={this.props.value.niveau}
+                                onChange={(evt) => this.handleChange(evt)}
+                                
+                            >
                                 <option>Technique</option>
                                 <option>Notions</option>
                                 <option>Courant</option>

@@ -1,6 +1,8 @@
 
 /* Habillage layout */
 .paper {
+    margin-top: -70px;
+    margin-left: -50px;
     display: flex;
     flex-wrap: wrap;
     padding: 40px;
