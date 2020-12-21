@@ -2,24 +2,37 @@
   "entrypoints": {
     "cv": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.6ef359de.js",
-        "/build/1.b0d69946.js",
-        "/build/cv.4819fcb3.js"
+        "/build/runtime.js",
+        "/build/vendors~cv~react_recherche~test_form.js",
+        "/build/vendors~cv.js",
+        "/build/cv.js"
       ],
       "css": [
-        "/build/cv.3c19b388.css"
+        "/build/cv.css"
       ]
     },
     "react_recherche": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.6ef359de.js",
-        "/build/2.12a9c998.js",
-        "/build/react_recherche.81c401fa.js"
+        "/build/runtime.js",
+        "/build/vendors~cv~react_recherche~test_form.js",
+        "/build/vendors~react_recherche~test_form.js",
+        "/build/vendors~react_recherche.js",
+        "/build/react_recherche.js"
       ],
       "css": [
-        "/build/2.d39511b7.css"
+        "/build/vendors~react_recherche.css"
+      ]
+    },
+    "test_form": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~cv~react_recherche~test_form.js",
+        "/build/vendors~react_recherche~test_form.js",
+        "/build/vendors~test_form.js",
+        "/build/test_form.js"
+      ],
+      "css": [
+        "/build/vendors~test_form.css"
       ]
     }
   }
