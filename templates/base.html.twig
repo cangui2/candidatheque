@@ -28,9 +28,11 @@
 				{% endif %}
 			</header>
 
+			<div id="main_root">
 			{% block body %}{% endblock %}
-			
+			</div>
 			<!-- Footer -->
+			<div id="adjust_footer"></div>
 			<footer class="page-footer font-small  bg-color-secondaire1">
 
 				<div class="container">
@@ -76,6 +78,15 @@
 				<script src="{{ asset("/assets/js/jquery-3.5.1.min.js") }}"></script>
 				<script src="{{ asset("/assets/js/popper.min.js") }}" ></script>
 				<script src="{{ asset("/assets/js/bootstrap.min.js") }}" ></script>
+				<script>
+						$(document).ready(function() {
+							if ($("#main_root").height()<$(document).height()) {
+								$("#adjust_footer").height($(document).height()-($("#main_root").height()+130));
+							}
+						});
+				</script>
 				{% block javascripts %}{% endblock %}
 			</body>
 	</html>
+
+
