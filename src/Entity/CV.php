@@ -34,8 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
- *                  "force_eager"=false,
- *                  "pagination_items_per_page"=4
+ *                  "force_eager"=false
  *
  *                 }
  * )
@@ -43,9 +42,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *       SearchFilter::class,
  *       properties={
  *              "id": "partial",
- *          "deposePar.id":"exact",
- *            "candidat.ville":"exact"
+ *              "deposePar.id" : "exact",
+ *              "candidat.id":"exact"
+ *
  *                  }
+ *
  *     )
  */
 class CV
@@ -80,7 +81,7 @@ class CV
 
     /**
      * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="CVs")
-     *
+     * @Groups("read")
      */
     private $metier;
 
@@ -108,11 +109,13 @@ class CV
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $titre;
 
     /**
      * @ORM\OneToMany(targetEntity=Reseau::class, mappedBy="cv")
+     * @Groups("read")
      */
     private $reseaux;
 

@@ -6,19 +6,17 @@ use App\Repository\RecruteurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=RecruteurRepository::class)
  * @ApiResource(
  *     collectionOperations={
  *                          "get"={},
- *
+
  *                          },
  *     itemOperations={
  *                          "get"={},
@@ -27,16 +25,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
- *
+
  *                 }
  * )
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "id": "partial"
+ *              "libelle": "partial",
  *
- *                  }
- *     )
+ *
+ *                  })
+ *
+ * )
  */
 class Recruteur
 {
@@ -50,11 +50,13 @@ class Recruteur
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $prenom;
 
@@ -71,17 +73,20 @@ class Recruteur
     /**
      * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="recruteurs")
      * @ORM\JoinColumn(name="id_entreprise", referencedColumnName="id")
+     * @Groups("read")
      */
     private $entreprise;
 
     /**
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="recruteur")
+     * @Groups("read")
      */
     private $offres;
 
     /**
      * Relation est déposé par
      * @ORM\OneToMany(targetEntity=CV::class, mappedBy="deposePar")
+     *
      */
     private $candidats;
 
