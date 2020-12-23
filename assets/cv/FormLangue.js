@@ -4,7 +4,7 @@ import { Col, Form, Button } from 'react-bootstrap';
 class FormLangue extends React.Component {
 
     handleChange(evt) {
-        //console.log(this);
+        console.log(evt);
         let competence = {
             libelle: this.refs.libelle.value,
             niveau: this.refs.niveau.value
@@ -28,6 +28,7 @@ class FormLangue extends React.Component {
                         <Col xs={2}>
                             {/* technique, notion, courant, bilingue */}
                             <Form.Control as="select" 
+                                ref="niveau"
                                 value={this.props.value.niveau}
                                 onChange={(evt) => this.handleChange(evt)}
                                 

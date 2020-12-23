@@ -81,8 +81,8 @@ class CV extends React.Component {
                 { libelle: "React", niveau: "3" },
             ],
             langues: [
-                { libelle: "Anglais", niveau: "5" },
-                { libelle: "Allemand", niveau: "2" }
+                { libelle: "Anglais", niveau: "Technique" },
+                { libelle: "Allemand", niveau: "Courant" }
             ],
             reseaux: [
                 { type: "LinkedIn", url: "https://linkedin.com/..." },

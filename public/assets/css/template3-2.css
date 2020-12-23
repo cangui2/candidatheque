@@ -172,6 +172,7 @@
 }
 .paper>.langues>div>.langue>.niveau {
     display: inline;
+    padding-left: 5px;
 }
 
 
