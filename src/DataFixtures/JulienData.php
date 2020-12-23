@@ -137,13 +137,13 @@ class JulienData extends Fixture implements FixtureGroupInterface
 
         // Candidat numero 1
         $cand1= new Candidat();
-        $cand1->setNom('ff');
-        $cand1->setPrenom('ff');
-        $cand1->setAdresse(152);
+        $cand1->setNom('alice');
+        $cand1->setPrenom('never');
+        $cand1->setAdresse('153 rue de paris');
         $cand1->setCodePostal('60700');
         $cand1->setMobilite(true);
         $cand1->setTelephone('0312543352');
-        $cand1->setVille(296);
+        $cand1->setVille('Paris (75014)');
         $manager->persist($cand1);
 
         $usCandid = new User();
@@ -165,7 +165,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand2->setCodePostal('60700');
         $cand2->setMobilite(true);
         $cand2->setTelephone('0312543352');
-        $cand2->setVille(296);
+        $cand2->setVille('Pont-Sainte-Maxence (60700)');
         $manager->persist($cand2);
 
         $usCandid1 = new User();
@@ -187,7 +187,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand3->setCodePostal('80000');
         $cand3->setMobilite(true);
         $cand3->setTelephone('0312543352');
-        $cand3->setVille(296);
+        $cand3->setVille('Pont-Sainte-Maxence (60700)');
         $manager->persist($cand3);
 
         $usCandid2 = new User();
@@ -210,7 +210,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand4->setCodePostal('60700');
         $cand4->setMobilite(true);
         $cand4->setTelephone('0312543352');
-        $cand4->setVille(296);
+        $cand4->setVille('Pont-Sainte-Maxence (60700)');
         $manager->persist($cand4);
 
         $usCandid3 = new User();
@@ -233,7 +233,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand5->setCodePostal('60700');
         $cand5->setMobilite(true);
         $cand5->setTelephone('0312543352');
-        $cand5->setVille(296);
+        $cand5->setVille('Pont-Sainte-Maxence (60700)');
         $manager->persist($cand5);
 
         $usCandid4 = new User();
@@ -251,10 +251,12 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cv1=new CV();
         $cv1->setCandidat($cand1);
         $cv1->setMetier($manager->getRepository(Metier::class)->find(14250));
+        $cv1->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
         $manager->persist($cv1);
         $cv1=new CV();
         $cv1->setCandidat($cand1);
         $cv1->setMetier($manager->getRepository(Metier::class)->find(17302));
+        $cv1->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
         $manager->persist($cv1);
 
 
@@ -262,31 +264,39 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cv2=new CV();
         $cv2->setCandidat($cand2);
         $cv2->setMetier($manager->getRepository(Metier::class)->find(14250));
+        $cv2->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
         $manager->persist($cv2);
         $cv2=new CV();
         $cv2->setCandidat($cand2);
         $cv2->setMetier($manager->getRepository(Metier::class)->find(20381));
+        $cv2->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
         $manager->persist($cv2);
 
         //Cv x2 candidat  3
         $cv3=new CV();
         $cv3->setCandidat($cand3);
         $cv3->setMetier($manager->getRepository(Metier::class)->find(12550));
+        $cv3->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
         $manager->persist($cv3);
         $cv3=new CV();
         $cv3->setCandidat($cand3);
         $cv3->setMetier($manager->getRepository(Metier::class)->find(126547));
+        $cv3->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
         $manager->persist($cv3);
 
         //Cv x2 candidat  4
 
         $cv4=new CV();
         $cv4->setDeposePar($rec3);
+        $cv4->setCandidat($cand2);
         $cv4->setMetier($manager->getRepository(Metier::class)->find(12556));
+        $cv4->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
         $manager->persist($cv4);
         $cv4=new CV();
         $cv4->setDeposePar($rec3);
+        $cv4->setCandidat($cand1);
         $cv4->setMetier($manager->getRepository(Metier::class)->find(140884));
+        $cv4->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
         $manager->persist($cv4);
 
         $formation= new Formation();
@@ -589,7 +599,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $manager->persist($compt4);
         $manager->persist($compt5);
 
-        
+
 
 
 

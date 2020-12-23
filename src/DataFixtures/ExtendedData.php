@@ -4,9 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\APE;
 use App\Entity\Candidat;
+use App\Entity\Competence;
 use App\Entity\CV;
 use App\Entity\Departement;
 use App\Entity\Entreprise;
+use App\Entity\Formation;
 use App\Entity\Metier;
 use App\Entity\Offre;
 use App\Entity\Recruteur;
@@ -74,9 +76,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $manager->persist($u3);
 
 
-        $cv1 = new CV();
-        $cv1->addFavori($ent1);
-        $manager->persist($cv1);
+
 
 
         $ent2 = new Entreprise();
@@ -149,10 +149,15 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $manager->persist($of4);
 
 
-        $can1 = new Candidat();
-        $can1->setNom("Muray");
-        $can1->setPrenom("Bill");
-        $manager->persist($can1);
+        $cand1= new Candidat();
+        $cand1->setNom('alice');
+        $cand1->setPrenom('never');
+        $cand1->setAdresse('153 rue de paris');
+        $cand1->setCodePostal('60700');
+        $cand1->setMobilite(true);
+        $cand1->setTelephone('0312543352');
+        $cand1->setVille('Paris (75014)');
+        $manager->persist($cand1);
 
         $u5 = new User();
         $u5->setEmail('can1@be4web.fr');
@@ -160,10 +165,66 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $u5->setPassword($password);
         $u5->setRoles(["ROLE_USER", "ROLE_CANDIDAT"]);
         $u5->setAuthToken(null);
-        $u5->setCandidat($can1);
+        $u5->setCandidat($cand1);
         $u5->setActif(true);
         $manager->persist($u5);
 
+        $cv1=new CV();
+        $cv1->setCandidat($cand1);
+        $cv1->setMetier($manager->getRepository(Metier::class)->find(14250));
+        $cv1->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
+        $manager->persist($cv1);
+        $cv1=new CV();
+        $cv1->setCandidat($cand1);
+        $cv1->setMetier($manager->getRepository(Metier::class)->find(17302));
+        $cv1->setTitre('Après une thèse de biochimie et un post-doc en chimiométrie ');
+        $manager->persist($cv1);
+
+        $formation= new Formation();
+        $formation->setCv($cv1);
+        $formation->setDateDebut(new \DateTime('06/04/2014'));
+        $formation->setDateFin(new \DateTime('06/04/2016'));
+        $formation->setDescription('test');
+        $formation->setDiplome('diplome superieur');
+        $formation->setEcole('Acor Alternance');
+        $formation->setNiveau('bac+2');
+        $manager->persist($formation);
+
+        $formation= new Formation();
+        $formation->setCv($cv1);
+        $formation->setDateDebut(new \DateTime('06/04/2014'));
+        $formation->setDateFin(new \DateTime('06/04/2012'));
+        $formation->setDescription('diplome professionelle ');
+        $formation->setDiplome('diplome fin d etude');
+        $formation->setEcole('lycee notre dame');
+        $formation->setNiveau('bac pro commerce');
+        $manager->persist($formation);
+
+        $formation= new Formation();
+        $formation->setCv($cv1);
+        $formation->setDateDebut(new \DateTime('06/04/2014'));
+        $formation->setDateFin(new \DateTime('06/04/2014'));
+        $formation->setDescription('brevet');
+        $formation->setDiplome('brevet professionnel');
+        $formation->setEcole('lycee notre dames');
+        $formation->setNiveau('bep vente');
+        $manager->persist($formation);
+
+        $comptA=($manager->getRepository(Competence::class)->find(200039));
+        $comptB=($manager->getRepository(Competence::class)->find(200059));
+        $comptC=($manager->getRepository(Competence::class)->find(103163));
+        $comptD=($manager->getRepository(Competence::class)->find(106963));
+        $comptE=($manager->getRepository(Competence::class)->find(119000));
+        $comptA->addCV($cv1);
+        $comptB->addCV($cv1);
+        $comptC->addCV($cv1);
+        $comptD->addCV($cv1);
+        $comptE->addCV($cv1);
+        $manager->persist($comptA);
+        $manager->persist($comptB);
+        $manager->persist($comptC);
+        $manager->persist($comptD);
+        $manager->persist($comptE);
 
         $manager->flush();
 
