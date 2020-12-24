@@ -46,19 +46,24 @@ class TestController extends AbstractController
         $tab = [];
 
         $villes = $repo2->find(81)->getVilles();
-        dd($repo->findBy([ "departement" => 32]));
+        // dd($repo->findBy([ "departement" => 32]));
 
-        foreach($repo->findBy([ "departement" => 32]) as $v) {
+        foreach($villes as $ville2) {
+
+            $distance = sqrt(pow($ville1->getLongitude()-$ville2->getLongitude(), 2) + pow($ville1->getLatitude()-$ville2->getLatitude(), 2)) * 111.16;
+            if ($distance<40) {
+                $tab[] = [ $ville2->getNom(), $distance];
+            }
 
         }
 
-        $ville2 = $repo->find(31704);
+        // $ville2 = $repo->find(31704);
 
         //$tab[] = $ville1;
         
-        $distance = sqrt(pow($ville1->getLongitude()-$ville2->getLongitude(), 2) + pow($ville1->getLatitude()-$ville2->getLatitude(), 2)) * 111.16;
         
-        $tab[] = $distance;
+        
+        // $tab[] = $distance;
         
         return $this->json($tab);
     }
