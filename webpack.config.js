@@ -23,7 +23,7 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('cv', './assets/cv/index.js')
+    .addEntry('cv', './assets/cv_public/index.js')
     .addEntry('react_recherche', './assets/react_recherche.js')
     .addEntry('test_form', './assets/test_form/index.js')
     //.addEntry('dashboard_offre', './assets/dashboard_offre/graph_camembert.js')
