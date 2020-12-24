@@ -89,7 +89,9 @@ class CV extends React.Component {
                 { type: "GitHub", url: "https://github.com/..." }
             ],
         }
+        //this.handleLoadLocal();
     }
+
     handleSaveLocal() {
         localStorage.setItem('be4web_cv', JSON.stringify(this.state));
     }
@@ -105,81 +107,95 @@ class CV extends React.Component {
         let experiences = this.state.experiences;
         experiences.push({ date: "2020-10-03", mission: "bla bla bla22" });
         this.setState({ experiences });
+        this.handleSaveLocal();
     }
     handleDelExperience(i) {
         let experiences = this.state.experiences;
         experiences.splice(i, 1);
         this.setState({ experiences });
+        this.handleSaveLocal();
     }
     handleChangeExperience(i, exp) {
         let experiences = this.state.experiences;
         experiences[i] = exp;
         this.setState({ experiences });
-
+        this.handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     handleAddFormation(evt) {
         let formations = this.state.formations;
         formations.push({ dateDebut: "", dateFin: "", ecole: "", niveau: "", diplome: "", description: "" });
         this.setState({ formations });
+        this.handleSaveLocal();
     }
     handleDelFormation(i) {
         let formations = this.state.formations;
         formations.splice(i, 1);
         this.setState({ formations });
+        this.handleSaveLocal();
     }
     handleChangeFormation(i, exp) {
         let formations = this.state.formations;
         formations[i] = exp;
         this.setState({ formations });
+        this.handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     handleAddCompetence(evt, com) {
         let competences = this.state.competences;
         competences.push({ libelle: com, niveau: "5"});
         this.setState({ competences });
+        this.handleSaveLocal();
     }
     handleDelCompetence(i) {
         let competences = this.state.competences;
         competences.splice(i, 1);
         this.setState({ competences });
+        this.handleSaveLocal();
     }
     handleChangeCompetence(i, exp) {
         let competences = this.state.competences;
         competences[i] = exp;
         this.setState({ competences });
+        this.handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     handleAddLangue(evt) {
         let langues = this.state.langues;
         langues.push({ libelle: "", niveau: ""});
         this.setState({ langues });
+        this.handleSaveLocal();
     }
     handleDelLangue(i) {
         let langues = this.state.langues;
         langues.splice(i, 1);
         this.setState({ langues });
+        this.handleSaveLocal();
     }
     handleChangeLangue(i, exp) {
         let langues = this.state.langues;
         langues[i] = exp;
         this.setState({ langues });
+        this.handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     handleAddReseau(evt) {
         let reseaux = this.state.reseaux;
         reseaux.push({ type: "", url: ""});
         this.setState({ reseaux });
+        this.handleSaveLocal();
     }
     handleDelReseau(i) {
         let reseaux = this.state.reseaux;
         reseaux.splice(i, 1);
         this.setState({ reseaux });
+        this.handleSaveLocal();
     }
     handleChangeReseau(i, exp) {
         let reseaux = this.state.reseaux;
         reseaux[i] = exp;
         this.setState({ reseaux });
+        this.handleSaveLocal();
     }
     render() {
         return (

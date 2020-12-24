@@ -46,7 +46,7 @@ class EntrepriseController extends AbstractController
         ]);
     }
 
-/**
+    /**
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
@@ -74,7 +74,18 @@ class EntrepriseController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/entreprise/sourcing", name="entreprise_sourcing")
+     *
+     */
+    public function entreprise_sourcing(): Response {
 
+
+
+        return $this->render('entreprise/entreprise_sourcing.html.twig',[
+
+        ]);
+    }
 
 
 }

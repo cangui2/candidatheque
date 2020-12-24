@@ -26,6 +26,7 @@ Encore
     .addEntry('cv', './assets/cv_public/index.js')
     .addEntry('react_recherche', './assets/react_recherche.js')
     .addEntry('test_form', './assets/test_form/index.js')
+    .addEntry('sourcing', './assets/sourcing/index.js')
     //.addEntry('dashboard_offre', './assets/dashboard_offre/graph_camembert.js')
     //.addEntry('page1', './assets/page1.js')
     //.addEntry('page2', './assets/page2.js')
