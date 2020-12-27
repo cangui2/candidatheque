@@ -3,13 +3,19 @@
   "build/cv.js": "/build/cv.js",
   "build/react_recherche.js": "/build/react_recherche.js",
   "build/runtime.js": "/build/runtime.js",
+  "build/sourcing.css": "/build/sourcing.css",
+  "build/sourcing.js": "/build/sourcing.js",
   "build/test_form.js": "/build/test_form.js",
   "build/vendors~cv.js": "/build/vendors~cv.js",
-  "build/vendors~cv~react_recherche.js": "/build/vendors~cv~react_recherche.js",
-  "build/vendors~cv~react_recherche~test_form.js": "/build/vendors~cv~react_recherche~test_form.js",
+  "build/vendors~cv~react_recherche~sourcing~test_form.js": "/build/vendors~cv~react_recherche~sourcing~test_form.js",
+  "build/vendors~cv~sourcing.js": "/build/vendors~cv~sourcing.js",
+  "build/vendors~cv~test_form.js": "/build/vendors~cv~test_form.js",
   "build/vendors~react_recherche.css": "/build/vendors~react_recherche.css",
   "build/vendors~react_recherche.js": "/build/vendors~react_recherche.js",
   "build/vendors~react_recherche~test_form.js": "/build/vendors~react_recherche~test_form.js",
-  "build/vendors~test_form.css": "/build/vendors~test_form.css",
-  "build/vendors~test_form.js": "/build/vendors~test_form.js"
+  "build/vendors~sourcing.js": "/build/vendors~sourcing.js",
+  "build/vendors~sourcing~test_form.css": "/build/vendors~sourcing~test_form.css",
+  "build/vendors~sourcing~test_form.js": "/build/vendors~sourcing~test_form.js",
+  "build/vendors~test_form.js": "/build/vendors~test_form.js",
+  "build/images/avatar.png": "/build/images/avatar.3f478bd7.png"
 }

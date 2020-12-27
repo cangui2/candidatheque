@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompetenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -49,17 +50,22 @@ class Competence
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $libelleType;
 
 
     /**
      * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="competences")
+     * @Groups("read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $romes;
 
     /**
      * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
+     * @Groups("read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $offres;
     

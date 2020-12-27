@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('sourcing') }}
+{% endblock %}
+
+{% block body %}
+<div id="candidatheque_sourcing_panel"></div>
+
+
+    
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('sourcing') }}
+
+
+    <script>
+        {# window.addEventListener("resize", function() {
+            let paper = document.querySelector(".paper");
+            let l1 = paper.clientWidth;
+            let h1 = paper.clientHeight;
+            let largeur = document.querySelector(".paper-container").clientWidth;
+            let ratio = largeur/paper.clientWidth;
+            ratio = ratio * 0.8;
+            let nouvelle_largeur = paper.clientWidth * ratio;
+            let l2 = paper.clientWidth*ratio;
+            let h2 = paper.clientHeight*ratio;
+            paper.style.transform = "scale("+ratio+")";
+            let delta = (l1-l2)/2.2;
+            let deltaH = ((h1-h2)/2) - 20;
+            paper.style.marginLeft = "-" + delta + "px";
+            paper.style.marginTop = "-" + deltaH + "px";
+        });
+
+        window.dispatchEvent(new Event('resize')); #}
+
+    </script>
+{% endblock %}

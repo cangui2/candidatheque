@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="root"></div>
+<div id="candidatheque_cv_panel"></div>
 
 {% endblock %}
 
@@ -15,7 +15,7 @@
 
 
     <script>
-        window.addEventListener("resize", function() {
+        {# window.addEventListener("resize", function() {
             let paper = document.querySelector(".paper");
             let l1 = paper.clientWidth;
             let h1 = paper.clientHeight;
@@ -32,7 +32,7 @@
             paper.style.marginTop = "-" + deltaH + "px";
         });
 
-        window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event('resize')); #}
 
     </script>
 {% endblock %}

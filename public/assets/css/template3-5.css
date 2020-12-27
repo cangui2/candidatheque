@@ -13,6 +13,9 @@
 
 /* Habillage layout */
 .paper {
+    margin-top: -75px;
+    margin-left: -50px;
+
     padding: 40px;
     border: 2px gray solid;
     box-shadow: 10px 10px 10px gray;

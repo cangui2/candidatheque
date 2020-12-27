@@ -50,56 +50,42 @@ class EntrepriseController extends AbstractController
      * @Route("/entreprise/dashboard", name="dashboard_entreprise")
      *
      */
-    public function dashboard(MatchingService $matchingService): Response {
+    public function dashboard(): Response {
 
-        return new Response();
 
-        $recruteurId = $this->getUser()->getRecruteur()->getId();
+        $entreprise = $this->getUser()->getRecruteur()->getEntreprise()->getId();
 
-        $result = $this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
 
-        $postules=$this->postuleRepo->findViewsCandidatForRecruteur($recruteurId);
-
+        $offres=$this->offreRepo->findByCompany($entreprise);
+        //$offres=$recruteur->getOffres(); //$this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
         $cvs=$this->cvRepo->findAll();
-        // algo en test
-        $idOffert=5;
-        $skillCvCandidat = array (
-            "gilles" => array("103163", "106963", "119000"),
-            "alex" => array("A1104", "103163", "A1101"),
-            "claire" => array("119000", "A1108", "A1109")
-        );
-
-        $test=$matchingService->matchingOfferVsCvCandidat($postules);
-        //-------------------------------------------------------------------------------//
-
-        $globalData = [];
-        $globalLabel = [];
-        foreach ($result as $ligne) {
-            $globalData[] = $ligne["compteur"];
-            $globalLabel[] = $ligne["libelle"];
-        }
-        $limitOffer = $this->offreRepo->findAllOfferByIdRecruteurLimit5($recruteurId);
-
-
-
 
 
 
         return $this->render('entreprise/dashboard_entreprise.html.twig',[
 
-            'offerNumber' => array_sum($globalData),
-            'limitOffer'=>$limitOffer,
-            'candidateReturn'=> count($postules),
-            'lastCanditature'=>$lastCanditature,
-            'cvs'=>$cvs,
-            'test'=>$test,
+
+            'offres'=>$offres,
+            'cvs'=>count($cvs),
+
 
 
 
         ]);
     }
 
+    /**
+     * @Route("/entreprise/sourcing", name="entreprise_sourcing")
+     *
+     */
+    public function entreprise_sourcing(): Response {
 
+
+
+        return $this->render('entreprise/entreprise_sourcing.html.twig',[
+
+        ]);
+    }
 
 
 }

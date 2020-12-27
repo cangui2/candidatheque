@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PaysRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PaysRepository::class)
@@ -18,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     itemOperations={
  *                          "get"={},
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"p:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -37,11 +39,14 @@ class Pays
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("p:read")
      */
     private $nom;
 
     /**
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="pays")
+     * @Groups("p:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $offres;
 

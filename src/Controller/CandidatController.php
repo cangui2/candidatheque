@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Rome;
 use App\Entity\User;
+use App\Form\ProfilFormType;
 use App\Repository\PostuleRepository;
 use App\Repository\CandidatRepository;
 use App\Form\CandidatRegistrationFormType;
@@ -33,25 +34,39 @@ class CandidatController extends AbstractController
     }
 
 
-
-
     /**
      * @Route("/candidat/dashboard", name="dashboard_candidat")
      */
     public function dashboard(PostuleRepository $repo,CandidatRepository $repo2): Response
     {
 
-        $candidat_id = $this->getUser()->getCandidat()->getId();
+        $candidat = $this->getUser()->getCandidat();
 
-        $compteur = $repo->countByCandidat($candidat_id);
 
-        //dd($compteur);
 
-        //$test = $repo2 ->countByCV($candidat_id);
-        //dd($test);
+        return $this->render('candidat/dashboard_candidat.html.twig');
+    }
 
-        return $this->render('candidat/dashboard_candidat.html.twig',[
-            'compteur'=>$compteur,
+    /**
+     * @Route("/candidat/profil", name="mon_profil")
+     */
+    public function profil_candidat(Request $request): Response
+    {
+
+        $candidat = $this->getUser()->getCandidat();
+        $pfForm = $this->createForm(ProfilFormType::class, $candidat);
+        $pfForm->handleRequest($request);
+
+        if ($pfForm->isSubmitted() && $pfForm->isValid()) {
+
+            return $this->render('candidat/profil.html.twig', [
+                'pfForm' => $pfForm->createView()
+            ]);
+
+        }
+
+        return $this->render('candidat/profil.html.twig', [
+            'pfForm' => $pfForm->createView()
         ]);
     }
 
