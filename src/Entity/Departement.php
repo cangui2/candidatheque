@@ -13,6 +13,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=DepartementRepository::class)
+ * @ORM\Table(indexes={@ORM\Index(name="departement_nom_idx", columns={"nom"})})
  * @ApiResource(
  *     collectionOperations={
  *                          "get"={},
