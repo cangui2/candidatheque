@@ -2,6 +2,7 @@ import React, { Component , useState } from 'react'
 import axios from 'axios'
 import {Col, Form,Button} from "react-bootstrap";
 import {values} from "react-bootstrap-typeahead/lib/utils";
+import AsyncSelect from "react-select/async";
 
 
 
@@ -77,7 +78,7 @@ function App() {
         e.preventDefault()
         console.log(data,data2,data3,data4);
         // ... submit to API or something
-        fetch('https://127.0.0.1:8000/api/type_contrats?libelle=' + data).then( (res) =>  {
+        fetch('https://127.0.0.1:8000/recherche_liste=' + data + data2 + data3 + data4).then( (res) =>  {
             console.log(res.json());
         });
     };
@@ -136,10 +137,11 @@ function App() {
                     onChange={handleChange4}
                     components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                 />
-
+                <div className="text-right">
                 <Button onClick={handleSubmit} type="submit" className="mb-2">
-                    Submit
+                    Recherche des offres
                 </Button>
+                </div>
             </Form.Group>
         </form>
     );
