@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Competence;
 use App\Repository\CompetenceRepository;
+use App\Repository\CVRepository;
+use ContainerJ85uVSC\getExperienceRepositoryService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,6 +43,41 @@ class ApiController extends AbstractController
         // }
 
        
+        return new JsonResponse($entities);
+
+    }
+
+    /**
+     * @Route("/api/sourcing", name="api_sourcing_recherche")
+     */
+    public function api_sourcing_recherche(CVRepository $cv_repo, Request $request)
+    {
+        $keyword = $request->query->get("keyword");
+        $ville = $request->query->get("ville");
+        $source = $request->query->get("source");
+
+        $query = $cv_repo->createQueryBuilder('c')
+            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre')
+            ->join('c.candidat', 'can');
+
+
+
+
+        if ($keyword) {
+            $query
+                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier')
+                ->join('c.metier','met')
+                ->join("c.competences" ,'com')
+                ->andwhere('met.libelle like :keyword')
+                ->setParameter('keyword', '%' . $keyword . '%');
+        }
+
+
+
+        $entities=$query->getQuery()
+            ->setMaxResults(30)
+            ->getResult();
+
         return new JsonResponse($entities);
 
     }
