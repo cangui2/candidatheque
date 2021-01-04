@@ -9,6 +9,9 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+
+
+
 /**
  * @ORM\Entity(repositoryClass=FormationRepository::class)
  * @ApiResource(
@@ -74,6 +77,7 @@ class Formation
 
     /**
      * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="formations")
+     * @Groups("read")
      */
     private $cv;
 

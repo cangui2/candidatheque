@@ -33,7 +33,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *       SearchFilter::class,
  *       properties={
  *              "libelle": "partial",
- *              "rome": "exact"
+ *              "id": "partial"
  *
  *                  })
  *

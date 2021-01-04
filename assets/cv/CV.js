@@ -10,7 +10,7 @@ import FormCompetences from './FormCompetences.js';
 import FormLangues from './FormLangues.js';
 import FormReseaux from './FormReseaux.js';
 
-import './CV.css';
+import '../../../mon-app/src/component/CV.css';
 
 class CV extends React.Component {
     constructor(props) {

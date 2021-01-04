@@ -104,6 +104,7 @@ class Candidat
 
     /**
      * @ORM\OneToMany(targetEntity=CV::class, mappedBy="candidat")
+     * @Groups("read")
      */
     private $CVs;
 

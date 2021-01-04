@@ -32,7 +32,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "nom": "partial"
+ *              "nom": "partial",
  *
  *                  }
  *     )
