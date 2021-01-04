@@ -57,26 +57,25 @@ class ApiController extends AbstractController
         $source = $request->query->get("source");
 
         $query = $cv_repo->createQueryBuilder('c')
-            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre')
-            ->join('c.candidat', 'can');
-
-
+            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.libelle as metier')
+            ->join('c.candidat', 'can')
+            ->join('c.metier','met')
+            ->leftJoin('c.competences','comp');
 
 
         if ($keyword) {
             $query
-                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier')
-                ->join('c.metier','met')
-                ->join("c.competences" ,'com')
-                ->andwhere('met.libelle like :keyword')
+//                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
+                ->andWhere('(c.titre like :keyword or met.libelle like :keyword or comp.libelle like :keyword)')
                 ->setParameter('keyword', '%' . $keyword . '%');
+
         }
-
-
-
-        $entities=$query->getQuery()
+        $entities=$query->distinct()->getQuery()
             ->setMaxResults(30)
             ->getResult();
+
+
+
 
         return new JsonResponse($entities);
 
