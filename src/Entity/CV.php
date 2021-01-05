@@ -44,8 +44,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "id": "partial",
  *              "deposePar.id" : "exact",
  *              "candidat.id":"exact",
- *              "candidat.ville":"partial"
- *
+ *              "candidat.ville":"partial",
+ *              "metier.id":"exact"
  *
  *                  }
  *
