@@ -42,7 +42,7 @@ class ApiController extends AbstractController
         //     $resultats[] = $e->getLibelle();
         // }
 
-       
+
         return new JsonResponse($entities);
 
     }
@@ -54,13 +54,15 @@ class ApiController extends AbstractController
     {
         $keyword = $request->query->get("keyword");
         $ville = $request->query->get("ville");
-        $source = $request->query->get("source");
+        $recruteur = $request->query->get("recruteur");
 
         $query = $cv_repo->createQueryBuilder('c')
-            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.libelle as metier')
+            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','can.ville as ville','met.libelle as metier','dep.id as recruteur')
             ->join('c.candidat', 'can')
             ->join('c.metier','met')
-            ->leftJoin('c.competences','comp');
+            ->leftJoin('c.competences','comp')
+            ->leftJoin('c.deposePar','dep');
+
 
 
         if ($keyword) {
@@ -68,6 +70,19 @@ class ApiController extends AbstractController
 //                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
                 ->andWhere('(c.titre like :keyword or met.libelle like :keyword or comp.libelle like :keyword)')
                 ->setParameter('keyword', '%' . $keyword . '%');
+
+        }
+        if ($ville){
+            $query
+//                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
+                ->andWhere('can.ville like :ville ')
+                ->setParameter('ville', '%' . $ville . '%');
+        }
+        if ($recruteur){
+            $query
+//                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
+                ->andWhere('dep.id like :recruteur ')
+                ->setParameter('recruteur', '%' . $recruteur . '%');
 
         }
         $entities=$query->distinct()->getQuery()
