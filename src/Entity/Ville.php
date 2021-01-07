@@ -61,11 +61,13 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $longitude;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $latitude;
 
