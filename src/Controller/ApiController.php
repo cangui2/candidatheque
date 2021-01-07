@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Competence;
 use App\Repository\CompetenceRepository;
 use App\Repository\CVRepository;
+use App\Repository\VilleRepository;
 use ContainerJ85uVSC\getExperienceRepositoryService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,4 +96,45 @@ class ApiController extends AbstractController
         return new JsonResponse($entities);
 
     }
+
+    /**
+     * @Route("/api/sourcing/ville", name="api_sourcing_recherche_ville")
+     * @param VilleRepository $villeRepo
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function searchVille(VilleRepository $villeRepo, Request $request)
+    {
+
+
+        $ville=$request->query->get('ville');
+        $kilometre=$request->query->get('kilometre');
+        $latitude=$request->query->get('latitude');
+        $longitude=$request->query->get('longitude');
+
+        $query = $villeRepo->createQueryBuilder('v');
+
+        if($ville) {
+            $query
+            ->select('v.id as id','v.nom as nom ','v.latitude as latitude','v.longitude as longitude')
+            ->andWhere('v.nom like :ville')
+            ->setParameter('ville','%'.$ville.'%');
+        }
+        if($kilometre){
+            $query
+                ->select('v.id as id','v.nom as nom ','v.latitude as latitude','v.longitude as longitude')
+                ->addSelect('(6371 * acos(cos(radians('.$latitude.')) * cos(radians(v.latitude)) * cos(radians(v.longitude) - radians('.$longitude.')) + sin(radians('.$latitude.')) * sin(radians(v.latitude)))) as distance')
+                ->having('distance < :km')
+                ->setParameter('km', $kilometre);
+
+        }
+        $entities=$query->distinct()->getQuery()
+                        ->setMaxResults(30)
+                        ->getResult();
+
+
+        return new JsonResponse($entities);
+
+    }
 }
+
