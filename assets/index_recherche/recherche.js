@@ -40,21 +40,21 @@ function App() {
     // handle selection
     const handleChange = value => {
         setSelectedValue(value);
-        setdata({id:value.id});
+        setdata(value.id);
     }
 
     const handleChange2 = value => {
         setSelectedValue(value);
-        setdata2({id:value.id});
+        setdata2(value.id);
     }
 
     const handleChange3 = value => {
         setSelectedValue(value);
-        setdata3({id:value.id});
+        setdata3(value.id);
     }
     const handleChange4 = value => {
         setSelectedValue(value);
-        setdata4({id:value.id});
+        setdata4(value.id);
     }
 
 
