@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\RomeRepository;
+use App\Repository\VilleRepository;
+use http\Env\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,17 +22,19 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/test1", name="test1")
+     * @Route("/api/test1/{id}/{rayon}", name="test1")
+     * @param VilleRepository $repoVille
+     * @param $id
+     * @param $rayon
+     * @return Response
      */
-    public function test1(RomeRepository $repo): Response
+    public function test1(VilleRepository $repoVille,$id,$rayon): Response
     {
-        $rome = $repo->findOneBy(["code" => "m1805"]);
 
-        
-        return $this->render('test/test1.html.twig', [
-            'rome' => $rome,
-           
-        ]);
+        $result=$repoVille->searchAround($id,$rayon);
+        dd($result);
+
+        return new JsonResponse("{ 'message': 'ok' }");
     }
 
 
