@@ -55,6 +55,9 @@
             "./src/Entity/.gitignore"
         ]
     },
+    "beberlei/doctrineextensions": {
+        "version": "v1.3.0"
+    },
     "cmen/google-charts-bundle": {
         "version": "4.0.0"
     },
