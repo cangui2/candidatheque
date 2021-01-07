@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OffreRepository::class)
@@ -46,26 +47,31 @@ class Offre
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $titre;
-    
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("read")
      */
     private $datePublication;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="offres")
+     * @Groups("read")
      */
     private $metier;
 
@@ -80,18 +86,21 @@ class Offre
      *     value = 0,
      *     message = "Le montant du salaire proposé doit être égal ou supérieur à {{ compared_value }}"
      * )
+     * @Groups("read")
      */
 
     private $salaire;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups("read")
      */
     private $dateDebut;
 
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups("read")
      */
     private $duree;
 
@@ -103,16 +112,19 @@ class Offre
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups("read")
      */
     private $possibiliteCDI;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups("read")
      */
     private $urgent;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("read")
      */
     private $profil;
 
@@ -124,51 +136,61 @@ class Offre
     /**
      * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="offres")
      * @ORM\JoinColumn(name="id_entreprise", referencedColumnName="id")
+     * @Groups("read")
      */
     private $entreprise;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="offres")
+     * @Groups("read")
      */
     private $ville;
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="offres")
+     * @Groups("read")
      */
     private $departement;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="offres")
+     * @Groups("read")
      */
     private $region;
 
     /**
      * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="offres")
+     * @Groups("read")
      */
     private $pays;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("read")
      */
     private $dateModification;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="offres")
+     * @Groups("read")
      */
     private $competences;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("read")
      */
     private $competencesComplementaires;
 
     /**
      * @ORM\ManyToMany(targetEntity=Habilitation::class, inversedBy="offres")
+     * @Groups("read")
      */
     private $habilitations;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("read")
      */
     private $typeSalaire; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
 
