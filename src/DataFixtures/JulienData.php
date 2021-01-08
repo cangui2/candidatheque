@@ -143,7 +143,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand1->setCodePostal('60700');
         $cand1->setMobilite(true);
         $cand1->setTelephone('0312543352');
-        $cand1->setVille('Paris (75014)');
+        $cand1->setVille($manager->getRepository(Ville::class)->find(31722));
         $manager->persist($cand1);
 
         $usCandid = new User();
@@ -165,7 +165,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand2->setCodePostal('60700');
         $cand2->setMobilite(true);
         $cand2->setTelephone('0312543352');
-        $cand2->setVille('Pont-Sainte-Maxence (60700)');
+        $cand2->setVille($manager->getRepository(Ville::class)->find(31722));
         $manager->persist($cand2);
 
         $usCandid1 = new User();
@@ -187,7 +187,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand3->setCodePostal('80000');
         $cand3->setMobilite(true);
         $cand3->setTelephone('0312543352');
-        $cand3->setVille('Pont-Sainte-Maxence (60700)');
+        $cand3->setVille($manager->getRepository(Ville::class)->find(31722));
         $manager->persist($cand3);
 
         $usCandid2 = new User();
@@ -210,7 +210,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand4->setCodePostal('60700');
         $cand4->setMobilite(true);
         $cand4->setTelephone('0312543352');
-        $cand4->setVille('Pont-Sainte-Maxence (60700)');
+        $cand4->setVille($manager->getRepository(Ville::class)->find(31722));
         $manager->persist($cand4);
 
         $usCandid3 = new User();
@@ -233,7 +233,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand5->setCodePostal('60700');
         $cand5->setMobilite(true);
         $cand5->setTelephone('0312543352');
-        $cand5->setVille('Pont-Sainte-Maxence (60700)');
+        $cand5->setVille($manager->getRepository(Ville::class)->find(32161));
         $manager->persist($cand5);
 
         $usCandid4 = new User();

@@ -157,7 +157,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $cand1->setCodePostal('60700');
         $cand1->setMobilite(true);
         $cand1->setTelephone('0312543352');
-        $cand1->setVille(29913);
+        $cand1->setVille($manager->getRepository(Ville::class)->find(29913));
         $manager->persist($cand1);
 
         $u5 = new User();

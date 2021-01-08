@@ -80,11 +80,7 @@ class Candidat
      */
     private $codePostal;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
-     */
-    private $ville;
+
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -192,18 +188,17 @@ class Candidat
         return $this;
     }
 
-    public function getVille(): ?string
+    public function getVille(): ?Ville
     {
         return $this->ville;
     }
 
-    public function setVille(string $ville): self
+    public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
 
         return $this;
     }
-
     public function getMobilite(): ?bool
     {
         return $this->mobilite;
@@ -311,17 +306,7 @@ class Candidat
         return $this;
     }
 
-    public function getVille(): ?Ville
-    {
-        return $this->ville;
-    }
 
-    public function setVille(?Ville $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
 
 
 }

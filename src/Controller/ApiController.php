@@ -8,7 +8,6 @@ use App\Repository\CVRepository;
 use App\Repository\VilleRepository;
 use ContainerJ85uVSC\getExperienceRepositoryService;
 use App\Repository\MetierRepository;
-use App\Repository\CVRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -99,7 +98,7 @@ class ApiController extends AbstractController
         $recruteur = $request->query->get("recruteur");
 
         $query = $cv_repo->createQueryBuilder('c')
-            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','can.ville as ville','met.id as metierid','dep.id as recruteur')
+            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.id as metierid','dep.id as recruteur','can.ville as ville')
             ->join('c.candidat', 'can')
             ->join('c.metier','met')
             ->leftJoin('c.competences','comp')
