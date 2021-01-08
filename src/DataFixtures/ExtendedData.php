@@ -153,10 +153,11 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $can1 = new Candidat();
         $can1->setNom("Muray");
         $can1->setPrenom("Bill");
+        $can1->setVille($manager->getRepository(Ville::class)->find(31722));
         $manager->persist($can1);
 
         $u5 = new User();
-        $u5->setEmail('can5@be4web.fr');
+        $u5->setEmail('can1@be4web.fr');
         $password = $this->encoder->encodePassword($u5, '123456');
         $u5->setPassword($password);
         $u5->setRoles(["ROLE_USER", "ROLE_CANDIDAT"]);
