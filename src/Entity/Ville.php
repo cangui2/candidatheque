@@ -32,7 +32,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "nom": "exact"
+ *              "nom": "partial"
  *
  *                  }
  *
@@ -44,7 +44,7 @@ class Ville
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("read")
+     * @Groups("v:read")
      */
     private $id;
 
@@ -62,13 +62,13 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("v:read")
      */
     private $longitude;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("v:read")
      */
     private $latitude;
 

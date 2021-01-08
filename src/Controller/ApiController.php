@@ -91,16 +91,18 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/sourcing", name="api_sourcing_recherche")
      */
-    public function api_sourcing_recherche(CVRepository $cv_repo, Request $request)
+    public function api_sourcing_recherche(CVRepository $cv_repo, Request $request,VilleRepository $repoVille)
     {
         $keyword = $request->query->get("keyword");
         $ville = $request->query->get("ville");
         $recruteur = $request->query->get("recruteur");
+        $rayon=$request->query->get('rayon');
 
         $query = $cv_repo->createQueryBuilder('c')
-            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.id as metierid','dep.id as recruteur','can.ville as ville')
+            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.id as idmetier','dep.id as idrecruteur','vil.id as idville','vil.nom as ville')
             ->join('c.candidat', 'can')
             ->join('c.metier','met')
+            ->leftjoin('can.ville','vil')
             ->leftJoin('c.competences','comp')
             ->leftJoin('c.deposePar','dep');
 
@@ -113,17 +115,27 @@ class ApiController extends AbstractController
                 ->setParameter('keyword', '%' . $keyword . '%');
 
         }
-        if ($ville){
-            $query
-//                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
-                ->andWhere('can.ville like :ville ')
-                ->setParameter('ville', '%' . $ville . '%');
-        }
+//        if ($ville){
+//            $query
+////                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
+//                ->andWhere('vil.id like :ville ')
+//                ->setParameter('ville', '%' . $ville . '%');
+//
+//        }
         if ($recruteur){
             $query
 //                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
                 ->andWhere('dep.id like :recruteur ')
                 ->setParameter('recruteur', '%' . $recruteur . '%');
+
+        }
+
+
+        if ($rayon){
+
+           $query
+            ->andWhere('vil.id IN (:result)')
+            ->setParameter('result', $repoVille->searchAround($ville,$rayon));
 
         }
         $entities=$query->distinct()->getQuery()

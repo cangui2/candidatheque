@@ -31,14 +31,15 @@ class VilleRepository extends ServiceEntityRepository
             ->addSelect('(6371 * acos(cos(radians(:latitude)) * cos(radians(v.latitude)) * cos(radians(v.longitude) - radians(:longitude)) + sin(radians(:latitude)) * sin(radians(v.latitude)))) as distance')
             ->having('distance < :rayon')
             ->setParameters(array(
-                'rayon'=>'%'.$rayon.'%',
-                'latitude'=>'%'.$latitude.'%',
-                'longitude'=>'%'.$longitude.'%',
+                'rayon'=>$rayon,
+                'latitude'=>$latitude,
+                'longitude'=>$longitude,
             ));
 
 
-        $entities=$query->distinct()->getQuery()
-        ->setMaxResults(30)
+        $entities=$query
+        ->distinct()
+        ->getQuery()
         ->getResult();
 
         return $entities;

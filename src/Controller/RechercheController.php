@@ -31,7 +31,7 @@ class RechercheController extends AbstractController
 
 
     /**
-     * @Route("/recherche_liste", name="recherche_liste")
+     * @Route("/recherche_liste/{metier}/{ville}/{secteur}/{contrat}", name="recherche_liste")
      */
     public function liste(OffreRepository $offreRepo, Request $request): Response
     {

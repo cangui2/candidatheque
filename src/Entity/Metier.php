@@ -45,7 +45,7 @@ class Metier
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
-     * @Groups({"read"})
+     * @Groups("mt:read")
      */
     private $id;
 
