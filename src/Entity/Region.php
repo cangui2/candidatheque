@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\RegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,7 +23,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
  *     itemOperations={
  *                          "get"={},
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"rg:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -48,18 +49,21 @@ class Region
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups({"rg:read", "dept:read"})
      */
     private $nom;
 
     /**
      * @ORM\OneToMany(targetEntity=Departement::class, mappedBy="region")
-     * @Groups("read")
+     * @Groups("rg:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $departements;
 
     /**
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="region")
+     * @Groups("rg:read")
+     * @ApiProperty (readableLink=false, writableLink=false)
      */
     private $offres;
 

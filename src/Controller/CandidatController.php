@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Rome;
 use App\Entity\User;
+use App\Form\ProfilFormType;
 use App\Repository\PostuleRepository;
 use App\Repository\CandidatRepository;
 use App\Form\CandidatRegistrationFormType;
@@ -33,89 +34,39 @@ class CandidatController extends AbstractController
     }
 
 
-
-    /**
-     * @Route("/candidat/dashboard", name="dashboard_candidat")
-     */
-    public function accueilCandidat(): Response {
-
-
-        return $this->render('candidat/dashboard_candidat.html.twig');
-    }
-
-
-// ROUTE MOVED TO HOME CONTROLLER
-
-//     /**
-//      * @Route("/candidat/metier/fiche_recherche", name="fiche_recherche")
-//      */
-//     public function recherche(Request $request){
-//
-//         $searchForm = $this->createForm(FicheMetierSearchType::class);
-//         $searchForm->handleRequest($request);
-//
-//         if($searchForm->isSubmitted() && $searchForm->isValid())
-//         {
-//
-//             $filtre = $searchForm->getData()['filtre'];
-////             dd($filtre);
-//             $codesRome = $this->romeRepo->findBySearchTerm(preg_split("/[\s,]+/" ,$filtre));
-//
-//            return $this->render('metier/liste_fiches_metier.html.twig', [
-//                'codesRome' =>$codesRome,
-//                'filtre' => $filtre
-//            ]);
-//
-//         }
-//             return $this->render('metier/fiche_recherche.html.twig', [
-//                 "searchForm" =>$searchForm ->createView()
-//             ]);
-//
-//     }
-
-    /**
-     * @Route("/candidat/metier/fiche_metier/{codeRome}", name="fiche_metier")
-     */
-    public function afficheMetier($codeRome): Response
-    {
-//        dd($codeRome);
-        $rome = $this->romeRepo->findOneBy(['code' =>$codeRome]);
-
-        $savoirs = $this->compRepo->findCompetencesByRome($rome);
-        $svFaire = $this->compRepo->findCompetences2ByRome($rome);
-        $definitions = $this->descRepo->findDefinitionsByRome($rome);
-        $acces = $this->descRepo->findAccesMetierByRome($rome);
-        $conditions = $this->descRepo->findConditionsByRome($rome);
-
-
-
-        return $this->render('metier/fiche_metier.html.twig', [
-            'rome' => $rome,
-            'savoirs' => $savoirs,
-            'svFaire' => $svFaire,
-            'definitions' => $definitions,
-            'acces' => $acces,
-            'conditions'=> $conditions
-        ]);
-    }
-
     /**
      * @Route("/candidat/dashboard", name="dashboard_candidat")
      */
     public function dashboard(PostuleRepository $repo,CandidatRepository $repo2): Response
     {
 
-        $candidat_id = $this->getUser()->getCandidat()->getId();
+        $candidat = $this->getUser()->getCandidat();
 
-        $compteur = $repo->countByCandidat($candidat_id);
 
-        //dd($compteur);
 
-        //$test = $repo2 ->countByCV($candidat_id);
-        //dd($test);
+        return $this->render('candidat/dashboard_candidat.html.twig');
+    }
 
-        return $this->render('candidat/dashboard_candidat.html.twig',[
-            'compteur'=>$compteur,
+    /**
+     * @Route("/candidat/profil", name="mon_profil")
+     */
+    public function profil_candidat(Request $request): Response
+    {
+
+        $candidat = $this->getUser()->getCandidat();
+        $pfForm = $this->createForm(ProfilFormType::class, $candidat);
+        $pfForm->handleRequest($request);
+
+        if ($pfForm->isSubmitted() && $pfForm->isValid()) {
+
+            return $this->render('candidat/profil.html.twig', [
+                'pfForm' => $pfForm->createView()
+            ]);
+
+        }
+
+        return $this->render('candidat/profil.html.twig', [
+            'pfForm' => $pfForm->createView()
         ]);
     }
 

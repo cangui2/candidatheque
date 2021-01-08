@@ -1,7 +1,82 @@
 {% extends 'base.html.twig' %}
+{% form_theme pfForm 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/dashboard_candidat.css" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
 
-{#}
+     <div class="container">
+         <div class="row mt-5 mb-3">
+             <div class="col-12 text-center">
+                <h3 class="text-center mt-4 mb-4">Mon profil</h3>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-lg-12 col-md-6 mon-profil-wrapper mb-4">
+                 {{ form_start(pfForm) }}
+                 <div class="section">
+                     <div class="row mt-2">
+                         <div class="col-md-4">
+                             {{ form_row(pfForm.photo) }}
+                         </div>
+                         <div class="col-md-8">
+                             <div class="row">
+                                 <div class="col">
+                                    {{ form_row(pfForm.prenom) }}
+                                 </div>
+                                 <div class="col">
+                                     {{ form_row(pfForm.nom) }}
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row mt-2">
+                         <div class="col-12">
+                             {{ form_row(pfForm.adresse) }}
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-4">
+                             {# {{ form_row(pfForm.codePostal) }} #}
+                         </div>
+                         <div class="col-4">
+                             {{ form_row(pfForm.ville) }}
+                         </div>
+                         <div class="col-4">
+                             {{ form_row(pfForm.telephone) }}
+                         </div>
+                     </div>
+                 </div>
+                 </div>
+             </div>
+                {#                 Civilite#}
+                {#                 Prénom, Nom, Ville, CP, Pays, Tél,#}
+                {#                 <section>Votre parcours#}
+                {#                     Dernier poste occupé#}
+                {#                     Niveau d'expérience#}
+                {#                     Niveau de formation - jeune diplômé, 1-2 ans, 3-5, 6-10, 11-20, plus#}
+                {#                 </section>#}
+                {#                 <section>Projet professionnel</section>#}
+                {#                 Disponible choix - immédiat; avec préavis, en veille#}
+                {#                 Poste recherché#}
+                {#                 Type de contrat recherché#}
+                {#                 secteurs rfecherché#}
+                {#                 Salaire annuel brut souhaité#}
+                {#                 regions recherchées#}
+
+                 <div class="row mt-5 mb-5">
+                     <div class="col-md-12 text-center">
+                         {{ form_row(pfForm.save, {'label': "Valider"}) }}
+                     </div>
+                 </div>
+
+             {{ form_end(pfForm) }}
+             {#         Activer profil dans la cv-thèque#}
+             {#         Activer l'alerte cv#}
+         </div>
+     </div>
 
 {%  endblock %}

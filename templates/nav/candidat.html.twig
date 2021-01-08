@@ -21,12 +21,12 @@
         </ul>
         <form class="form-inline my-2 mx-3 my-lg-0">
             <div class="dropdown user-profile nav-item py-3 text-center"  >
-                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="btn btn-profil text-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     C
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-user " aria-labelledby="dropdownMenuButton">
 
-                    <a class=" dropdown-item" href="#">Profil</a>
+                    <a class=" dropdown-item" href="{{ path('mon_profil') }}">Profil</a>
                     <div class="dropdown-divider "></div>
                     <a class=" dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
                 </div>

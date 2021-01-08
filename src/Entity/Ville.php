@@ -21,7 +21,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     itemOperations={
  *                          "get"={},
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"v:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -31,7 +31,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "nom": "partial"
+ *              "nom": "exact"
  *
  *                  }
  *
@@ -49,13 +49,13 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("v:read")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("v:read")
      */
     private $codePostal;
 
@@ -73,19 +73,28 @@ class Ville
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="villes")
-     * @Groups("read")
+     * @Groups("v:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $departement;
 
     /**
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="ville")
+     * @Groups("v:read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $offres;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="ville")
+     */
+    private $candidats;
 
     public function __construct()
     {
 
         $this->offres = new ArrayCollection();
+        $this->candidats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,5 +195,35 @@ class Ville
     public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection|Candidat[]
+     */
+    public function getCandidats(): Collection
+    {
+        return $this->candidats;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->candidats->contains($candidat)) {
+            $this->candidats[] = $candidat;
+            $candidat->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        if ($this->candidats->removeElement($candidat)) {
+            // set the owning side to null (unless already changed)
+            if ($candidat->getVille() === $this) {
+                $candidat->setVille(null);
+            }
+        }
+
+        return $this;
     }
 }

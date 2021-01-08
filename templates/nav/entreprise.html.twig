@@ -15,14 +15,16 @@
             <li class="nav-item">
                 <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("offres_liste") }}" href="{{ path('offres_liste') }}">Liste des offres</a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("entreprise_sourcing") }}" href="{{ path('entreprise_sourcing') }}">Recherche de candidats</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("blog") }}" href="{{ path("blog") }}">Blog</a>
             </li>
         </ul>
         <form class="form-inline my-2 mx-3 my-lg-0">
             <div class="dropdown user-profile nav-item py-3 text-center"  >
-                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="btn btn-profil" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     R
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-user " aria-labelledby="dropdownMenuButton">
@@ -35,3 +37,5 @@
         </form>
     </div>
 </nav>
+
+

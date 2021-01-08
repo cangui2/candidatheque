@@ -23,10 +23,11 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('cv', './assets/cv/index.js')
+    .addEntry('cv', './assets/cv_public/index.js')
     .addEntry('react_recherche', './assets/react_recherche.js')
-    .addEntry('recherche1', './assets/index_recherche/recherche.js')
-    .addEntry('recherche', './assets/index_recherche/index.js')
+    .addEntry('test_form', './assets/test_form/index.js')
+    .addEntry('sourcing', './assets/sourcing/index.js')
+    //.addEntry('dashboard_offre', './assets/dashboard_offre/graph_camembert.js')
     //.addEntry('page1', './assets/page1.js')
     //.addEntry('page2', './assets/page2.js')
 
@@ -36,7 +37,6 @@ Encore
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
-
 
     /*
      * FEATURE CONFIG

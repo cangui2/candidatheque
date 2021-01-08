@@ -1,52 +1,63 @@
-/* @font-face {
-    font-family: "font1";
-    src: url("fonts/fa-regular-400.woff2") format("woff2"),
-           url("fonts/fa-regular-400.woff") format("woff");
-   } */
-
-
 /* Habillage layout */
 .paper {
-    /* font-family: "font1"; */
+    margin-top: -80px;
+    margin-left: -50px;
     border: 2px gray solid;
     box-shadow: 10px 10px 10px gray;
     width: 21cm;
     min-height: 29.7cm;
     transform: scale(0.8);
-    word-break: break-all;
+    overflow-wrap: break-word;
+    /* word-break: break-all; */
 }
 
-    .experience {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr) 3fr;
-        grid-template-rows: repeat(2, 0.5fr) 1fr;
-        grid-column-gap: 0px;
-        grid-row-gap: 0px;
-        }
-        
-        .date-debut { grid-area: 1 / 1 / 2 / 2; }
-        .date-fin { grid-area: 1 / 2 / 2 / 3; }
-        .entreprise { grid-area: 2 / 1 / 3 / 2; }
-        .logo { grid-area: 2 / 2 / 3 / 3; }
-        .ville { grid-area: 3 / 1 / 4 / 3; }
-        .titre { grid-area: 1 / 3 / 2 / 4; }
-        .description { grid-area: 2 / 3 / 4 / 4; }
+/********** Structure Template ***********/
+
+.experience {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) 3fr;
+    grid-template-rows: repeat(2, 0.3fr) 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+    .date-debut { grid-area: 1 / 1 / 2 / 2; }
+    .date-fin { grid-area: 1 / 2 / 2 / 3; }
+    .entreprise { grid-area: 2 / 1 / 3 / 2; }
+    .logo { grid-area: 2 / 2 / 3 / 3; }
+    .ville { grid-area: 3 / 1 / 4 / 3; }
+    .titre { grid-area: 1 / 3 / 2 / 4; }
+    .description { grid-area: 2 / 3 / 4 / 4; }
+
+
+.formation {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) 3fr;
+    grid-template-rows: repeat(2, 0.3fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    .date-debut { grid-area: 1 / 1 / 2 / 2; }
+    .date-fin { grid-area: 1 / 2 / 2 / 3; }
+    .diplome { grid-area: 2 / 1 / 3 / 2; }
+    .niveau { grid-area: 2 / 2 / 3 / 3; }
+    .ecole { grid-area: 2 / 3 / 3 / 4; }
 
 
 /* Grid principal */
 .paper {
     display: grid;
     grid-template-columns: 1fr 2.5fr;
-    grid-template-rows: repeat(3, 0.4fr) repeat(4, 1fr);
+    grid-template-rows: repeat(3, 0.2fr) 0.4fr 0.8fr repeat(2, 0.5fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     }
     
     .photo { grid-area: 1 / 1 / 4 / 2; }
     .identite { grid-area: 1 / 2 / 2 / 3; }
-    .titre { grid-area: 2 / 2 / 3 / 3; }
+    .paper>.titre { grid-area: 2 / 2 / 3 / 3; }
     .intro { grid-area: 3 / 2 / 4 / 3; }
-    .profil { grid-area: 4 / 1 / 5 / 2; }
+    .profil { grid-area: 3 / 1 / 5 / 2; }
     .competences { grid-area: 5 / 1 / 6 / 2; }
     .langues { grid-area: 6 / 1 / 7 / 2; }
     .reseaux { grid-area: 7 / 1 / 8 / 2; }
@@ -63,24 +74,32 @@
 
 
 /* Photo */
-.photo{
-    background-color: #414141;
+.paper>.photo>.portrait>img {
+    background-color: #D1D1D1;
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    margin-top: 40px;
 }
 /* Paramètres bloc photo */
-.paper>.photo>.portrait{
+.paper>.photo {
+    background-color: #414141;
+    text-align: center;
+
+}
+
+/* .paper>.photo>.portrait{
     background-color: #D1D1D1;
     height: 120px;
     width: 120px;
     border-radius: 50%;
     position: relative;
-    top: 15%;
-    left: 25%;
-
-}
+    top: 10%;
+    left: 15%;
+} */
 
 /* Couleur background top */
 .paper>.titre, .paper>.identite {
-    position: relative;
     text-align: center;
     background-color: #D1D1D1;
 }
@@ -95,7 +114,7 @@
 
 
 /* Masquage header Profil */
-.paper>.intro>header {
+.paper>.intro>header, .paper>.profil>header {
     display: none;
 }
 
@@ -111,30 +130,31 @@
 .paper>.experiences, .paper>.formations, .paper>.identite, .paper>.titre {
     padding: 0 15px;
 }
-.paper>.intro {
-    padding: 0 15px;
-}
 
 /* Paramètres bloc nom */
 .paper>.identite>.nom {
     text-transform: uppercase;
-    font-size: 3em;
-    margin-bottom: -40px;
+    font-size: 2.6rem;
     color: #414141;
 }
 
 /* Paramètres bloc poste */
-.paper>.titre>.poste{
+.paper>.titre>.poste {
     font-size: 1.5em;
     text-transform: uppercase;
-    margin-top: 20px;
+    margin-top: -2px;
+    padding-top: 20px;
 }
-
+.paper>.titre {
+    margin-top: -2px;
+    padding-top: 10px;
+}
 
 /* Mise en page texte */
 .paper>.intro {
-    margin-top: 10px;
     text-align: justify;
+    padding: 15px;
+    
 }
 
 
@@ -192,12 +212,12 @@
 .paper>.competences {
     padding: 0 15px;
 }
-.paper>.competences>div>.competence>.libelle {
+/* .paper>.competences>div>.competence>.libelle {
     display: inline;
 }
 .paper>.competences>div>.competence>.niveau {
     display: inline;
-}
+} */
 
 /* Paramètres bloc Langues */
 .paper>.langues>header {
@@ -211,24 +231,16 @@
 .paper>.langues {
     padding: 0 15px;
 }
-.paper>.langues>div>.langue>.libelle {
+/* .paper>.langues>div>.langue>.libelle {
     display: inline;
 }
 .paper>.langues>div>.langue>.niveau {
     display: inline;
-}
+} */
 
 /* Paramètres bloc Contact */
-.paper>.profil>header {
-    text-transform: uppercase;
-    margin-top: 10px;
-    font-size: 1.2em;
-    color: #414141;
-    font-weight: bold;
-    /* border-bottom: 1.5px darkgray solid; */
-}
 .paper>.profil {
-    padding: 0 15px;
+    padding: 15px;
 }
 
 
@@ -245,3 +257,47 @@
     padding: 0 15px;
 }
 
+
+/* Masquage Competence Niveau */
+.paper>.competences>div>.competence>.niveau {
+    display: none;
+}
+
+/* Masquage formation Description */
+.paper>.formations>div>.formation>.description {
+    display: none;
+}
+
+
+meter[value]::-webkit-meter-optimum-value {
+background: gray;
+}
+
+
+/********** Conditions d'impressions **********/
+
+@media print {
+/* Sélection des zones */ 
+body * { 
+    visibility: hidden; 
+}
+.no-print { 
+    display: none; 
+}
+.paper { 
+    visibility: visible; display: grid; 
+    margin-top: 0px !important; margin-left: -15px !important; transform: scale(1) !important;
+    border: 0px;
+    width: 100vw;
+    height: 100vh;
+}
+.paper * { 
+    visibility: visible; 
+}
+
+/* Forçage impression background */ 
+* { -webkit-print-color-adjust: exact !important;   /* Chrome, Safari */
+    color-adjust: exact !important;                 /*Firefox*/
+}
+
+}

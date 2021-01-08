@@ -97,7 +97,18 @@ dd($resultat);
         ]);
     }
 
+    /**
+     * @Route("/entreprise/sourcing", name="entreprise_sourcing")
+     *
+     */
+    public function entreprise_sourcing(): Response {
 
+
+
+        return $this->render('entreprise/entreprise_sourcing.html.twig',[
+
+        ]);
+    }
 
 
 }

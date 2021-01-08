@@ -1,64 +1,28 @@
+/* profile page */
 
-body{
-    background-color: azure;
-}
-h3 {
-    font-size: 1rem;
-}
-
-/*  Quatre colonnes côte à côte */
-.column {
-    float: left;
-    width: 25%;
-    padding: 0 10px;
-  }
-  
-  /* Remove extra left and right margins, due to padding */
-  .row {margin: 0 -5px;}
-  
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
-
-  
-  /* Responsive columns */
-  @media screen and (max-width: 600px) {
-    .column {
-      width: 100%;
-      display: block;
-      margin-bottom: 20px;
-    }
-  }
-  
-  /* Style the counter cards */
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
-    text-align: center;
-    background-color: #3E68D4;
-    ;
-  }
-
-
-
-canvas#Chart.chartjs-render-monitor {
-    
-    margin-right: 15px;
-    margin-bottom: 0;
-    margin-left: 15px;
+.mon-profil-wrapper {
+    margin: auto;
+    padding: 50px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: .9em;
+    font-weight: normal;
+    line-height: 25px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
 }
 
+/* dashboard page */
 
-/*Tableau */
+.jumbo-profil {
+    background-color: #F5F5F5 !important;
+    /*margin-bottom: 1rem !important;*/
+    /*height: 300px !important;*/
 
-
-.table {
-    
-    width: 30%;
-    
 }
+.profile-icon{
+    max-height: 60px;
+}
+
 

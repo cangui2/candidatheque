@@ -1,198 +1,96 @@
 {% extends 'base.html.twig' %}
+
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/dashboard_candidat.css') }}"/>
-
+    {{ parent() }}
+    <link href="/assets/css/dashboard_candidat.css" rel="stylesheet">
 {% endblock %}
-
 {% block body %}
-
- 
-
-
-
-{#DEBUT PROFIL #}
-<br>
-<div class="half-float-bottom">
-    <!--Photo du candidat-->
-    <div class="thumb-lg member-thumb mx-auto"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle img-thumbnail" alt="pro" height="100" width="100">
- </div>
- <br>
-<h4>Bonjour {{app.user.candidat.prenom ~ ' ' ~ app.user.candidat.nom}}  </h4>
-<p>Content de vous revoir aujourd'hui</p>
-</div>
-
-
- 
-
-<div class="row">
-  <div class="column">
-    <div class="card">
-      <h3>Nombre de visiteurs sur votre cv</h3>
-      <p>8</p>
-      
+    <div class="container px-4">
+        <div class="row gx-5 mt-5 mb-5">
+            <div class="col">
+                <div class="p-0">
+                    <div class="jumbotron jumbo-profil">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <img src="{{ asset("assets/images/user.png") }}" class="profile-icon">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="">Mon profil</h4>
+                            </div>
+                        </div>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4">
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="{{ path('mon_profil') }}" role="button">Modifier/Compléter</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-0">
+                    <div class="jumbotron jumbo-profil">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <img src="{{ asset("assets/images/cv.png") }}" class="profile-icon">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="">Mes CVs</h4>
+                            </div>
+                        </div>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4">
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gx-5 mb-5">
+            <div class="col">
+                <div class="p-0">
+                    <div class="jumbotron jumbo-profil">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <img src="{{ asset("assets/images/lettre.png") }}" class="profile-icon">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="">Mes lettres de motivation</h4>
+                            </div>
+                        </div>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4">
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-0">
+                    <div class="jumbotron jumbo-profil">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <img src="{{ asset("assets/images/job.png") }}" class="profile-icon">
+                            </div>
+                            <div class="col-md-9">
+                                <h4 class="">Mes offres</h4>
+                            </div>
+                        </div>
+                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <hr class="my-4">
+                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
- 
-  
-  <div class="column">
-    <div class="card">
-      <h3>Total de cv envoyés</h3>
-      <p>6</p>
-      
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <h3>Nombre de cv</h3>
-      <p>3</p>
-      
-    </div>
-  </div>
-</div>
-
- 
-<br>
-{# J'appelle le graphique offre/mois #}
-<div>
-<p>Statistiques</p>
-
-    <h3>Graphique nombre d'offres par mois </h3>
-    <div class="chart-container" style="position: relative; height:25vh; width:20vw">
-    <canvas id="Chart" width="400" height="400"></canvas>
-    </div>
-</div>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-    
-
-{#Fin graphique #}
-           
-    <!-- DEBUT TABLEAU ATTENTE DE REPONSE OFFRE-->
-   
-    <table class="table table-striped">
-      <h3>Tableau des offres</h3>
-      <thead>
-        <tr>
-          <th scope="col">Entreprise</th>
-          <th scope="col">Nom du poste</th>
-          <th scope="col">Réponses</th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"> </th>
-          <td>Developpeur web</td>
-          <td>En attente de lecture</td>
-          
-        </tr>
-        <tr>
-          <th scope="row"> </th>
-          <td>Developpeur web</td>
-          <td>Rejeté</td>
-          
-        </tr>
-        <tr>
-          <th scope="row"></th> 
-          <td>Developpeur web</td>
-          <td>Vu</td>
-          
-        </tr>
-      </tbody>
-    </table>
-          
-
-<!-- DEBUT TABLEAU VISITEURS CV-->
-<br>
-
-<table class="table table-striped">
-  <h3>Visites des entreprises</h3>
-  <thead>
-    <tr>
-      <th scope="col">Entreprises</th>
-      <th scope="col">CV</th>
-      
-      
-      <tbody>
-      <tr>
-          <th></th>
-          <td></td>
-          
-          
-      </tr>
-    
-    </tr>
-  </thead>
-  <tbody>
-    
-</table>
-    
-    
-  
-  
-
-<br><br><br><br><br><br><br><br><br><br><br>
-
-{%  endblock %}
-{% block javascripts %}
-<script>
-  var compteur = {{compteur}}
-</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<script type="text/javascript">
-var ctx = document.getElementById('Chart');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'],
-        datasets: [{
-            label: ' Nombre offres dans le mois ',
-            data: [compteur],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-               
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-                
-            ],
-            
-            borderWidth: 2
-        }] 
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                tgridLines: {
-                  offsetGridLines: true
-                }
-            }]
-        }
-    }
-});
-
-</script>
-
-
 
 {% endblock %}
 

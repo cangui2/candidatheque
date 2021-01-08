@@ -113,6 +113,12 @@ class Candidat
      */
     private $postules;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="candidats")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
+
 
 
     public function __construct()
@@ -301,6 +307,18 @@ class Candidat
                 $postule->setCandidat(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

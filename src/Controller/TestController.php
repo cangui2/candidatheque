@@ -17,8 +17,9 @@ class TestController extends AbstractController
      */
     public function index(): Response
     {
-        //222
-        return new JsonResponse("{ 'message': 'ok' }");
+        $cpt = $this->getUser()->getRecruteur()->getOffres()->count();
+
+        return new JsonResponse("{ 'message': $cpt }");
     }
 
     /**

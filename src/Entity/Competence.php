@@ -2,10 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\CV;
-use App\Entity\Rome;
-use App\Entity\Offre;
-use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompetenceRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -52,17 +49,22 @@ class Competence
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $libelleType;
 
 
     /**
      * @ORM\ManyToMany(targetEntity=Rome::class, inversedBy="competences")
+     * @Groups("read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $romes;
 
     /**
      * @ORM\ManyToMany(targetEntity=Offre::class, mappedBy="competences")
+     * @Groups("read")
+     * @ApiProperty(readableLink=false, writableLink=false)
      */
     private $offres;
     
