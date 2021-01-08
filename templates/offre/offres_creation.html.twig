@@ -72,7 +72,7 @@
                 </div>
                 <div class="row">
                     <div class="col" id="col-type">
-                        {{ form_row(offreForm.type) }}
+                        {{ form_row(offreForm.typeContrat) }}
                     </div>
                     <div class="col" id="col-duree">
                         {{ form_row(offreForm.duree) }}
@@ -94,70 +94,58 @@
                         </div>
                     </div>
                     <div class="col-md-4 mt-3">
-                        <div class="row">
-                            <div class="col">
-                                    {{ form_label(offreForm.salaire) }}
-                                    {{ form_widget(offreForm.salaire) }}
-                            </div>
-                            <div class="col">
-{#                                {{ form_label(offreForm.typeSalaire) }}#}
-                                {{ form_widget(offreForm.typeSalaire) }}
-                            </div>
-                        </div>
+                        {{ form_row(offreForm.localisation) }}
                     </div>
                 </div>
                 <div class="row mt-3">
+                    <div class="col-md-4">
+                        {{ form_row(offreForm.dureeHebdo ) }}
+                    </div>
                     <div class="col-md-3">
-                        {{ form_row(offreForm.localisation) }}
+                        {{ form_row(offreForm.salaire) }}
                     </div>
-                    {#                SWITH LOCATION FRANCE/ABROAD               #}
-                    <div class="col-md-9">
-                        <div class="row" id="loc-fr">
-                            <div class="col-lg-4 col-sm-12">
-                                {{ form_row(offreForm.ville) }}
-                            </div>
-                            <div class="col-lg-4 col-sm-12">
-                                {{ form_row(offreForm.departement) }}
-                            </div>
-                            <div class="col-lg-4 col-sm-12">
-                                {{ form_row(offreForm.region) }}
-                            </div>
-                        </div>
-                        <div class="row" id="loc-etr">
-                            <div class="col">
-                                {{ form_row(offreForm.pays) }}
-                            </div>
-                        </div>
+                    <div class="col-md-5">
+                        {{ form_label(offreForm.typeSalaire ) }}
+                        {{ form_widget(offreForm.typeSalaire) }}
                     </div>
-                    {#                END SWITH LOCATION FRANCE/ABROAD               #}
+                </div>
+                <div class="row choice-sal">
+                    <div class="col-12 col-error"><span id="error" class="d-none" style="color: red;"></span></div>
+                </div>
+                <div class="row choice-sal2">
+                    <div class="col-12 mt-2">
+                        <span id="salaire_annuel"></span>&nbsp;
+                        <span id="salaire_mensuel"></span>&nbsp;
+                        <span id="salaire_journalier"></span>&nbsp;
+                        <span id="salaire_horaire"></span>
+                    </div>
+                </div>
+        </div>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-12 text-left"><h6>3. DESCRIPTION / PROFIL</h6></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    {{ form_row(offreForm.description) }}
                 </div>
             </div>
-            <div class="jumbotron">
-                <div class="row">
-                    <div class="col-12 text-left"><h6>3. DESCRIPTION / PROFIL</h6></div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        {{ form_row(offreForm.description) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        {{ form_row(offreForm.profil) }}
-                    </div>
+            <div class="row">
+                <div class="col-12">
+                    {{ form_row(offreForm.profil) }}
                 </div>
             </div>
-            <div class="row mt-5 mb-5">
-                <div class="col-md-12 text-center">
-                    {{ form_row(offreForm.save, {'label': "Déposer l'offre"}) }}
-                </div>
+        </div>
+        <div class="row mt-5 mb-5">
+            <div class="col-md-12 text-center">
+                {{ form_row(offreForm.save, {'label': "Déposer l'offre"}) }}
             </div>
-
+        </div>
             {{ form_end(offreForm)}}
         </div>
     </div>
-
 </div>
+    </div>
 {% endblock %}
 {% block javascripts %}
 
@@ -194,14 +182,14 @@
 
             $( "#offre_metier" ).autocomplete({
                 source: "{{ path('metier_autocomplete') }}",
-                minLength: 1,
+                    delay: 0,
                 select: function( event, ui ) {
-                    console.log( ui.item.value );
+                    // console.log( ui.item.value );
                     setTimeout(function() {
                         $("#offre_metier").val(ui.item.label)
                     }, 100);
                     $.get("{{ path('competences_ajax') }}?metier="+ ui.item.value, function(data) {
-                        console.log(data);
+                        // console.log(data);
                         $("#compet").removeClass("d-none");
 
                         $("#offre_competences").html("");
@@ -223,92 +211,6 @@
         });
 
 
-         $(function() {
-
-
-             $( "#offre_region" ).autocomplete({
-                 source: "{{ path('region_autocomplete') }}",
-                 minLength: 1,
-                 select: function( event, ui ) {
-                     console.log( "Selected: " + ui.item.value );
-                     reg=ui.item.value;
-                 }
-             });
-
-
-             $( "#offre_departement" ).autocomplete({
-                 source: "{{ path('departement_autocomplete') }}",
-                 minLength: 1,
-                 select: function( event, ui ) {
-                     console.log( "Selected: " + ui.item.value );
-                     dep=ui.item.value;
-                     console.log(dep);
-                     $.get("/api/departements?nom=" + ui.item.value , function(data) {
-                         $("#offre_region").val(data[0].region.nom)
-
-                     });
-                 }
-             });
-
-             $( "#offre_departement" ).change(function() {
-                dep=$("#offre_departement").val();
-             });
-
-             $( "#offre_ville" ).on("input",function() {
-                 $("#offre_departement").val("");
-                 $("#offre_region").val("");
-                 dep="";
-                 reg="";
-             });
-
-
-             $( "#offre_ville" ).autocomplete({
-                 source: "{{ path('ville_autocomplete') }}",
-                 search: function() {
-
-                     $( "#offre_ville" ).autocomplete({source:"{{ path('ville_autocomplete') }}?dep="+dep});
-                 },
-                 minLength: 1,
-                 select: function( event, ui ) {
-
-                     console.log( "Selected: " + ui.item.value  );
-                     $.get("/api/villes?nom=" + ui.item.value , function(data) {
-                         $("#offre_departement").val(data[0].departement.nom)
-                         $("#offre_region").val(data[0].departement.region.nom)
-
-                     });
-
-                 }
-             });
-         });
-    </script>
-
-{#    CHANGE IF LOCATION IS FRANCE OR ABROAD #}
-    <script>
-        $(document).ready(function () {
-
-            $('#offre_localisation_0, #offre_localisation_1').click(function () {
-
-                //console.log(this)
-                if ($(this).attr("value") == "1") {
-                    console.log("France");
-                    $('#loc-fr').show();
-                    $('#loc-etr').hide();
-
-                }
-                if ($(this).attr("value") == "2") {
-                    console.log("Etranger");
-                    $('#loc-etr').show();
-                    $('#loc-fr').hide();
-                    $("#{{ offreForm.ville.vars.id }}").val("");
-                    $("#{{ offreForm.departement.vars.id }}").val("");
-                    $("#{{ offreForm.region.vars.id }}").val("");
-                }
-            });
-
-            $('#offre_localisation_0').trigger('click');  // trigger the event
-        });
-
     //    MANAGE DATE DEBUT
 
         $("#offre_urgent").change(function() {
@@ -328,14 +230,14 @@
     //    END DATE
 
     //    MANAGE TYPE CONTRAT / DUREE
-        $("#offre_type").change(function() {
+        $("#offre_typeContrat").change(function() {
             $(this).find("option:selected").each(function(){
                 var optionValue = $(this).text();
-                if(optionValue == "CDI"){
+                if(optionValue == "CDI" || optionValue == "CDI Intérimaire"){
                     $('#col-duree').hide();
                     $('#col-posib').hide();
                     $("#col-type").addClass("col-md-12");
-                } else if(optionValue == "CTT/Interim"){
+                } else if(optionValue == "Contrat de Travail Temporaire/Mission intérim"){
                     $('#col-duree').show();
                     $('#col-posib').show();
                     $("#col-type").removeClass("col-md-12").addClass("col-md-4");
@@ -348,12 +250,169 @@
             });
         });
 
-        // $("#offre_type").trigger("change");
-        //
-        // $("#offre_habilitations").change(function(){
-        //     console.log( $(this).find('option').filter(':selected').text());
-        //
-        // });
+        // LOCATION AUTOCOMPLETE
+
+        $.widget( "custom.catcomplete", $.ui.autocomplete, {
+            _create: function() {
+                this._super();
+                this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+            },
+            _renderMenu: function( ul, items ) {
+                var that = this,
+                    currentCategory = "";
+                $.each( items, function( index, item ) {
+                    var li;
+                    if ( item.category != currentCategory ) {
+                        ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                        currentCategory = item.category;
+                    }
+                    li = that._renderItemData( ul, item );
+                    if ( item.category ) {
+                        li.attr( "aria-label", item.category + " : " + item.label );
+                    }
+                });
+            }
+        });
+        var select_lieu = false;
+        $( "#offre_localisation" ).catcomplete({
+                 source: "{{ path('offre_localisation_autocomplete') }}",
+                         delay: 0,
+                         select: function( event, ui ) {
+                             // console.log( "Selected: " + ui.item.value );
+                             select_lieu=true;
+                         }
+                     });
+        $( "#offre_localisation" ).on("input", function() {
+            // console.log("change 2")
+            select_lieu=false;
+        });
+        $( "#offre_localisation" ).on("blur", function() {
+            // console.log("blur")
+            if (!select_lieu) {
+                $( "#offre_localisation" ).val("")
+            }
+
+        });
+        loc=$("#offre_localisation").val();
+
+    //    CALCUL DU SALAIRE EN FONCTION DES DONNEES ENTREES
+
+
+        $("#offre_salaire").on("input", calcul_salaire);
+        $("#offre_typeSalaire_0").on("change", calcul_salaire);
+        $("#offre_typeSalaire_1").on("change", calcul_salaire);
+        $("#offre_typeSalaire_2").on("change", calcul_salaire);
+        $("#offre_typeSalaire_3").on("change", calcul_salaire);
+        $("#offre_dureeHebdo").on("input", calcul_salaire);
+        $("#offre_typeContrat").on("change", calcul_salaire);
+        $(".choice-sal").hide();
+        $(".choice-sal2").hide();
+
+        function calcul_salaire () {
+            let salaire_base = parseFloat($("#offre_salaire").val());
+            let duree_hebdo = parseFloat($("#offre_dureeHebdo").val());
+            var optionValue = $('#offre_typeContrat').val();
+
+
+            // console.log(salaire_base);
+            if (isNaN(salaire_base))
+            {
+                $(".choice-sal").hide();
+            }
+            else{
+                $(".choice-sal").show();
+            }
+            if(!duree_hebdo) duree_hebdo=35;
+            let sa, sm, sj, sh;
+
+            if($("#offre_typeSalaire_0").is(":checked")){
+                // console.log(optionValue);
+                sa=salaire_base;
+                $("#error").addClass('d-none');
+                if(optionValue != 4 && optionValue != 5)
+                {
+                    if(sa < 18655)
+                    {
+                        document.getElementById('error').textContent = "Le salaire ne peut pas être inférieur au montant actuel du SMIC!";
+                        $("#error").removeClass('d-none');
+                        $(".choice-sal2").addClass('d-none');
+                    }
+                }
+                let sm=sa/12;
+                let sj=sm/(4.33*5);
+                let sh=sm/(duree_hebdo*4.33);
+                $("#salaire_annuel").hide();
+                $("#salaire_mensuel").html(sm.toFixed(2) + "€/mois");
+                $("#salaire_mensuel").show();
+                $("#salaire_journalier").html(sj.toFixed(2) + "€/jour");
+                $("#salaire_journalier").show();
+                $("#salaire_horaire").html(sh.toFixed(2) + "€/heure");
+                $("#salaire_horaire").show();
+            }
+            else if($("#offre_typeSalaire_1").is(":checked")){
+                // console.log("mois");
+                sm=salaire_base;
+                if(optionValue != 4 && optionValue != 5)
+                {
+                    if(sm < 1554.58)
+                    {
+                        document.getElementById('error').textContent = "Le salaire ne peut pas être inférieur au montant actuel du SMIC!";
+                        $("#error").removeClass('d-none');
+                    }
+                }
+                let sa=sm*12;
+                let sj=sm/(4.33*5);
+                let sh=sm/(duree_hebdo*4.33);
+                $("#salaire_mensuel").hide();
+                $("#salaire_annuel").html(sa.toFixed(2) + "€/an");;
+                $("#salaire_annuel").show();
+                $("#salaire_journalier").html(sj.toFixed(2) + "€/jour");;
+                $("#salaire_journalier").show();
+                $("#salaire_horaire").html(sh.toFixed(2) + "€/heure");;
+                $("#salaire_horaire").show();
+            }
+            else if($("#offre_typeSalaire_2").is(":checked")){
+                sj=salaire_base;
+                let sm=sj*(4.33*5);
+                let sa=sm*12;
+                let sh=sm/(duree_hebdo*4.33);
+                $("#salaire_journalier").hide();
+                $("#salaire_annuel").html(sa.toFixed(2) + "€/an");;
+                $("#salaire_annuel").show();
+                $("#salaire_mensuel").html(sm.toFixed(2) + "€/mois");;
+                $("#salaire_mensuel").show();
+                $("#salaire_horaire").html(sh.toFixed(2) + "€/heure");;
+                $("#salaire_horaire").show();
+                $("#error").addClass('d-none');
+            }
+            else if($("#offre_typeSalaire_3").is(":checked")){
+                sh = salaire_base;
+
+                if(optionValue != 4 && optionValue != 5)
+                {
+                    if(sh < 10.25)
+                    {
+                        document.getElementById('error').textContent = "Le salaire ne peut pas être inférieur au montant actuel du SMIC!";
+                        $("#error").removeClass('d-none');
+                    }
+                    $("#error").addClass('d-none');
+                }
+                let sm=sh*(duree_hebdo*4.33);
+                let sa=sm*12;
+                let sj=sm/(4.33*5);
+
+                $("#salaire_horaire").hide();
+                $("#salaire_annuel").html(sa.toFixed(2) + "€/an");;
+                $("#salaire_annuel").show();
+                $("#salaire_mensuel").html(sm.toFixed(2) + "€/mois");;
+                $("#salaire_mensuel").show();
+                $("#salaire_journalier").html(sj.toFixed(2) + "€/jour");;
+                $("#salaire_journalier").show();
+
+            }
+
+        };
+
 
     </script>
 

@@ -30,7 +30,7 @@
     <!-- Card content -->
     <div class="card-body pb-0">
         <!-- Title -->
-        <h4 class="card-title font-weight-lighter"><b>{{ offre_recruteur.titre }} {{ offre_recruteur.type }}</b>
+        <h4 class="card-title font-weight-lighter"><b>{{ offre_recruteur.titre }} {{ offre_recruteur.typeContrat }}</b>
         {% if offre_recruteur.possibiliteCDI == true %}
             ( <em>possibilité CDI </em>)
         {% endif %}
@@ -150,6 +150,14 @@
                             </p>
                         </div>
                     </div>
+                    {% if offre_recruteur.dureeHebdo is not empty %}
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="font-small text-muted mx-1">TEMPS DE TRAVAIL HEBDOMADAIRE : {{offre_recruteur.dureeHebdo }} H
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="row">
                         <div class="col-12">
                             <!-- Update Button -->
@@ -196,11 +204,11 @@
         $(function () {
             $(".btn-details").click(function () {
                 if($(this).text()=="DÉTAILS"){
-                    console.log("ok");
+
                     $(this).text("REPLIER");
                 }
                 else {
-                    console.log("ko");
+
                     $(this).text("DÉTAILS");
                 }
             });

@@ -41,28 +41,26 @@ class BaseData extends Fixture implements FixtureGroupInterface
 
         $tc1 = new TypeContrat(1, "CDI");
         $manager->persist($tc1);
-        $tc2 = new TypeContrat(2, "CDD < 5 mois");
+        $tc2 = new TypeContrat(2, "CDD");
         $manager->persist($tc2);
-        $tc3 = new TypeContrat(3, "CDD > 5 mois");
+        $tc3 = new TypeContrat(3, "Contrat de Travail Temporaire/Mission intérim");
         $manager->persist($tc3);
-        $tc4 = new TypeContrat(4, "CTT/Interim");
+        $tc4 = new TypeContrat(4, "Contrat de professionnalisation");
         $manager->persist($tc4);
-        $tc5 = new TypeContrat(5, "Freelance");
+        $tc5 = new TypeContrat(5, "Contrat d'apprentissage");
         $manager->persist($tc5);
-        $tc6 = new TypeContrat(6, "Alternance");
+        $tc6 = new TypeContrat(6, "Stage");
         $manager->persist($tc6);
-        $tc7 = new TypeContrat(7, "CUI – Contrat unique d’insertion");
+        $tc7 = new TypeContrat(7, "Freelance");
         $manager->persist($tc7);
-        $tc8 = new TypeContrat(8, "CAE – Contrat d’accompagnement dans l’emploi");
+        $tc8 = new TypeContrat(8, "CDI Intérimaire");
         $manager->persist($tc8);
-        $tc9 = new TypeContrat(9, "CIE – Contrat initiative emploi");
+        $tc9 = new TypeContrat(9, "CUI–CAE");
         $manager->persist($tc9);
-        $tc10 = new TypeContrat(10, "Service civique");
+        $tc10 = new TypeContrat(10, "CUI-CIE");
         $manager->persist($tc10);
-
-
-
-
+        $tc11 = new TypeContrat(11, "Service civique");
+        $manager->persist($tc11);
 
         $manager->flush();
 

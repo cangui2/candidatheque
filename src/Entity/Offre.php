@@ -3,13 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Entity\Entreprise;
 use App\Repository\OffreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,13 +21,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     collectionOperations={
  *                          "get"={},
-
- *                          },
+ *                          "post"={}
+ *                     },
  *     itemOperations={
- *                          "get"={},
- *                          },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *                          "get"={}
+ *     },
+ *     normalizationContext={
+ *                "groups"={"off:read"}
+ *      },
+ *     denormalizationContext={
+ *                "groups"={"write"}
+ *     },
  *     attributes={
  *                  "force_eager"=false
 
@@ -51,31 +58,45 @@ class Offre
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"off:read", "write"})
      */
     private $titre;
     
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"off:read", "write"})
+     * @ApiProperty(
+     *     attributes={
+     *         "openapi_context"={
+     *             "type"="string",
+     *              "format"="date-time"
+     *         }
+     *     }
+     * )
      */
     private $datePublication;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"off:read", "write"})
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
      */
     private $metier;
 
     /**
      * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="offre")
+     * @Groups({"off:read", "write"})
      */
     private $postules;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"off:read", "write"})
      * @Assert\GreaterThanOrEqual(
      *     value = 0,
      *     message = "Le montant du salaire proposé doit être égal ou supérieur à {{ compared_value }}"
@@ -86,91 +107,156 @@ class Offre
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"off:read", "write"})
+     * @ApiProperty(
+     *     attributes={
+     *         "openapi_context"={
+     *             "type"="string",
+     *              "format"="date"
+     *         }
+     *     }
+     * )
      */
     private $dateDebut;
 
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"off:read", "write"})
      */
     private $duree;
 
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
      */
-    private $type;
+    private $typeContrat;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"off:read", "write"})
      */
     private $possibiliteCDI;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"off:read", "write"})
      */
     private $urgent;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"off:read", "write"})
      */
     private $profil;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recruteur::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
      */
     private $recruteur;
 
     /**
      * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="offres")
      * @ORM\JoinColumn(name="id_entreprise", referencedColumnName="id")
+     * @Groups({"off:read", "write"})
      */
     private $entreprise;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
      */
     private $ville;
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
      */
     private $departement;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
      */
     private $region;
 
     /**
      * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
      */
     private $pays;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"off:read", "write"})
      */
     private $dateModification;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
+     * @ApiProperty(
+     *     attributes={
+     *         "openapi_context"={
+     *             "type"="array",
+     *              "items"={
+     *                  "type"="string"
+     *               }
+     *         }
+     *     }
+     * )
      */
     private $competences;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"off:read", "write"})
+     * @ApiProperty(
+     *     attributes={
+     *         "openapi_context"={
+     *             "type"="array",
+     *              "items"={
+     *                  "type"="string"
+     *               }
+     *         }
+     *     }
+     * )
      */
     private $competencesComplementaires;
 
     /**
      * @ORM\ManyToMany(targetEntity=Habilitation::class, inversedBy="offres")
+     * @Groups({"off:read", "write"})
+     *  @ApiProperty(
+     *     attributes={
+     *         "openapi_context"={
+     *             "type"="array",
+     *              "items"={
+     *                  "type"="string"
+     *               }
+     *         }
+     *     }
+     * )
      */
     private $habilitations;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"off:read", "write"})
      */
-    private $typeSalaire; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
+    private $typeSalaire;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message = "Le temps de travail doit être supérieur à {{ compared_value }}"
+     * )
+     * @Groups({"off:read", "write"})
+     */
+    private $dureeHebdo; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
 
 
 
@@ -313,14 +399,14 @@ class Offre
         return $this;
     }
 
-    public function getType(): ?TypeContrat
+    public function getTypeContrat(): ?TypeContrat
     {
-        return $this->type;
+        return $this->typeContrat;
     }
 
-    public function setType(?TypeContrat $type): self
+    public function setTypeContrat(?TypeContrat $typeContrat): self
     {
-        $this->type = $type;
+        $this->typeContrat = $typeContrat;
 
         return $this;
     }
@@ -517,6 +603,18 @@ class Offre
     public function setTypeSalaire(?int $typeSalaire): self
     {
         $this->typeSalaire = $typeSalaire;
+
+        return $this;
+    }
+
+    public function getDureeHebdo(): ?float
+    {
+        return $this->dureeHebdo;
+    }
+
+    public function setDureeHebdo(?float $dureeHebdo): self
+    {
+        $this->dureeHebdo = $dureeHebdo;
 
         return $this;
     }

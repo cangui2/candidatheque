@@ -12,11 +12,15 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=CVRepository::class)
  * @ApiResource(
  *     collectionOperations={
- *                          "get"={},
+ *                          "get"={
+ *                              "path"="/cvs"
+ *                           },
 
- *                          },
+ *                     },
  *     itemOperations={
- *                          "get"={},
+ *                          "get"={
+                               "path"="/cvs/{id}"
+ *                          },
  *                          },
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}},
