@@ -98,6 +98,7 @@ class ApiController extends AbstractController
         $recruteur = $request->query->get("recruteur");
         $rayon=$request->query->get('rayon');
 
+
         $query = $cv_repo->createQueryBuilder('c')
             ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.id as idmetier','dep.id as idrecruteur','vil.id as idville','vil.nom as ville')
             ->join('c.candidat', 'can')
@@ -115,29 +116,30 @@ class ApiController extends AbstractController
                 ->setParameter('keyword', '%' . $keyword . '%');
 
         }
-//        if ($ville){
-//            $query
-////                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
-//                ->andWhere('vil.id like :ville ')
-//                ->setParameter('ville', '%' . $ville . '%');
-//
-//        }
+
         if ($recruteur){
             $query
 //                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
                 ->andWhere('dep.id like :recruteur ')
-                ->setParameter('recruteur', '%' . $recruteur . '%');
+                ->setParameter('recruteur',  $recruteur );
 
         }
-
 
         if ($rayon){
 
-           $query
-            ->andWhere('vil.id IN (:result)')
-            ->setParameter('result', $repoVille->searchAround($ville,$rayon));
+            $query
+                ->andWhere('vil.id IN (:result)')
+
+                ->setParameter(
+                    'result', $repoVille->searchAround($ville,$rayon)
+                );
+
 
         }
+
+
+
+
         $entities=$query->distinct()->getQuery()
             ->setMaxResults(30)
             ->getResult();

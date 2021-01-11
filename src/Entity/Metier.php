@@ -51,7 +51,7 @@ class Metier
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"mt:read", "rm:read"})
+     * @Groups({"mt:read", "rm:read","read"})
      */
     private $libelle;
 
