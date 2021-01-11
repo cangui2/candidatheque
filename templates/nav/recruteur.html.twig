@@ -6,6 +6,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            {% if is_granted("ROLE_RECRUTEUR") %}
             <li class="nav-item">
                 <a class="nav-link barre-log color-principale3 presence pt-3  {{ activeMenu("dashboard_entreprise") }}" href="{{ path("dashboard_entreprise") }}">Tableau de bord</a>
             </li>
@@ -18,6 +19,7 @@
             <li class="nav-item">
                 <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("entreprise_sourcing") }}" href="{{ path('entreprise_sourcing') }}">Recherche de candidats</a>
             </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link color-principale3 presence pt-3 {{ activeMenu("blog") }}" href="{{ path("blog") }}">Blog</a>
             </li>
