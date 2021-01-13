@@ -17,7 +17,7 @@ class ProfilFormType extends AbstractType
             ->add('nom')
             ->add('photo')
             ->add('adresse')
-            ->add('codePostal')
+            // ->add('codePostal')
             ->add('ville')
             ->add('mobilite')
             ->add('telephone')

@@ -83,10 +83,16 @@ class Ville
      */
     private $offres;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Candidat::class, mappedBy="ville")
+     */
+    private $candidats;
+
     public function __construct()
     {
 
         $this->offres = new ArrayCollection();
+        $this->candidats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,5 +193,35 @@ class Ville
     public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection|Candidat[]
+     */
+    public function getCandidats(): Collection
+    {
+        return $this->candidats;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->candidats->contains($candidat)) {
+            $this->candidats[] = $candidat;
+            $candidat->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        if ($this->candidats->removeElement($candidat)) {
+            // set the owning side to null (unless already changed)
+            if ($candidat->getVille() === $this) {
+                $candidat->setVille(null);
+            }
+        }
+
+        return $this;
     }
 }
