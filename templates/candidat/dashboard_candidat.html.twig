@@ -6,30 +6,25 @@
 {% endblock %}
 {% block body %}
     <div class="container px-4">
-        <div class="row gx-5 mt-5 mb-5">
-            <div class="col">
-                <div class="p-0">
-                    <div class="jumbotron jumbo-profil">
-                        <div class="row mb-2">
-                            <div class="col-md-3">
-                                <img src="{{ asset("assets/images/user.png") }}" class="profile-icon">
-                            </div>
-                            <div class="col-md-9">
-                                <h4 class="">Mon profil</h4>
-                            </div>
+        <div class="row gx-5 mt-5 mb-2">
+            <div class="col-md-6">
+                <div class="jumbotron jumbo-profil">
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <img src="{{ asset("assets/images/user.png") }}" class="profile-icon">
                         </div>
-                        <p class="lead text-justify">Créez, complétez ou modifiez les informations contenues dans votre profil candidat et augmentez ainsi vos chances d'être contacté
+                        <div class="col-md-9">
+                            <h4 class="">Mon profil</h4>
+                        </div>
+                    </div>
+                    <p class="lead text-justify">Créez, complétez ou modifiez les informations contenues dans votre profil candidat et augmentez ainsi vos chances d'être contacté
                             par les nombreux recruteurs qui consultent quotidiennement notre base!
                             Mettez-vous en valeur en le rendant visible auprès des employeurs!</p>
-                        <hr class="my-4">
-                        <p class="lead">
-                            <a class="btn btn-primary btn-lg" href="{{ path('mon_profil') }}" role="button">Modifier/Compléter</a>
-                        </p>
-                    </div>
+                        <a class="btn btn-primary btn-md btn-profil bg-color-principale1" href="{{ path('mon_profil') }}" role="button">Modifier/Compléter</a>
                 </div>
             </div>
-            <div class="col">
-                <div class="p-0">
+            <div class="col-md-6">
+
                     <div class="jumbotron jumbo-profil">
                         <div class="row mb-2">
                             <div class="col-md-3">
@@ -42,17 +37,15 @@
                         <p class="lead text-justify">Vous N'avez pas encore de CV? Vous pouvez utiliser l'outil de création en ligne ou alors télécharger un document en format .txt ou .pdf
                             depuis votre ordinateur.
                             N'oubliez pas, le CV est votre carte d'indentité professionnelle et un outil indispensable pour décrocher un job!</p>
-                        <hr class="my-4">
-                        <p class="lead text-justify">
-                            <a class="btn btn-primary btn-lg" href="#" role="button">Gérer mes CV</a>
-                        </p>
+
+                            <a class="btn btn-primary btn-md btn-profil bg-color-principale1" href="#" role="button">Gérer mes CV</a>
                     </div>
-                </div>
+
             </div>
         </div>
         <div class="row gx-5 mb-5">
-            <div class="col">
-                <div class="p-0">
+            <div class="col-md-6">
+
                     <div class="jumbotron jumbo-profil">
                         <div class="row mb-2">
                             <div class="col-md-3">
@@ -64,31 +57,30 @@
                         </div>
                         <p class="lead text-justify">Prenez le temps de rédiger une lettre de motivation personnalisée afin de démontrer que votre profil correspond pleinement au poste souhaité.
                             Si vous postulez à plusieurs offres différentes, pensez à rédiger plusieurs lettres de motivation.</p>
-                        <hr class="my-4">
-                        <p class="lead">
-                            <a class="btn btn-primary btn-lg" href="#" role="button">Consulter</a>
-                        </p>
+
+                            <a class="btn btn-primary btn-md btn-profil bg-color-principale1" href="#" role="button">Consulter</a>
                     </div>
-                </div>
+
             </div>
-            <div class="col">
-                <div class="p-0">
-                    <div class="jumbotron jumbo-profil">
-                        <div class="row mb-2">
-                            <div class="col-md-3">
-                                <img src="{{ asset("assets/images/job.png") }}" class="profile-icon">
-                            </div>
-                            <div class="col-md-9">
-                                <h4 class="">Mes offres</h4>
-                            </div>
+            <div class="col-md-6">
+                <div class="jumbotron jumbo-profil">
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <img src="{{ asset("assets/images/job.png") }}" class="profile-icon">
                         </div>
-                        <p class="lead text-justify">Gérez vos candidatures, étudier les offres sauvegardées, cherchez d'autres missions en lien avec votre profil et vos compétences,
-                            restez à l'écoute des opportunités du marché du travail!
-                            <hr class="my-4">
-                        <p class="lead">
-                            <a class="btn btn-primary btn-lg" href="#" role="button">Consulter</a>
-                        </p>
+                        <div class="col-md-9">
+                            <h4 class="">Mes candidatures</h4>
+                        </div>
                     </div>
+                    <p class="lead text-justify">Gérez vos candidatures, cherchez d'autres missions en lien avec votre profil et vos compétences,
+                            restez à l'écoute des opportunités du marché du travail!</p>
+                    {% if candidatures |length == 0 %}
+                        <p class="lead text-justify">Vous n'avez pas encore postulé, commencez dès maintenant!</p>
+                    <a class="btn btn-primary btn-md btn-profil bg-color-principale1" href="{{ path('recherche') }}" role="button">Recher cher une offre</a>
+                    {% else %}
+                        <p class="lead text-justify">Vous avez {{ candidatures | length }} candidature(s)!</p>
+                        <a class="btn btn-primary btn-md btn-profil bg-color-principale1" href="#" role="button">Consulter</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

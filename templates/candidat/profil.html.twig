@@ -7,76 +7,229 @@
 {% endblock %}
 
 {% block body %}
-
      <div class="container">
-         <div class="row mt-5 mb-3">
-             <div class="col-12 text-center">
-                <h3 class="text-center mt-4 mb-4">Mon profil</h3>
+         <form id="pf-form">
+             <div class="row">
+                 <div class="col-md-6 mr-auto ml-auto mb-4">
+                     <ul id="progressbar">
+                         <li class="active">Présentation</li>
+                         <li>Poste </li>
+                         <li>CV & Lettre de motivation</li>
+                     </ul>
+                 </div>
              </div>
-         </div>
-         <div class="row">
-             <div class="col-lg-12 col-md-6 mon-profil-wrapper mb-4">
-                 {{ form_start(pfForm) }}
-                 <div class="section">
-                     <div class="row mt-2">
-                         <div class="col-md-4">
-                             {{ form_row(pfForm.photo) }}
-                         </div>
-                         <div class="col-md-8">
-                             <div class="row">
-                                 <div class="col">
-                                    {{ form_row(pfForm.prenom) }}
-                                 </div>
-                                 <div class="col">
-                                     {{ form_row(pfForm.nom) }}
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="row mt-2">
-                         <div class="col-12">
-                             {{ form_row(pfForm.adresse) }}
+             <div class="row">
+                 <fieldset>
+                    <div class="section-profil">
+                        <div class="row mb-3">
+                            <div class="col-12 text-center">
+                                <h3 class="text-center mb-4 section-title">Identité</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mon-profil-wrapper mb-4">
+                                {{ form_start(pfForm) }}
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        {{ form_row(pfForm.prenom) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(pfForm.nom) }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        {{ form_row(pfForm.adresse) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        {{ form_row(pfForm.codePostal) }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form_row(pfForm.ville) }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form_row(pfForm.telephone) }}
+                                    </div>
+                                </div>
+                                <input type="button" name="next" class="next action-button" value="Suivant"/>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                 <fieldset>
+                     <div class="row mt-5 mb-3">
+                         <div class="col-12 text-center">
+                             <h3 class="text-center mt-4 mb-4 section-title">Poste recherché</h3>
                          </div>
                      </div>
                      <div class="row">
-                         <div class="col-4">
-                             {{ form_row(pfForm.codePostal) }}
-                         </div>
-                         <div class="col-4">
-                             {{ form_row(pfForm.ville) }}
-                         </div>
-                         <div class="col-4">
-                             {{ form_row(pfForm.telephone) }}
+                         <div class="col-lg-12 col-md-6 mon-profil-wrapper mb-4">
+                             <div class="section">
+                                 <div class="row mt-2">
+                                     <div class="col-md-6">
+                                         Métier
+                                         {#                                 {{ form_row(pfForm.metier) }}#}
+                                     </div>
+                                     <div class="col-md-6">
+                                         Secteur
+                                         {#                                 {{ form_row(pfForm.secteur) }}#}
+                                     </div>
+                                 </div>
+                                 <div class="row mt-2">
+                                     <div class="col-12">
+                                         Expérience
+                                         {#                                 {{ form_row(pfForm.experience) }}#}
+                                     </div>
+                                 </div>
+                                 <div class="row mt-2">
+                                     <div class="col">
+                                         Contrat
+                                         {#                                 {{ form_row(pfForm.typeContrat) }}#}
+                                     </div>
+                                     <div class="col">
+                                         Salaire
+                                         {#                                 {{ form_row(pfForm.salaire) }}#}
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-md-6">
+                                         Disponibilité
+                                         {#                                 {{ form_row(pfForm.disponibilite) }}#}
+                                     </div>
+                                     <div class="col-md-6">
+                                         Mobilité
+                                         {#                                 {{ form_row(pfForm.mobilite) }}#}
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-12">
+                                         Activer profil dans la CV-thèque
+                                     </div>
+                                 </div>
+                                 <input type="button" name="previous" class="previous action-button-previous" value="Précédent"/>
+                                 <input type="button" name="next" class="next action-button" value="Suivant"/>
+                             </div>
                          </div>
                      </div>
-                 </div>
-                 </div>
-             </div>
-{#                 Civilite#}
-{#                 Prénom, Nom, Ville, CP, Pays, Tél,#}
-{#                 <section>Votre parcours#}
-{#                     Dernier poste occupé#}
-{#                     Niveau d'expérience#}
-{#                     Niveau de formation - jeune diplômé, 1-2 ans, 3-5, 6-10, 11-20, plus#}
-{#                 </section>#}
-{#                 <section>Projet professionnel</section>#}
-{#                 Disponible choix - immédiat; avec préavis, en veille#}
-{#                 Poste recherché#}
-{#                 Type de contrat recherché#}
-{#                 secteurs rfecherché#}
-{#                 Salaire annuel brut souhaité#}
-{#                 regions recherchées#}
-
-                 <div class="row mt-5 mb-5">
-                     <div class="col-md-12 text-center">
-                         {{ form_row(pfForm.save, {'label': "Valider"}) }}
+                 </fieldset>
+                 <fieldset>
+                     <div class="row mt-5 mb-3">
+                         <div class="col-12 text-center">
+                             <h3 class="text-center mt-4 mb-4 section-title">CV</h3>
+                         </div>
                      </div>
-                 </div>
-
-             {{ form_end(pfForm) }}
-             {#         Activer profil dans la cv-thèque#}
-             {#         Activer l'alerte cv#}
+                     <div class="row">
+                         <div class="col-lg-12 col-md-6 mon-profil-wrapper mb-4">
+                                 <div class="row mt-2">
+                                     <div class="col-md-6">
+                                         {#                               CV  {{ form_row(pfForm.cv) }}#}
+                                     </div>
+                                     <div class="col-md-6">
+                                         Lettre mv
+                                         {#                                 {{ form_row(pfForm.lettre) }}#}
+                                     </div>
+                                 </div>
+                                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                                 <div class="row">
+                                     <div class="col-md">
+                                         {{ form_widget(pfForm.save, {'label': "Valider", 'label-attr': {'class': 'btn btn-md submit action-button'}}) }}
+                                     </div>
+                                 </div>
+                                 {{ form_end(pfForm) }}
+                         </div>
+                     </div>
+             </fieldset>
          </div>
-     </div>
+     </form>
+ </div>
 
 {%  endblock %}
+{% block javascripts %}
+
+    <script>
+
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var left, opacity, scale; //fieldset properties which we will animate
+        var animating; //flag to prevent quick multi-click glitches
+
+        $(".next").click(function(){
+            if(animating) return false;
+            animating = true;
+
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            //activate next step on progressbar using the index of next_fs
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now, mx) {
+                    //as the opacity of current_fs reduces to 0 - stored in "now"
+                    //1. scale current_fs down to 80%
+                    scale = 1 - (1 - now) * 0.2;
+                    //2. bring next_fs from the right(50%)
+                    left = (now * 50)+"%";
+                    //3. increase opacity of next_fs to 1 as it moves in
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'transform': 'scale('+scale+')',
+                        'position': 'absolute'
+                    });
+                    next_fs.css({'left': left, 'opacity': opacity});
+                },
+                duration: 800,
+                complete: function(){
+                    current_fs.hide();
+                    animating = false;
+                },
+                //this comes from the custom easing plugin
+                easing: 'easeInOutBack'
+            });
+        });
+
+        $(".previous").click(function(){
+            if(animating) return false;
+            animating = true;
+
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //de-activate current step on progressbar
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now, mx) {
+                    //as the opacity of current_fs reduces to 0 - stored in "now"
+                    //1. scale previous_fs from 80% to 100%
+                    scale = 0.8 + (1 - now) * 0.2;
+                    //2. take current_fs to the right(50%) - from 0%
+                    left = ((1-now) * 50)+"%";
+                    //3. increase opacity of previous_fs to 1 as it moves in
+                    opacity = 1 - now;
+                    current_fs.css({'left': left});
+                    previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+                },
+                duration: 800,
+                complete: function(){
+                    current_fs.hide();
+                    animating = false;
+                },
+                //this comes from the custom easing plugin
+                easing: 'easeInOutBack'
+            });
+        });
+
+        $(".submit").click(function(){
+            return false;
+        })
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+{% endblock %}
