@@ -115,7 +115,7 @@ class Metier
         return $this;
     }
 
-    
+
     /**
      * @return Collection|CV[]
      */

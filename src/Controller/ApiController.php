@@ -100,7 +100,7 @@ class ApiController extends AbstractController
 
 
         $query = $cv_repo->createQueryBuilder('c')
-            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.id as idmetier','dep.id as idrecruteur','vil.id as idville','vil.nom as ville')
+            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.id as idmetier','met.libelle as metLibele','dep.id as idrecruteur','vil.id as idville','vil.nom as ville')
             ->join('c.candidat', 'can')
             ->join('c.metier','met')
             ->leftjoin('can.ville','vil')
