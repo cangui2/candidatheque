@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 
+use App\Repository\CVRepository;
+use App\Repository\MetierRepository;
 use App\Repository\OffreRepository;
 
+use App\Repository\PostuleRepository;
+use App\Repository\TypeContratRepository;
+use App\Repository\VilleRepository;
 use phpDocumentor\Reflection\Type;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +20,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class RechercheController extends AbstractController
 {
 
+    protected $offreRepo;
+    protected $postuleRepo;
+    protected $villeRepo;
+    protected $metierRepo;
+    protected $secteurRepo;
+    protected $typeContratRepo;
 
+
+
+    public function __construct(OffreRepository $offreRepo, PostuleRepository $postuleRepo,VilleRepository $villeRepo,MetierRepository $metierRepo,TypeContratRepository $typeContratRepo){
+
+        $this->offreRepo=$offreRepo;
+        $this->postuleRepo=$postuleRepo;
+        $this->metierRepo=$metierRepo;
+        $this->villeRepo=$villeRepo;
+        $this->typeContratRepo=$typeContratRepo;
+
+
+    }
 
 
     /**
@@ -31,7 +54,7 @@ class RechercheController extends AbstractController
 
 
     /**
-     * @Route("/recherche_liste/{metier}/{ville}/{secteur}/{contrat}", name="recherche_liste")
+     * @Route("/recherche_liste/", name="recherche_liste")
      */
     public function liste(OffreRepository $offreRepo, Request $request): Response
     {
@@ -42,7 +65,7 @@ class RechercheController extends AbstractController
         $typeContrat=$request->query->get("contrat");
 
         $query = $offreRepo->createQueryBuilder('o')
-            ->select('o.id', 'o.titre as titre', 'o.datePublication as publication','met.id as idmetier')
+            ->select('o','met','vil','typ')
             ->leftJoin('o.metier','met')
             ->leftJoin('o.ville','vil')
             ->leftJoin('o.type','typ')
@@ -53,19 +76,34 @@ class RechercheController extends AbstractController
                 'contrat'=>'%'.$typeContrat.'%',
             ));
 
-        $entities=$query->distinct()->getQuery()
+        $offreListeResult=$query->distinct()->getQuery()
             ->setMaxResults(30)
             ->getResult();
-        $test=new JsonResponse($entities);
+
+        //return new JsonResponse("{ 'message': 'ok' }");
+
+
+        $v1=$this->metierRepo->find($metier);
+
+        $v2=$this->villeRepo->find($ville);
+
+        $v3=$this->typeContratRepo->find($typeContrat);
+
+
 
 
 
         return $this->render('recherche/liste.html.twig', [
             'controller_name' => 'RechercheController',
             'variaTest' => rand(0, 9),
-            'test'=>$test,
+            'offreListeResult'=>$offreListeResult,
+            'test'=>$v1,
+            'test2'=>$v2,
+            'test3'=>$v3
+
         ]);
     }
+
 
     /**
      * @Route("/recherche_details", name="recherche_details")

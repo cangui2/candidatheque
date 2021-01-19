@@ -4,222 +4,273 @@
 {% endblock %}
 
 {% block body %}
-<body>
-{{ dump (test) }}
-<div class="container">
-	<form class="bg-light rounded mt-5 mb-4 mb-lg-5 pt-4 pb-1 px-5">
+    <body>
 
-	<div class="row">
-		<div class="col-sm-3 form-group" id="root">
-			<label class="mb-0" for="rechercheInput1">Métier</label>
-			<input type="text" class="form-control form-control-sm" id="rechercheInput1">
-		</div>
-		<div class="col-sm-3 form-group">
-			<label class="mb-0" for="rechercheInput2">Lieu</label>
-			<input type="text" class="form-control form-control-sm" id="rechercheInput2">
-		</div>
-		<div class="col-sm-3 form-group">
-			<label class="mb-0" for="rechercheInput3">Secteur d'activité</label>
-			<input type="text" class="form-control form-control-sm" id="rechercheInput3">
-		</div>
-		<div class="col-sm-3  form-group">
-			<label class="mb-0" for="rechercheInput4">Type de contrat</label>
-			<input type="text" class="form-control form-control-sm" id="rechercheInput4">
-		</div>
-		<div class="col-12 rech text-right">
-			<button type="submit" class="btn bg-color-principale1 text-light mt-1 mb-4">Rechercher des offres <i class="fa fa-search" aria-hidden="true"></i></button>
-		</div>
-	</div>
+    <div class="container">
+        <form class="bg-light rounded mt-5 mb-4 mb-lg-5 pt-4 pb-1 px-5" id="list">
+            {# <div class="row"> #}
+            {# <div class="col-sm-3 form-group" id="root"> #}
+            {# <label class="mb-0" for="rechercheInput1">Métier</label> #}
+            {# <input type="text" class="form-control form-control-sm" id="rechercheInput1"> #}
+            {# </div> #}
+            {# <div class="col-sm-3 form-group" id="root"> #}
+            {# <label class="mb-0" for="rechercheInput1">Métier</label> #}
+            {# <input type="text" class="form-control form-control-sm" id="rechercheInput1" value=""> #}
+            {# </div> #}
+            {# #}
+            {# #}
+            {# <div class="col-sm-3 form-group"> #}
+            {# <label class="mb-0" for="rechercheInput2">Lieu</label> #}
+            {# <input type="text" class="form-control form-control-sm" id="rechercheInput2"> #}
+            {# </div> #}
+            {# #}
+            {# <div class="col-sm-3 form-group"> #}
+            {# <label class="mb-0" for="rechercheInput2">Lieu</label> #}
+            {# <input type="text" class="form-control form-control-sm" id="rechercheInput2" > #}
+            {# </div> #}
+            {# #}
+            {# <div class="col-sm-3 form-group"> #}
+            {# <label class="mb-0" for="rechercheInput3">Secteur d'activité</label> #}
+            {# <input type="text" class="form-control form-control-sm" id="rechercheInput3"> #}
+            {# </div> #}
+            {# #}
+            {# <div class="col-sm-3  form-group"> #}
+            {# <label class="mb-0" for="rechercheInput4">Type de contrat</label> #}
+            {# <input type="text" class="form-control form-control-sm" id="rechercheInput4"> #}
+            {# </div> #}
+            {# #}
+            {# <div class="col-sm-3  form-group"> #}
+            {# <label class="mb-0" for="rechercheInput4">Type de contrat</label> #}
+            {# <input type="text" class="form-control form-control-sm" id="rechercheInput4" > #}
+            {# </div> #}
+            {# <div class="col-12 rech text-right"> #}
+            {# <button type="button"  class="btn bg-color-principale1 text-light mt-1 mb-4">Rechercher des offres <i class="fa fa-search" aria-hidden="true"></i></button> #}
+            {# </div> #}
+            {# </div> #}
 
-</form>
+        </form>
 
-<div class="row">
-	<div class="col-2" >
-		filtre1
-		<br><br><br><br><br>
-		filtre1
-		<br><br><br><br><br>
-		filtre1
-		<br><br><br><br><br>
-		filtre1
-		<br><br><br><br><br>
-	</div>
-	<div class="col-10">
-		<div class="card no-border bg-light mb-3" style="overflow: hidden;">
-			<div class="card-body">
-				<h5 class="card-title border-bottom pb-2">Offre</h5>
-				<p class="card-text">Réf :</p>
-				<p class="card-text">Publié le :</p>
-				<p class="card-text">Type de contrat :</p>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-				<a href="{{ path('recherche_details') }}" class="btn color-3E68D4">Voir l'offre</a>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-					Launch demo modal
-				</button>
-			</div>
-		</div>
-		<div class="card no-border bg-light mb-3">
-			<div class="card-body">
-				<h5 class="card-title border-bottom pb-2">Offre</h5>
-				<p class="card-text">Réf :</p>
-				<p class="card-text">Publié le :</p>
-				<p class="card-text">Type de contrat :</p>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-				<a href="{{ path('recherche_details') }}" class="btn color-3E68D4">Voir l'offre</a>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-					Launch demo modal
-				</button>
-			</div>
-		</div>
-		<div class="card no-border bg-light mb-3">
-			<div class="card-body">
-				<h5 class="card-title border-bottom pb-2">Offre</h5>
-				<p class="card-text">Réf :</p>
-				<p class="card-text">Publié le :</p>
-				<p class="card-text">Type de contrat :</p>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-				<a href="{{ path('recherche_details') }}" class="btn color-3E68D4">Voir l'offre</a>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-					Launch demo modal
-				</button>
-			</div>
-		</div>
-		<div class="card no-border bg-light mb-3">
-			<div class="card-body">
-				<h5 class="card-title border-bottom pb-2">Offre</h5>
-				<p class="card-text">Réf :</p>
-				<p class="card-text">Publié le :</p>
-				<p class="card-text">Type de contrat :</p>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-				<a href="{{ path('recherche_details') }}" class="btn color-3E68D4">Voir l'offre</a>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-					Launch demo modal
-				</button>
-			</div>
-		</div>
-	</div>
+        <div class="row">
+            <div class="col-2">
+                filtre1
+                <br><br><br><br><br>
+                filtre1
+                <br><br><br><br><br>
+                filtre1
+                <br><br><br><br><br>
+                filtre1
+                <br><br><br><br><br>
+            </div>
 
-</div>
-	<div class="row">
-		<div class="col-3">
-			<div class="card">
-				<div class="card-header">
-					Featured
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-3">
-			<div class="card">
-				<div class="card-header">
-					Featured
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-3">
-			<div class="card">
-				<div class="card-header">
-					Featured
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-3">
-			<div class="card">
-				<div class="card-header">
-					Featured
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-3">
-			<div class="card">
-				<div class="card-header">
-					Featured
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-3">
-			<div class="card">
-				<div class="card-header">
-					Featured
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-3">
-			<div class="card">
-				<div class="card-header">
-					Featured
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
-<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Intitulé du poste (h/f)</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<h6 class="card-text text-secondary font-weight-light text">Publiée le ../../....</h6>
-{#				<h3 class="card-title color-principale1 border-bottom pb-3 my-2"></h3>#}
-				<h5 class="card-text my-4">Offre n° ####</h5>
-				<h5 class="card-text text-secondary my-4"><i class="fa fa-map-marker color-principale1" aria-hidden="true"></i> Localisation : </h5>
-				<h5 class="card-text text-secondary my-4"><i class="fa fa-pie-chart color-principale1" aria-hidden="true"></i> Secteur d'activité : </h5>
-				<h5 class="card-text text-secondary my-4"><i class="fa fa-clock-o color-principale1" aria-hidden="true"></i> Type de contrat : </h5>
-				<h5 class="card-text text-secondary my-4"><i class="fa fa-calendar-o color-principale1" aria-hidden="true"></i> Début du contrat : </h5>
-				<h3 class="card-text color-principale1 my-4">Profil : </h3>
-				<p class="card-text text-justify my-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque delectus doloribus mollitia, voluptate ut doloremque quia veritatis molestias! Vitae alias ipsa animi reiciendis, natus nesciunt quas ratione minus laboriosam iste reprehenderit voluptate soluta adipisci maxime, amet dignissimos possimus. Dolor delectus suscipit quas dolore eos odio possimus sit facilis repellat aperiam cupiditate ad excepturi, odit iste nisi itaque et, ut placeat eveniet labore modi maxime. Cupiditate, illo? Quasi quod possimus officia totam quos quo.</p>
-				<h3 class="card-text color-principale1">Mission : </h3>
-				<p class="card-text text-justify my-4">Aliquam velit possimus laborum nisi necessitatibus impedit voluptatibus amet dolor earum magni voluptatem omnis dignissimos, quae similique voluptates aspernatur in deserunt soluta expedita nemo dolorem, eaque eum saepe rerum. Cum provident eius ex fugiat eaque natus, voluptatibus neque, expedita ullam maxime atque quaerat iusto. Doloremque sapiente repudiandae dicta, voluptatum est consequuntur tempora autem, accusamus impedit quia dignissimos, molestias magni porro id laboriosam voluptates? Molestiae odio veritatis, iste minima quisquam obcaecati illo alias nobis assumenda quaerat expedita nulla quia sapiente accusamus est architecto atque accusantium minus aliquam hic commodi beatae ipsum! Possimus debitis fugiat quisquam expedita repudiandae exercitationem cumque nulla, similique maiores. Expedita dolor beatae illo, ipsu.</p>
-				<a href="/" class="btn btn-primary my-4">Postuler</a>
-				<h5 class="card-text text-secondary my-4"><i class="fa fa-map-o color-principale1" aria-hidden="true"></i> Lieu de votre mission : </h5>
-			</div>
+            {% for offre in offreListeResult %}
+            <div class="col-10">
+                <div class="card no-border bg-light mb-3" style="overflow: hidden;">
+                    <div class="card-body">
+                        <h5 class="card-title border-bottom pb-2">Offre</h5>
+                        <p class="card-text">Réf :{{ offre.id }}</p>
+                        <p class="card-text">Publié le {{ offre.datePublication |date('d/m/Y') }}:</p>
+                        <p class="card-text">Type de contrat :{{ offre.type.libelle }}</p>
+                        <p class="card-text">{{ offre.description }}</p>
+                        <a href="{{ path('recherche_details') }}" class="btn color-3E68D4">Voir l'offre</a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Launch demo modal
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
 
-		</div>
-	</div>
-</div>
+                {# <div class="card no-border bg-light mb-3"> #}
+                {# <div class="card-body"> #}
+                {# <h5 class="card-title border-bottom pb-2">Offre</h5> #}
+                {# <p class="card-text">Réf :</p> #}
+                {# <p class="card-text">Publié le :</p> #}
+                {# <p class="card-text">Type de contrat :</p> #}
+                {# <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p> #}
+                {# <a href="{{ path('recherche_details') }}" class="btn color-3E68D4">Voir l'offre</a> #}
+                {# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> #}
+                {# Launch demo modal #}
+                {# </button> #}
+                {# </div> #}
+                {# </div> #}
+                {# <div class="card no-border bg-light mb-3"> #}
+                {# <div class="card-body"> #}
+                {# <h5 class="card-title border-bottom pb-2">Offre</h5> #}
+                {# <p class="card-text">Réf :</p> #}
+                {# <p class="card-text">Publié le :</p> #}
+                {# <p class="card-text">Type de contrat :</p> #}
+                {# <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p> #}
+                {# <a href="{{ path('recherche_details') }}" class="btn color-3E68D4">Voir l'offre</a> #}
+                {# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> #}
+                {# Launch demo modal #}
+                {# </button> #}
+                {# </div> #}
+                {# </div> #}
+                {# <div class="card no-border bg-light mb-3"> #}
+                {# <div class="card-body"> #}
+                {# <h5 class="card-title border-bottom pb-2">Offre</h5> #}
+                {# <p class="card-text">Réf :</p> #}
+                {# <p class="card-text">Publié le :</p> #}
+                {# <p class="card-text">Type de contrat :</p> #}
+                {# <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p> #}
+                {# <a href="{{ path('recherche_details') }}" class="btn color-3E68D4">Voir l'offre</a> #}
+                {# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> #}
+                {# Launch demo modal #}
+                {# </button> #}
+                {# </div> #}
+                {# </div> #}
+                {# </div> #}
 
-	</body>
+{#            </div>#}
+{#            <div class="row">#}
+{#                <div class="col-3">#}
+{#                    <div class="card">#}
+{#                        <div class="card-header">#}
+{#                            Featured#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">Special title treatment</h5>#}
+{#                            <p class="card-text">With supporting text below as a natural lead-in to additional#}
+{#                                content.</p>#}
+{#                            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-3">#}
+{#                    <div class="card">#}
+{#                        <div class="card-header">#}
+{#                            Featured#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">Special title treatment</h5>#}
+{#                            <p class="card-text">With supporting text below as a natural lead-in to additional#}
+{#                                content.</p>#}
+{#                            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-3">#}
+{#                    <div class="card">#}
+{#                        <div class="card-header">#}
+{#                            Featured#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">Special title treatment</h5>#}
+{#                            <p class="card-text">With supporting text below as a natural lead-in to additional#}
+{#                                content.</p>#}
+{#                            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-3">#}
+{#                    <div class="card">#}
+{#                        <div class="card-header">#}
+{#                            Featured#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">Special title treatment</h5>#}
+{#                            <p class="card-text">With supporting text below as a natural lead-in to additional#}
+{#                                content.</p>#}
+{#                            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-3">#}
+{#                    <div class="card">#}
+{#                        <div class="card-header">#}
+{#                            Featured#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">Special title treatment</h5>#}
+{#                            <p class="card-text">With supporting text below as a natural lead-in to additional#}
+{#                                content.</p>#}
+{#                            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-3">#}
+{#                    <div class="card">#}
+{#                        <div class="card-header">#}
+{#                            Featured#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">Special title treatment</h5>#}
+{#                            <p class="card-text">With supporting text below as a natural lead-in to additional#}
+{#                                content.</p>#}
+{#                            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-3">#}
+{#                    <div class="card">#}
+{#                        <div class="card-header">#}
+{#                            Featured#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">Special title treatment</h5>#}
+{#                            <p class="card-text">With supporting text below as a natural lead-in to additional#}
+{#                                content.</p>#}
+{#                            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+
+{#        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#            <div class="modal-dialog modal-xl">#}
+{#                <div class="modal-content">#}
+{#                    <div class="modal-header">#}
+{#                        <h5 class="modal-title" id="exampleModalLabel">Intitulé du poste (h/f)</h5>#}
+{#                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                            <span aria-hidden="true">&times;</span>#}
+{#                        </button>#}
+{#                    </div>#}
+{#                    <div class="modal-body">#}
+{#                        <h6 class="card-text text-secondary font-weight-light text">Publiée le ../../....</h6>#}
+{#                        #}{# <h3 class="card-title color-principale1 border-bottom pb-3 my-2"></h3> #}
+{#                        <h5 class="card-text my-4">Offre n° ####</h5>#}
+{#                        <h5 class="card-text text-secondary my-4"><i class="fa fa-map-marker color-principale1"#}
+{#                                                                     aria-hidden="true"></i> Localisation : </h5>#}
+{#                        <h5 class="card-text text-secondary my-4"><i class="fa fa-pie-chart color-principale1"#}
+{#                                                                     aria-hidden="true"></i> Secteur d'activité : </h5>#}
+{#                        <h5 class="card-text text-secondary my-4"><i class="fa fa-clock-o color-principale1"#}
+{#                                                                     aria-hidden="true"></i> Type de contrat : </h5>#}
+{#                        <h5 class="card-text text-secondary my-4"><i class="fa fa-calendar-o color-principale1"#}
+{#                                                                     aria-hidden="true"></i> Début du contrat : </h5>#}
+{#                        <h3 class="card-text color-principale1 my-4">Profil : </h3>#}
+{#                        <p class="card-text text-justify my-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit.#}
+{#                            Itaque delectus doloribus mollitia, voluptate ut doloremque quia veritatis molestias! Vitae#}
+{#                            alias ipsa animi reiciendis, natus nesciunt quas ratione minus laboriosam iste reprehenderit#}
+{#                            voluptate soluta adipisci maxime, amet dignissimos possimus. Dolor delectus suscipit quas#}
+{#                            dolore eos odio possimus sit facilis repellat aperiam cupiditate ad excepturi, odit iste#}
+{#                            nisi itaque et, ut placeat eveniet labore modi maxime. Cupiditate, illo? Quasi quod possimus#}
+{#                            officia totam quos quo.</p>#}
+{#                        <h3 class="card-text color-principale1">Mission : </h3>#}
+{#                        <p class="card-text text-justify my-4">Aliquam velit possimus laborum nisi necessitatibus#}
+{#                            impedit voluptatibus amet dolor earum magni voluptatem omnis dignissimos, quae similique#}
+{#                            voluptates aspernatur in deserunt soluta expedita nemo dolorem, eaque eum saepe rerum. Cum#}
+{#                            provident eius ex fugiat eaque natus, voluptatibus neque, expedita ullam maxime atque#}
+{#                            quaerat iusto. Doloremque sapiente repudiandae dicta, voluptatum est consequuntur tempora#}
+{#                            autem, accusamus impedit quia dignissimos, molestias magni porro id laboriosam voluptates?#}
+{#                            Molestiae odio veritatis, iste minima quisquam obcaecati illo alias nobis assumenda quaerat#}
+{#                            expedita nulla quia sapiente accusamus est architecto atque accusantium minus aliquam hic#}
+{#                            commodi beatae ipsum! Possimus debitis fugiat quisquam expedita repudiandae exercitationem#}
+{#                            cumque nulla, similique maiores. Expedita dolor beatae illo, ipsu.</p>#}
+{#                        <a href="/" class="btn btn-primary my-4">Postuler</a>#}
+{#                        <h5 class="card-text text-secondary my-4"><i class="fa fa-map-o color-principale1"#}
+{#                                                                     aria-hidden="true"></i> Lieu de votre mission :#}
+{#                        </h5>#}
+{#                    </div>#}
+
+{#                </div>#}
+{#            </div>#}
+        </div>
+
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
-{#	{{ encore_entry_script_tags('react_recherche') }}#}
+    {{ encore_entry_script_tags('recherche') }}
 {% endblock %}
