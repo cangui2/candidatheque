@@ -180,9 +180,7 @@ function Search(props) {
 const styleSearch = {
     position: 'fixed',
     backgroundColor: 'white',
-    opacity: '0.9',
     marginTop: '10px',
-    boxShadow: "10px 10px 1px #9E9E9E",
     minHeight: '90vh',
     maxWidth: '365px',
 }

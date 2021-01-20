@@ -82,8 +82,10 @@ class RechercheController extends AbstractController
 
         //return new JsonResponse("{ 'message': 'ok' }");
 
-
-        $v1=$this->metierRepo->find($metier);
+        //if( $metier)
+            $v1=$this->metierRepo->find($metier);
+        //else
+            $v1=null;
 
         $v2=$this->villeRepo->find($ville);
 
