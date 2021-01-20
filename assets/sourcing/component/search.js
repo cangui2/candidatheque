@@ -12,23 +12,20 @@ function Search(props) {
     const [valueMetier, setValueMetier] = useState([]);
     const [valueVille, setValueVille] = useState('');
     const [keyWord, setKeyWord] = useState('');
-    const [recruteur, setRecruteur] = useState('6');
     const [statusRecruteur, setStatusRecruteur] = useState(false);
     const [range, setRange] = useState([1]);
     const [finalRange, setFinalRange] = useState([1]);
     const [disabled, setDisabled] = useState(true);
-    const [noRefrech, setNoRefresh] = useState(true);
     const [countCv, setCountCv] = useState(props.countCV);
     // Recherche Api
     const loadOptionMetier = (valueMetier, callback) => {
-        console.log(axios.get("https://127.0.0.1:8000/api/metiers?libelle=" + valueMetier))
-        axios.get("https://127.0.0.1:8000/api/metiers?libelle=" + valueMetier)
+        axios.get("/api/metiers?libelle=" + valueMetier)
             .then((met) => {
                 callback(met.data);
             });
     }
     const loadOtionVille = (value, callback) => {
-        axios.get("https://127.0.0.1:8000/api/villes?nom=" + value)
+        axios.get("/api/villes?nom=" + value)
             .then((vil) => {
                 callback(vil.data);
             });
@@ -43,7 +40,7 @@ function Search(props) {
             params.push('keyword=' + keyWord);
         }
         if (statusRecruteur) {
-            params.push('recruteur=6');
+            params.push('favoris=true');
         }
         if (valueVille) {
             params.push('ville=' + valueVille);
@@ -52,24 +49,21 @@ function Search(props) {
         props.onDemandeCvChanged(params.join("&"));
     }
     useEffect(() => {
-        if (noRefrech === false) {
-            setCountCv(props.countCV);
-            changeParam();
-        } else {
-        }
-    }, [keyWord, valueVille, finalRange, statusRecruteur, noRefrech])
+
+        setCountCv(props.countCV);
+        changeParam();
+
+    }, [keyWord, valueVille, finalRange, statusRecruteur])
+
     return (
         <Container style={styleSearch}>
             <Row style={{marginLeft: '0', marginRight: '0', paddingTop: '10px'}}>
                 <Col>
                     <ToggleButtonGroup type="radio" name="options">
                         <ToggleButton
-                            type="checkbox"
+                            type="radio"
                             variant='info'
                             value={2}
-                            onChange={() => {
-                                setNoRefresh(false)
-                            }}
                             onClick={() => setStatusRecruteur(true)}
                         >
                             Ma Cvthèque
@@ -79,8 +73,8 @@ function Search(props) {
                             type="radio"
                             variant="info"
                             value={1}
-                            onChange={() => setStatusRecruteur(false)}
-                            onClick={() => setNoRefresh(false)}
+                            onClick={() => setStatusRecruteur(false)}
+                            className={statusRecruteur ? "" : "active"}
                         >
                             Candidathèque
                         </ToggleButton>
@@ -93,9 +87,6 @@ function Search(props) {
                         <Form.Label>Mot clé</Form.Label>
                         <Form.Control
                             placeholder="Metier, Competence ..."
-                            // onChange={e => {
-                            //     setKeyWord(e.target.value)
-                            // }}
                             onChange={e => {
                                 setKeyWord(e.target.value)
                             }}

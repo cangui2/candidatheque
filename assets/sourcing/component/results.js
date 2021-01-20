@@ -4,18 +4,18 @@ import image from "../avatar.png"
 
 
 function Results(props) {
-    const [select, setSelect] = useState('0')
+
+
     if (props.liste.length > 0) {
         return (
             <Row>
                 <Col>
                     {props.liste.map((item, index) => (
                         <div onClick={() => {
-                            props.onReceiveCv(item.id);
-                            setSelect(index)
+                            props.onSelect(item.id);
                         }}>
                             <CardColumns>
-                                <Card style={styleSearch} key={index} className={select === index ? 'select' : ''}>
+                                <Card style={styleSearch} key={index} className={props.select === item.id ? 'select' : ''}>
                                     <Card.Body>
                                         <Card.Title>{item.metLibele}
                                         </Card.Title>

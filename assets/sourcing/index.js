@@ -9,7 +9,7 @@ import Details from "./component/details";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-import {toast} from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = (props) => {
@@ -17,21 +17,27 @@ const App = (props) => {
     const [liste, setListe] = useState([]);
     const [cvCandidat, setCvCandidat] = useState([]);
     const [noRefrech, setNoRefresh] = useState(true);
+    const [select, setSelect] = useState(0);
     /*-------------------------------------------------------------*/
+
     const handleCvRequest = (param) => {
             setNoRefresh(false);
-        axios.get(`https://127.0.0.1:8000/api/sourcing?` + param)
+        axios.get(`/api/sourcing?` + param)
             .then((result) => {
                 setListe(result.data);
                 setCvCandidat([]);
+                setSelect(0);
             })
             .catch(error => console.log(error));
     }
+
     const handleCv = (cv) => {
-        axios.get(`https://127.0.0.1:8000/api/c_vs?id=` + cv)
+        axios.get(`/api/c_vs?id=` + cv)
             .then((result) => {
                 setCvCandidat(result.data[0]);
+                setSelect(cv);
             })
+
     }
 
     return (
@@ -44,7 +50,7 @@ const App = (props) => {
                     />
                 </Col>
                 <Col md={4} style={border}>
-                    <Results liste={liste} onReceiveCv={(cv) => handleCv(cv)}/>
+                    <Results liste={liste} onSelect={(cv) => handleCv(cv)} select={select} />
                 </Col>
                 <Col md={5} style={border}>
                     <Details cv={cvCandidat}/>
