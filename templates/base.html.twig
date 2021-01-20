@@ -22,7 +22,7 @@
 				{% if is_granted("ROLE_CANDIDAT") %}
 					{% include('nav/candidat.html.twig') %}
 				{% elseif is_granted("ROLE_RECRUTEUR") %}
-					{% include('nav/entreprise.html.twig') %}
+					{% include('nav/recruteur.html.twig') %}
 				{% else %}
 					{% include('nav/public.html.twig') %}
 				{% endif %}
