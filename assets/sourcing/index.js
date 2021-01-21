@@ -21,7 +21,7 @@ const App = (props) => {
     
     const handleCvRequest = (param) => {
             setNoRefresh(false);
-        axios.get(`https://127.0.0.1:8000/api/sourcing?` + param)
+        axios.get(`/api/sourcing?` + param)
             .then((result) => {
                 setListe(result.data);
                 setCvCandidat([]);
@@ -30,7 +30,7 @@ const App = (props) => {
     }
     
     const handleCv = (cv) => {
-        axios.get(`https://127.0.0.1:8000/api/c_vs?id=` + cv)
+        axios.get(`/api/c_vs?id=` + cv)
             .then((result) => {
                 setCvCandidat(result.data[0]);
             })
