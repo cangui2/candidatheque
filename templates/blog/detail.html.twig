@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{# {{ dump(article) }} #}
+
+<div class="jumbotron jumbotron-entreprise text-right px-4">
+  <h1 class="display-4 color-principale1">NOTRE ACCOMPAGNEMENT DANS VOTRE PARCOURS</h1>
+  <p class="lead">Impedit unde architecto iusto? Natus eum iure architecto corporis tenetur asperiores sunt sed ad labore aspernatur.</p>
+  <hr class="my-4">
+  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt eaque magni error iusto omnis.</p>
+</div>
+
+<div class="row g-4 mb-5 mx-5">
+ <div class="col">
+    <div class="card text-justify">
+      <div class="card-body">
+        <h5 class="card-title color-principale1">{{ article.titre }}</h5>
+        <p class="card-text">Publié le {{ article.publicationDate | date('d/m/Y') }}</p>
+        <p class="card-text">Revenir à la liste d'article</p>
+         <hr>
+        <p>{{ article.content }}</p>
+      </div>
+    </div>
+ </div>
+</div>
+
+{% endblock %}
