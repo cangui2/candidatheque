@@ -11,5 +11,5 @@ import './index.css';
 
 ReactDOM.render(
     <CV />,
-    document.getElementById('candidatheque_cv_panel')
+    document.getElementById('candidat_cv')
 );

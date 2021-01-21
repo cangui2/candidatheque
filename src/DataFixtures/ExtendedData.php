@@ -169,6 +169,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $cv1=new CV();
         $cv1->setCandidat($can1);
         $cv1->setMetier($manager->getRepository(Metier::class)->find(14250));
+        $comp = 
         $cv1->addCompetence($manager->getRepository(Competence::class)->find(100011));
         $cv1->addCompetence($manager->getRepository(Competence::class)->find(100075));
         $cv1->addCompetence($manager->getRepository(Competence::class)->find(100078));

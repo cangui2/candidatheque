@@ -11,11 +11,20 @@ class CVController extends AbstractController
     /**
      * @Route("/candidat/cv", name="candidat_cv")
      */
-    public function index(): Response
+    public function candidat_cv(): Response
     {
         
-        return $this->render('cv/index.html.twig', [
-            'controller_name' => 'CVController',
+        return $this->render('cv/candidat_cv.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/public/cv", name="public_cv")
+     */
+    public function public_cv(): Response
+    {
+        
+        return $this->render('cv/public_cv.html.twig', [
         ]);
     }
 }

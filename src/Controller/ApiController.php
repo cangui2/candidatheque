@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Competence;
 use App\Entity\Ville;
+use App\Entity\Competence;
 use App\Repository\CVRepository;
+use App\Repository\VilleRepository;
 use App\Repository\MetierRepository;
 use App\Repository\CompetenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,28 +72,63 @@ class ApiController extends AbstractController
 
 
     /**
-     * @Route("/api/sourcing/recherche/", name="api_sourcing_recherche")
+     * @Route("/api/sourcing/recherche", name="api_sourcing_recherche")
      */
-    public function searchCV(Request $request)
+    public function api_sourcing_recherche(CVRepository $cv_repo, Request $request,VilleRepository $repoVille)
     {
-        $term = $request->query->get("term");
-        $region = $request->query->get("region");
-        $departement = $request->query->get("departement");
+        $keyword = $request->query->get("keyword");
         $ville = $request->query->get("ville");
+        $metier = $request->query->get("metier");
+        $favoris = $request->query->get("favoris");
+        $rayon=$request->query->get('rayon');
 
-        $query = $this->cvRepo->createQueryBuilder('c')
-            ->select('c.id as id', 'c.titre as titre', 'ca.nom as nom', 'ca.prenom as prenom')
-            ->distinct('c')
-            ->join('c.candidat', 'ca')
-            ->join('c.competences', 'co');
 
-        if ($term) $query->andWhere('co.libelle like :term')->setParameter('term', '%' . $term . '%');
-        if ($region) $query->andWhere('ca.region = :region')->setParameter('region', '%' . $region . '%');
-        if ($departement) $query->andWhere('ca.departement = :departement')->setParameter('departement', '%' . $departement . '%');
-        if ($ville) $query->andWhere('ca.ville = :ville')->setParameter('ville', '%' . $ville . '%');
+        $query = $cv_repo->createQueryBuilder('c')
+            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.id as idmetier','met.libelle as metLibele','dep.id as idrecruteur','vil.id as idville','vil.nom as ville')
+            ->join('c.candidat', 'can')
+            ->join('c.metier','met')
+            ->leftjoin('can.ville','vil')
+            ->leftJoin('c.competences','comp')
+            ->leftJoin('c.deposePar','dep');
 
-        $entities = $query->setMaxResults(50)
-            ->getQuery()
+
+        if ($keyword) {
+            $query
+                ->andWhere('(c.titre like :keyword or met.libelle like :keyword or comp.libelle like :keyword)')
+                ->setParameter('keyword', '%' . $keyword . '%');
+
+        }
+
+        if ($favoris){
+            $query
+                ->andWhere('dep.id like :recruteur ')
+                ->setParameter('recruteur',  $this->getUser()->getRecruteur()->getId() );
+
+        }
+
+        if ($metier){
+            $query
+                ->andWhere('met.id like :metier ')
+                ->setParameter('metier',  $metier );
+
+        }
+
+        if ($rayon){
+
+            $query
+                ->andWhere('vil.id IN (:result)')
+                ->setParameter(
+                    'result', $repoVille->searchAround($ville,$rayon)
+                );
+
+
+        }
+
+
+
+
+        $entities=$query->distinct()->getQuery()
+            ->setMaxResults(30)
             ->getResult();
 
         return new JsonResponse($entities);
@@ -101,7 +137,7 @@ class ApiController extends AbstractController
 
 
     /**
-     * @Route("/api/sourcing/lieu/{lieu}", name="api_sourcing_recherche")
+     * @Route("/api/sourcing/lieu/{lieu}", name="api_sourcing_recherche_lieu")
      */
     public function search_lieu(string $lieu = "")
     {
@@ -148,6 +184,22 @@ class ApiController extends AbstractController
             "options" => $villes
         ];
 
+        return $this->json($resultats);
+    }
+
+    /**
+     * @Route("/api/post_cv", name="post_cv")
+     */
+    public function post_cv(Request $request)
+    {
+        $resultats = [];
+
+        if ($request->isMethod('post')) {
+            $data = json_decode($request->getContent());
+
+            print_r($data);
+        }
+        
         return $this->json($resultats);
     }
 }

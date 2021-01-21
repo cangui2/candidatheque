@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\LangueRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LangueRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=LangueRepository::class)
@@ -35,12 +36,13 @@ class Langue
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"cv:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="integer")
-     * 
+     * @Groups({"cv:read"})
      * // 1->bilingue, 2->courant, 3->notion, 4->technique
      */
     private $niveau;

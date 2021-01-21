@@ -1,0 +1,21 @@
+GET http://localhost:8000/api/sourcing/recherche
+
+###
+
+GET http://localhost:8000/api/villes?nom=amiens
+
+
+###
+
+GET http://localhost:8000/api/cvs/3
+
+
+###
+
+POST http://localhost:8000/api/post_cv
+Content-Type: application/json
+
+{
+    "name": "",
+    "owner": ""
+}

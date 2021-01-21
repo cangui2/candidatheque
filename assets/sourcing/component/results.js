@@ -4,38 +4,26 @@ import image from "../avatar.png"
 
 
 function Results(props) {
-    const [select, setSelect] = useState('0')
+
+
     if (props.liste.length > 0) {
         return (
-            <Row>
-                <Col>
-                    {props.liste.map((item, index) => (
-                        <div onClick={() => {
-                            props.onReceiveCv(item.id);
-                            setSelect(index)
-                        }}>
-                            <CardColumns>
-                                <Card style={styleSearch} key={index} className={select === index ? 'select' : ''}>
-                                    <Card.Body>
-                                        <Card.Title>{item.metLibele}
-                                        </Card.Title>
-                                        <Image style={{float: 'right', width: '15%'}} src={image} roundedCircle/>
-                                        <Card.Subtitle
-                                            className="mb-2 text-muted">{item.nom} {item.prenom}</Card.Subtitle>
-                                        <Card.Text>
-                                            {item.adresse}
-                                            <br/>
-                                            {item.ville}
-                                            <br/>
-                                            {item.telephone}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </CardColumns>
-                        </div>
-                    ))}
-                </Col>
-            </Row>
+            props.liste.map((item, index) => (
+                <div 
+                    key={index} 
+                    onClick={() => { props.onSelect(item.id);}} 
+                    className={'resultats ' + (props.select === item.id ? 'select' : '')}
+                >
+                    <Image style={{float: 'right', width: '10%'}} src={image} roundedCircle/>
+                    <div className="titre">{item.metLibele}</div>
+                    <div className="mb-2 text-muted">{item.nom} {item.prenom}</div>
+                    <div>
+                        {item.adresse}<br/>
+                        {item.ville}<br/>
+                        {item.telephone}
+                    </div>
+                </div>
+            ))
         )
     } else {
         return (

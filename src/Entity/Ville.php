@@ -33,7 +33,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "nom": "exact"
+ *              "nom": "partial"
  *                  }
  *
  * )
@@ -44,6 +44,7 @@ class Ville
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("v:read")
      */
     private $id;
 

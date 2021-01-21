@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ExperienceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ExperienceRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ExperienceRepository::class)
@@ -35,41 +36,49 @@ class Experience
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $entreprise;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $logo;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"cv:read"})
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"cv:read"})
      */
     private $dateFin;
 
     /**
      * @ORM\Column(type="string", length=2000, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $ville;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class)
+     * @Groups({"cv:read"})
      */
     private $typeContrat;
 

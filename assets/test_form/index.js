@@ -11,3 +11,4 @@ ReactDOM.render(
   document.getElementById('test_form')
 );
 
+console.log("begin test_form");
