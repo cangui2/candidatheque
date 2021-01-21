@@ -10,7 +10,7 @@
                 <a class="nav-link {{ activeMenu("dashboard_candidat") }}" href="{{ path("dashboard_candidat") }}">Tableau de bord</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ activeMenu("recherche_liste") }}" href="{{ path('recherche_liste') }}">Offres d'emploi</a>
+                <a class="nav-link {{ activeMenu("recherche_liste") }}" href="{{ path("recherche_liste",{metier:"",ville:"",contrat:""}) }}">Offres d'emploi</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ activeMenu("candidat_cv") }}" href="{{ path("candidat_cv") }}">Atelier CV</a>
