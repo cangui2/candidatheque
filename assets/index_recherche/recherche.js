@@ -12,6 +12,7 @@ function App() {
     const [contrat, setContrat] = useState([]);
 
 
+
     // handle selection
     const handleChange = value => {
         //setSelectedValue(value);
@@ -48,73 +49,10 @@ function App() {
         return fetch(`https://127.0.0.1:8000/api/type_contrats?libelle=${inputValue}`).then(res => res.json());
     };
 
-    if (rootElement) {
-        return (
 
-            <form>
 
-                <Form.Group>
-                    <Form.Label>Profession</Form.Label>
 
-                    <AsyncSelect
 
-                        placeholder=""
-                        getOptionLabel={e => e.libelle}
-                        getOptionValue={e => e.id}
-                        loadOptions={loadOptions}
-                        onChange={handleChange}
-                        components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
-                    />
-                    <Form.Label>Villes</Form.Label>
-
-                    <AsyncSelect
-
-                        placeholder=""
-                        getOptionLabel={e => e.nom}
-                        getOptionValue={e => e.id}
-                        loadOptions={loadOptions2}
-                        onChange={handleChange2}
-                        components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
-                    />
-                    <Form.Label>Secteur</Form.Label>
-
-                    <AsyncSelect
-
-                        placeholder=""
-                        getOptionLabel={e => e.libelle}
-                        getOptionValue={e => e.id}
-                        loadOptions={loadOptions3}
-                        onChange={handleChange3}
-                        components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
-                    />
-                    <Form.Label>Type de contrat</Form.Label>
-
-                    <AsyncSelect
-
-                        placeholder=""
-                        getOptionLabel={e => e.libelle}
-                        getOptionValue={e => e.id}
-                        loadOptions={loadOptions4}
-                        onChange={handleChange4}
-                        components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
-                    />
-                    <br/>
-                    <div className="text-right">
-                        <Button
-                            href={'https://127.0.0.1:8000/recherche_liste?metier=' + profession + '&ville=' + ville + '&secteur=' + secteur + '&contrat=' + contrat}
-                            type="button" className="mb-2">
-                            Recherche des offres
-                        </Button>
-                    </div>
-
-                </Form.Group>
-            </form>
-
-        );
-    }
-
-    if (rootList) {
-        console.log(profession);
         return (
             <Form>
                 <Form.Row>
@@ -175,20 +113,16 @@ function App() {
                 </Form.Row>
             </Form>
         )
-    }
+
 }
 
+ReactDOM.render(
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById('list')
+);
 
-const rootElement =document.getElementById('villes');
-if(rootElement){
-
-    ReactDOM.render(<App/>,rootElement);
-}
-
-const rootList =document.getElementById('list')
-if(rootList){
-    ReactDOM.render(<App/>,rootList);
-}
 
 
 

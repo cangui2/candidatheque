@@ -3,8 +3,8 @@
     "cv": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~react_recherche~recherche~sourcing~test_form.js",
-        "/build/vendors~cv~recherche~sourcing.js",
+        "/build/vendors~cv~home_recherche~react_recherche~recherche~sourcing~test_form.js",
+        "/build/vendors~cv~home_recherche~recherche~sourcing.js",
         "/build/vendors~cv~test_form.js",
         "/build/vendors~cv~sourcing.js",
         "/build/vendors~cv.js",
@@ -17,7 +17,7 @@
     "react_recherche": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~react_recherche~recherche~sourcing~test_form.js",
+        "/build/vendors~cv~home_recherche~react_recherche~recherche~sourcing~test_form.js",
         "/build/vendors~react_recherche~test_form.js",
         "/build/vendors~react_recherche.js",
         "/build/react_recherche.js"
@@ -29,7 +29,7 @@
     "test_form": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~react_recherche~recherche~sourcing~test_form.js",
+        "/build/vendors~cv~home_recherche~react_recherche~recherche~sourcing~test_form.js",
         "/build/vendors~cv~test_form.js",
         "/build/vendors~sourcing~test_form.js",
         "/build/vendors~react_recherche~test_form.js",
@@ -43,8 +43,8 @@
     "sourcing": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~react_recherche~recherche~sourcing~test_form.js",
-        "/build/vendors~cv~recherche~sourcing.js",
+        "/build/vendors~cv~home_recherche~react_recherche~recherche~sourcing~test_form.js",
+        "/build/vendors~cv~home_recherche~recherche~sourcing.js",
         "/build/vendors~sourcing~test_form.js",
         "/build/vendors~cv~sourcing.js",
         "/build/vendors~sourcing.js",
@@ -59,10 +59,19 @@
     "recherche": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors~cv~react_recherche~recherche~sourcing~test_form.js",
-        "/build/vendors~cv~recherche~sourcing.js",
-        "/build/vendors~recherche.js",
+        "/build/vendors~cv~home_recherche~react_recherche~recherche~sourcing~test_form.js",
+        "/build/vendors~cv~home_recherche~recherche~sourcing.js",
+        "/build/vendors~home_recherche~recherche.js",
         "/build/recherche.js"
+      ]
+    },
+    "home_recherche": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~cv~home_recherche~react_recherche~recherche~sourcing~test_form.js",
+        "/build/vendors~cv~home_recherche~recherche~sourcing.js",
+        "/build/vendors~home_recherche~recherche.js",
+        "/build/home_recherche.js"
       ]
     }
   }
