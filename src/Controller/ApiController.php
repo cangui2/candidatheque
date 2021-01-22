@@ -6,6 +6,7 @@ use App\Entity\Ville;
 use App\Entity\User;
 use App\Entity\Candidat;
 use App\Entity\Competence;
+use App\Entity\Experience;
 use App\Repository\CVRepository;
 use App\Repository\VilleRepository;
 use App\Repository\MetierRepository;
@@ -199,7 +200,7 @@ class ApiController extends AbstractController
         if ($request->isMethod('post')) {
             $data = json_decode($request->getContent());
 
-            print_r($data);
+            dd($data);
         }
         
         return $this->json($resultats);
@@ -219,6 +220,7 @@ class ApiController extends AbstractController
             $candidat = $user->getCandidat();
             $cv = $this->cvRepo->findOneBy(['candidat'=>$candidat, 'id'=> $id]);
             $resultat["profil"] = [
+                "id" => $cv->getId(),
                 "nom" => $cv->getCandidat()->getNom(),
                 "prenom" => $cv->getCandidat()->getPrenom(),
                 "adresse" => $cv->getCandidat()->getAdresse(),
@@ -233,7 +235,42 @@ class ApiController extends AbstractController
             $resultat["experiences"] = [];
             foreach ($cv->getExperiences() as $exp) {
                 $resultat["experiences"][] = [
-                    
+                    "id" => $exp->getId(),
+                    "dateDebut" => $exp->getDateDebut()->format("d/m/Y"),
+                    "dateFin" => $exp->getDateFin()->format("d/m/Y"),
+                    "titre" => $exp->getTitre(),
+                    "entreprise" => $exp->getEntreprise(),
+                    "logo" => $exp->getLogo(),
+                    "description" => $exp->getDescription(),
+                    "ville" => $exp->getVille()
+                ];
+            }
+            $resultat["formations"] = [];
+            foreach ($cv->getFormations() as $for) {
+                $resultat["formations"][] = [
+                    "id" => $for->getId(),
+                    "dateDebut" => $for->getDateDebut()->format("d/m/Y"),
+                    "dateFin" => $for->getDateFin()->format("d/m/Y"),
+                    "ecole" => $for->getEcole(),
+                    "niveau" => $for->getNiveau(),
+                    "diplome" => $for->getDiplome(),
+                    "description" => $for->getDescription(),
+                ];
+            }
+            $resultat["langues"] = [];
+            foreach ($cv->getLangues() as $lan) {
+                $resultat["langues"][] = [
+                    "id" => $lan->getId(),
+                    "nom" => $lan->getNom(),
+                    "niveau" => $lan->getNiveau(),
+                ];
+            }
+            $resultat["reseaux"] = [];
+            foreach ($cv->getReseaux() as $res) {
+                $resultat["reseaux"][] = [
+                    "id" => $res->getId(),
+                    "type" => $res->getType(),
+                    "url" => $res->getUrl(),
                 ];
             }
             

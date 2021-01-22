@@ -45,7 +45,8 @@ const FormCompetences = (props) => {
         <div className="cv">
             <Form.Row className="mb-2">
                 <Col className="col-4 mb-2" md={12}>
-                    { props.metier?props.metier.libelle:'Aucun métier selectionné dans la rubrique Informations personnelles ' }
+                    <span className={"font-weight-bold " + (props.metier?"":"d-none")} >Métier: </span>
+                    { props.metier?''+props.metier.libelle:'Aucun métier selectionné dans la rubrique Informations personnelles ' }
                     <Button className={"btn-sm " + (props.metier?"d-none":"")} onClick={handleScrollToProfile}>ci-dessus</Button>
                 </Col>
                 <Col className="col-4" md={10}>

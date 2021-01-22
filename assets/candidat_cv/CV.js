@@ -96,7 +96,7 @@ class CV extends React.Component {
 
     handleSaveLocal() {
         //localStorage.setItem('be4web_cv', JSON.stringify(this.state));
-        axios.post('/api/post_cv/', this.state).then(() => {
+        axios.post('/api/post_cv', this.state).then(() => {
 
         });
     }
