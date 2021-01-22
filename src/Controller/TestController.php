@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\DepartementRepository;
 use App\Repository\RomeRepository;
 use App\Repository\VilleRepository;
-use http\Env\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,19 +23,49 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/api/test1/{id}/{rayon}", name="test1")
-     * @param VilleRepository $repoVille
-     * @param $id
-     * @param $rayon
-     * @return Response
+     * @Route("/test1", name="test1")
      */
-    public function test1(VilleRepository $repoVille,$id,$rayon): Response
+    public function test1(RomeRepository $repo): Response
     {
+        $rome = $repo->findOneBy(["code" => "m1805"]);
 
-        $result=$repoVille->searchAround($id,$rayon);
-        dd($result);
+        
+        return $this->render('test/test1.html.twig', [
+            'rome' => $rome,
+           
+        ]);
+    }
 
-        return new JsonResponse("{ 'message': 'ok' }");
+    /**
+     * @Route("/test2", name="test2")
+     */
+    public function test2(VilleRepository $repo, DepartementRepository $repo2): Response
+    {
+        $ville1 = $repo->find(31722);
+
+        $tab = [];
+
+        $villes = $repo2->find(81)->getVilles();
+        // dd($repo->findBy([ "departement" => 32]));
+
+        foreach($villes as $ville2) {
+
+            $distance = sqrt(pow($ville1->getLongitude()-$ville2->getLongitude(), 2) + pow($ville1->getLatitude()-$ville2->getLatitude(), 2)) * 111.16;
+            if ($distance<40) {
+                $tab[] = [ $ville2->getNom(), $distance];
+            }
+
+        }
+
+        // $ville2 = $repo->find(31704);
+
+        //$tab[] = $ville1;
+        
+        
+        
+        // $tab[] = $distance;
+        
+        return $this->json($tab);
     }
 
 

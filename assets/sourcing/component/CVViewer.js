@@ -1,38 +1,24 @@
 import React from 'react';
 import avatar from '../avatar.png'
 
-import './CV.css';
 import Moment from 'react-moment';
 
 
 const CVViewer = (props) => {
     return (
-        <div className="paper" style={paperStyle}>
-            <link rel="stylesheet" href="/assets/css/templateSourcing.css"/>
-            <section className="identite">
-                <div className="nom">{props.cv.candidat.prenom} {props.cv.candidat.nom}</div>
-                <section className="photo">
-                    <div className="portrait"><img src={avatar} style={{
-                        width: '15%',
-                        paddingTop: '32px',
-                        paddingLeft: '3px',
-                        float: 'right'
-                    }}/>
-                    </div>
-                </section>
-            </section>
+        <div className="paper" >
             <section className="profil">
                 <header>Contact</header>
+                <div className="portrait"><img src={avatar} /></div>
+                <div className="nom">{props.cv.candidat.prenom} {props.cv.candidat.nom}</div>
                 <div className="adresse">{props.cv.candidat.adresse}</div>
                 <div className="ville">{props.cv.candidat.ville}</div>
                 <div className="phone">{props.cv.candidat.telephone}</div>
                 <div className="email">{props.cv.candidat.email}</div>
             </section>
             <section className="titre">
-                <div className="poste">{props.cv.metier.libelle}</div>
-            </section>
-            <section className="intro">
                 <header>Profil</header>
+                <div className="poste">{props.cv.metier.libelle}</div>
                 <div className="text">{props.cv.titre}</div>
             </section>
             <section className="experiences">
@@ -75,8 +61,10 @@ const CVViewer = (props) => {
                         props.cv.competences.map((competence, index) =>
                             <div className="competence" key={index}>
                                 <div className="libelle">{competence.libelle}</div>
-                                <div className={"niveau niveau-" + competence.niveau}>{competence.niveau}</div>
-                                <meter max="5" value={competence.niveau}></meter>
+                                <div className={"niveau niveau-" + competence.niveau}>
+                                    {competence.niveau}
+                                    <meter max="5" value={competence.niveau}></meter>
+                                </div>
                             </div>
                         )
                     }
@@ -116,11 +104,4 @@ const CVViewer = (props) => {
 }
 export default CVViewer;
 
-const paperStyle = {
-    position: 'fixed',
-    marginTop: '-10px',
-    fontSize: '11px',
-    maxHeight: '100px',
-    left:'900.08px',
-    scrollBehavior:'smooth'
-}
+

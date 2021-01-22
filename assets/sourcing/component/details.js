@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import CVViewer from "./CVViewer";
-import {toast, ToastContainer} from "react-toastify";
 
 
 function Details(props) {
-    if (props.cv.length !== 0) {
+    if (props.cv !== null) {
         return (
             <CVViewer cv={props.cv}/>
         )
-    } else if (props.cv.length === 0) {
+    } else {
         return (
             <div></div>
         )

@@ -2,43 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CandidatRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\CandidatRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CandidatRepository::class)
- *
- * @ApiResource(
- *     collectionOperations={
- *                          "get"={},
-
- *                          },
- *     itemOperations={
- *                          "get"={},
- *                          },
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
- *     attributes={
- *                  "force_eager"=false
-
- *                 }
- * )
- * @ApiFilter(
- *       SearchFilter::class,
- *       properties={
- *              "libelle": "partial",
- *              "candidats.ville":"exact"
- *
- *
- *                  })
- *
- * )
  */
 class Candidat
 {
@@ -46,41 +17,42 @@ class Candidat
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("read")
-     *
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $photo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $adresse;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
-     */
-    private $codePostal;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  */
+    // private $codePostal;
 
-
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  */
+    // private $ville;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -94,13 +66,12 @@ class Candidat
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $telephone;
 
     /**
      * @ORM\OneToMany(targetEntity=CV::class, mappedBy="candidat")
-     * @Groups("read")
      */
     private $CVs;
 
@@ -112,6 +83,7 @@ class Candidat
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="candidats")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"cv:read"})
      */
     private $ville;
 
@@ -176,29 +148,30 @@ class Candidat
         return $this;
     }
 
-    public function getCodePostal(): ?string
-    {
-        return $this->codePostal;
-    }
+    // public function getCodePostal(): ?string
+    // {
+    //     return $this->codePostal;
+    // }
 
-    public function setCodePostal(string $codePostal): self
-    {
-        $this->codePostal = $codePostal;
+    // public function setCodePostal(string $codePostal): self
+    // {
+    //     $this->codePostal = $codePostal;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getVille(): ?Ville
-    {
-        return $this->ville;
-    }
+    // public function getVille(): ?string
+    // {
+    //     return $this->ville;
+    // }
 
-    public function setVille(?Ville $ville): self
-    {
-        $this->ville = $ville;
+    // public function setVille(string $ville): self
+    // {
+    //     $this->ville = $ville;
 
-        return $this;
-    }
+    //     return $this;
+    // }
+
     public function getMobilite(): ?bool
     {
         return $this->mobilite;
@@ -306,7 +279,17 @@ class Candidat
         return $this;
     }
 
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
 
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
 
 
 }

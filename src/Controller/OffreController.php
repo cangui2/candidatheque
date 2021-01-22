@@ -8,9 +8,12 @@ use App\Entity\Region;
 use App\Entity\Departement;
 use App\Form\OffreType;
 use App\Repository\CompetenceRepository;
+use App\Repository\DepartementRepository;
 use App\Repository\MetierRepository;
 use App\Repository\OffreRepository;
 use App\Repository\PaysRepository;
+use App\Repository\RegionRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,19 +32,26 @@ class OffreController extends AbstractController
     protected $offRepo;
     protected $compRepo;
     protected $mtRepo;
+    protected $villeRepo;
+    protected $dptRepo;
+    protected $rgRepo;
 
 
-    public function __construct(EntityManagerInterface $em, SessionInterface $session, Security $security, PaysRepository $pRepo, OffreRepository $offRepo, CompetenceRepository $compReepo, MetierRepository $mtRepo){
+    public function __construct(EntityManagerInterface $em, SessionInterface $session, Security $security, PaysRepository $pRepo, OffreRepository $offRepo, CompetenceRepository $compReepo, MetierRepository $mtRepo, RegionRepository $rgRepo, DepartementRepository $dptRepo, VilleRepository $villeRepo)
+    {
         $this->em = $em;
         $this->session = $session;
         $this->security = $security;
         $this->pRepo = $pRepo;
+        $this->rgRepo = $rgRepo;
+        $this->dptRepo = $dptRepo;
+        $this->villeRepo = $villeRepo;
         $this->offRepo = $offRepo;
         $this->compRepo = $compReepo;
         $this->mtRepo = $mtRepo;
     }
 
-//    AUTOCOMPLETE FOR METIER, REGION, DEPARTEMENT, VILLE
+//    AUTOCOMPLETE FOR METIER, LOCALISATION
 
     /**
      * @Route("/metiers/autocomplete", name="metier_autocomplete")
@@ -76,8 +86,6 @@ class OffreController extends AbstractController
         $id_metier = $request->query->get("metier");
 //        dd($id_metier);
         $metier = $this->mtRepo->find($id_metier);
-//
-
         $rome = $metier->getRome()->getId();
 //        dd($rome);
         $competences = $this->compRepo->findCompetencesByRome($rome);
@@ -90,83 +98,72 @@ class OffreController extends AbstractController
     }
 
 
+
+//    LOCATION AUTOCOMPLETE
     /**
-     * @Route("/region/autocomplete", name="region_autocomplete")
+     * @Route("/offre/localisation/autocomplete", name="offre_localisation_autocomplete")
      */
-    public function autocompleteRegionAction(Request $request)
-    {
-        $term = trim(strip_tags($request->get('term')));
+    public function getLocationsList(Request $request){
 
-        $entities = $this->em->getRepository('App\Entity\Region')->createQueryBuilder('r')
-            ->where('r.nom LIKE :nom')
-            ->setParameter('nom', '%'.$term.'%')
-            ->getQuery()
-            ->getResult();
-        $noms=[];
-        foreach ($entities as $entity)
         {
-            $noms[] = $entity->getNom();
+            $term = trim(strip_tags($request->get('term')));
+
+            $pays = $this->pRepo->createQueryBuilder('p')
+                ->where('p.nom LIKE :nom')
+                ->setParameter('nom', '%'.$term.'%')
+                ->getQuery()
+                ->setMaxResults(50)
+                ->getResult();
+            $noms_pays=[];
+            foreach ($pays as $p)
+            {
+                $noms_pays[] = [ "label" => $p->getNom() , "category" => "PAYS" ];
+            }
+
+            $regions = $this->rgRepo->createQueryBuilder('rg')
+                ->where('rg.nom LIKE :nom')
+                ->setParameter('nom', '%'.$term.'%')
+                ->getQuery()
+                ->getResult();
+            $noms_regions=[];
+            foreach ($regions as $region)
+            {
+                $noms_regions[] = [ "label" => $region->getNom() , "category" => "REGION" ];
+            }
+
+            $dpts = $this->dptRepo->createQueryBuilder('dpt')
+                ->where('dpt.nom LIKE :nom')
+                ->setParameter('nom', '%'.$term.'%')
+                ->getQuery()
+                ->getResult();
+            $noms_dpts=[];
+            foreach ($dpts as $dpt)
+            {
+                $noms_dpts[] = [ "label" => $dpt->getNom() , "category" => "DEPARTEMENT" ];
+            }
+
+            $villes = $this->villeRepo->createQueryBuilder('v')
+                ->where('v.nom LIKE :nom')
+                ->setParameter('nom', '%'.$term.'%')
+                ->getQuery()
+                ->getResult();
+            $noms_villes =[];
+            foreach ($villes as $ville)
+            {
+                $noms_villes[] = [ "label" => $ville->getNom() , "category" => "VILLE" ];
+            }
+
+            $response = new JsonResponse();
+            $list = array_merge($noms_pays, $noms_regions, $noms_dpts, $noms_villes);
+            $response->setData($list);
+
+
+            return $response;
         }
-
-        $response = new JsonResponse();
-        $response->setData($noms);
-
-        return $response;
     }
-    /**
-     * @Route("/departement/autocomplete", name="departement_autocomplete")
-     */
-    public function autocompleteDepartementAction(Request $request)
-    {
-        $term = trim(strip_tags($request->get('term')));
 
-        $entities = $this->em->getRepository('App\Entity\Departement')->createQueryBuilder('d')
-            ->where('d.nom LIKE :nom')
-            ->setParameter('nom', '%'.$term.'%')
-            ->getQuery()
-            ->getResult();
-        $noms=[];
-        foreach ($entities as $entity)
-        {
-            $noms[] = $entity->getNom();
-        }
 
-        $response = new JsonResponse();
-        $response->setData($noms);
 
-        return $response;
-    }
-
-    /**
-     * @Route("/ville/autocomplete", name="ville_autocomplete")
-     */
-    public function autocompleteVilleAction(Request $request)
-    {
-        $term = trim(strip_tags($request->get('term')));
-        $dep = trim(strip_tags($request->get('dep')));
-
-        $query = $this->em->getRepository('App\Entity\Ville')->createQueryBuilder('v')
-            ->where('v.nom LIKE :nom')
-            ->setParameter('nom', '%'.$term.'%');
-        if ($dep) {
-            $query->join("v.departement", "d")
-                ->andWhere("d.nom=:dep")
-                ->setParameter("dep", $dep);
-        }
-
-        $entities = $query->getQuery()
-            ->getResult();
-        $noms=[];
-        foreach ($entities as $entity)
-        {
-            $noms[] = $entity->getNom();
-        }
-
-        $response = new JsonResponse();
-        $response->setData($noms);
-
-        return $response;
-    }
 //    END AUTOCOMPLETE
 
 
@@ -228,18 +225,39 @@ class OffreController extends AbstractController
 
         if($offreForm->isSubmitted() && $offreForm->isValid()){
 
-//            dd($offre);
-            if($offre->getVille() != null || $offre->getDepartement() != null || $offre->getRegion() != null){
-                $pays = $this->pRepo->findOneBy(['nom' => 'France']);
+            $lieu = $offreForm->get("localisation")->getData();
+
+            $pays = $this->pRepo->findOneBy([ "nom"=>$lieu]);
+            $region = $this->rgRepo->findOneBy([ "nom"=>$lieu]);
+            $dept = $this->dptRepo->findOneBy([ "nom"=>$lieu]);
+            $ville = $this->villeRepo->findOneBy([ "nom"=>$lieu]);
+            if ($pays)
+            {
                 $offre->setPays($pays);
             }
+            if ($region)
+            {
+                $offre->setRegion($region);
+            }
+            if ($dept)
+            {
+                $offre->setDepartement($dept);
+            }
+            if ($ville)
+            {
+                $offre->setVille($ville);
+            }
+
             if($offre->getTitre() != null){
                 $titre = $offre->getTitre();
                 $offre->setTitre($titre . " (H/F)");
             }
 
+
             $offre->setRecruteur($recruteur);
             $offre->setEntreprise($entreprise);
+
+//            dd($offre);
 
             $this->em->persist($offre);
             $this->em->flush();
@@ -280,15 +298,39 @@ class OffreController extends AbstractController
 
             if($offreUpdateForm->isSubmitted() && $offreUpdateForm->isValid()){
 
+                $lieu = $offreUpdateForm->get("localisation")->getData();
+
+                $pays = $this->pRepo->findOneBy([ "nom"=>$lieu]);
+                $region = $this->rgRepo->findOneBy([ "nom"=>$lieu]);
+                $dept = $this->dptRepo->findOneBy([ "nom"=>$lieu]);
+                $ville = $this->villeRepo->findOneBy([ "nom"=>$lieu]);
+                if ($pays)
+                {
+                    $offre->setPays($pays);
+                }
+                if ($region)
+                {
+                    $offre->setRegion($region);
+                }
+                if ($dept)
+                {
+                    $offre->setDepartement($dept);
+                }
+                if ($ville)
+                {
+                    $offre->setVille($ville);
+                }
+
                 $offre->setDateModification(new \DateTime());
                 $offre->setRecruteur($recruteur);
 
                 $this->em->persist($offre);
                 $this->em->flush();
-                $this->addFlash('info', 'Vos modifications ont bien été enregistrées!');
+                $this->addFlash('success', 'Vos modifications ont bien été enregistrées!');
 
                 return $this->redirectToRoute('offres_liste');
             }
+//            dump($offre);
             return $this->render('offre/offres_modification.html.twig', [
                 'offre' => $offre,
                 'offreUpdateForm' => $offreUpdateForm->createView()
@@ -317,7 +359,7 @@ class OffreController extends AbstractController
             $this->em->remove($offre);
             $this->em->flush();
 
-            $this->addFlash('info', 'Votre offre a bien été supprimée!');
+            $this->addFlash('success', 'Votre offre a bien été supprimée!');
             return $this->redirectToRoute('offres_liste');
         }
 

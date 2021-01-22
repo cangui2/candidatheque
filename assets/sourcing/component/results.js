@@ -8,34 +8,22 @@ function Results(props) {
 
     if (props.liste.length > 0) {
         return (
-            <Row>
-                <Col>
-                    {props.liste.map((item, index) => (
-                        <div onClick={() => {
-                            props.onSelect(item.id);
-                        }}>
-                            <CardColumns>
-                                <Card style={styleSearch} key={index} className={props.select === item.id ? 'select' : ''}>
-                                    <Card.Body>
-                                        <Card.Title>{item.metLibele}
-                                        </Card.Title>
-                                        <Image style={{float: 'right', width: '15%'}} src={image} roundedCircle/>
-                                        <Card.Subtitle
-                                            className="mb-2 text-muted">{item.nom} {item.prenom}</Card.Subtitle>
-                                        <Card.Text>
-                                            {item.adresse}
-                                            <br/>
-                                            {item.ville}
-                                            <br/>
-                                            {item.telephone}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </CardColumns>
-                        </div>
-                    ))}
-                </Col>
-            </Row>
+            props.liste.map((item, index) => (
+                <div 
+                    key={index} 
+                    onClick={() => { props.onSelect(item.id);}} 
+                    className={'resultats ' + (props.select === item.id ? 'select' : '')}
+                >
+                    <Image style={{float: 'right', width: '10%'}} src={image} roundedCircle/>
+                    <div className="titre">{item.metLibele}</div>
+                    <div className="mb-2 text-muted">{item.nom} {item.prenom}</div>
+                    <div>
+                        {item.adresse}<br/>
+                        {item.ville}<br/>
+                        {item.telephone}
+                    </div>
+                </div>
+            ))
         )
     } else {
         return (
@@ -48,6 +36,8 @@ export default Results;
 const styleSearch = {
     width: '25rem',
     marginTop: '0px',
+    boxShadow: "5px 5px 1px #9E9E9E",
+    opacity: '0.9',
     cursor:'grab'
 }
 

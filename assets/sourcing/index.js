@@ -1,5 +1,5 @@
-import ReactDOM from 'react-dom';
 import React, {useEffect, useState} from "react";
+import ReactDOM from 'react-dom';
 import {Col, Container, Row} from "react-bootstrap";
 import axios from 'axios'
 import Search from "./component/search";
@@ -10,38 +10,37 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 
-import 'react-toastify/dist/ReactToastify.css';
-
 const App = (props) => {
-    // all const
-    const [liste, setListe] = useState([]);
-    const [cvCandidat, setCvCandidat] = useState([]);
-    const [noRefrech, setNoRefresh] = useState(true);
-    const [select, setSelect] = useState(0);
-    /*-------------------------------------------------------------*/
 
+    const [liste, setListe] = useState([]);
+    const [cvCandidat, setCvCandidat] = useState(null);
+    const [select, setSelect] = useState(0);
+    
     const handleCvRequest = (param) => {
-            setNoRefresh(false);
-        axios.get(`/api/sourcing?` + param)
+        axios.get('/api/sourcing/recherche?' + param)
             .then((result) => {
                 setListe(result.data);
-                setCvCandidat([]);
+                setCvCandidat(null);
                 setSelect(0);
             })
             .catch(error => console.log(error));
     }
-
-    const handleCv = (cv) => {
-        axios.get(`/api/c_vs?id=` + cv)
+    
+    const handleCv = (id_cv) => {
+        console.log(id_cv);
+        axios.get('/api/cvs/' + id_cv)
             .then((result) => {
-                setCvCandidat(result.data[0]);
-                setSelect(cv);
-            })
-
+                setCvCandidat(result.data);
+                setSelect(id_cv);
+        })
     }
 
+    useEffect( () => {
+        handleCv(2);
+    }, []);
+
     return (
-        <Container fluid style={styleSearch}>
+        <Container fluid >
             <Row>
                 <Col md={3}>
                     <Search
@@ -49,11 +48,17 @@ const App = (props) => {
                         total={liste.length}
                     />
                 </Col>
-                <Col md={4} style={border}>
-                    <Results liste={liste} onSelect={(cv) => handleCv(cv)} select={select} />
+                <Col md={4} >
+                    <Results 
+                        liste={liste} 
+                        onSelect={(cv) => handleCv(cv)} 
+                        select={select} 
+                    />
                 </Col>
-                <Col md={5} style={border}>
-                    <Details cv={cvCandidat}/>
+                <Col md={5} >
+                    <Details 
+                        cv={cvCandidat}
+                    />
                 </Col>
 
             </Row>
@@ -61,17 +66,10 @@ const App = (props) => {
     );
 }
 
-const styleSearch = {
-    minHeight: "90vh",
-}
-const border = {
-    minHeight: "90vh",
-}
+
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App/>
-    </React.StrictMode>,
+    <App/>,
     document.getElementById('react_sourcing')
 );
 

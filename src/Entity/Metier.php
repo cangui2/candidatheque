@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MetierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -33,7 +34,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *       SearchFilter::class,
  *       properties={
  *              "libelle": "partial",
- *              "id": "partial",
  *              "rome.code": "exact"
  *
  *                  })
@@ -51,7 +51,7 @@ class Metier
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"mt:read", "rm:read","read"})
+     * @Groups({"mt:read", "rm:read", "off:read"})
      */
     private $libelle;
 
@@ -115,7 +115,7 @@ class Metier
         return $this;
     }
 
-
+    
     /**
      * @return Collection|CV[]
      */

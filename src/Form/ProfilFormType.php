@@ -15,12 +15,13 @@ class ProfilFormType extends AbstractType
         $builder
             ->add('prenom')
             ->add('nom')
-            ->add('photo')
+//            ->add('photo')
             ->add('adresse')
             // ->add('codePostal')
             ->add('ville')
-            ->add('mobilite')
+//            ->add('mobilite')
             ->add('telephone')
+//            ->add('metier')
 //            ->add('user')
             ->add('save', SubmitType::class)
         ;

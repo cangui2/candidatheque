@@ -5,8 +5,6 @@ namespace App\Repository;
 use App\Entity\Ville;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use phpDocumentor\Reflection\Types\This;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @method Ville|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,35 +23,24 @@ class VilleRepository extends ServiceEntityRepository
     {
         $ville = $this->find($id_ville);
 
+        if ($rayon >= 1) {
+            $latitude=$ville->getLatitude();
+            $longitude=$ville->getLongitude();
 
-
-        if ($rayon >0.9){
-        $latitude=$ville->getLatitude();
-        $longitude=$ville->getLongitude();
-
-        $query = $this->createQueryBuilder('v')
-            ->select('v.id as id','v.nom as nom ','v.latitude as latitude','v.longitude as longitude')
-            ->addSelect('(6371 * acos(cos(radians(:latitude)) * cos(radians(v.latitude)) * cos(radians(v.longitude) - radians(:longitude)) + sin(radians(:latitude)) * sin(radians(v.latitude)))) as distance')
-            ->having('distance <= :rayon')
-            ->setParameters(array(
-                'rayon'=>$rayon,
-                'latitude'=>$latitude,
-                'longitude'=>$longitude,
+            $query = $this->createQueryBuilder('v')
+                ->select('v.id as id','v.nom as nom ','v.latitude','v.longitude')
+                ->where ('SQRT(((v.latitude-:la2)*(v.latitude-:la2)) + ((v.longitude-:lo2)*(v.longitude-:lo2)))*100 <= :rayon')
+                ->setParameters(array(
+                    'rayon'=>$rayon,
+                    'la2'=>$latitude,
+                    'lo2'=>$longitude,
             ));
             $entities=$query
-                ->distinct()
                 ->getQuery()
                 ->getResult();
+
             return $entities;
         }
-
-
-
-
-
-
-
-
     }
 
     // /**

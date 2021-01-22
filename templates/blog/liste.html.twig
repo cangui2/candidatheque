@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{# {{ dump(liste) }} #}
+
+	<div class="jumbotron jumbotron-entreprise text-right px-4">
+		<h1 class="display-4 color-principale1">NOTRE ACCOMPAGNEMENT DANS VOTRE PARCOURS</h1>
+		<p class="lead">...</p>
+		<hr class="my-4">
+		<p>...</p>
+	</div>
+
+	<div class="row row-cols-3 row-cols-md-2 g-4">
+
+		{% for article in liste %}
+			<div class="col">
+				<div
+					class="card mb-5 mx-5">
+					{# {{ dump(article.image) }} #}
+					{% if article.image %}
+						<img src="{{ asset('assets/images/articles/'~article.image) }}" class="card-img-top" alt="..." style="max-width: 100%; height:auto;">
+					{% endif %}
+					<div class="card-body">
+						<h5 class="card-title color-principale1">{{ article.titre }}</h5>
+						<p class="card-text">Publié le
+							{{ article.publicationDate | date('d/m/Y') }}</p>
+						<p class="card-text text-justify dotted">{{ article.content }}</p>
+						<div class="text-right">
+							<a href="{{ path('blog_article', { "id": article.id}) }} " class="btn btn-primary">Lire la suite</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+
+
+{% endblock %}

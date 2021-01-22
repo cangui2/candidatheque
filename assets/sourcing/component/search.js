@@ -2,38 +2,58 @@ import {Badge, Col, Container, Form, Row, ToggleButton, ToggleButtonGroup} from 
 import AsyncSelect from 'react-select/async';
 import React, {useEffect, useState} from "react";
 import axios from 'axios'
-import {Range} from "react-range";
-import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import RangeSlider from 'react-bootstrap-range-slider';
 
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 function Search(props) {
-    // All constant useState
-    const [valueMetier, setValueMetier] = useState([]);
+
+    const [valueMetier, setValueMetier] = useState('');
     const [valueVille, setValueVille] = useState('');
     const [keyWord, setKeyWord] = useState('');
     const [statusRecruteur, setStatusRecruteur] = useState(false);
-    const [range, setRange] = useState([1]);
-    const [finalRange, setFinalRange] = useState([1]);
+    const [range, setRange] = useState(50);
+    const [finalRange, setFinalRange] = useState();
     const [disabled, setDisabled] = useState(true);
     const [countCv, setCountCv] = useState(props.countCV);
-    // Recherche Api
+
     const loadOptionMetier = (valueMetier, callback) => {
         axios.get("/api/metiers?libelle=" + valueMetier)
             .then((met) => {
                 callback(met.data);
             });
     }
-    const loadOtionVille = (value, callback) => {
+    
+    const loadOptionVille = (value, callback) => {
         axios.get("/api/villes?nom=" + value)
             .then((vil) => {
                 callback(vil.data);
             });
     }
-    // Si la valeur change on modifie.
+    
     const handleChangeMetier = value => {
-        setValueMetier(value);
+        console.log("metier=");
+        if (value) {
+            console.log(value.id);
+            setValueMetier(value.id);
+        } 
+        else {
+            setValueMetier(null);
+        }
+        console.log("-------------");
     }
+
+    const handleChangeVille = value => {
+        if (value) {
+            setValueVille(value.id);
+            setDisabled(false)
+        } else {
+            setRange(50);
+            setDisabled(true)
+            setValueVille(null);
+        }
+    }
+    
     const changeParam = () => {
         let params = [];
         if (keyWord) {
@@ -42,23 +62,27 @@ function Search(props) {
         if (statusRecruteur) {
             params.push('favoris=true');
         }
+        if (valueMetier) {
+            params.push('metier=' + valueMetier);
+        }
         if (valueVille) {
             params.push('ville=' + valueVille);
             params.push('rayon=' + range);
         }
         props.onDemandeCvChanged(params.join("&"));
     }
+
     useEffect(() => {
 
-        setCountCv(props.countCV);
-        changeParam();
+            setCountCv(props.countCV);
+            changeParam();
 
-    }, [keyWord, valueVille, finalRange, statusRecruteur])
+    }, [keyWord, valueVille, finalRange, statusRecruteur, valueMetier])
 
     return (
-        <Container style={styleSearch}>
-            <Row style={{marginLeft: '0', marginRight: '0', paddingTop: '10px'}}>
-                <Col>
+        <Container>
+            <Row >
+                <Col className="mt-2 mb-3">
                     <ToggleButtonGroup type="radio" name="options">
                         <ToggleButton
                             type="radio"
@@ -96,10 +120,11 @@ function Search(props) {
             </Row>
             <Row>
                 <Col>
-                    <Form.Group controlId="formGridState">
+                    <Form.Group >
                         <Form.Label>Metier</Form.Label>
                         <AsyncSelect
                             className="mb-2"
+                            isClearable={true}
                             loadOptions={loadOptionMetier}
                             getOptionLabel={met => met.libelle}
                             components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
@@ -111,59 +136,25 @@ function Search(props) {
             </Row>
             <Row>
                 <Col>
-                    <Form.Group controlId="formGridState">
+                    <Form.Group >
                         <Form.Label>Ville</Form.Label>
                         <AsyncSelect
                             className="mb-2"
-                            loadOptions={loadOtionVille}
+                            loadOptions={loadOptionVille}
                             getOptionLabel={vil => vil.nom}
                             isClearable={true}
                             components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
                             placeholder="Saisissez la ville.."
-                            onChange={value => {
-                                if (value) {
-                                    setValueVille(value.id);
-                                    setDisabled(false)
-                                } else {
-                                    setDisabled(true)
-                                }
-                            }}
+                            onChange={handleChangeVille}
                         />
                     </Form.Group>
-                    <Range
-                        step={0.1}
+                    <RangeSlider
+                        value={range}
                         min={1}
                         max={150}
-                        values={range}
-                        disabled={disabled}
-                        onChange={values => setRange(values)}
-                        onFinalChange={values => setFinalRange(values)}
-                        renderTrack={({props, children}) => (
-                            <div
-                                {...props}
-                                style={{
-                                    ...props.style,
-                                    height: '6px',
-                                    width: '100%',
-                                    backgroundColor: '#ccc'
-                                }}
-                            >
-                                {children}
-                            </div>
-                        )}
-                        renderThumb={({props}) => (
-                            <div
-
-                                {...props}
-                                style={{
-                                    ...props.style,
-
-                                    height: '22px',
-                                    width: '22px',
-                                    backgroundColor: '#999'
-                                }}
-                            />
-                        )}
+                        className={disabled?' d-none ':''}
+                        onChange={evt => setRange(evt.target.value)}
+                        onAfterChange={evt => setFinalRange(evt.target.value)}
                     />
                     <output style={{marginTop: "30px"}} id="output">
                         Distance sélectionnée {range - 1} Km
@@ -177,11 +168,5 @@ function Search(props) {
         </Container>
     )
 };
-const styleSearch = {
-    position: 'fixed',
-    backgroundColor: 'white',
-    marginTop: '10px',
-    minHeight: '90vh',
-    maxWidth: '365px',
-}
+
 export default Search;

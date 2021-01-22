@@ -53,7 +53,7 @@ class TypeContrat
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="type")
+     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="typeContrat")
      */
     private $offres;
 

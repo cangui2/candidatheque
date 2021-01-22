@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,10 +11,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * @ORM\Entity(repositoryClass=VilleRepository::class)
+ * @ORM\Table(indexes={@ORM\Index(name="ville_nom_idx", columns={"nom"})})
  * @ApiResource(
  *     collectionOperations={
  *                          "get"={},
@@ -33,7 +34,6 @@ use ApiPlatform\Core\Annotation\ApiProperty;
  *       SearchFilter::class,
  *       properties={
  *              "nom": "partial"
- *
  *                  }
  *
  * )
@@ -62,13 +62,11 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("v:read")
      */
     private $longitude;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("v:read")
      */
     private $latitude;
 

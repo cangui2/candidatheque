@@ -2,54 +2,34 @@
 
 namespace App\Entity;
 
-use App\Entity\Langue;
-use App\Entity\Metier;
-use App\Entity\Reseau;
-use App\Entity\Candidat;
-use App\Entity\Consulte;
-use App\Entity\Formation;
-use App\Entity\Recruteur;
-use App\Entity\Competence;
-use App\Entity\Entreprise;
-use App\Entity\Experience;
 use App\Repository\CVRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CVRepository::class)
  * @ApiResource(
  *     collectionOperations={
- *                          "get"={},
- *
- *                          },
+ *                          "get"={
+ *                              "path"="/cvs"
+ *                           },
+
+ *                     },
  *     itemOperations={
- *                          "get"={},
+ *                          "get"={
+ *                              "path"="/cvs/{id}"
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *                          },
+ *     normalizationContext={"groups"={"cv:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
- *
+
  *                 }
  * )
- * @ApiFilter(
- *       SearchFilter::class,
- *       properties={
- *              "id": "partial",
- *              "deposePar.id" : "exact",
- *              "candidat.id":"exact",
- *              "candidat.ville":"partial",
- *              "metier.id":"exact"
- *
- *                  }
- *
- *     )
  */
 class CV
 {
@@ -57,7 +37,7 @@ class CV
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $id;
 
@@ -83,13 +63,13 @@ class CV
 
     /**
      * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="CVs")
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $metier;
 
     /**
      * @ORM\ManyToOne(targetEntity=Candidat::class, inversedBy="CVs")
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $candidat;
 
@@ -105,46 +85,44 @@ class CV
 
     /**
      * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="cv")
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $experiences;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $titre;
 
     /**
      * @ORM\OneToMany(targetEntity=Reseau::class, mappedBy="cv")
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $reseaux;
 
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="cv")
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $formations;
 
     /**
      * @ORM\OneToMany(targetEntity=Langue::class, mappedBy="cv")
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $langues;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recruteur::class, inversedBy="candidats")
-     * @Groups("read")
      */
     private $deposePar;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="cvs")
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $competences;
-
 
     public function __construct()
     {
@@ -273,7 +251,7 @@ class CV
     {
         if (!$this->competences->contains($competence)) {
             $this->competences[] = $competence;
-            //$competence->addCompetence($this);
+            $competence->addCV($this);
         }
 
         return $this;
@@ -281,8 +259,8 @@ class CV
 
     public function removeCompetence(Competence $competence): self
     {
-        if ($this->competences->removeElement($competence)) {
-            $competence->removeCompetence($this);
+        if ($this->competences->contains($competence)) {
+            $this->removeCompetence($competence);
         }
 
         return $this;

@@ -2,11 +2,9 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\LangueRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Repository\LangueRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -33,43 +31,24 @@ class Langue
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("read")
-     *
+     * @Groups({"cv:read"})
      * // 1->bilingue, 2->courant, 3->notion, 4->technique
      */
     private $niveau;
 
     /**
-     * @return mixed
-     */
-    public function getNiveau()
-    {
-        return $this->niveau;
-    }
-
-    /**
-     * @param mixed $niveau
-     */
-    public function setNiveau($niveau): void
-    {
-        $this->niveau = $niveau;
-    }
-
-    /**
      * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="langues")
-     * @Groups("read")
      */
     private $cv;
 
@@ -89,7 +68,6 @@ class Langue
 
         return $this;
     }
-
 
 
 

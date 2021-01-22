@@ -2,11 +2,9 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ExperienceRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Repository\ExperienceRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -33,55 +31,54 @@ class Experience
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $entreprise;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $logo;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $dateFin;
 
     /**
      * @ORM\Column(type="string", length=2000, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $ville;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class)
-     * @Groups("read")
+     * @Groups({"cv:read"})
      */
     private $typeContrat;
 
