@@ -11,10 +11,11 @@ import FormCompetence from './FormCompetence.js'
 const FormCompetences = (props) => {
 
     const [competence, setCompetence] = useState(""); 
+    const [idCompetence, setIdCompetence] = useState(null); 
 
     const loadOptions = (evt, callback) => {
-        console.log("loading react-select async for competences")
-        console.log(props.metier);
+        //console.log("loading react-select async for competences")
+        //console.log(props.metier);
 
         // if ('rome' in props.metier && 'competences' in props.metier.rome) {
         //     let data = props.metier.rome.competences.filter( c => c.libelle.toLowerCase().includes(evt) );
@@ -22,19 +23,25 @@ const FormCompetences = (props) => {
         //     callback(data);
         // }
         let id_metier = props.metier.id;
-        console.log(id_metier);
+        //console.log(id_metier);
         axios.get("/api/cv/competences/" + id_metier + "/" + evt )
         .then( (data) => {
-            console.log(data);
+            //console.log(data);
              
             callback(data.data);
         });
     }
 
     const handleSelect = (evt) => {
-        console.log(evt);
-        if (evt)
+        //console.log(evt);
+        if (evt) {
+            setIdCompetence(evt.id);
             setCompetence(evt.libelle);
+        }
+        else {
+            setIdCompetence(null);
+            setCompetence('')
+        }
     }
 
     const handleScrollToProfile = (evt) => {
@@ -64,7 +71,7 @@ const FormCompetences = (props) => {
                 <Col className="col-4"  md={2}>
                     <Button 
                         variant="primary w-100"
-                        onClick={(evt) => { props.addCompetence(evt, competence); console.log("com=" + competence) } }
+                        onClick={(evt) => { props.addCompetence(evt, competence, idCompetence); console.log("com=" + competence) } }
                     >
                         <FontAwesomeIcon icon={faPlus} />
                     </Button>

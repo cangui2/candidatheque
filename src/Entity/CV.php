@@ -415,7 +415,7 @@ class CV
     {
         if (!$this->langues->contains($langue)) {
             $this->langues[] = $langue;
-            $langue->setCv($this);
+            //$langue->setCv($this);
         }
 
         return $this;
@@ -425,8 +425,8 @@ class CV
     {
         if ($this->langues->removeElement($langue)) {
             // set the owning side to null (unless already changed)
-            if ($langue->getCv() === $this) {
-                $langue->setCv(null);
+            if ($langue->getCVs() === $this) {
+                //$langue->se(null);
             }
         }
 

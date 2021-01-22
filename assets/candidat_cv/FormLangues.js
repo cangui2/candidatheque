@@ -17,9 +17,9 @@ class FormLangues extends React.Component {
                 <div >
                     {
 
-                        this.props.value.map((formation, i) =>
+                        this.props.value.map((langue, i) =>
                             <FormLangue
-                                value={formation}
+                                value={langue}
                                 onChange={(exp) => this.props.changeLangue(i, exp)}
                                 delLangue={() => this.props.delLangue(i)}
                                 key={i}

@@ -149,9 +149,11 @@ class CV extends React.Component {
         this.handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddCompetence(evt, com) {
+    handleAddCompetence(evt, com, id_com) {
+        console.log(com);
+        console.log(id_com);
         let competences = this.state.competences;
-        competences.push({ libelle: com, niveau: "5"});
+        competences.push({ libelle: com, niveau: "5", id: id_com});
         this.setState({ competences });
         this.handleSaveLocal();
     }
