@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Competence;
 use App\Repository\CompetenceRepository;
 use App\Repository\CVRepository;
+use App\Repository\OffreRepository;
+use App\Repository\PostuleRepository;
+use App\Repository\TypeContratRepository;
 use App\Repository\VilleRepository;
 use ContainerJ85uVSC\getExperienceRepositoryService;
 use App\Repository\MetierRepository;
@@ -20,12 +23,21 @@ class ApiController extends AbstractController
     protected $competenceRepo;
     protected $metierRepo;
     protected $cvRepo;
+    protected $offreRepo;
+    protected $postuleRepo;
+    protected $villeRepo;
+    protected $secteurRepo;
+    protected $typeContratRepo;
 
 
-    public function __construct(CompetenceRepository $competenceRepo, MetierRepository $metierRepo, CVRepository $cvRepo){
+    public function __construct(CompetenceRepository $competenceRepo, MetierRepository $metierRepo, CVRepository $cvRepo,TypeContratRepository $typeContratRepo,OffreRepository $offreRepo, PostuleRepository $postuleRepo,VilleRepository $villeRepo){
         $this->competenceRepo = $competenceRepo;
         $this->metierRepo = $metierRepo;
         $this->cvRepo = $cvRepo;
+        $this->offreRepo=$offreRepo;
+        $this->postuleRepo=$postuleRepo;
+        $this->villeRepo=$villeRepo;
+        $this->typeContratRepo=$typeContratRepo;
     }
 
     /**
@@ -199,7 +211,40 @@ class ApiController extends AbstractController
         return new JsonResponse($entities);
     }
 
+    /**
+     * @Route("/api/search", name="api_recherche")
+     * @param OffreRepository $offreRepository
+     * @param Request $request
+     * @return JsonResponse
+     */
 
+    public function search (OffreRepository $offreRepository ,Request $request){
+
+        $metier = $request->query->get("metier");
+        $ville = $request->query->get("ville");
+        $secteur = $request->query->get("secteur");
+        $typeContrat=$request->query->get("contrat");
+
+        $query = $offreRepository->createQueryBuilder('o')
+            ->select('o','met','vil','typ')
+            ->leftJoin('o.metier','met')
+            ->leftJoin('o.ville','vil')
+            ->leftJoin('o.type','typ')
+            ->andWhere('met.id like :metier and vil.id like :ville and typ.id like :contrat ')
+            ->setParameters(array(
+                'metier'=>'%'.$metier.'%',
+                'ville'=>'%'.$ville.'%',
+                'contrat'=>'%'.$typeContrat.'%',
+            ));
+
+        $offreListeResult=$query->distinct()->getQuery()
+            ->setMaxResults(30)
+            ->getResult();
+dd($offreListeResult);
+        return new JsonResponse($offreListeResult);
+
+    }
 
 }
+
 

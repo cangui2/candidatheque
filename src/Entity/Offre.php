@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     itemOperations={
  *                          "get"={},
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"read", "v:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -36,6 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *       properties={
  *              "metier.libelle": "exact",
  *              "metier.rome": "exact"
+ *
  *
  *                  })
  *
@@ -142,7 +143,7 @@ class Offre
 
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="offres")
-     * @Groups("read")
+     * @Groups({"v:read","read"})
      */
     private $ville;
 

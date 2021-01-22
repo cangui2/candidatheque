@@ -1,24 +1,20 @@
 import React, { Component , useState } from 'react'
 import axios from 'axios'
-import {Col, Form,Button} from "react-bootstrap";
+import {Col, Form, Button, Container} from "react-bootstrap";
 import AsyncSelect from "react-select/async";
 import ReactDOM from "react-dom";
 
+
 function App() {
-    // const param imput and select
+
     const [profession, setProfession] = useState([]);
     const [ville, setVille] = useState([]);
     const [secteur, setSecteur] = useState([]);
     const [contrat, setContrat] = useState([]);
-
+    const [idMetier, setIdMetier] = useState(window.metier);
 
 
     // handle selection
-    const handleChange = value => {
-        //setSelectedValue(value);
-        setProfession(value.id);
-
-    }
 
     const handleChange2 = value => {
         // setSelectedValue(value);
@@ -33,21 +29,38 @@ function App() {
         //setSelectedValue(value);
         setContrat(value.id);
     }
+    const handleChange = value => {
+        //setSelectedValue(value);
+        setProfession(value.id);
+        console.log(value.id)
+    }
 
+
+    //
+    // const loadOptions =(inputValue,callback)=>{
+    //     axios.get(`/api/metiers?libelle=`+inputValue)
+    //         .then((data)=>{
+    //             callback(data.data);
+    //         })
+    // }
 
     // load options using API call
-    const loadOptions = (inputValue) => {
-        return fetch(`https://127.0.0.1:8000/api/metiers?libelle=${inputValue}`).then(res => res.json());
-    };
+     const loadOptions = (inputValue) => {
+         return fetch(`/api/metiers?libelle=${inputValue}`).then(res => res.json());
+     };
+
+
     const loadOptions2 = (inputValue) => {
-        return fetch(`https://127.0.0.1:8000/api/villes?nom=${inputValue}`).then(res => res.json());
+        return fetch(`/api/villes?nom=${inputValue}`).then(res => res.json());
     };
     const loadOptions3 = (inputValue) => {
-        return fetch(`https://127.0.0.1:8000/api/a_p_es?libelle=${inputValue}`).then(res => res.json());
+        return fetch(`/api/a_p_es?libelle=${inputValue}`).then(res => res.json());
     };
     const loadOptions4 = (inputValue) => {
-        return fetch(`https://127.0.0.1:8000/api/type_contrats?libelle=${inputValue}`).then(res => res.json());
+        return fetch(`/api/type_contrats?libelle=${inputValue}`).then(res => res.json());
     };
+
+
 
 
         return (
@@ -70,7 +83,7 @@ function App() {
 
                     <AsyncSelect
 
-                        placeholder=""
+                        placeholder="Ville"
                         getOptionLabel={e => e.nom}
                         getOptionValue={e => e.id}
                         loadOptions={loadOptions2}
@@ -102,7 +115,7 @@ function App() {
                     <br/>
                     <div className="text-right">
                         <Button
-                            href={'https://127.0.0.1:8000/recherche_liste?metier=' + profession + '&ville=' + ville + '&secteur=' + secteur + '&contrat=' + contrat}
+                            href={'/recherche_liste?metier=' + profession + '&ville=' + ville + '&secteur=' + secteur + '&contrat=' + contrat}
                             type="button" className="mb-2">
                             Recherche des offres
                         </Button>
@@ -112,6 +125,10 @@ function App() {
             </form>
 
         );
+
+
+
+
     }
 
 ReactDOM.render(

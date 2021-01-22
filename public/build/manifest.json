@@ -17,10 +17,14 @@
   "build/vendors~react_recherche.css": "/build/vendors~react_recherche.css",
   "build/vendors~react_recherche.js": "/build/vendors~react_recherche.js",
   "build/vendors~react_recherche~test_form.js": "/build/vendors~react_recherche~test_form.js",
+  "build/vendors~recherche.js": "/build/vendors~recherche.js",
   "build/vendors~sourcing.css": "/build/vendors~sourcing.css",
   "build/vendors~sourcing.js": "/build/vendors~sourcing.js",
   "build/vendors~sourcing~test_form.css": "/build/vendors~sourcing~test_form.css",
   "build/vendors~sourcing~test_form.js": "/build/vendors~sourcing~test_form.js",
   "build/vendors~test_form.js": "/build/vendors~test_form.js",
-  "build/images/avatar.png": "/build/images/avatar.3f478bd7.png"
+  "build/images/avatar.png": "/build/images/avatar.3f478bd7.png",
+  "build/vendors~cv~home_recherche~react_recherche~sourcing~test_form.js": "/build/vendors~cv~home_recherche~react_recherche~sourcing~test_form.js",
+  "build/vendors~cv~home_recherche~sourcing.js": "/build/vendors~cv~home_recherche~sourcing.js",
+  "build/vendors~home_recherche.js": "/build/vendors~home_recherche.js"
 }

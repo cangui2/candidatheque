@@ -80,28 +80,32 @@ class RechercheController extends AbstractController
             ->setMaxResults(30)
             ->getResult();
 
-        //return new JsonResponse("{ 'message': 'ok' }");
+        //return new JsonResponse($offreListeResult);
 
-        //if( $metier)
-            $v1=$this->metierRepo->find($metier);
-        //else
-            $v1=null;
+        if( $metier) {
+            $v1 = $this->metierRepo->find($metier);
+            //dd($v1);
+        }
+        else {
+            $v1 = null;
+        }
 
         $v2=$this->villeRepo->find($ville);
 
         $v3=$this->typeContratRepo->find($typeContrat);
+        //$offreListeResult= ($offreListeResult);
 
 
 
-
-
+        //dd(json_encode($offreListeResult));
         return $this->render('recherche/liste.html.twig', [
             'controller_name' => 'RechercheController',
             'variaTest' => rand(0, 9),
-            'offreListeResult'=>$offreListeResult,
-            'test'=>$v1,
-            'test2'=>$v2,
-            'test3'=>$v3
+           'offreListeResult'=>new JsonResponse($offreListeResult),
+//            'test'=>$v1,
+//            'test2'=>$v2,
+//            'test3'=>$v3,
+//            'metier' => $v1
 
         ]);
     }
