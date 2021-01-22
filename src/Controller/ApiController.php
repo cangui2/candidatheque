@@ -202,4 +202,25 @@ class ApiController extends AbstractController
         
         return $this->json($resultats);
     }
+
+
+    /**
+     * @Route("/api/get_cv/{id}", name="get_cv")
+     */
+    public function get_cv(Request $request, $id)
+    {
+        $resultats = [];
+
+
+        if ($request->isMethod('get')) {
+            $candidat = $this->getUser()->getCandidat();
+            $liste_cv = $this->cvRepo->findOneBy(['candidat'=>$candidat, 'id'=> $id]);
+
+            
+
+            print_r($liste_cv);
+        }
+        
+        return $this->json($resultats);
+    }
 }

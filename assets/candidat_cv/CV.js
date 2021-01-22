@@ -90,7 +90,7 @@ class CV extends React.Component {
                 { type: "GitHub", url: "https://github.com/..." }
             ],
         }
-        //this.handleLoadLocal();
+        this.handleLoadLocal();
     }
 
     handleSaveLocal() {
@@ -100,7 +100,10 @@ class CV extends React.Component {
         });
     }
     handleLoadLocal() {
-        this.setState(JSON.parse(localStorage.getItem('be4web_cv')));
+        // this.setState(JSON.parse(localStorage.getItem('be4web_cv')));
+        axios.get('/api/cvs/2', this.state).then((response) => {
+            //this.setState(response.data);
+        });
     }
     handleProfilChange(pro) {
         this.setState({ profil: pro });
