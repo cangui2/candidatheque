@@ -1,60 +1,37 @@
 import React, { Component , useState } from 'react'
 import axios from 'axios'
 import {Col, Form,Button} from "react-bootstrap";
-import {values} from "react-bootstrap-typeahead/lib/utils";
 import AsyncSelect from "react-select/async";
-
-
+import ReactDOM from "react-dom";
 
 function App() {
     // const param imput and select
-    const [inputValue, setValue] = useState('');
-    const [selectedValue, setSelectedValue] = useState(null);
-    const [inputValue2, setValue2] = useState('');
-    const [selectedValue2, setSelectedValue2] = useState(null);
-    const [inputValue3, setValue3] = useState('');
-    const [selectedValue3, setSelectedValue3] = useState(null);
-    const [inputValue4, setValue4] = useState('');
-    const [selectedValue4, setSelectedValue4] = useState(null);
-    const [data,setdata]=useState(null);
-    const [data2,setdata2]=useState(null);
-    const [data3,setdata3]=useState(null);
-    const [data4,setdata4]=useState(null);
+    const [profession, setProfession] = useState([]);
+    const [ville, setVille] = useState([]);
+    const [secteur, setSecteur] = useState([]);
+    const [contrat, setContrat] = useState([]);
 
-    // handle input change event
-    const handleInputChange = value => {
-        setValue(value);
-
-    };
-    const handleInputChange2 = value => {
-        setValue(value);
-    };
-    const handleInputChange3 = value => {
-        setValue(value);
-    };
-    const handleInputChange4 = value => {
-        setValue(value);
-    };
 
 
     // handle selection
     const handleChange = value => {
-        setSelectedValue(value);
-        setdata(value.id);
+        //setSelectedValue(value);
+        setProfession(value.id);
+
     }
 
     const handleChange2 = value => {
-        setSelectedValue(value);
-        setdata2(value.id);
+        // setSelectedValue(value);
+        setVille(value.id);
     }
 
     const handleChange3 = value => {
-        setSelectedValue(value);
-        setdata3(value.id);
+        // setSelectedValue(value);
+        setSecteur(value.id);
     }
     const handleChange4 = value => {
-        setSelectedValue(value);
-        setdata4(value.id);
+        //setSelectedValue(value);
+        setContrat(value.id);
     }
 
 
@@ -73,79 +50,79 @@ function App() {
     };
 
 
-    const handleSubmit = (e) => {
-
-        e.preventDefault()
-        console.log(data,data2,data3,data4);
-        // ... submit to API or something
-        fetch('https://127.0.0.1:8000/recherche_liste=' + data + data2 + data3 + data4).then( (res) =>  {
-            console.log(res.json());
-        });
-    };
 
 
 
-    return (
+        return (
+            <Form>
+                <Form.Row>
+                    <Col>
+                        {/*<Form.Control placeholder="Profession"/>*/}
+                        <AsyncSelect
 
-        <form onSubmit={handleSubmit}>
-            <Form.Group>
-                <Form.Label>Profession</Form.Label>
+                            placeholder="Profession"
+                            value={profession.libelle}
+                            getOptionLabel={e => e.libelle}
+                            getOptionValue={e => e.id}
+                            loadOptions={loadOptions}
+                            onChange={handleChange}
+                            components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
+                        />
+                    </Col>
+                    <Col>
+                        {/*<Form.Control placeholder="Ville"/>*/}
+                        <AsyncSelect
 
-                <AsyncSelect
+                            placeholder="Ville"
+                            getOptionLabel={e => e.nom}
+                            getOptionValue={e => e.id}
+                            loadOptions={loadOptions2}
+                            onChange={handleChange2}
+                            components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
+                        />
+                    </Col>
+                    <Col>
+                        {/*<Form.Control placeholder="Secteur"/>*/}
+                        <AsyncSelect
 
-                    placeholder=""
-                    getOptionLabel={e => e.libelle}
-                    getOptionValue={e =>  e.id}
-                    loadOptions={loadOptions}
-                    onInputChange={handleInputChange}
-                    onChange={handleChange}
-                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-                />
-                <Form.Label>Villes</Form.Label>
+                            placeholder="Secteur"
+                            getOptionLabel={e => e.libelle}
+                            getOptionValue={e => e.id}
+                            loadOptions={loadOptions3}
+                            onChange={handleChange3}
+                            components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
+                        />
+                    </Col>
+                    <Col>
+                        {/*<Form.Control placeholder="Type contrat"/>*/}
+                        <AsyncSelect
 
-                <AsyncSelect
+                            placeholder="Type contrat"
+                            getOptionLabel={e => e.libelle}
+                            getOptionValue={e => e.id}
+                            loadOptions={loadOptions4}
+                            onChange={handleChange4}
+                            components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
+                        />
+                    </Col>
+                    <Button
+                        href={'https://127.0.0.1:8000/recherche_liste?metier=' + profession + '&ville=' + ville + '&secteur=' + secteur + '&contrat=' + contrat}
+                        type="button" className="mb-2">
+                        Recherche des offres
+                    </Button>
+                </Form.Row>
+            </Form>
+        )
 
-                    placeholder=""
-                    getOptionLabel={e => e.nom}
-                    getOptionValue={e => e.id}
-                    loadOptions={loadOptions2}
-                    onInputChange={handleInputChange2}
-                    onChange={handleChange2}
-                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-                />
-                <Form.Label>Secteur</Form.Label>
-
-                <AsyncSelect
-
-                    placeholder=""
-                    getOptionLabel={e => e.libelle}
-                    getOptionValue={e => e.id}
-                    loadOptions={loadOptions3}
-                    onInputChange={handleInputChange3}
-                    onChange={handleChange3}
-                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-                />
-                <Form.Label>Type de contrat</Form.Label>
-
-                <AsyncSelect
-
-                    placeholder=""
-                    getOptionLabel={e => e.libelle}
-                    getOptionValue={e => e.id}
-                    loadOptions={loadOptions4}
-                    onInputChange={handleInputChange4}
-                    onChange={handleChange4}
-                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
-                />
-                <div className="text-right">
-                <Button onClick={handleSubmit} type="submit" className="mb-2">
-                    Recherche des offres
-                </Button>
-                </div>
-            </Form.Group>
-        </form>
-    );
 }
-export default App;
+
+ReactDOM.render(
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById('list')
+);
+
+
 
 

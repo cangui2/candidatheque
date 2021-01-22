@@ -95,7 +95,7 @@ class ApiController extends AbstractController
     {
         $keyword = $request->query->get("keyword");
         $ville = $request->query->get("ville");
-        $recruteur = $request->query->get("recruteur");
+        $favoris = $request->query->get("favoris");
         $rayon=$request->query->get('rayon');
 
 
@@ -117,11 +117,11 @@ class ApiController extends AbstractController
 
         }
 
-        if ($recruteur){
+        if ($favoris){
             $query
 //                ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','c.titre as titre','met.libelle as metier','comp.libelle as competence')
                 ->andWhere('dep.id like :recruteur ')
-                ->setParameter('recruteur',  $recruteur );
+                ->setParameter('recruteur',  $this->getUser()->getRecruteur()->getId() );
 
         }
 

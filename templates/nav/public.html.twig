@@ -15,7 +15,7 @@
         <ul id="menu" class="navbar-nav margin-navbar">
 
             <li class="nav-item">
-                <a class="nav-link presence {{ activeMenu("recherche_liste") }} mx-2 px-0" >Offres d'emploi</a>
+                <a class="nav-link presence {{ activeMenu("recherche_liste") }} mx-2 px-0" href="{{ path("recherche_liste",{metier:"",ville:"",contrat:""}) }}">Offres d'emploi</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link presence {{ activeMenu("candidat_cv") }} mx-2 px-0" href="{{ path("candidat_cv") }}">Atelier CV</a>

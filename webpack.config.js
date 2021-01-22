@@ -28,7 +28,8 @@ Encore
     .addEntry('test_form', './assets/test_form/index.js')
     .addEntry('sourcing', './assets/sourcing/index.js')
     //.addEntry('dashboard_offre', './assets/dashboard_offre/graph_camembert.js')
-    .addEntry('recherche', './assets/index_recherche/index.js')
+    .addEntry('recherche', './assets/index_recherche/recherche.js')
+    .addEntry('home_recherche', './assets/index_recherche/home_recherche.js')
     //.addEntry('page2', './assets/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

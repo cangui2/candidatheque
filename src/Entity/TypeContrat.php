@@ -71,6 +71,7 @@ class TypeContrat
         return $this->id;
     }
 
+
     public function getLibelle(): ?string
     {
         return $this->libelle;

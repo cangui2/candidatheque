@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Repository\ReseauRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ReseauRepository::class)
@@ -14,21 +17,25 @@ class Reseau
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
      */
     private $url;
 
     /**
      * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="reseaux")
+     * @Groups("read")
      */
     private $cv;
 
