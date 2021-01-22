@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Row, Col, Button, Accordion, Card } from 'react-bootstrap';
 
 import FormExperiences from './FormExperiences.js';
 import FormFormations from './FormFormations.js';
@@ -17,6 +17,7 @@ class CV extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeKey: "0",
             profil: {
                 nom: "Wong",
                 prenom: "Kar-wai",
@@ -27,7 +28,7 @@ class CV extends React.Component {
                 titre: "Développeur Web",
                 description: "Après une thèse de biochimie et un post-doc en chimiométrie pendant lesquels j'avais développé un certain nombre d'outils informatiques...",
                 photo: "https://test.candidatheque.com/assets/photos/profil4.png",
-                metier: {}
+                metier: null
             },
             experiences: [
                 { 
@@ -101,8 +102,8 @@ class CV extends React.Component {
     }
     handleLoadLocal() {
         // this.setState(JSON.parse(localStorage.getItem('be4web_cv')));
-        axios.get('/api/get_cv/2', this.state).then((response) => {
-            //this.setState(response.data);
+        axios.get('/api/get_cv/2').then((response) => {
+            this.setState(response.data);
         });
     }
     handleProfilChange(pro) {
@@ -198,155 +199,122 @@ class CV extends React.Component {
         this.setState({ reseaux });
         this.handleSaveLocal();
     }
+
     handleChangeReseau(i, exp) {
         let reseaux = this.state.reseaux;
         reseaux[i] = exp;
         this.setState({ reseaux });
         this.handleSaveLocal();
     }
+
+    handleScrollToProfile() {
+        let activeKey="0"; 
+        this.setState({activeKey});
+    }
+
     render() {
         return (
-            <div className="row">
-                <div className="col-6 no-print">
-                    {/* <Dialog /> */}
-                </div>
-                <div className="col-6 text-right no-print mt-5">
-                    <Templates />
-                </div>
-                
-                <div className="col-sm-6 no-print">
-                    <div className="row">
-                        {/* <div className="col-9">
-                            <h1>Module de création de CV.</h1>
-                        </div> */}
-                        {/* <div className="col-3 text-right">
-                        <Button variant="secondary" onClick={ () => { this.handleSaveLocal(); } }>Save</Button>&nbsp;
-                        <Button variant="secondary" onClick={ () => { this.handleLoadLocal(); } }>Load</Button>
-                        </div> */}
-                    </div>
-                    
-                        <div className="accordion mt-5" id="accordion1">
-                            <div className="card" style={{overflow: 'visible'}}>
-                                <div className="card-header" id="heading1">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse1" >
-                                            Informations personnelles                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse1" className="collapse show" data-parent="#accordion1">
-                                    <div className="card-body">
-                                        <FormProfil
+            <Row className="mt-2">
+                <Col className=" no-print pl-2">
+                    <Accordion defaultActiveKey="0" activeKey={this.state.activeKey} onSelect={(value)=>{ let activeKey=value; this.setState({activeKey}); }}>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="0">
+                            Informations personnelles
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                <FormProfil
                                             value={this.state.profil}
                                             onProfilChange={(evt) => this.handleProfilChange(evt)}
                                         />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card"  style={{overflow: 'visible'}}>
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse4" >
-                                            Competences                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse4" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormCompetences
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="1">
+                                Competences
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="1">
+                                <Card.Body>
+                                <FormCompetences
                                         value={this.state.competences}
                                         metier={this.state.profil.metier}
                                         addCompetence={(evt, com) => this.handleAddCompetence(evt, com)}
                                         delCompetence={(i) => this.handleDelCompetence(i)}
                                         changeCompetence={(i, exp) => this.handleChangeCompetence(i, exp)}
+                                        scrollToProfile={() => this.handleScrollToProfile()}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div className="card">
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse2" >
-                                            Experiences                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse2" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormExperiences
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="2">
+                            Experiences
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="2">
+                                <Card.Body>
+                                <FormExperiences
                                         value={this.state.experiences}
                                         addExperience={(evt) => this.handleAddExperience(evt)}
                                         delExperience={(i) => this.handleDelExperience(i)}
                                         changeExperience={(i, exp) => this.handleChangeExperience(i, exp)}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse3" >
-                                            Formation                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse3" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormFormations
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="3">
+                            Formation
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="3">
+                                <Card.Body>
+                                <FormFormations
                                         value={this.state.formations}
                                         addFormation={(evt) => this.handleAddFormation(evt)}
                                         delFormation={(i) => this.handleDelFormation(i)}
                                         changeFormation={(i, exp) => this.handleChangeFormation(i, exp)}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse5" >
-                                            Langues                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse5" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormLangues
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="4">
+                            Langues
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="4">
+                                <Card.Body>
+                                <FormLangues
                                         value={this.state.langues}
                                         addLangue={(evt) => this.handleAddLangue(evt)}
                                         delLangue={(i) => this.handleDelLangue(i)}
                                         changeLangue={(i, exp) => this.handleChangeLangue(i, exp)}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse6" >
-                                            Réseaux sociaux                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse6" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormReseaux
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="5">
+                            Réseaux sociaux
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="5">
+                                <Card.Body>
+                                <FormReseaux
                                         value={this.state.reseaux}
                                         addReseau={(evt) => this.handleAddReseau(evt)}
                                         delReseau={(i) => this.handleDelReseau(i)}
                                         changeReseau={(i, exp) => this.handleChangeReseau(i, exp)}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    
-                </div>
-
-                <div  className="col-sm-6 paper-container">
-
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                </Col>
+                <Col>
+                    <Row>
+                        <Col sm={12} className="text-right no-print ">
+                            <Templates />
+                        </Col>
+                        <Col sm={12}  className=" paper-container">
                     <div className="paper">
                         <section className="identite">
                             <div className="nom">{this.state.profil.prenom} {this.state.profil.nom}</div>
@@ -447,9 +415,17 @@ class CV extends React.Component {
                             </div>
                         </section>
                     </div>
-                </div>
+                </Col>
 
-            </div>
+
+                    </Row>
+                </Col>
+            </Row>
+                
+                
+            
+           
+
         );
     }
 }
