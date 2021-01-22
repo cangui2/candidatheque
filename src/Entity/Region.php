@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RegionRepository::class)
+ * @ORM\Table(indexes={@ORM\Index(name="region_nom_idx", columns={"nom"})})
  * @ApiResource(
  *     collectionOperations={
  *                          "get"={},

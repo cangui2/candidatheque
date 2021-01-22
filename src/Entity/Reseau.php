@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ReseauRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReseauRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ReseauRepository::class)
@@ -19,11 +20,13 @@ class Reseau
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $url;
 

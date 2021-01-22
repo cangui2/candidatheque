@@ -4,9 +4,17 @@
     background-color: #4169E1 !important;
 }
 
-.ui-state-highlight, .ui-widget-content .ui-state-highlight {
-    border-color: #4169E1 !important;
-    background-color: #4169E1 !important;
+/*.ui-state-highlight, .ui-widget-content {*/
+/*    border-color: #4169E1 !important;*/
+/*    background-color: #4169E1 !important;*/
+/*}*/
+.ui-autocomplete-category{
+    font-weight: bolder;
+    padding: 2px;
+}
+
+.ui-menu .ui-menu-item a.sbiAnchor.ui-state-hover{
+    background-color: rgba(0,0,0,.125);
 }
 .jumbotron {
     padding-top: 1.4rem;
@@ -33,17 +41,17 @@ label.required:before {
 .badge{
     display: none;
 }
+/*#ui-id-1{*/
+/*    max-width: 250px !important;*/
+/*}*/
 
 .ui-autocomplete {
     position: relative !important;
     overflow-x: hidden;
     overflow-y: scroll !important;
     padding:  3px 6px 3px !important;
-    max-width: 57vw !important;
+    max-width: 240px !important;
     max-height: 300px;
-}
-.ui-widget.ui-widget-content {
-    max-width: 57vw !important;
 }
 
 
@@ -61,6 +69,17 @@ h3 {
 
 input {
     border-radius: .3rem;
+}
+
+input:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+
+}
+select:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+
 }
 #offre_save{
     padding: 10px 20px;
@@ -130,4 +149,5 @@ and (max-device-width: 992px)
     h4 {
         font-size: 1.20rem;
     }
+
 }

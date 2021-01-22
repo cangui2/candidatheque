@@ -14,6 +14,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=VilleRepository::class)
+ * @ORM\Table(indexes={@ORM\Index(name="ville_nom_idx", columns={"nom"})})
  * @ApiResource(
  *     collectionOperations={
  *                          "get"={},
@@ -32,7 +33,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiFilter(
  *       SearchFilter::class,
  *       properties={
- *              "nom": "exact"
+ *              "nom": "partial"
  *                  }
  *
  * )
@@ -43,6 +44,7 @@ class Ville
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("v:read")
      */
     private $id;
 

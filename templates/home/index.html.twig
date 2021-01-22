@@ -49,6 +49,7 @@
         <div class="rech text-right">
           <button type="submit" class="btn color-3E68D4 mt-1 mx-5">Rechercher des offres</button>
         </div>
+        
       </form>
     </div>
           <div class="col-lg-6 mt-5">
@@ -58,7 +59,7 @@
               <div id="pastille1" class="pastille cercle embed-responsive embed-responsive-1by1 color-3E68D4"  style="border-radius: 200px; overflow: hidden;">
                 <div class="intro embed-responsive-item pt-5"  style="border-radius: 200px; overflow: hidden;">
                   <h1>Votre talent, nos offres</h1>
-                    <p>Lorem ipsum, etc</p>
+                    <p class="">Des miliers d'opportunités à un clic de distance</p>
                 </div>
               </div>
 {#            <a role="button" id="pastille2" class="btn pastille btn btn-light titre1" href="{{ path('candidat_inscription') }}">S'inscrire</a>#}
@@ -73,8 +74,9 @@
                     <img class="card-img-top rounded-circle" src="{{ asset("assets/images/blueprint.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
                   </div>
                   <div class="card-body d-flex flex-column justify-content-between">
-                      <h5 class="card-title">Créer mon CV en ligne</h5>
-                      <p class="card-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <h5 class="card-title">Je  crée mon CV en ligne</h5>
+                      <p class="card-text">Vous n'avez pas de CV? Nous avons ce qu'il vous faut: un outil facile à prendre en main pour rédiger
+                          rapidement un CV moderne et personnalisable, afin de vous permettre de faire valoir vos atouts et convaincre votre futur employeur!</p>
                       <a href="#" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">Créer</a>
                   </div>
                 </div>
@@ -83,9 +85,10 @@
                     <img class="card-img-top rounded-circle" src="{{ asset("assets/images/archive.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
                   </div>
                   <div class="card-body d-flex flex-column justify-content-between">
-                      <h5 class="card-title">Déposer mon CV</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-                      <a href="#" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">Déposer</a>
+                      <h5 class="card-title">Je dépose mon CV</h5>
+                      <p class="card-text">Pour être visible auprès des recruteurs et postuler aux offres qui vous correspondent,
+                          faites le bon choix: votre espace candidat. Inscrivez-vous dès maintenant et mettez toutes les chances de votre côté!</p>
+                      <a href="{{ path('app_login') }}" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">Déposer</a>
                   </div>
                 </div>
 
@@ -94,17 +97,14 @@
                     <img class="card-img-top rounded-circle" src="{{ asset("assets/images/loudspeaker.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
                   </div>
                   <div class="card-body d-flex flex-column justify-content-between">
-                      <h5 class="card-title">Les fiches métier</h5>
-                      <p class="card-text">Trouver des informations utiles sur un métier en saisissant son code ROME, son appellation ou une ou plusieurs compétence(s)</p>
+                      <h5 class="card-title">Je m'informe sur les métiers</h5>
+                      <p class="card-text">Trouvez des informations utiles sur un métier qui vous intéresse en saisissant son code ROME, son appellation ou une ou plusieurs compétence(s)</p>
                           {{form_start(searchForm)}}
                           <div class="row">
                               <div class="col">
                                   {{ form_widget(searchForm.filtre) }}
-                              </div>
-                          </div>
-                      <div class="row">
-                          <div class="col-12">
-                              {{ form_row(searchForm.recherche, {'attr': {'class': 'btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto'}}) }}
+                              
+                              		{{ form_row(searchForm.recherche, {'attr': {'class': 'btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto'}}) }}
 
                           </div>
                           {{form_end(searchForm)}}

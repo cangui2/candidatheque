@@ -2,23 +2,28 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CVRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CVRepository::class)
  * @ApiResource(
  *     collectionOperations={
- *                          "get"={},
+ *                          "get"={
+ *                              "path"="/cvs"
+ *                           },
 
- *                          },
+ *                     },
  *     itemOperations={
- *                          "get"={},
+ *                          "get"={
+ *                              "path"="/cvs/{id}"
  *                          },
- *     normalizationContext={"groups"={"read"}},
+ *                          },
+ *     normalizationContext={"groups"={"cv:read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={
  *                  "force_eager"=false
@@ -32,6 +37,7 @@ class CV
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"cv:read"})
      */
     private $id;
 
@@ -57,11 +63,13 @@ class CV
 
     /**
      * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="CVs")
+     * @Groups({"cv:read"})
      */
     private $metier;
 
     /**
      * @ORM\ManyToOne(targetEntity=Candidat::class, inversedBy="CVs")
+     * @Groups({"cv:read"})
      */
     private $candidat;
 
@@ -77,26 +85,31 @@ class CV
 
     /**
      * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="cv")
+     * @Groups({"cv:read"})
      */
     private $experiences;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $titre;
 
     /**
      * @ORM\OneToMany(targetEntity=Reseau::class, mappedBy="cv")
+     * @Groups({"cv:read"})
      */
     private $reseaux;
 
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="cv")
+     * @Groups({"cv:read"})
      */
     private $formations;
 
     /**
      * @ORM\OneToMany(targetEntity=Langue::class, mappedBy="cv")
+     * @Groups({"cv:read"})
      */
     private $langues;
 
@@ -107,6 +120,7 @@ class CV
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="cvs")
+     * @Groups({"cv:read"})
      */
     private $competences;
 
@@ -230,7 +244,7 @@ class CV
      */
     public function getCompetences(): Collection
     {
-        return $this->competence;
+        return $this->competences;
     }
 
     public function addCompetence(Competence $competence): self
@@ -245,8 +259,8 @@ class CV
 
     public function removeCompetence(Competence $competence): self
     {
-        if ($this->competences->removeElement($competence)) {
-            $competence->removeCompetence($this);
+        if ($this->competences->contains($competence)) {
+            $this->removeCompetence($competence);
         }
 
         return $this;

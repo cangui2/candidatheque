@@ -163,13 +163,14 @@ class RegistrationController extends AbstractController
                 $this->addFlash("success", "Votre demande d'inscription pour le compte de votre entreprise a bien été enregistrée. Après l'étude de celle-ci et confirmation de la part de votre société, un lien d'activation vous sera envoyé par email.");
 
                 $this->ms->sendAlertMessage($rc, $mail, $url);
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('espace_entreprise');
 
             }
 
             return $this->render('registration/pro_register.html.twig', [
                 'proForm' => $proForm->createView(),
-                'route' => $route
+                'route' => $route,
+                'error' =>null
             ]);
 
         }

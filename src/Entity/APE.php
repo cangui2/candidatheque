@@ -10,12 +10,16 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=APERepository::class)
  * @ApiResource(
  *     collectionOperations={
- *                          "get"={},
+ *                          "get"={
+ *                              "path"="/apes"
+ *                           },
 
  *                          },
  *     itemOperations={
- *                          "get"={},
- *                          },
+ *                          "get"={
+ *                              "path"="/apes/{id}"
+ *                           },
+ *                     },
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}},
  *     attributes={

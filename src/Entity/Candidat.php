@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CandidatRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CandidatRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CandidatRepository::class)
@@ -21,21 +22,25 @@ class Candidat
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $photo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $adresse;
 
@@ -61,6 +66,7 @@ class Candidat
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cv:read"})
      */
     private $telephone;
 
@@ -77,6 +83,7 @@ class Candidat
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="candidats")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"cv:read"})
      */
     private $ville;
 

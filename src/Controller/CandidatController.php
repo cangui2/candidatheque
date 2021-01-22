@@ -25,12 +25,16 @@ class CandidatController extends AbstractController
     protected $metierRepo;
     protected $compRepo;
     protected $descRepo;
+    protected $cdRepo;
+    protected $postuleRepo;
 
-    public function __construct(RomeRepository $romeRepo, MetierRepository $metierRepo, CompetenceRepository $compRepo, DescriptionRepository $descRepo){
+    public function __construct(CandidatRepository $cdRepo, PostuleRepository $postuleRepo, RomeRepository $romeRepo, MetierRepository $metierRepo, CompetenceRepository $compRepo, DescriptionRepository $descRepo){
         $this->romeRepo = $romeRepo;
         $this->metierRepo = $metierRepo;
         $this->compRepo = $compRepo;
         $this->descRepo = $descRepo;
+        $this->cdRepo = $cdRepo;
+        $this->postuleRepo = $postuleRepo;
     }
 
 
@@ -39,12 +43,16 @@ class CandidatController extends AbstractController
      */
     public function dashboard(PostuleRepository $repo,CandidatRepository $repo2): Response
     {
-
+        $user = $this->getUser();
+        dump($user);
         $candidat = $this->getUser()->getCandidat();
+        $candidatures = $candidat->getPostules();
 
+//        dd($candidatures);
+        return $this->render('candidat/dashboard_candidat.html.twig', [
+                'candidatures'=>$candidatures
 
-
-        return $this->render('candidat/dashboard_candidat.html.twig');
+            ]);
     }
 
     /**

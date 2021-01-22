@@ -1,4 +1,5 @@
 api_platform:
+    version: 'v1'
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
 
@@ -23,12 +24,28 @@ api_platform:
 
     patch_formats:
         json: ['application/merge-patch+json']
+
+
     swagger:
         versions: [3]
+        #        api_keys:
+        #            apiKey:
+        #                name: Authorization
+        #                type: header
 
-#        api_keys:
-#            apiKey:
-#                name: Authorization
-#                type: header
+    # Enable the Swagger documentation and export.
+    enable_swagger: true
+
+    # Enable Swagger ui.
+    enable_swagger_ui: true
+
+
+    # Set this to false if you want Webby to disappear.
+    show_webby: false
+
+
+
+
+
 
 

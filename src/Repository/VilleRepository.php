@@ -19,6 +19,30 @@ class VilleRepository extends ServiceEntityRepository
         parent::__construct($registry, Ville::class);
     }
 
+    public function searchAround($id_ville, $rayon)
+    {
+        $ville = $this->find($id_ville);
+
+        if ($rayon >= 1) {
+            $latitude=$ville->getLatitude();
+            $longitude=$ville->getLongitude();
+
+            $query = $this->createQueryBuilder('v')
+                ->select('v.id as id','v.nom as nom ','v.latitude','v.longitude')
+                ->where ('SQRT(((v.latitude-:la2)*(v.latitude-:la2)) + ((v.longitude-:lo2)*(v.longitude-:lo2)))*100 <= :rayon')
+                ->setParameters(array(
+                    'rayon'=>$rayon,
+                    'la2'=>$latitude,
+                    'lo2'=>$longitude,
+            ));
+            $entities=$query
+                ->getQuery()
+                ->getResult();
+
+            return $entities;
+        }
+    }
+
     // /**
     //  * @return Ville[] Returns an array of Ville objects
     //  */

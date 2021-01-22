@@ -113,7 +113,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of1->setProfil("De formation supérieure BAC+5, vous justifiez d'une expérience de minimum trois ans sur un poste similaire");
         $of1->setSalaire(45632);
         $of1->setTitre("Développeur");
-        $of1->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
+        $of1->setTypeContrat($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
         $manager->persist($of1);
 
         $of2 = new Offre();
@@ -124,7 +124,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of2->setProfil("");
         $of2->setSalaire(45632);
         $of2->setTitre("Développeur");
-        $of2->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
+        $of2->setTypeContrat($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
         $manager->persist($of2);
 
         $of3 = new Offre();
@@ -135,7 +135,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of3->setProfil("");
         $of3->setSalaire(45632);
         $of3->setTitre("Développeur");
-        $of3->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
+        $of3->setTypeContrat($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
         $manager->persist($of3);
 
         $of4 = new Offre();
@@ -146,7 +146,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $of4->setProfil("");
         $of4->setSalaire(45632);
         $of4->setTitre("Développeur");
-        $of4->setType($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
+        $of4->setTypeContrat($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
         $manager->persist($of4);
 
 
@@ -169,6 +169,7 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $cv1=new CV();
         $cv1->setCandidat($can1);
         $cv1->setMetier($manager->getRepository(Metier::class)->find(14250));
+        $comp = 
         $cv1->addCompetence($manager->getRepository(Competence::class)->find(100011));
         $cv1->addCompetence($manager->getRepository(Competence::class)->find(100075));
         $cv1->addCompetence($manager->getRepository(Competence::class)->find(100078));

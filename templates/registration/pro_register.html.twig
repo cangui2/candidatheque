@@ -1,15 +1,15 @@
-{% extends 'base_entreprise.html.twig' %}
+{% extends 'base_ent.html.twig' %}
 
 {% block title %}{% endblock %}
 
 {% block body %}
-<body>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin m-5" style="background-color: #f8f9fa">
                 <div class="card-body">
-                    <h4 class="card-title text-center color-principale1 pt-1">Créer un compte</h4>
+                    <h4 class="card-title text-center color-principale1 pt-1 mb-4">Créer un compte</h4>
+                    <hr>
 
 {#            <small>Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial</small>#}
                     {% for label, messages in app.flashes(['info', 'danger']) %}
@@ -25,7 +25,7 @@
                         {{ form_errors(proForm) }}
                     </div>
                     <div class="form-group ">
-                        <h5 class="text-left">Vos informations</h5>
+                        <h5 class="text-left mb-4">Vos informations</h5><hr>
                     </div>
                     <div class="form-group ">
                         {{ form_row(proForm.nom) }}
@@ -39,8 +39,9 @@
                     <div class="form-group ">
                         {{ form_row(proForm.plainPassword) }}
                     </div>
+                    <hr>
                     <div class="form-group ">
-                        <h5 class="text-left">Informations entreprise</h5>
+                        <h5 class="text-left mb-4">Informations entreprise</h5><hr></hr>
                     </div>
                     <div class="form-group ">
                         {{ form_row(proForm.raisonSociale) }}
@@ -64,51 +65,51 @@
             </div>
         </div>
     </div>
-
-    <div class="container">
-        <div class="card-deck my-5">
-                <div class="card bg-light px-3 pt-2">
-                  <div class= "text-center">
-                    <img class="card-img-top rounded-circle" src="{{ asset("assets/images/blueprint.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
-                  </div>
-                  <div class="card-body d-flex flex-column justify-content-between">
-                      <h5 class="card-title">Créer mon CV en ligne</h5>
-                      <p class="card-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                      <a href="#" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">Créer</a>
-                  </div>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="card bg-light px-3 pt-2">
-                  <div class= "text-center">
-                    <img class="card-img-top rounded-circle" src="{{ asset("assets/images/archive.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
-                  </div>
-                  <div class="card-body d-flex flex-column justify-content-between">
-                      <h5 class="card-title">Déposer mon CV</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-                      <a href="#" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">Déposer</a>
-                  </div>
+                <div class="modal-body pr-4 pl-4">
+                    <div class="form-title text-center">
+                        <h4 class="color-principale1 text-center pt-1 mb-4">Connexion entreprise</h4>
+                    </div>
+                    <div class="d-flex flex-column text-center">
+                        <form class="mt-4" method="post" action="{{ path('login') }}">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+                            <div class="form-group ">
+                                {# <label class="mb-0" for="rechercheInput1">Profession</label> #}
+                                <input type="email" name="email" id="inputEmail" class="form-control"
+                                       placeholder="Email" required autofocus>
+                            </div>
+                            <div class="form-group ">
+                                {# <label class="mb-0" for="rechercheInput2">Lieu</label> #}
+                                <input type="password" name="password" id="inputPassword" class="form-control"
+                                       placeholder="Mot de passe" required>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3 ">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Se souvenir de moi </label>
+                            </div>
+                            <button class="btn text-light bg-color-principale1 btn-block text-uppercase" type="submit">Se connecter
+                            </button>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <hr>
+                            <div class="text-center mb-4">Vous n'avez pas encore de compte? <a href="{{ path("entreprise_inscription") }}">Inscrivez-vous !</a></div>
+                        </form>
+                    </div>
                 </div>
-
-                <div class="card bg-light px-3 pt-2" >
-                  <div class= "text-center">
-                    <img class="card-img-top rounded-circle" src="{{ asset("assets/images/loudspeaker.svg") }}" style="width: 5rem; height: 5rem" alt="Card image cap">
-                  </div>
-                  <div class="card-body d-flex flex-column">
-                      <h5 class="card-title">Infos et conseils</h5>
-                      <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                      <a href="#" class="btn btn-primary colorBG-3E68D4Cdtk zoom-bouton mt-auto">S'informer</a>
-                  </div>
-                </div>
-
-
-
-            {#<div class="card bg-light px-3 pt-2" style="width: 18rem;">
-                <div class="card-body text-center">
-                  <img class="rounded-circle bg-primary" src="{{ asset("assets/images/loudspeaker.svg") }}" style="width: 5rem; height: 5rem" />
-                </div>
-                  <h5 class="card-title">Infos et conseils</h5>
-                  <p class="card-text mb-4">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>#}
+                {#                <div class="modal-footer d-flex justify-content-center"></div>#}
+            </div>
+        </div>
     </div>
+
+    {#login modal end#}
   </div>
-    </body>
 {% endblock %}

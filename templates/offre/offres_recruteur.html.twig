@@ -1,4 +1,4 @@
-{% extends 'base_entreprise.html.twig' %}
+{% extends 'base_recruteur.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="/assets/css/offre.css">
@@ -20,7 +20,7 @@
                         <!-- Card content -->
                         <div class="card-body pb-0">
                             <!-- Title -->
-                            <h4 class="card-title font-weight-lighter"><b>{{ offre_recruteur.titre }} {{ offre_recruteur.type }}</b>
+                            <h4 class="card-title font-weight-lighter"><b>{{ offre_recruteur.titre }} {{ offre_recruteur.typeContrat }}</b>
                                 {% if offre_recruteur.possibiliteCDI == true %}
                                     ( <em>possibilité CDI </em>)
                                 {% endif %}
@@ -133,6 +133,14 @@
                                                     </p>
                                                 </div>
                                             </div>
+                                            {% if offre_recruteur.dureeHebdo is not empty %}
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p class="font-small text-muted mx-1">TEMPS DE TRAVAIL HEBDOMADAIRE : {{offre_recruteur.dureeHebdo }} H
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
                                             <div class="row">
                                                 <div class="col-12">
                                                     <!-- Update Button -->
