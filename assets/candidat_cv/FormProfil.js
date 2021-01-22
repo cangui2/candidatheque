@@ -23,6 +23,11 @@ const FormProfil = (props) => {
             props.value.titre = query.libelle;
             props.onProfilChange(props.value);
         }
+        else {
+            props.value.metier=null; 
+            props.value.titre = "";
+            props.onProfilChange(props.value);
+        }
 
     }
 
@@ -39,6 +44,9 @@ const FormProfil = (props) => {
 
         return (
             <Form>
+                <Form.Row className="mb-2">
+                    <Col>Vouspouvez modifier vos informations personnelles dans votre profil</Col>
+                </Form.Row>
                 <Form.Row className="mb-2">
                     <Col className="col-4">
                         <Form.Control

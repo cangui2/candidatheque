@@ -124,6 +124,11 @@ class CV
      */
     private $competences;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
@@ -436,6 +441,18 @@ class CV
     public function setDeposePar(?Recruteur $deposePar): self
     {
         $this->deposePar = $deposePar;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

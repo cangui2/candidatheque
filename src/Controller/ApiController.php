@@ -211,19 +211,36 @@ class ApiController extends AbstractController
      */
     public function get_cv(Request $request, $id)
     {
-        $resultats = [];
+        $resultat = [];
 
 
         if ($request->isMethod('get')) {
             $user = $this->getUser();
             $candidat = $user->getCandidat();
-            $liste_cv = $this->cvRepo->findOneBy(['candidat'=>$candidat, 'id'=> $id]);
-
+            $cv = $this->cvRepo->findOneBy(['candidat'=>$candidat, 'id'=> $id]);
+            $resultat["profil"] = [
+                "nom" => $cv->getCandidat()->getNom(),
+                "prenom" => $cv->getCandidat()->getPrenom(),
+                "adresse" => $cv->getCandidat()->getAdresse(),
+                "ville" => $cv->getCandidat()->getVille()->getNom(),
+                "phone" => $cv->getCandidat()->getTelephone(),
+                "email" => $cv->getCandidat()->getUser()->getEmail(),
+                "photo" => $cv->getCandidat()->getPhoto(),
+                "titre" => $cv->getTitre(),
+                "description" => $cv->getDescription(),
+                "metier" => [ "id" => $cv->getMetier()->getId(), "libelle" => $cv->getMetier()->getLibelle() ]
+            ];
+            $resultat["experiences"] = [];
+            foreach ($cv->getExperiences() as $exp) {
+                $resultat["experiences"][] = [
+                    
+                ];
+            }
             
 
-            print_r($liste_cv);
+            //dd($cv);
         }
         
-        return $this->json($resultats);
+        return $this->json($resultat);
     }
 }
