@@ -19,3 +19,10 @@ Content-Type: application/json
     "name": "",
     "owner": ""
 }
+
+###
+
+GET http://localhost:8000/api/get_cv/2
+Content-Type: application/json
+
+

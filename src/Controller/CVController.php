@@ -13,6 +13,8 @@ class CVController extends AbstractController
      */
     public function candidat_cv(): Response
     {
+        $user = $this->getUser();
+        dump($user);
         
         return $this->render('cv/candidat_cv.html.twig', [
         ]);

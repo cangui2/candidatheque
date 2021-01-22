@@ -43,7 +43,8 @@ class CandidatController extends AbstractController
      */
     public function dashboard(PostuleRepository $repo,CandidatRepository $repo2): Response
     {
-
+        $user = $this->getUser();
+        dump($user);
         $candidat = $this->getUser()->getCandidat();
         $candidatures = $candidat->getPostules();
 

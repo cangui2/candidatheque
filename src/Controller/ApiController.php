@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Ville;
+use App\Entity\User;
+use App\Entity\Candidat;
 use App\Entity\Competence;
 use App\Repository\CVRepository;
 use App\Repository\VilleRepository;
@@ -213,7 +215,8 @@ class ApiController extends AbstractController
 
 
         if ($request->isMethod('get')) {
-            $candidat = $this->getUser()->getCandidat();
+            $user = $this->getUser();
+            $candidat = $user->getCandidat();
             $liste_cv = $this->cvRepo->findOneBy(['candidat'=>$candidat, 'id'=> $id]);
 
             
