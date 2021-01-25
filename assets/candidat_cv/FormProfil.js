@@ -121,6 +121,7 @@ const FormProfil = (props) => {
                             getOptionValue={ (met) => { return met.id } }
                             placeholder="Saisissez votre métier..."
                             onChange={handleChangeMetier}
+                            menuPosition="fixed"
                         />
                         <Form.Control
                             className="mb-2"

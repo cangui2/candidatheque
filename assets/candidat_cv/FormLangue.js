@@ -1,61 +1,63 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Col, Form, Button } from 'react-bootstrap';
 
-class FormLangue extends React.Component {
+const FormLangue = (props) => {
 
-    handleChange(evt) {
+    const [libelle, setLibelle] = useState(props.value.libelle);
+    const [niveau, setNiveau] = useState(props.value.niveau);
+
+    const handleChangeLibelle = (evt) => {
         console.log(evt);
-        let competence = {
-            libelle: this.refs.libelle.value,
-            niveau: this.refs.niveau.value
+        setLibelle(evt.target.value);
+        let langue = {
+            libelle: evt.target.value,
+            niveau: niveau
         };
-        this.props.onChange(competence);
+        props.onChange(langue);
     }
 
-    render() {
+    const handleChangeNiveau = (evt) => {
+        console.log(evt);
+        setNiveau(evt.target.value);
+        let langue = {
+            libelle: libelle,
+            niveau: evt.target.value
+        };
+        props.onChange(langue);
+    }
+
         return (
             <div >
                 <Form >
                     <Form.Row className="mb-2">
                         <Col xs={9}>
                             <Form.Control
-                                value={this.props.value.libelle}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="libelle"
+                                value={libelle}
+                                onChange={handleChangeLibelle}
                                 placeholder="Libelle"
                             />
                         </Col>
                         <Col xs={2}>
                             {/* technique, notion, courant, bilingue */}
                             <Form.Control as="select" 
-                                ref="niveau"
-                                value={this.props.value.niveau}
-                                onChange={(evt) => this.handleChange(evt)}
-                                
+                                value={niveau}
+                                onChange={handleChangeNiveau}
                             >
                                 <option>Technique</option>
                                 <option>Notions</option>
                                 <option>Courant</option>
                                 <option>Bilingue</option>
                             </Form.Control>
-                            {/* <Form.Control
-                                value={this.props.value.niveau}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="niveau"
-                                placeholder="Niveau"
-                            /> */}
                         </Col>
 
-
                         <Col xs={1}>
-                            <Button onClick={() => this.props.delLangue(this)} >X</Button>
+                            <Button onClick={() => props.delLangue(this)} >X</Button>
                         </Col>
                     </Form.Row>
 
                 </Form>
             </div>
         );
-    }
 }
 
 export default FormLangue;

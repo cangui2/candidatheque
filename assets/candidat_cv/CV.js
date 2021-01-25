@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Row, Col, Button, Accordion, Card } from 'react-bootstrap';
 
 import FormExperiences from './FormExperiences.js';
@@ -13,11 +13,11 @@ import axios from 'axios';
 
 import './CV.css';
 
-class CV extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeKey: "0",
+const CV  = () => {
+
+    const [activeKey, setActiveKey] = useState("0");
+
+    const [state, setState] = useState({
             profil: {
                 nom: "Wong",
                 prenom: "Kar-wai",
@@ -77,10 +77,10 @@ class CV extends React.Component {
                 }
             ],
             competences: [
-                { libelle: "Javascript", niveau: "5" },
-                { libelle: "PHP", niveau: "2" },
-                { libelle: "Symfony", niveau: "1" },
-                { libelle: "React", niveau: "3" },
+                { id: 55, libelle: "Javascript", niveau: "5" },
+                { id: 56, libelle: "PHP", niveau: "2" },
+                { id: 57, libelle: "Symfony", niveau: "1" },
+                { id: 58, libelle: "React", niveau: "3" },
             ],
             langues: [
                 { libelle: "Anglais", niveau: "Technique" },
@@ -90,135 +90,165 @@ class CV extends React.Component {
                 { type: "LinkedIn", url: "https://linkedin.com/..." },
                 { type: "GitHub", url: "https://github.com/..." }
             ],
-        }
-        this.handleLoadLocal();
-    }
+        });
 
-    handleSaveLocal() {
+
+    useEffect(()=>{
+        
+        //handleLoadLocal();
+    },[]);
+
+
+    const handleSaveLocal = () => {
         //localStorage.setItem('be4web_cv', JSON.stringify(this.state));
-        axios.post('/api/post_cv', this.state).then(() => {
+        axios.post('/api/post_cv', state).then(() => {
 
         });
     }
-    handleLoadLocal() {
+    const handleLoadLocal = () => {
         // this.setState(JSON.parse(localStorage.getItem('be4web_cv')));
         axios.get('/api/get_cv/2').then((response) => {
-            this.setState(response.data);
+            setState(response.data);
         });
     }
-    handleProfilChange(pro) {
-        this.setState({ profil: pro });
-        this.handleSaveLocal();
+    const handleProfilChange = (pro) => {
+        setState({ profil: pro });
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddExperience(evt) {
-        let experiences = this.state.experiences;
+    const handleAddExperience = (evt) => {
+        let experiences = state.experiences;
         experiences.push({ date: "2020-10-03", mission: "bla bla bla22" });
-        this.setState({ experiences });
-        this.handleSaveLocal();
+        setState({ experiences });
+        handleSaveLocal();
     }
-    handleDelExperience(i) {
-        let experiences = this.state.experiences;
+    const handleDelExperience = (i) => {
+        let experiences = state.experiences;
         experiences.splice(i, 1);
-        this.setState({ experiences });
-        this.handleSaveLocal();
+        setState({ experiences });
+        handleSaveLocal();
     }
-    handleChangeExperience(i, exp) {
-        let experiences = this.state.experiences;
+    const handleChangeExperience = (i, exp) => {
+        let experiences = state.experiences;
         experiences[i] = exp;
-        this.setState({ experiences });
-        this.handleSaveLocal();
+        setState({ experiences });
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddFormation(evt) {
-        let formations = this.state.formations;
+    const handleAddFormation = (evt) => {
+        let formations = state.formations;
         formations.push({ dateDebut: "", dateFin: "", ecole: "", niveau: "", diplome: "", description: "" });
-        this.setState({ formations });
-        this.handleSaveLocal();
+        setState({ formations });
+        handleSaveLocal();
     }
-    handleDelFormation(i) {
-        let formations = this.state.formations;
+    const handleDelFormation = (i) => {
+        let formations = state.formations;
         formations.splice(i, 1);
-        this.setState({ formations });
-        this.handleSaveLocal();
+        setState({ formations });
+        handleSaveLocal();
     }
-    handleChangeFormation(i, exp) {
-        let formations = this.state.formations;
+    const handleChangeFormation = (i, exp) => {
+        let formations = state.formations;
         formations[i] = exp;
-        this.setState({ formations });
-        this.handleSaveLocal();
+        setState({ formations });
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddCompetence(evt, com, id_com) {
+    const handleAddCompetence = (com) => {
+        console.log("competences à ajouter");
         console.log(com);
-        console.log(id_com);
-        let competences = this.state.competences;
-        competences.push({ libelle: com, niveau: "5", id: id_com});
-        this.setState({ competences });
-        this.handleSaveLocal();
+        let competences = state.competences;
+        let present = false;
+        for (const comp of competences) {
+            if (comp.id==com.id) {
+                present=true;
+            }
+        }
+        console.log("present=");
+        console.log(present);
+        if (!present) competences.push({ libelle: com.libelle, niveau: "5", id: com.id});
+        setState({ competences });
+        handleSaveLocal();
     }
-    handleDelCompetence(i) {
-        let competences = this.state.competences;
-        competences.splice(i, 1);
-        this.setState({ competences });
-        this.handleSaveLocal();
+    const handleDelCompetence = (i, com) => {
+        console.log("i=");
+        console.log(i);
+        console.log("comp=");
+        console.log(com);
+        if (i!==null) {
+            let competences = state.competences;
+            competences.splice(i, 1);
+            setState({ competences });
+            handleSaveLocal();
+        }
+        else {
+            let competences = state.competences;
+            let present = -1;
+            for (const i_comp in competences) {
+                if (competences[i_comp].id==com.id) {
+                    present=i_comp;
+                }
+            }
+            if (present!=-1) competences.splice(present, 1);
+            setState({ competences });
+            handleSaveLocal();
+        }
     }
-    handleChangeCompetence(i, exp) {
-        let competences = this.state.competences;
-        competences[i] = exp;
-        this.setState({ competences });
-        this.handleSaveLocal();
+    const handleChangeCompetence = (i, comp) => {
+        let competences = state.competences;
+        competences[i] = comp;
+        setState({ competences });
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddLangue(evt) {
-        let langues = this.state.langues;
+    const handleAddLangue = (evt) => {
+        let langues = state.langues;
         langues.push({ libelle: "", niveau: ""});
-        this.setState({ langues });
-        this.handleSaveLocal();
+        setState({ langues });
+        handleSaveLocal();
     }
-    handleDelLangue(i) {
-        let langues = this.state.langues;
+    const handleDelLangue = (i) => {
+        let langues = state.langues;
         langues.splice(i, 1);
-        this.setState({ langues });
-        this.handleSaveLocal();
+        setState({ langues });
+        handleSaveLocal();
     }
-    handleChangeLangue(i, exp) {
-        let langues = this.state.langues;
+    const handleChangeLangue = (i, exp) => {
+        let langues = state.langues;
         langues[i] = exp;
-        this.setState({ langues });
-        this.handleSaveLocal();
+        setState({ langues });
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddReseau(evt) {
-        let reseaux = this.state.reseaux;
+    const handleAddReseau = (evt) => {
+        let reseaux = state.reseaux;
         reseaux.push({ type: "", url: ""});
-        this.setState({ reseaux });
-        this.handleSaveLocal();
+        setState({ reseaux });
+        handleSaveLocal();
     }
-    handleDelReseau(i) {
-        let reseaux = this.state.reseaux;
+    const handleDelReseau = (i) => {
+        let reseaux = state.reseaux;
         reseaux.splice(i, 1);
-        this.setState({ reseaux });
-        this.handleSaveLocal();
+        setState({ reseaux });
+        handleSaveLocal();
     }
 
-    handleChangeReseau(i, exp) {
-        let reseaux = this.state.reseaux;
+    const handleChangeReseau = (i, exp) => {
+        let reseaux = state.reseaux;
         reseaux[i] = exp;
-        this.setState({ reseaux });
-        this.handleSaveLocal();
+        setState({ reseaux });
+        handleSaveLocal();
     }
 
-    handleScrollToProfile() {
+    const handleScrollToProfile = () => {
         let activeKey="0"; 
-        this.setState({activeKey});
+        setState({activeKey});
     }
 
-    render() {
         return (
             <Row className="mt-2">
                 <Col className=" no-print pl-2">
-                    <Accordion defaultActiveKey="0" activeKey={this.state.activeKey} onSelect={(value)=>{ let activeKey=value; this.setState({activeKey}); }}>
+                    <Accordion defaultActiveKey="0" activeKey={activeKey} onSelect={(value)=>{ let activeKey=value; setActiveKey({activeKey}); }}>
                         <Card>
                             <Accordion.Toggle as={Card.Header} eventKey="0">
                             Informations personnelles
@@ -226,8 +256,8 @@ class CV extends React.Component {
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
                                 <FormProfil
-                                            value={this.state.profil}
-                                            onProfilChange={(evt) => this.handleProfilChange(evt)}
+                                            value={state.profil}
+                                            onProfilChange={(evt) => handleProfilChange(evt)}
                                         />
                                 </Card.Body>
                             </Accordion.Collapse>
@@ -239,12 +269,13 @@ class CV extends React.Component {
                             <Accordion.Collapse eventKey="1">
                                 <Card.Body>
                                 <FormCompetences
-                                        value={this.state.competences}
-                                        metier={this.state.profil.metier}
-                                        addCompetence={(evt, com) => this.handleAddCompetence(evt, com)}
-                                        delCompetence={(i) => this.handleDelCompetence(i)}
-                                        changeCompetence={(i, exp) => this.handleChangeCompetence(i, exp)}
-                                        scrollToProfile={() => this.handleScrollToProfile()}
+                                        value={state.competences}
+                                        competencesRome={[]}
+                                        metier={state.profil.metier}
+                                        addCompetence={(evt, com) => handleAddCompetence(evt, com)}
+                                        delCompetence={(i, comp) => handleDelCompetence(i, comp)}
+                                        changeCompetence={(i, exp) => handleChangeCompetence(i, exp)}
+                                        scrollToProfile={() => handleScrollToProfile()}
                                     />
                                 </Card.Body>
                             </Accordion.Collapse>
@@ -256,10 +287,10 @@ class CV extends React.Component {
                             <Accordion.Collapse eventKey="2">
                                 <Card.Body>
                                 <FormExperiences
-                                        value={this.state.experiences}
-                                        addExperience={(evt) => this.handleAddExperience(evt)}
-                                        delExperience={(i) => this.handleDelExperience(i)}
-                                        changeExperience={(i, exp) => this.handleChangeExperience(i, exp)}
+                                        value={state.experiences}
+                                        addExperience={(evt) => handleAddExperience(evt)}
+                                        delExperience={(i) => handleDelExperience(i)}
+                                        changeExperience={(i, exp) => handleChangeExperience(i, exp)}
                                     />
                                 </Card.Body>
                             </Accordion.Collapse>
@@ -271,10 +302,10 @@ class CV extends React.Component {
                             <Accordion.Collapse eventKey="3">
                                 <Card.Body>
                                 <FormFormations
-                                        value={this.state.formations}
-                                        addFormation={(evt) => this.handleAddFormation(evt)}
-                                        delFormation={(i) => this.handleDelFormation(i)}
-                                        changeFormation={(i, exp) => this.handleChangeFormation(i, exp)}
+                                        value={state.formations}
+                                        addFormation={(evt) => handleAddFormation(evt)}
+                                        delFormation={(i) => handleDelFormation(i)}
+                                        changeFormation={(i, exp) => handleChangeFormation(i, exp)}
                                     />
                                 </Card.Body>
                             </Accordion.Collapse>
@@ -285,11 +316,11 @@ class CV extends React.Component {
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey="4">
                                 <Card.Body>
-                                <FormLangues
-                                        value={this.state.langues}
-                                        addLangue={(evt) => this.handleAddLangue(evt)}
-                                        delLangue={(i) => this.handleDelLangue(i)}
-                                        changeLangue={(i, exp) => this.handleChangeLangue(i, exp)}
+                                    <FormLangues
+                                        value={state.langues}
+                                        addLangue={(evt) => handleAddLangue(evt)}
+                                        delLangue={(i) => handleDelLangue(i)}
+                                        changeLangue={(i, exp) => handleChangeLangue(i, exp)}
                                     />
                                 </Card.Body>
                             </Accordion.Collapse>
@@ -301,10 +332,10 @@ class CV extends React.Component {
                             <Accordion.Collapse eventKey="5">
                                 <Card.Body>
                                 <FormReseaux
-                                        value={this.state.reseaux}
-                                        addReseau={(evt) => this.handleAddReseau(evt)}
-                                        delReseau={(i) => this.handleDelReseau(i)}
-                                        changeReseau={(i, exp) => this.handleChangeReseau(i, exp)}
+                                        value={state.reseaux}
+                                        addReseau={(evt) => handleAddReseau(evt)}
+                                        delReseau={(i) => handleDelReseau(i)}
+                                        changeReseau={(i, exp) => handleChangeReseau(i, exp)}
                                     />
                                 </Card.Body>
                             </Accordion.Collapse>
@@ -319,30 +350,30 @@ class CV extends React.Component {
                         <Col sm={12}  className=" paper-container">
                     <div className="paper">
                         <section className="identite">
-                            <div className="nom">{this.state.profil.prenom} {this.state.profil.nom}</div>
+                            <div className="nom">{state.profil.prenom} {state.profil.nom}</div>
                         </section>
                         <section className="photo">
-                            <div className="portrait"><img src={this.state.profil.photo}/></div>
+                            <div className="portrait"><img src={state.profil.photo}/></div>
                         </section>
                         <section className="profil">
                             <header>Contact</header>
-                            <div className="adresse">{this.state.profil.adresse}</div>
-                            <div className="ville">{this.state.profil.ville}</div>
-                            <div className="phone">{this.state.profil.phone}</div>
-                            <div className="email">{this.state.profil.email}</div>
+                            <div className="adresse">{state.profil.adresse}</div>
+                            <div className="ville">{state.profil.ville}</div>
+                            <div className="phone">{state.profil.phone}</div>
+                            <div className="email">{state.profil.email}</div>
                         </section>
                         <section className="titre">
-                            <div className="poste">{this.state.profil.titre}</div>
+                            <div className="poste">{state.profil.titre}</div>
                         </section>
                         <section className="intro">
                             <header>Profil</header>
-                            <div className="text">{this.state.profil.description}</div>
+                            <div className="text">{state.profil.description}</div>
                         </section>
                         <section className="experiences">
                             <header>Experiences</header>
                             <div >
                                 {
-                                    this.state.experiences.map((experience, index) =>
+                                    state.experiences.map((experience, index) =>
                                         <div className="experience"  key={index}>
                                             <div className="date-debut">{experience.dateDebut}</div>
                                             <div className="date-fin">{experience.dateFin}</div>
@@ -360,7 +391,7 @@ class CV extends React.Component {
                             <header>Formations</header>
                             <div >
                                 {
-                                    this.state.formations.map((formation, index) =>
+                                    state.formations.map((formation, index) =>
                                         <div className="formation"  key={index}>
                                             <div className="date-debut">{formation.dateDebut}</div>
                                             <div className="date-fin">{formation.dateFin}</div>
@@ -377,7 +408,7 @@ class CV extends React.Component {
                             <header>Competences</header>
                             <div >
                                 {
-                                    this.state.competences.map((competence, index) =>
+                                    state.competences.map((competence, index) =>
                                         <div className="competence"  key={index}>
                                             <div className="libelle">{competence.libelle}</div>
                                             <div className={"niveau niveau-" + competence.niveau}>{competence.niveau}</div>
@@ -391,7 +422,7 @@ class CV extends React.Component {
                             <header>Langues</header>
                             <div >
                                 {
-                                    this.state.langues.map((langue, index) =>
+                                    state.langues.map((langue, index) =>
                                         <div className="langue"  key={index}>
                                             <div className="libelle">{langue.libelle}</div>
                                             <div className="niveau">{langue.niveau}</div>
@@ -404,7 +435,7 @@ class CV extends React.Component {
                             <header>Réseaux</header>
                             <div >
                                 {
-                                    this.state.reseaux.map((reseau, index) =>
+                                    state.reseaux.map((reseau, index) =>
                                         <div className="reseau"  key={index}>
                                             <div className="libelle no-screen">{reseau.type}</div>
                                             <div className="libelle no-screen">{reseau.url}</div>
@@ -429,7 +460,6 @@ class CV extends React.Component {
            
 
         );
-    }
 }
 
 export default CV;
