@@ -140,7 +140,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand1->setNom('alice');
         $cand1->setPrenom('never');
         $cand1->setAdresse('153 rue de paris');
-        $cand1->setCodePostal('60700');
+        //$cand1->setCodePostal('60700');
         $cand1->setMobilite(true);
         $cand1->setTelephone('0312543352');
         $cand1->setVille($manager->getRepository(Ville::class)->find(31722));
@@ -162,7 +162,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand2->setNom('giles');
         $cand2->setPrenom('simons');
         $cand2->setAdresse('rue de paris');
-        $cand2->setCodePostal('60700');
+        //$cand2->setCodePostal('60700');
         $cand2->setMobilite(true);
         $cand2->setTelephone('0312543352');
         $cand2->setVille($manager->getRepository(Ville::class)->find(31722));
@@ -184,7 +184,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand3->setNom('pierre');
         $cand3->setPrenom('louis');
         $cand3->setAdresse('rue de fontaine');
-        $cand3->setCodePostal('80000');
+        //$cand3->setCodePostal('80000');
         $cand3->setMobilite(true);
         $cand3->setTelephone('0312543352');
         $cand3->setVille($manager->getRepository(Ville::class)->find(31722));
@@ -207,7 +207,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand4->setNom('giles');
         $cand4->setPrenom('simons');
         $cand4->setAdresse('rue de paris');
-        $cand4->setCodePostal('60700');
+        //$cand4->setCodePostal('60700');
         $cand4->setMobilite(true);
         $cand4->setTelephone('0312543352');
         $cand4->setVille($manager->getRepository(Ville::class)->find(31722));
@@ -230,7 +230,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         $cand5->setNom('giles');
         $cand5->setPrenom('simons');
         $cand5->setAdresse('rue de paris');
-        $cand5->setCodePostal('60700');
+        //$cand5->setCodePostal('60700');
         $cand5->setMobilite(true);
         $cand5->setTelephone('0312543352');
         $cand5->setVille($manager->getRepository(Ville::class)->find(32161));
@@ -361,7 +361,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         // offre 1
         $offre1=new Offre();
         $offre1->setMetier($manager->getRepository(Metier::class)->find(10200));
-        $offre1->setType($manager->getRepository(TypeContrat::class)->find(2));
+        $offre1->setTypeContrat($manager->getRepository(TypeContrat::class)->find(2));
         $offre1->setDescription('Le numérique dynamise les effets systémiques du métacontexte.');
         $offre1->setRecruteur($rec1);
         $offre1->setEntreprise($ent1);
@@ -380,7 +380,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         // offre 2
         $offre2=new Offre();
         $offre2->setMetier($manager->getRepository(Metier::class)->find(10500));
-        $offre2->setType($manager->getRepository(TypeContrat::class)->find(2));
+        $offre2->setTypeContrat($manager->getRepository(TypeContrat::class)->find(2));
         $offre2->setDescription('Le numérique dynamise les effets systémiques du métacontexte.');
         $offre2->setRecruteur($rec2);
         $offre2->setEntreprise($ent1);
@@ -397,7 +397,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         // offre 3
         $offre3=new Offre();
         $offre3->setMetier($manager->getRepository(Metier::class)->find(10600));
-        $offre3->setType($manager->getRepository(TypeContrat::class)->find(2));
+        $offre3->setTypeContrat($manager->getRepository(TypeContrat::class)->find(2));
         $offre3->setDescription("L'objectif dynamise les paradoxes caractéristiques du dispositif.");
         $offre3->setRecruteur($rec3);
         $offre3->setEntreprise($ent1);
@@ -414,7 +414,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         // offre 4
         $offre4=new Offre();
         $offre4->setMetier($manager->getRepository(Metier::class)->find(10250));
-        $offre4->setType($manager->getRepository(TypeContrat::class)->find(2));
+        $offre4->setTypeContrat($manager->getRepository(TypeContrat::class)->find(2));
         $offre4->setDescription('Le numérique dynamise les effets systémiques du métacontexte.');
         $offre4->setRecruteur($rec1);
         $offre4->setEntreprise($ent1);
@@ -431,7 +431,7 @@ class JulienData extends Fixture implements FixtureGroupInterface
         // offre 5
         $offre5=new Offre();
         $offre5->setMetier($manager->getRepository(Metier::class)->find(14500));
-        $offre5->setType($manager->getRepository(TypeContrat::class)->find(2));
+        $offre5->setTypeContrat($manager->getRepository(TypeContrat::class)->find(2));
         $offre5->setDescription('Le numérique dynamise les effets systémiques du métacontexte.');
         $offre5->setRecruteur($rec4);
         $offre5->setEntreprise($ent1);

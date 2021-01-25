@@ -14,6 +14,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\NameConverter;
+use \AdvancedNameConverterInterface;
 
 /**
  * @ORM\Entity(repositoryClass=OffreRepository::class)
@@ -53,6 +55,7 @@ class Offre
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"off:read", "write"})
      */
     private $id;
 
@@ -90,7 +93,7 @@ class Offre
 
     /**
      * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="offre")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $postules;
 
@@ -129,7 +132,7 @@ class Offre
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $typeContrat;
 
@@ -153,38 +156,38 @@ class Offre
 
     /**
      * @ORM\ManyToOne(targetEntity=Recruteur::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $recruteur;
 
     /**
      * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="offres")
      * @ORM\JoinColumn(name="id_entreprise", referencedColumnName="id")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $entreprise;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $ville;
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $departement;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $region;
 
     /**
      * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $pays;
 
@@ -196,7 +199,7 @@ class Offre
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -212,7 +215,7 @@ class Offre
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -228,7 +231,7 @@ class Offre
 
     /**
      * @ORM\ManyToMany(targetEntity=Habilitation::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      *  @ApiProperty(
      *     attributes={
      *         "openapi_context"={

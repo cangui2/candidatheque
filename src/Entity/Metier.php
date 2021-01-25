@@ -45,13 +45,13 @@ class Metier
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
-     * @Groups("mt:read")
+     * @Groups({"mt:read", "off:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"mt:read", "rm:read", "off:read"})
+     * @Groups({"mt:read", "rm:read", "read"})
      */
     private $libelle;
 

@@ -4,25 +4,29 @@ import axios from 'axios'
 import {Col, Form,Button} from "react-bootstrap";
 import React, { useState } from 'react'
 import ReactDOM from "react-dom";
+import Moment from "react-moment";
 
-function Offre () {
+
+function Offre (props) {
 
 const [idMetier,setIdMetier]=useState(window.metier)
-
+console.log(props.liste)
 
     return(
+
+        props.liste.map((item)=>(
         <Card style={{width: '100%'}}>
             <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                <Card.Title>{item.titre}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted"><Moment format="DD/MM/YYYY">{item.datePublication.date}</Moment></Card.Subtitle>
                 <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    {item.description}
                 </Card.Text>
                 <Card.Link href="#">Card Link</Card.Link>
                 <Card.Link href="#">Another Link</Card.Link>
             </Card.Body>
         </Card>
+        ))
 
     )
 

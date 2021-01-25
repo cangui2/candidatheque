@@ -59,49 +59,50 @@ class RechercheController extends AbstractController
     public function liste(OffreRepository $offreRepo, Request $request): Response
     {
 
-        $metier = $request->query->get("metier");
-        $ville = $request->query->get("ville");
-        $secteur = $request->query->get("secteur");
-        $typeContrat=$request->query->get("contrat");
 
-        $query = $offreRepo->createQueryBuilder('o')
-            ->select('o','met','vil','typ')
-            ->leftJoin('o.metier','met')
-            ->leftJoin('o.ville','vil')
-            ->leftJoin('o.type','typ')
-            ->andWhere('met.id like :metier and vil.id like :ville and typ.id like :contrat ')
-            ->setParameters(array(
-                'metier'=>'%'.$metier.'%',
-                'ville'=>'%'.$ville.'%',
-                'contrat'=>'%'.$typeContrat.'%',
-            ));
-
-        $offreListeResult=$query->distinct()->getQuery()
-            ->setMaxResults(30)
-            ->getResult();
-
-        //return new JsonResponse($offreListeResult);
-
-        if( $metier) {
-            $v1 = $this->metierRepo->find($metier);
-            //dd($v1);
-        }
-        else {
-            $v1 = null;
-        }
-
-        $v2=$this->villeRepo->find($ville);
-
-        $v3=$this->typeContratRepo->find($typeContrat);
-        //$offreListeResult= ($offreListeResult);
-
-
-
-        //dd(json_encode($offreListeResult));
+//        $metier = $request->query->get("metier");
+//        $ville = $request->query->get("ville");
+//        $secteur = $request->query->get("secteur");
+//        $typeContrat=$request->query->get("contrat");
+//
+//        $query = $offreRepo->createQueryBuilder('o')
+//            ->select('o','met','vil','typ')
+//            ->leftJoin('o.metier','met')
+//            ->leftJoin('o.ville','vil')
+//            ->leftJoin('o.typeContrat','typ')
+//            ->andWhere('met.id like :metier and vil.id like :ville and typ.id like :contrat ')
+//            ->setParameters(array(
+//                'metier'=>'%'.$metier.'%',
+//                'ville'=>'%'.$ville.'%',
+//                'contrat'=>'%'.$typeContrat.'%',
+//            ));
+//
+//        $offreListeResult=$query->distinct()->getQuery()
+//            ->setMaxResults(30)
+//            ->getResult();
+//
+//        //return new JsonResponse($offreListeResult);
+//
+//        if( $metier) {
+//            $v1 = $this->metierRepo->find($metier);
+//            //dd($v1);
+//        }
+//        else {
+//            $v1 = null;
+//        }
+//
+//        $v2=$this->villeRepo->find($ville);
+//
+//        $v3=$this->typeContratRepo->find($typeContrat);
+//        //$offreListeResult= ($offreListeResult);
+//
+//
+//
+//        //dd(json_encode($offreListeResult));
         return $this->render('recherche/liste.html.twig', [
             'controller_name' => 'RechercheController',
             'variaTest' => rand(0, 9),
-           'offreListeResult'=>new JsonResponse($offreListeResult),
+           //'offreListeResult'=>$offreListeResult,
 //            'test'=>$v1,
 //            'test2'=>$v2,
 //            'test3'=>$v3,
