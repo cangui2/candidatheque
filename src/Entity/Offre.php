@@ -53,6 +53,7 @@ class Offre
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"off:read", "write"})
      */
     private $id;
 
@@ -64,7 +65,7 @@ class Offre
     
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -78,7 +79,7 @@ class Offre
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $description;
 
@@ -90,13 +91,13 @@ class Offre
 
     /**
      * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="offre")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $postules;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @Assert\GreaterThanOrEqual(
      *     value = 0,
      *     message = "Le montant du salaire proposé doit être égal ou supérieur à {{ compared_value }}"
@@ -107,7 +108,7 @@ class Offre
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -122,81 +123,81 @@ class Offre
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $duree;
 
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $typeContrat;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $possibiliteCDI;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $urgent;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $profil;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recruteur::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $recruteur;
 
     /**
      * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="offres")
      * @ORM\JoinColumn(name="id_entreprise", referencedColumnName="id")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $entreprise;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $ville;
 
     /**
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $departement;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $region;
 
     /**
      * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $pays;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $dateModification;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -212,7 +213,7 @@ class Offre
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -228,7 +229,7 @@ class Offre
 
     /**
      * @ORM\ManyToMany(targetEntity=Habilitation::class, inversedBy="offres")
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      *  @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -244,7 +245,7 @@ class Offre
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $typeSalaire;
 
@@ -254,7 +255,7 @@ class Offre
      *     value = 0,
      *     message = "Le temps de travail doit être supérieur à {{ compared_value }}"
      * )
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $dureeHebdo; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
 

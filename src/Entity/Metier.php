@@ -45,7 +45,7 @@ class Metier
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
-     * @Groups("mt:read")
+     * @Groups({"mt:read", "off:read"})
      */
     private $id;
 
@@ -253,8 +253,5 @@ class Metier
 
         return $this;
     }
-
-
-
 
 }

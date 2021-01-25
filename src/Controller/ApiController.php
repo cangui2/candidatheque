@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Ville;
 use App\Entity\User;
+use App\Entity\Ville;
 use App\Entity\Candidat;
 use App\Entity\Competence;
 use App\Entity\Experience;
 use App\Repository\CVRepository;
+use App\Repository\OffreRepository;
 use App\Repository\VilleRepository;
 use App\Repository\MetierRepository;
 use App\Repository\CompetenceRepository;
@@ -27,11 +28,12 @@ class ApiController extends AbstractController
     protected $em;
 
 
-    public function __construct(EntityManagerInterface $em, CompetenceRepository $competenceRepo, MetierRepository $metierRepo, CVRepository $cvRepo)
+    public function __construct(EntityManagerInterface $em, CompetenceRepository $competenceRepo, OffreRepository $offreRepo, MetierRepository $metierRepo, CVRepository $cvRepo)
     {
         $this->competenceRepo = $competenceRepo;
         $this->metierRepo = $metierRepo;
         $this->cvRepo = $cvRepo;
+        $this->offreRepo = $offreRepo;
         $this->em = $em;
     }
 
@@ -279,5 +281,19 @@ class ApiController extends AbstractController
         }
         
         return $this->json($resultat);
+    }
+
+    /**
+     * @Route("/api/frc/recherche", name="api_frc_recherche")
+     */
+    public function api_frc_recherche()
+    {
+        $entities = $this->offreRepo->createQueryBuilder('o')
+            ->select('o')
+            ->setMaxResults(50)
+            ->getQuery()
+            ->getArrayResult();
+
+        return $this->json($entities);
     }
 }
