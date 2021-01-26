@@ -52,10 +52,10 @@ const FormProfil = (props) => {
                         <Form.Control
                             value={props.value.nom}
                             disabled={true}
-                            // onChange={(evt) => { 
-                            //     props.value.nom=evt.target.value; 
-                            //     props.onProfilChange(props.value)
-                            // }}
+                            onChange={(evt) => { 
+                                props.value.nom=evt.target.value; 
+                                props.onProfilChange(props.value)
+                            }}
                             placeholder="Nom"
                             
                         />
@@ -127,8 +127,14 @@ const FormProfil = (props) => {
                             className="mb-2"
                             value={props.value.titre}
                             onChange={(evt) => { 
-                                props.value.titre=evt.target.value; 
-                                props.onProfilChange(props.value)
+                                
+                                let tmp = props.value;
+                                console.log("titre changed in profil");
+                                tmp.titre=evt.target.value; 
+                                console.log(evt.target.value);
+                                console.log(tmp);
+                                console.log("-----------------------");
+                                props.onProfilChange(tmp)
                             }}
                             placeholder="Ville"
                         />
@@ -137,8 +143,9 @@ const FormProfil = (props) => {
                             rows="5"
                             value={props.value.description}
                             onChange={(evt) => { 
-                                props.value.description=evt.target.value; 
-                                props.onProfilChange(props.value)
+                                let tmp = props.value;
+                                tmp.description=evt.target.value; 
+                                props.onProfilChange(tmp)
                             }}
                             placeholder="Description"
                         />

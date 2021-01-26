@@ -17,19 +17,21 @@ const CV  = () => {
 
     const [activeKey, setActiveKey] = useState("0");
 
-    const [state, setState] = useState({
-            profil: {
-                nom: "Wong",
-                prenom: "Kar-wai",
-                adresse: "Carnaby Street",
-                ville: "London",
-                phone: "+33 6 58 96 52 14",
-                email: "jodo@yahoo.com",
-                titre: "Développeur Web",
-                description: "Après une thèse de biochimie et un post-doc en chimiométrie pendant lesquels j'avais développé un certain nombre d'outils informatiques...",
-                photo: "https://test.candidatheque.com/assets/photos/profil4.png",
-                metier: null
-            },
+    const [profil, setProfil] = useState({
+        nom: "Wong",
+        prenom: "Kar-wai",
+        adresse: "Carnaby Street",
+        ville: "London",
+        phone: "+33 6 58 96 52 14",
+        email: "jodo@yahoo.com",
+        titre: "gogo",
+        description: "Après une thèse de biochimie et un post-doc en chimiométrie pendant lesquels j'avais développé un certain nombre d'outils informatiques...",
+        photo: "https://test.candidatheque.com/assets/photos/profil4.png",
+        metier: null
+    });
+
+    const [pool, setPool] = useState({
+            
             experiences: [
                 { 
                     dateDebut: "2018", 
@@ -100,64 +102,71 @@ const CV  = () => {
 
 
     const handleSaveLocal = () => {
-        //localStorage.setItem('be4web_cv', JSON.stringify(this.state));
-        axios.post('/api/post_cv', state).then(() => {
+        //localStorage.setItem('be4web_cv', JSON.stringify(this.pool));
+        // axios.post('/api/post_cv', pool).then(() => {
 
-        });
+        // });
     }
     const handleLoadLocal = () => {
-        // this.setState(JSON.parse(localStorage.getItem('be4web_cv')));
+        // this.setPool(JSON.parse(localStorage.getItem('be4web_cv')));
         axios.get('/api/get_cv/2').then((response) => {
-            setState(response.data);
+            setPool(response.data);
         });
     }
-    const handleProfilChange = (pro) => {
-        setState({ profil: pro });
-        handleSaveLocal();
+    //////////////////////////////////////////////////////////////
+
+    const handleProfilChange = (profil) => {
+        let tmp = profil;
+        console.log("begin profil");
+        console.log(profil);
+        console.log("end profil");
+        tmp.titre="gaga";
+        setProfil(tmp);
+        //handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddExperience = (evt) => {
-        let experiences = state.experiences;
+        let experiences = pool.experiences;
         experiences.push({ date: "2020-10-03", mission: "bla bla bla22" });
-        setState({ experiences });
+        setPool({ experiences });
         handleSaveLocal();
     }
     const handleDelExperience = (i) => {
-        let experiences = state.experiences;
+        let experiences = pool.experiences;
         experiences.splice(i, 1);
-        setState({ experiences });
+        setPool({ experiences });
         handleSaveLocal();
     }
     const handleChangeExperience = (i, exp) => {
-        let experiences = state.experiences;
+        let experiences = pool.experiences;
         experiences[i] = exp;
-        setState({ experiences });
+        setPool({ experiences });
         handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddFormation = (evt) => {
-        let formations = state.formations;
+        let formations = pool.formations;
         formations.push({ dateDebut: "", dateFin: "", ecole: "", niveau: "", diplome: "", description: "" });
-        setState({ formations });
+        setPool({ formations });
         handleSaveLocal();
     }
     const handleDelFormation = (i) => {
-        let formations = state.formations;
+        let formations = pool.formations;
         formations.splice(i, 1);
-        setState({ formations });
+        setPool({ formations });
         handleSaveLocal();
     }
     const handleChangeFormation = (i, exp) => {
-        let formations = state.formations;
+        let formations = pool.formations;
         formations[i] = exp;
-        setState({ formations });
+        setPool({ formations });
         handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddCompetence = (com) => {
         console.log("competences à ajouter");
         console.log(com);
-        let competences = state.competences;
+        let competences = pool.competences;
         let present = false;
         for (const comp of competences) {
             if (comp.id==com.id) {
@@ -167,7 +176,7 @@ const CV  = () => {
         console.log("present=");
         console.log(present);
         if (!present) competences.push({ libelle: com.libelle, niveau: "5", id: com.id});
-        setState({ competences });
+        setPool({ competences });
         handleSaveLocal();
     }
     const handleDelCompetence = (i, com) => {
@@ -176,13 +185,13 @@ const CV  = () => {
         console.log("comp=");
         console.log(com);
         if (i!==null) {
-            let competences = state.competences;
+            let competences = pool.competences;
             competences.splice(i, 1);
-            setState({ competences });
+            setPool({ competences });
             handleSaveLocal();
         }
         else {
-            let competences = state.competences;
+            let competences = pool.competences;
             let present = -1;
             for (const i_comp in competences) {
                 if (competences[i_comp].id==com.id) {
@@ -190,59 +199,59 @@ const CV  = () => {
                 }
             }
             if (present!=-1) competences.splice(present, 1);
-            setState({ competences });
+            setPool({ competences });
             handleSaveLocal();
         }
     }
     const handleChangeCompetence = (i, comp) => {
-        let competences = state.competences;
+        let competences = pool.competences;
         competences[i] = comp;
-        setState({ competences });
+        setPool({ competences });
         handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddLangue = (evt) => {
-        let langues = state.langues;
+        let langues = pool.langues;
         langues.push({ libelle: "", niveau: ""});
-        setState({ langues });
+        setPool({ langues });
         handleSaveLocal();
     }
     const handleDelLangue = (i) => {
-        let langues = state.langues;
+        let langues = pool.langues;
         langues.splice(i, 1);
-        setState({ langues });
+        setPool({ langues });
         handleSaveLocal();
     }
     const handleChangeLangue = (i, exp) => {
-        let langues = state.langues;
+        let langues = pool.langues;
         langues[i] = exp;
-        setState({ langues });
+        setPool({ langues });
         handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddReseau = (evt) => {
-        let reseaux = state.reseaux;
+        let reseaux = pool.reseaux;
         reseaux.push({ type: "", url: ""});
-        setState({ reseaux });
+        setPool({ reseaux });
         handleSaveLocal();
     }
     const handleDelReseau = (i) => {
-        let reseaux = state.reseaux;
+        let reseaux = pool.reseaux;
         reseaux.splice(i, 1);
-        setState({ reseaux });
+        setPool({ reseaux });
         handleSaveLocal();
     }
 
     const handleChangeReseau = (i, exp) => {
-        let reseaux = state.reseaux;
+        let reseaux = pool.reseaux;
         reseaux[i] = exp;
-        setState({ reseaux });
+        setPool({ reseaux });
         handleSaveLocal();
     }
 
     const handleScrollToProfile = () => {
         let activeKey="0"; 
-        setState({activeKey});
+        setPool({activeKey});
     }
 
         return (
@@ -256,7 +265,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
                                 <FormProfil
-                                            value={state.profil}
+                                            value={profil}
                                             onProfilChange={(evt) => handleProfilChange(evt)}
                                         />
                                 </Card.Body>
@@ -269,9 +278,9 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="1">
                                 <Card.Body>
                                 <FormCompetences
-                                        value={state.competences}
+                                        value={pool.competences}
                                         competencesRome={[]}
-                                        metier={state.profil.metier}
+                                        metier={profil.metier}
                                         addCompetence={(evt, com) => handleAddCompetence(evt, com)}
                                         delCompetence={(i, comp) => handleDelCompetence(i, comp)}
                                         changeCompetence={(i, exp) => handleChangeCompetence(i, exp)}
@@ -287,7 +296,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="2">
                                 <Card.Body>
                                 <FormExperiences
-                                        value={state.experiences}
+                                        value={pool.experiences}
                                         addExperience={(evt) => handleAddExperience(evt)}
                                         delExperience={(i) => handleDelExperience(i)}
                                         changeExperience={(i, exp) => handleChangeExperience(i, exp)}
@@ -302,7 +311,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="3">
                                 <Card.Body>
                                 <FormFormations
-                                        value={state.formations}
+                                        value={pool.formations}
                                         addFormation={(evt) => handleAddFormation(evt)}
                                         delFormation={(i) => handleDelFormation(i)}
                                         changeFormation={(i, exp) => handleChangeFormation(i, exp)}
@@ -317,7 +326,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="4">
                                 <Card.Body>
                                     <FormLangues
-                                        value={state.langues}
+                                        value={pool.langues}
                                         addLangue={(evt) => handleAddLangue(evt)}
                                         delLangue={(i) => handleDelLangue(i)}
                                         changeLangue={(i, exp) => handleChangeLangue(i, exp)}
@@ -332,7 +341,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="5">
                                 <Card.Body>
                                 <FormReseaux
-                                        value={state.reseaux}
+                                        value={pool.reseaux}
                                         addReseau={(evt) => handleAddReseau(evt)}
                                         delReseau={(i) => handleDelReseau(i)}
                                         changeReseau={(i, exp) => handleChangeReseau(i, exp)}
@@ -350,30 +359,30 @@ const CV  = () => {
                         <Col sm={12}  className=" paper-container">
                     <div className="paper">
                         <section className="identite">
-                            <div className="nom">{state.profil.prenom} {state.profil.nom}</div>
+                            <div className="nom">{profil.prenom} {profil.nom}</div>
                         </section>
                         <section className="photo">
-                            <div className="portrait"><img src={state.profil.photo}/></div>
+                            <div className="portrait"><img src={profil.photo}/></div>
                         </section>
                         <section className="profil">
                             <header>Contact</header>
-                            <div className="adresse">{state.profil.adresse}</div>
-                            <div className="ville">{state.profil.ville}</div>
-                            <div className="phone">{state.profil.phone}</div>
-                            <div className="email">{state.profil.email}</div>
+                            <div className="adresse">{profil.adresse}</div>
+                            <div className="ville">{profil.ville}</div>
+                            <div className="phone">{profil.phone}</div>
+                            <div className="email">{profil.email}</div>
                         </section>
                         <section className="titre">
-                            <div className="poste">{state.profil.titre}</div>
+                            <div className="poste">{profil.titre}</div>
                         </section>
                         <section className="intro">
                             <header>Profil</header>
-                            <div className="text">{state.profil.description}</div>
+                            <div className="text">{profil.description}</div>
                         </section>
                         <section className="experiences">
                             <header>Experiences</header>
                             <div >
                                 {
-                                    state.experiences.map((experience, index) =>
+                                    pool.experiences.map((experience, index) =>
                                         <div className="experience"  key={index}>
                                             <div className="date-debut">{experience.dateDebut}</div>
                                             <div className="date-fin">{experience.dateFin}</div>
@@ -391,7 +400,7 @@ const CV  = () => {
                             <header>Formations</header>
                             <div >
                                 {
-                                    state.formations.map((formation, index) =>
+                                    pool.formations.map((formation, index) =>
                                         <div className="formation"  key={index}>
                                             <div className="date-debut">{formation.dateDebut}</div>
                                             <div className="date-fin">{formation.dateFin}</div>
@@ -408,7 +417,7 @@ const CV  = () => {
                             <header>Competences</header>
                             <div >
                                 {
-                                    state.competences.map((competence, index) =>
+                                    pool.competences.map((competence, index) =>
                                         <div className="competence"  key={index}>
                                             <div className="libelle">{competence.libelle}</div>
                                             <div className={"niveau niveau-" + competence.niveau}>{competence.niveau}</div>
@@ -422,7 +431,7 @@ const CV  = () => {
                             <header>Langues</header>
                             <div >
                                 {
-                                    state.langues.map((langue, index) =>
+                                    pool.langues.map((langue, index) =>
                                         <div className="langue"  key={index}>
                                             <div className="libelle">{langue.libelle}</div>
                                             <div className="niveau">{langue.niveau}</div>
@@ -435,7 +444,7 @@ const CV  = () => {
                             <header>Réseaux</header>
                             <div >
                                 {
-                                    state.reseaux.map((reseau, index) =>
+                                    pool.reseaux.map((reseau, index) =>
                                         <div className="reseau"  key={index}>
                                             <div className="libelle no-screen">{reseau.type}</div>
                                             <div className="libelle no-screen">{reseau.url}</div>

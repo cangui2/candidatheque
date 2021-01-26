@@ -2,21 +2,24 @@
 
 namespace App\Entity;
 
+use App\Entity\Entreprise;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OffreRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Entity\Entreprise;
-use App\Repository\OffreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=OffreRepository::class)
+ * @Table(indexes={@Index(columns={"profil"}, flags={"fulltext"})})
  * @ORM\HasLifecycleCallbacks
  * @ApiResource(
  *     collectionOperations={

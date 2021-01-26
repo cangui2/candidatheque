@@ -7,7 +7,7 @@ namespace App\Controller;
 
 use App\Repository\CVRepository;
 use App\Repository\PostuleRepository;
-use App\Service\MatchingService;
+use App\Service\RechercheService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

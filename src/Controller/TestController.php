@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Offre;
+use App\Repository\CVRepository;
 use App\Repository\DepartementRepository;
+use App\Repository\OffreRepository;
 use App\Repository\RomeRepository;
 use App\Repository\VilleRepository;
+use App\Service\RechercheService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -68,5 +72,20 @@ class TestController extends AbstractController
         return $this->json($tab);
     }
 
+
+    /**
+     * @Route("/test5", name="test5")
+     */
+    public function test5(RechercheService $recherche, CVRepository $repo): Response
+    {
+        $cv = $repo->find(2);
+
+        $tab = $recherche->rechercheOffres($cv);
+        
+        dump($cv);
+        dd($tab);
+
+        return new Response("");
+    }
 
 }
