@@ -2,15 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\CV;
 use App\Entity\User;
 use App\Entity\Ville;
 use App\Entity\Candidat;
+use App\Entity\Formation;
 use App\Entity\Competence;
 use App\Entity\Experience;
 use App\Repository\CVRepository;
 use App\Repository\OffreRepository;
 use App\Repository\VilleRepository;
 use App\Repository\MetierRepository;
+use App\Repository\FormationRepository;
 use App\Repository\CompetenceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,14 +26,16 @@ class ApiController extends AbstractController
 {
 
     protected $competenceRepo;
+    protected $formationRepo;
     protected $metierRepo;
     protected $cvRepo;
     protected $em;
 
 
-    public function __construct(EntityManagerInterface $em, CompetenceRepository $competenceRepo, OffreRepository $offreRepo, MetierRepository $metierRepo, CVRepository $cvRepo)
+    public function __construct(EntityManagerInterface $em, CompetenceRepository $competenceRepo, FormationRepository $formationRepo, OffreRepository $offreRepo, MetierRepository $metierRepo, CVRepository $cvRepo)
     {
         $this->competenceRepo = $competenceRepo;
+        $this->formationRepo = $formationRepo;
         $this->metierRepo = $metierRepo;
         $this->cvRepo = $cvRepo;
         $this->offreRepo = $offreRepo;
@@ -202,7 +207,45 @@ class ApiController extends AbstractController
         if ($request->isMethod('post')) {
             $data = json_decode($request->getContent());
 
-            dd($data);
+            //dd($data);
+            $user = $this->getUser();
+            $candidat = $user->getCandidat();
+            if (property_exists($data->profil, "id")) {
+                $cv = $this->cvRepo->findOneBy(['candidat'=>$candidat, 'id'=> $data->profil->id]);
+            }
+            else {
+                $cv = new CV();
+                $cv->setCandidat($candidat);
+                
+            }
+
+            //$candidat->setNom($data->profil->nom);
+            //$candidat->setPrenom($data->profil->prenom);
+
+            $cv->setTitre($data->profil->titre);
+            $cv->setDescription($data->profil->description);
+            $cv->setMetier($this->metierRepo->find($data->profil->metier->id));
+
+            foreach ($data->formations as $for) {
+                if (property_exists($for, "id")) {
+                    $formation = $this->formationRepo->find($for->id);
+                }
+                else {
+                    $formation = new Formation();
+                    $formation->setCv($cv);
+                    $this->em->persist($formation);
+                }
+                $formation->setDateDebut($for->dateDebut);
+                $formation->setDateFin($for->dateFin);
+                $formation->setDescription($for->description);
+                $formation->setDiplome($for->diplome);
+                $formation->setEcole($for->ecole);
+                $formation->setNiveau($for->niveau);
+
+            }
+
+
+            $this->em->flush();
         }
         
         return $this->json($resultats);
@@ -225,15 +268,16 @@ class ApiController extends AbstractController
                 "id" => $cv->getId(),
                 "nom" => $cv->getCandidat()->getNom(),
                 "prenom" => $cv->getCandidat()->getPrenom(),
-                "adresse" => $cv->getCandidat()->getAdresse(),
+                "adresse" => $cv->getCandidat()->getAdresse()?$cv->getCandidat()->getAdresse():'',
                 "ville" => $cv->getCandidat()->getVille()->getNom(),
-                "phone" => $cv->getCandidat()->getTelephone(),
+                "phone" => $cv->getCandidat()->getTelephone()?$cv->getCandidat()->getTelephone():'',
                 "email" => $cv->getCandidat()->getUser()->getEmail(),
-                "photo" => $cv->getCandidat()->getPhoto(),
-                "titre" => $cv->getTitre(),
-                "description" => $cv->getDescription(),
+                "photo" => $cv->getCandidat()->getPhoto()?$cv->getCandidat()->getPhoto():'',
+                "titre" => $cv->getTitre()?$cv->getTitre():'',
+                "description" => $cv->getDescription()?$cv->getDescription():'',
                 "metier" => [ "id" => $cv->getMetier()->getId(), "libelle" => $cv->getMetier()->getLibelle() ]
             ];
+            $resultat["competences"] = [];
             $resultat["experiences"] = [];
             foreach ($cv->getExperiences() as $exp) {
                 $resultat["experiences"][] = [
@@ -251,8 +295,8 @@ class ApiController extends AbstractController
             foreach ($cv->getFormations() as $for) {
                 $resultat["formations"][] = [
                     "id" => $for->getId(),
-                    "dateDebut" => $for->getDateDebut()->format("d/m/Y"),
-                    "dateFin" => $for->getDateFin()->format("d/m/Y"),
+                    "dateDebut" => $for->getDateDebut(),
+                    "dateFin" => $for->getDateFin(),
                     "ecole" => $for->getEcole(),
                     "niveau" => $for->getNiveau(),
                     "diplome" => $for->getDiplome(),

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import SelectMetier from '../commun/SelectMetier';
 // import fetch from 'isomorphic-fetch';
 
 import { Col, Form } from 'react-bootstrap';
@@ -8,27 +9,29 @@ import AsyncSelect from 'react-select/async';
 
 const FormProfil = (props) => {
 
-    // const [rome, setRome] = useState([]);
-    // const [isLoading, setIsLoading] = useState(false);
-    // const [options, setOptions] = useState([]);
-
-    
+    const handleChange = (evt) => {
+        props.value[evt.target.name] = evt.target.value;
+        props.onChange({ ...props.value });
+    }; 
 
     const handleChangeMetier = (query) => {
         
-        console.log(query);
-        //setRome(query.rome);
-        if (query) {
-            props.value.metier=query; 
-            props.value.titre = query.libelle;
-            props.onProfilChange(props.value);
+        
+
+    }
+    const handleSelectMetier = (metier) => {
+        
+        console.log("select metier");
+        console.log(metier);
+        console.log("-------------");
+        if (metier) {
+            props.value.metier=metier; 
+            props.onChange(props.value);
         }
         else {
             props.value.metier=null; 
-            props.value.titre = "";
-            props.onProfilChange(props.value);
+            props.onChange(props.value);
         }
-
     }
 
     const loadOptions = (evt, callback) => {
@@ -51,11 +54,9 @@ const FormProfil = (props) => {
                     <Col className="col-4">
                         <Form.Control
                             value={props.value.nom}
+                            name="nom"
                             disabled={true}
-                            onChange={(evt) => { 
-                                props.value.nom=evt.target.value; 
-                                props.onProfilChange(props.value)
-                            }}
+                            onChange={handleChange}
                             placeholder="Nom"
                             
                         />
@@ -63,24 +64,18 @@ const FormProfil = (props) => {
                     <Col className="col-4">
                         <Form.Control
                             value={props.value.prenom}
+                            name="prenom"
                             disabled={true}
-                            onChange={(evt) => { 
-                                props.value.prenom=evt.target.value; 
-                                props.onProfilChange(props.value)
-                            }}
+                            onChange={handleChange}
                             placeholder="Prénom"
                         />
                     </Col>
                     <Col className="col-4">
                         <Form.File 
-                                // id="custom-file"
                                 label="Photo"
                                 disabled={true}
                                 data-browse="Choisir"
                                 custom
-                                // value={this.props.value.logo}
-                                // onChange={(evt) => this.handleChange(evt)}
-                                
                                 placeholder="Logo"
                                 onChange={ (elt) => { this.handleUploadPhoto(elt) } }
                             />
@@ -90,63 +85,38 @@ const FormProfil = (props) => {
                     <Col>
                         <Form.Control
                             value={props.value.adresse}
+                            name="adresse"
                             disabled={true}
-                            onChange={(evt) => { 
-                                props.value.adresse=evt.target.value; 
-                                props.onProfilChange(props.value)
-                            }}
+                            onChange={handleChange}
                             placeholder="Adresse"
                         />
                     </Col>
                     <Col>
                         <Form.Control
                             value={props.value.ville}
+                            name="ville"
                             disabled={true}
-                            onChange={(evt) => { 
-                                props.value.ville=evt.target.value; 
-                                props.onProfilChange(props.value)
-                            }}
+                            onChange={handleChange}
                             placeholder="Ville"
                         />
                     </Col>
                 </Form.Row>
                 <Form.Row>  
                     <Col>
-                        <AsyncSelect
-                            defaultOptions={true}
-                            className="mb-2"
-                            isClearable={true}
-                            loadOptions={loadOptions}
-                            getOptionLabel={ (met) => { return met.libelle } }
-                            getOptionValue={ (met) => { return met.id } }
-                            placeholder="Saisissez votre métier..."
-                            onChange={handleChangeMetier}
-                            menuPosition="fixed"
-                        />
+                        <SelectMetier onSelect={handleSelectMetier} />
                         <Form.Control
                             className="mb-2"
                             value={props.value.titre}
-                            onChange={(evt) => { 
-                                
-                                let tmp = props.value;
-                                console.log("titre changed in profil");
-                                tmp.titre=evt.target.value; 
-                                console.log(evt.target.value);
-                                console.log(tmp);
-                                console.log("-----------------------");
-                                props.onProfilChange(tmp)
-                            }}
-                            placeholder="Ville"
+                            onChange={handleChange}
+                            placeholder="Titre"
+                            name="titre"
                         />
                         <Form.Control
                             as="textarea"
                             rows="5"
+                            name="description"
                             value={props.value.description}
-                            onChange={(evt) => { 
-                                let tmp = props.value;
-                                tmp.description=evt.target.value; 
-                                props.onProfilChange(tmp)
-                            }}
+                            onChange={handleChange}
                             placeholder="Description"
                         />
                     </Col>

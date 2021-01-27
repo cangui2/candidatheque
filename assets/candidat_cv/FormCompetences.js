@@ -10,20 +10,7 @@ import FormCompetence from './FormCompetence.js'
 
 const FormCompetences = (props) => {
 
-    // const [listeCompetences, setListeCompetences] = useState([]); 
-
-    // useEffect(()=>{
-    //     console.log("change metier");
-    //         if (props.metier) {
-    //             let id_metier = props.metier.id;
-    //             //console.log(id_metier);
-    //             axios.get("/api/cv/competences/" + id_metier + "/" )
-    //             .then( (response) => {
-    //                 console.log(response.data);
-    //                 setListeCompetences(response.data);
-    //             });
-    //         }
-    // }, [props.metier]);
+    
 
     
 

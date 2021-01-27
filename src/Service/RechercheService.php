@@ -75,17 +75,6 @@ class RechercheService {
 
 
     /**
-     * @param Offre $offre
-     *
-     * Retourne la liste des cvs "classés" par rapport aux cadidats qui ont postulés
-     */
-    public function matchingAlgo1 (Offre $offre)
-    {
-        $postules = $offre->getPostules();
-    }
-
-
-    /**
      * Recherche des Offres par rapport à un CV
      *
      * 

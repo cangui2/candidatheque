@@ -24,20 +24,19 @@ const CV  = () => {
         ville: "London",
         phone: "+33 6 58 96 52 14",
         email: "jodo@yahoo.com",
-        titre: "gogo",
+        titre: "developpeur web",
         description: "Après une thèse de biochimie et un post-doc en chimiométrie pendant lesquels j'avais développé un certain nombre d'outils informatiques...",
         photo: "https://test.candidatheque.com/assets/photos/profil4.png",
         metier: null
     });
 
-    const [pool, setPool] = useState({
-            
-            experiences: [
+    const [experiences, setExperiences] = useState([
                 { 
                     dateDebut: "2018", 
                     dateFin: "maintenant", 
                     titre: "Lead developer", 
                     entreprise: "TheBox", 
+                    ville: "Amiens", 
                     logo:"https://test.candidatheque.com/assets/photos/logo1.png", 
                     description: "azeazeaze" 
                 },
@@ -46,6 +45,7 @@ const CV  = () => {
                     dateFin: "2018", 
                     titre: "stage de découverte", 
                     entreprise: "TheBox", 
+                    ville: "Amiens", 
                     logo:"https://test.candidatheque.com/assets/photos/logo2.png", 
                     description: "dfgdfgdfg" 
                 },
@@ -54,144 +54,175 @@ const CV  = () => {
                     dateFin: "2012", 
                     titre: "stage de découverte", 
                     entreprise: "TheBox", 
+                    ville: "Amiens", 
                     logo:"https://test.candidatheque.com/assets/photos/logo3.png", 
                     description: "uiouiouio" 
-                }
-            ],
-            formations: [
-                { 
-                    dateDebut: "2003", 
-                    dateFin: "2004", 
-                    ecole: "BTS - Chimie des particules",
-                    niveau: "3",
-                    diplome: "",
-                    description: "La raison que je donnais maintenant dans mes lettres à Gilberte, de mon refus de la voir, c'était une allusion à quelque mystérieux malentendu, parfaitement fictif, qu'il y aurait eu entre elle et moi."
+                } 
+    ]);   
+    const [formations, setFormations] = useState([
+            { 
+                dateDebut: "2003", 
+                dateFin: "2004", 
+                ecole: "BTS - Chimie des particules",
+                niveau: "3",
+                diplome: "",
+                description: "La raison que je donnais maintenant dans mes lettres à Gilberte, de mon refus de la voir, c'était une allusion à quelque mystérieux malentendu, parfaitement fictif, qu'il y aurait eu entre elle et moi."
 
-                },
-                { 
-                    dateDebut: "2004", 
-                    dateFin: "2005", 
-                    ecole: "Ecole de le dernière chance",
-                    niveau: "2",
-                    diplome: "Master Communication",
-                    description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions."
+            },
+            { 
+                dateDebut: "2004", 
+                dateFin: "2005", 
+                ecole: "Ecole de le dernière chance",
+                niveau: "2",
+                diplome: "Master Communication",
+                description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions."
 
-                }
-            ],
-            competences: [
-                { id: 55, libelle: "Javascript", niveau: "5" },
-                { id: 56, libelle: "PHP", niveau: "2" },
-                { id: 57, libelle: "Symfony", niveau: "1" },
-                { id: 58, libelle: "React", niveau: "3" },
-            ],
-            langues: [
-                { libelle: "Anglais", niveau: "Technique" },
-                { libelle: "Allemand", niveau: "Courant" }
-            ],
-            reseaux: [
-                { type: "LinkedIn", url: "https://linkedin.com/..." },
-                { type: "GitHub", url: "https://github.com/..." }
-            ],
-        });
+            }
+        ]
+    );
+    const [competences, setCompetences] = useState([
+            { id: 55, libelle: "Javascript", niveau: "5" },
+            { id: 56, libelle: "PHP", niveau: "2" },
+            { id: 57, libelle: "Symfony", niveau: "1" },
+            { id: 58, libelle: "React", niveau: "3" },
+        ]
+    );
+    const [langues, setLangues] = useState([
+            { libelle: "Anglais", niveau: "Technique" },
+            { libelle: "Allemand", niveau: "Courant" }
+        ]
+    );
+    const [reseaux, setReseaux] = useState([
+                    { type: "LinkedIn", url: "https://linkedin.com/..." },
+                    { type: "GitHub", url: "https://github.com/..." }
+                ],
+    );
+
+    const [competencesRome, setCompetencesRome] = useState([]);
 
 
-    useEffect(()=>{
+    useEffect(() => {
+        handleLoadLocal();
+
         
-        //handleLoadLocal();
     },[]);
 
+    const [timer, setTimer] = useState(null);
+    const [saved, setSaved] = useState(true);
+
+
+    const save = () => {
+
+        localStorage.setItem('be4web_cv', JSON.stringify({ profil, competences, formations, experiences, langues, reseaux }));
+        axios.post('/api/post_cv',{ profil, competences, formations, experiences, langues, reseaux }).then(() => {
+            axios.get('/api/get_cv/2').then((response) => {
+                setProfil(response.data.profil);
+                setCompetences(response.data.competences);
+                setFormations(response.data.formations);
+                setExperiences(response.data.experiences);
+                setLangues(response.data.langues);
+                setReseaux(response.data.reseaux);
+                setSaved(true);
+            });
+        });
+    }
 
     const handleSaveLocal = () => {
-        //localStorage.setItem('be4web_cv', JSON.stringify(this.pool));
-        // axios.post('/api/post_cv', pool).then(() => {
+        setSaved(false);
+        if (timer!==null) {
+            clearTimeout(timer);
+        }
 
-        // });
+        setTimer(setTimeout(() => {
+            console.log('saving !');
+            save();
+        }, 2000));
+
     }
+
     const handleLoadLocal = () => {
         // this.setPool(JSON.parse(localStorage.getItem('be4web_cv')));
         axios.get('/api/get_cv/2').then((response) => {
-            setPool(response.data);
+            setProfil(response.data.profil);
+            setCompetences(response.data.competences);
+            setFormations(response.data.formations);
+            setExperiences(response.data.experiences);
+            setLangues(response.data.langues);
+            setReseaux(response.data.reseaux);
         });
     }
     //////////////////////////////////////////////////////////////
 
     const handleProfilChange = (profil) => {
-        let tmp = profil;
-        console.log("begin profil");
-        console.log(profil);
-        console.log("end profil");
-        tmp.titre="gaga";
-        setProfil(tmp);
-        //handleSaveLocal();
+        setProfil({ ...profil });
+        handleSaveLocal();
+
+        if (profil.metier) {
+            axios.get("/api/cv/competences/" + profil.metier.id + "/" )
+            .then( (response) => {
+                setCompetencesRome(response.data);
+            });
+        }
     }
     //////////////////////////////////////////////////////////////
     const handleAddExperience = (evt) => {
-        let experiences = pool.experiences;
-        experiences.push({ date: "2020-10-03", mission: "bla bla bla22" });
-        setPool({ experiences });
+        experiences.push({ dateDebut: "", dateFin: "", titre: "", entreprise: "", ville: "", logo:"", description: "" });
+        setExperiences([ ...experiences ]);
         handleSaveLocal();
     }
     const handleDelExperience = (i) => {
-        let experiences = pool.experiences;
         experiences.splice(i, 1);
-        setPool({ experiences });
+        setExperiences([ ...experiences ]);
         handleSaveLocal();
     }
-    const handleChangeExperience = (i, exp) => {
-        let experiences = pool.experiences;
-        experiences[i] = exp;
-        setPool({ experiences });
+    const handleChangeExperience = (i, e) => {
+        experiences[i] = e;
+        setExperiences([ ...experiences  ]);
         handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddFormation = (evt) => {
-        let formations = pool.formations;
         formations.push({ dateDebut: "", dateFin: "", ecole: "", niveau: "", diplome: "", description: "" });
-        setPool({ formations });
+        setFormations([ ...formations ]);
         handleSaveLocal();
     }
     const handleDelFormation = (i) => {
-        let formations = pool.formations;
         formations.splice(i, 1);
-        setPool({ formations });
+        setFormations([ ...formations ]);
         handleSaveLocal();
     }
     const handleChangeFormation = (i, exp) => {
-        let formations = pool.formations;
         formations[i] = exp;
-        setPool({ formations });
+        setFormations([ ...formations ]);
         handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddCompetence = (com) => {
-        console.log("competences à ajouter");
-        console.log(com);
-        let competences = pool.competences;
+        // console.log("competences à ajouter");
+        // console.log(com);
         let present = false;
         for (const comp of competences) {
             if (comp.id==com.id) {
                 present=true;
             }
         }
-        console.log("present=");
-        console.log(present);
+        // console.log("present=");
+        // console.log(present);
         if (!present) competences.push({ libelle: com.libelle, niveau: "5", id: com.id});
-        setPool({ competences });
+        setCompetences([ ...competences ]);
         handleSaveLocal();
     }
     const handleDelCompetence = (i, com) => {
-        console.log("i=");
-        console.log(i);
-        console.log("comp=");
-        console.log(com);
+        // console.log("i=");
+        // console.log(i);
+        // console.log("comp=");
+        // console.log(com);
         if (i!==null) {
-            let competences = pool.competences;
             competences.splice(i, 1);
-            setPool({ competences });
+            setCompetences([ ...competences ]);
             handleSaveLocal();
         }
         else {
-            let competences = pool.competences;
             let present = -1;
             for (const i_comp in competences) {
                 if (competences[i_comp].id==com.id) {
@@ -199,74 +230,67 @@ const CV  = () => {
                 }
             }
             if (present!=-1) competences.splice(present, 1);
-            setPool({ competences });
+            setCompetences([ ...competences ]);
             handleSaveLocal();
         }
     }
     const handleChangeCompetence = (i, comp) => {
-        let competences = pool.competences;
         competences[i] = comp;
-        setPool({ competences });
+        setCompetences([ ...competences ]);
         handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddLangue = (evt) => {
-        let langues = pool.langues;
         langues.push({ libelle: "", niveau: ""});
-        setPool({ langues });
+        setLangues([ ...langues ]);
         handleSaveLocal();
     }
     const handleDelLangue = (i) => {
-        let langues = pool.langues;
         langues.splice(i, 1);
-        setPool({ langues });
+        setLangues([ ...langues ]);
         handleSaveLocal();
     }
     const handleChangeLangue = (i, exp) => {
-        let langues = pool.langues;
         langues[i] = exp;
-        setPool({ langues });
+        setLangues([ ...langues ]);
         handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
     const handleAddReseau = (evt) => {
-        let reseaux = pool.reseaux;
         reseaux.push({ type: "", url: ""});
-        setPool({ reseaux });
+        setReseaux([ ...reseaux ]);
         handleSaveLocal();
     }
     const handleDelReseau = (i) => {
-        let reseaux = pool.reseaux;
         reseaux.splice(i, 1);
-        setPool({ reseaux });
+        setReseaux([ ...reseaux ]);
         handleSaveLocal();
     }
 
-    const handleChangeReseau = (i, exp) => {
-        let reseaux = pool.reseaux;
-        reseaux[i] = exp;
-        setPool({ reseaux });
+    const handleChangeReseau = (i, res) => {
+        reseaux[i] = res;
+        setReseaux([ ...reseaux ]);
         handleSaveLocal();
     }
 
     const handleScrollToProfile = () => {
-        let activeKey="0"; 
-        setPool({activeKey});
+        setActiveKey("0");
     }
 
         return (
             <Row className="mt-2">
                 <Col className=" no-print pl-2">
-                    <Accordion defaultActiveKey="0" activeKey={activeKey} onSelect={(value)=>{ let activeKey=value; setActiveKey({activeKey}); }}>
+                    <Accordion defaultActiveKey="0" activeKey={activeKey} onSelect={(value)=>{ setActiveKey(value); }}>
                         <Card>
                             <Accordion.Toggle as={Card.Header} eventKey="0">
                             Informations personnelles
+                            <i className={"fa fa-floppy-o float-right " + (saved?"text-success":"text-danger")} aria-hidden="true"></i>
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
                                 <FormProfil
                                             value={profil}
-                                            onProfilChange={(evt) => handleProfilChange(evt)}
+                                            onChange={(evt) => handleProfilChange(evt)}
                                         />
                                 </Card.Body>
                             </Accordion.Collapse>
@@ -278,8 +302,8 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="1">
                                 <Card.Body>
                                 <FormCompetences
-                                        value={pool.competences}
-                                        competencesRome={[]}
+                                        value={competences}
+                                        competencesRome={competencesRome}
                                         metier={profil.metier}
                                         addCompetence={(evt, com) => handleAddCompetence(evt, com)}
                                         delCompetence={(i, comp) => handleDelCompetence(i, comp)}
@@ -296,7 +320,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="2">
                                 <Card.Body>
                                 <FormExperiences
-                                        value={pool.experiences}
+                                        value={experiences}
                                         addExperience={(evt) => handleAddExperience(evt)}
                                         delExperience={(i) => handleDelExperience(i)}
                                         changeExperience={(i, exp) => handleChangeExperience(i, exp)}
@@ -311,7 +335,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="3">
                                 <Card.Body>
                                 <FormFormations
-                                        value={pool.formations}
+                                        value={formations}
                                         addFormation={(evt) => handleAddFormation(evt)}
                                         delFormation={(i) => handleDelFormation(i)}
                                         changeFormation={(i, exp) => handleChangeFormation(i, exp)}
@@ -326,7 +350,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="4">
                                 <Card.Body>
                                     <FormLangues
-                                        value={pool.langues}
+                                        value={langues}
                                         addLangue={(evt) => handleAddLangue(evt)}
                                         delLangue={(i) => handleDelLangue(i)}
                                         changeLangue={(i, exp) => handleChangeLangue(i, exp)}
@@ -341,7 +365,7 @@ const CV  = () => {
                             <Accordion.Collapse eventKey="5">
                                 <Card.Body>
                                 <FormReseaux
-                                        value={pool.reseaux}
+                                        value={reseaux}
                                         addReseau={(evt) => handleAddReseau(evt)}
                                         delReseau={(i) => handleDelReseau(i)}
                                         changeReseau={(i, exp) => handleChangeReseau(i, exp)}
@@ -382,7 +406,7 @@ const CV  = () => {
                             <header>Experiences</header>
                             <div >
                                 {
-                                    pool.experiences.map((experience, index) =>
+                                    experiences.map((experience, index) =>
                                         <div className="experience"  key={index}>
                                             <div className="date-debut">{experience.dateDebut}</div>
                                             <div className="date-fin">{experience.dateFin}</div>
@@ -400,7 +424,7 @@ const CV  = () => {
                             <header>Formations</header>
                             <div >
                                 {
-                                    pool.formations.map((formation, index) =>
+                                    formations.map((formation, index) =>
                                         <div className="formation"  key={index}>
                                             <div className="date-debut">{formation.dateDebut}</div>
                                             <div className="date-fin">{formation.dateFin}</div>
@@ -417,7 +441,7 @@ const CV  = () => {
                             <header>Competences</header>
                             <div >
                                 {
-                                    pool.competences.map((competence, index) =>
+                                    competences.map((competence, index) =>
                                         <div className="competence"  key={index}>
                                             <div className="libelle">{competence.libelle}</div>
                                             <div className={"niveau niveau-" + competence.niveau}>{competence.niveau}</div>
@@ -431,7 +455,7 @@ const CV  = () => {
                             <header>Langues</header>
                             <div >
                                 {
-                                    pool.langues.map((langue, index) =>
+                                    langues.map((langue, index) =>
                                         <div className="langue"  key={index}>
                                             <div className="libelle">{langue.libelle}</div>
                                             <div className="niveau">{langue.niveau}</div>
@@ -444,7 +468,7 @@ const CV  = () => {
                             <header>Réseaux</header>
                             <div >
                                 {
-                                    pool.reseaux.map((reseau, index) =>
+                                    reseaux.map((reseau, index) =>
                                         <div className="reseau"  key={index}>
                                             <div className="libelle no-screen">{reseau.type}</div>
                                             <div className="libelle no-screen">{reseau.url}</div>
