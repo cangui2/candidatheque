@@ -7,7 +7,7 @@ GET http://localhost:8000/api/villes?nom=amiens
 
 ###
 
-GET http://localhost:8000/api/cvs/3
+GET http://localhost:8000/api/get_cv/2
 
 
 ###
@@ -20,9 +20,7 @@ Content-Type: application/json
     "owner": ""
 }
 
+
 ###
 
-GET http://localhost:8000/api/get_cv/2
-Content-Type: application/json
-
-
+GET http://localhost:8000/api/metiers?libelle=web

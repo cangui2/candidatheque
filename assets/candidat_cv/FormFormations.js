@@ -2,14 +2,13 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import FormFormation from './FormFormation.js'
 
-class FormFormations extends React.Component {
+const FormFormations = (props) => {
 
-    render() {
         return (
             <div className="cv">
                 <Button 
                     size="sm"
-                    onClick={(evt) => this.props.addFormation(evt)}
+                    onClick={(evt) => props.addFormation(evt)}
                 >
                     Ajouter une formation
                 </Button>
@@ -17,11 +16,11 @@ class FormFormations extends React.Component {
                 <div >
                     {
 
-                        this.props.value.map((formation, i) =>
+                        props.value.map((formation, i) =>
                             <FormFormation
                                 value={formation}
-                                onChange={(exp) => this.props.changeFormation(i, exp)}
-                                delFormation={() => this.props.delFormation(i)}
+                                onChange={(exp) => props.changeFormation(i, exp)}
+                                delFormation={() => props.delFormation(i)}
                                 key={i}
                             />
 
@@ -30,7 +29,6 @@ class FormFormations extends React.Component {
                 </div>
             </div>
         );
-    }
 }
 
 export default FormFormations;
