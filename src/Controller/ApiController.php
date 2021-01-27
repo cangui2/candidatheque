@@ -84,60 +84,56 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/sourcing/recherche", name="api_sourcing_recherche")
      */
-    public function api_sourcing_recherche(CVRepository $cv_repo, Request $request,VilleRepository $repoVille)
+    public function api_sourcing_recherche(CVRepository $cv_repo, Request $request, VilleRepository $repoVille)
     {
         $keyword = $request->query->get("keyword");
         $ville = $request->query->get("ville");
         $metier = $request->query->get("metier");
         $favoris = $request->query->get("favoris");
-        $rayon=$request->query->get('rayon');
+        $rayon = $request->query->get('rayon');
 
 
         $query = $cv_repo->createQueryBuilder('c')
-            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse','can.telephone as telephone','c.titre as titre','met.id as idmetier','met.libelle as metLibele','dep.id as idrecruteur','vil.id as idville','vil.nom as ville')
+            ->select('c.id', 'can.nom as nom', 'can.prenom as prenom', 'can.adresse as adresse', 'can.telephone as telephone', 'c.titre as titre', 'met.id as idmetier', 'met.libelle as metLibele', 'dep.id as idrecruteur', 'vil.id as idville', 'vil.nom as ville')
             ->join('c.candidat', 'can')
-            ->join('c.metier','met')
-            ->leftjoin('can.ville','vil')
-            ->leftJoin('c.competences','comp')
-            ->leftJoin('c.deposePar','dep');
+            ->join('c.metier', 'met')
+            ->leftjoin('can.ville', 'vil')
+            ->leftJoin('c.competences', 'comp')
+            ->leftJoin('c.deposePar', 'dep');
 
 
         if ($keyword) {
             $query
                 ->andWhere('(c.titre like :keyword or met.libelle like :keyword or comp.libelle like :keyword)')
                 ->setParameter('keyword', '%' . $keyword . '%');
-
         }
 
-        if ($favoris){
+        if ($favoris) {
             $query
                 ->andWhere('dep.id like :recruteur ')
-                ->setParameter('recruteur',  $this->getUser()->getRecruteur()->getId() );
-
+                ->setParameter('recruteur',  $this->getUser()->getRecruteur()->getId());
         }
 
-        if ($metier){
+        if ($metier) {
             $query
                 ->andWhere('met.id like :metier ')
-                ->setParameter('metier',  $metier );
-
+                ->setParameter('metier',  $metier);
         }
 
-        if ($rayon){
+        if ($rayon) {
 
             $query
                 ->andWhere('vil.id IN (:result)')
                 ->setParameter(
-                    'result', $repoVille->searchAround($ville,$rayon)
+                    'result',
+                    $repoVille->searchAround($ville, $rayon)
                 );
-
-
         }
 
 
 
 
-        $entities=$query->distinct()->getQuery()
+        $entities = $query->distinct()->getQuery()
             ->setMaxResults(30)
             ->getResult();
 
@@ -153,7 +149,7 @@ class ApiController extends AbstractController
     {
 
         $villes = $this->em->createQuery("
-            select CONCAT('v_', v.id) as value, v.nom as label
+            select 'ville' as type, v.id as id, v.nom as nom
             from App\Entity\Ville v
             where v.nom like ?1
             order by v.nom
@@ -163,7 +159,7 @@ class ApiController extends AbstractController
             ->getArrayResult();
 
         $departements = $this->em->createQuery("
-            select CONCAT('d_', d.id) as value, d.nom as label
+            select 'departement' as type, d.id as id, d.nom as nom
             from App\Entity\Departement d
             where d.nom like :lieu
             order by d.nom
@@ -172,7 +168,7 @@ class ApiController extends AbstractController
             ->getResult();
 
         $regions = $this->em->createQuery("
-            select CONCAT('r_', r.id) as value, r.nom as label
+            select 'region' as type, r.id as id, r.nom as nom
             from App\Entity\Region r
             where r.nom like :lieu
             order by r.nom
@@ -211,12 +207,10 @@ class ApiController extends AbstractController
             $user = $this->getUser();
             $candidat = $user->getCandidat();
             if (property_exists($data->profil, "id")) {
-                $cv = $this->cvRepo->findOneBy(['candidat'=>$candidat, 'id'=> $data->profil->id]);
-            }
-            else {
+                $cv = $this->cvRepo->findOneBy(['candidat' => $candidat, 'id' => $data->profil->id]);
+            } else {
                 $cv = new CV();
                 $cv->setCandidat($candidat);
-                
             }
 
             //$candidat->setNom($data->profil->nom);
@@ -229,8 +223,7 @@ class ApiController extends AbstractController
             foreach ($data->formations as $for) {
                 if (property_exists($for, "id")) {
                     $formation = $this->formationRepo->find($for->id);
-                }
-                else {
+                } else {
                     $formation = new Formation();
                     $formation->setCv($cv);
                     $this->em->persist($formation);
@@ -241,13 +234,12 @@ class ApiController extends AbstractController
                 $formation->setDiplome($for->diplome);
                 $formation->setEcole($for->ecole);
                 $formation->setNiveau($for->niveau);
-
             }
 
 
             $this->em->flush();
         }
-        
+
         return $this->json($resultats);
     }
 
@@ -263,19 +255,19 @@ class ApiController extends AbstractController
         if ($request->isMethod('get')) {
             $user = $this->getUser();
             $candidat = $user->getCandidat();
-            $cv = $this->cvRepo->findOneBy(['candidat'=>$candidat, 'id'=> $id]);
+            $cv = $this->cvRepo->findOneBy(['candidat' => $candidat, 'id' => $id]);
             $resultat["profil"] = [
                 "id" => $cv->getId(),
                 "nom" => $cv->getCandidat()->getNom(),
                 "prenom" => $cv->getCandidat()->getPrenom(),
-                "adresse" => $cv->getCandidat()->getAdresse()?$cv->getCandidat()->getAdresse():'',
+                "adresse" => $cv->getCandidat()->getAdresse() ? $cv->getCandidat()->getAdresse() : '',
                 "ville" => $cv->getCandidat()->getVille()->getNom(),
-                "phone" => $cv->getCandidat()->getTelephone()?$cv->getCandidat()->getTelephone():'',
+                "phone" => $cv->getCandidat()->getTelephone() ? $cv->getCandidat()->getTelephone() : '',
                 "email" => $cv->getCandidat()->getUser()->getEmail(),
-                "photo" => $cv->getCandidat()->getPhoto()?$cv->getCandidat()->getPhoto():'',
-                "titre" => $cv->getTitre()?$cv->getTitre():'',
-                "description" => $cv->getDescription()?$cv->getDescription():'',
-                "metier" => [ "id" => $cv->getMetier()->getId(), "libelle" => $cv->getMetier()->getLibelle() ]
+                "photo" => $cv->getCandidat()->getPhoto() ? $cv->getCandidat()->getPhoto() : '',
+                "titre" => $cv->getTitre() ? $cv->getTitre() : '',
+                "description" => $cv->getDescription() ? $cv->getDescription() : '',
+                "metier" => ["id" => $cv->getMetier()->getId(), "libelle" => $cv->getMetier()->getLibelle()]
             ];
             $resultat["competences"] = [];
             $resultat["experiences"] = [];
@@ -319,11 +311,11 @@ class ApiController extends AbstractController
                     "url" => $res->getUrl(),
                 ];
             }
-            
+
 
             //dd($cv);
         }
-        
+
         return $this->json($resultat);
     }
 

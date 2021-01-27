@@ -4,16 +4,16 @@ import axios from "axios";
 import { Col, Form } from "react-bootstrap";
 import AsyncSelect from "react-select/async";
 
-const SelectMetier = (props) => {
+const SelectVille = (props) => {
 
-    const handleChangeMetier = (query) => {
+    const handleChangeVille = (query) => {
         props.onSelect(query);
     };
 
     const loadOptions = (evt, callback) => {
-        console.log(evt);
+        //console.log(evt);
 
-        axios.get("/api/metiers?libelle=" + evt).then((data) => {
+        axios.get("/api/villes?nom=" + evt).then((data) => {
             callback(data.data);
         });
     };
@@ -23,17 +23,17 @@ const SelectMetier = (props) => {
             defaultOptions={true}
             isClearable={true}
             loadOptions={loadOptions}
-            getOptionLabel={(met) => {
-                return met.libelle;
+            getOptionLabel={(ville) => {
+                return ville.nom;
             }}
-            getOptionValue={(met) => {
-                return met.id;
+            getOptionValue={(ville) => {
+                return ville.id;
             }}
-            placeholder="Saisissez votre métier..."
-            onChange={handleChangeMetier}
+            placeholder="Saisissez une ville..."
+            onChange={handleChangeVille}
             menuPosition="fixed"
         />
     );
 };
 
-export default SelectMetier;
+export default SelectVille;
