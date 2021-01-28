@@ -28,6 +28,7 @@ Encore
     .addEntry('react_recherche', './assets/react_recherche.js')
     .addEntry('test_form', './assets/test_form/index.js')
     .addEntry('sourcing', './assets/sourcing/index.js')
+    .addEntry('demo', './assets/commun/demo.js')
     //.addEntry('dashboard_offre', './assets/dashboard_offre/graph_camembert.js')
     .addEntry('recherche', './assets/index_recherche/recherche.js')
     .addEntry('home_recherche', './assets/index_recherche/home_recherche.js')
@@ -76,6 +77,6 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     .enableReactPreset()
     //.addEntry('admin', './assets/admin.js')
-;
+    ;
 
 module.exports = Encore.getWebpackConfig();

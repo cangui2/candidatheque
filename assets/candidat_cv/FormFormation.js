@@ -1,39 +1,31 @@
 import React from 'react';
 import { Col, Form, Button } from 'react-bootstrap';
 
-class FormFormation extends React.Component {
+const FormFormation = (props) => {
 
-    handleChange(evt) {
+    const handleChange = (evt) => {
         //console.log(this);
-        let formation = {
-            dateDebut: this.refs.dateDebut.value,
-            dateFin: this.refs.dateFin.value,
-            ecole: this.refs.ecole.value,
-            description: this.refs.description.value,
-            diplome: this.refs.diplome.value,
-            niveau: this.refs.niveau.value
-        };
-        this.props.onChange(formation);
+        props.value[evt.target.name] = evt.target.value;
+        props.onChange({ ...props.value });
     }
 
-    render() {
         return (
             <div >
                 <Form >
                     <Form.Row className="mb-2">
                         <Col>
                             <Form.Control
-                                value={this.props.value.dateDebut}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="dateDebut"
+                                value={props.value.dateDebut}
+                                name="dateDebut"
+                                onChange={handleChange}
                                 placeholder="Date de début"
                             />
                         </Col>
                         <Col>
                             <Form.Control
-                                value={this.props.value.dateFin}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="dateFin"
+                                value={props.value.dateFin}
+                                name="dateFin"
+                                onChange={handleChange}
                                 placeholder="Date de fin"
                             />
                         </Col>
@@ -41,9 +33,9 @@ class FormFormation extends React.Component {
                     <Form.Row className="mb-2">
                         <Col>
                             <Form.Control
-                                value={this.props.value.ecole}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="ecole" 
+                                value={props.value.ecole}
+                                name="ecole"
+                                onChange={handleChange}
                                 placeholder="Ecole"
                             />
                         </Col>
@@ -52,9 +44,9 @@ class FormFormation extends React.Component {
                         <Col>
                             <Form.Control
                                 as="textarea"
-                                value={this.props.value.description}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="description" 
+                                value={props.value.description}
+                                name="description"
+                                onChange={handleChange}
                                 placeholder="Description"
                             />
                         </Col>
@@ -62,30 +54,30 @@ class FormFormation extends React.Component {
                     <Form.Row className="mb-2">
                         <Col>
                             <Form.Control
-                                value={this.props.value.diplome}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="diplome"
+                                value={props.value.diplome}
+                                name="diplome"
+                                onChange={handleChange}
                                 placeholder="Diplome"
                             />
                         </Col>
                         <Col>
                             <Form.Control 
-                                value={this.props.value.niveau}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="niveau"
+                                value={props.value.niveau}
+                                name="niveau"
+                                onChange={handleChange}
                                 placeholder="Niveau"
                             />
                         </Col>
                     </Form.Row>
                     <Form.Row className="mb-3">
                         <Col>
-                            <Button size="sm" onClick={() => this.props.delFormation(this)} >Supprimer</Button>
+                            <Button size="sm" onClick={() => props.delFormation(this)} >Supprimer</Button>
                         </Col>
                     </Form.Row>
                 </Form>
             </div>
         );
-    }
+    
 }
 
 export default FormFormation;

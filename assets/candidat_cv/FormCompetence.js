@@ -43,7 +43,7 @@ class FormCompetence extends React.Component {
                         
                     
                         <Col xs={1}>
-                            <Button  onClick={() => this.props.delCompetence(this)} title={'Supprimer cet compétence'}>
+                            <Button  onClick={() => this.props.delCompetence()} title={'Supprimer cet compétence'}>
                             <FontAwesomeIcon icon={faTimes} />
                             </Button>
                         </Col>

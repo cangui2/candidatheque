@@ -43,7 +43,7 @@ class Langue
     /**
      * @ORM\Column(type="integer")
      * @Groups({"cv:read"})
-     * // 1->bilingue, 2->courant, 3->notion, 4->technique
+     * 1->bilingue, 2->courant, 3->notion, 4->technique
      */
     private $niveau;
 
@@ -65,6 +65,18 @@ class Langue
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?int
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(int $niveau): self
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

@@ -124,6 +124,11 @@ class CV
      */
     private $competences;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
@@ -410,7 +415,7 @@ class CV
     {
         if (!$this->langues->contains($langue)) {
             $this->langues[] = $langue;
-            $langue->setCv($this);
+            //$langue->setCv($this);
         }
 
         return $this;
@@ -420,8 +425,8 @@ class CV
     {
         if ($this->langues->removeElement($langue)) {
             // set the owning side to null (unless already changed)
-            if ($langue->getCv() === $this) {
-                $langue->setCv(null);
+            if ($langue->getCVs() === $this) {
+                //$langue->se(null);
             }
         }
 
@@ -436,6 +441,18 @@ class CV
     public function setDeposePar(?Recruteur $deposePar): self
     {
         $this->deposePar = $deposePar;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

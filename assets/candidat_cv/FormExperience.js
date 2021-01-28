@@ -1,104 +1,94 @@
-import React from 'react';
-import { Col, Form, Button } from 'react-bootstrap';
+import React, { useState, useRef } from "react";
+import { Col, Form, Button } from "react-bootstrap";
 
-class FormExperience extends React.Component {
+const FormExperience = (props) => {
+    const handleChange = (evt) => {
+        props.value[evt.target.name] = evt.target.value;
+        props.onChange({ ...props.value });
+    };
 
-    handleChange(evt) {
-        //console.log(this);
-        let experience = {
-            dateDebut: this.refs.dateDebut.value,
-            dateFin: this.refs.dateFin.value,
-            titre: this.refs.titre.value,
-            entreprise: this.refs.entreprise.value,
-            ville: this.refs.ville.value,
-            logo: this.refs.logo.value,
-            description: this.refs.description.value,
-        };
-        this.props.onChange(experience);
-    }
+    return (
+        <div>
+            <Form>
+                <Form.Row className="mb-2">
+                    <Col>
+                        <Form.Control
+                            value={props.value.dateDebut}
+                            name="dateDebut"
+                            onChange={handleChange}
+                            placeholder="Date de début"
+                        />
+                    </Col>
+                    <Col>
+                        <Form.Control
+                            value={props.value.dateFin}
+                            name="dateFin"
+                            onChange={handleChange}
+                            placeholder="Date de fin"
+                        />
+                    </Col>
+                </Form.Row>
+                <Form.Row className="mb-2">
+                    <Col>
+                        <Form.Control
+                            value={props.value.titre}
+                            name="titre"
+                            onChange={handleChange}
+                            placeholder="Titre"
+                        />
+                    </Col>
 
-    render() {
-        return (
-            <div >
-                <Form >
-                    <Form.Row className="mb-2">
-                        <Col>
-                            <Form.Control
-                                value={this.props.value.dateDebut}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="dateDebut"
-                                placeholder="Date de début"
-                            />
-                        </Col>
-                        <Col>
-                            <Form.Control
-                                value={this.props.value.dateFin}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="dateFin"
-                                placeholder="Date de fin"
-                            />
-                        </Col>
-                    </Form.Row>
-                    <Form.Row className="mb-2">
-                        <Col>
-                            <Form.Control
-                                value={this.props.value.titre}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="titre" 
-                                placeholder="Titre"
-                            />
-                        </Col>
-                    
-                        <Col>
-                            <Form.Control
-                                value={this.props.value.entreprise}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="entreprise" 
-                                placeholder="Entreprise"
-                            />
-                        </Col>
-                    </Form.Row>
-                    <Form.Row className="mb-2">
-                        <Col>
-                            <Form.Control
-                                value={this.props.value.ville}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="ville"
-                                placeholder="Ville"
-                            />
-                        </Col>
-                        <Col>
-                            <Form.File 
-                                // id="custom-file"
-                                label="Logo"
-                                custom
-                                // value={this.props.value.logo}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="logo"
-                                placeholder="Logo"
-                            />
-                        </Col>
-                    </Form.Row>
-                    <Form.Row className="mb-2">
-                        <Col>
-                            <Form.Control
-                                as="textarea"
-                                value={this.props.value.description}
-                                onChange={(evt) => this.handleChange(evt)}
-                                ref="description" 
-                                placeholder="Description"
-                            />
-                        </Col>
-                    </Form.Row>
-                    <Form.Row className="mb-3">
-                        <Col>
-                            <Button size="sm" onClick={() => this.props.delExperience(this)} >Supprimer</Button>
-                        </Col>
-                    </Form.Row>
-                </Form>
-            </div>
-        );
-    }
-}
+                    <Col>
+                        <Form.Control
+                            value={props.value.entreprise}
+                            name="entreprise"
+                            onChange={handleChange}
+                            placeholder="Entreprise"
+                        />
+                    </Col>
+                </Form.Row>
+                <Form.Row className="mb-2">
+                    <Col>
+                        <Form.Control
+                            value={props.value.ville}
+                            name="ville"
+                            onChange={handleChange}
+                            placeholder="Ville"
+                        />
+                    </Col>
+                    <Col>
+                        <Form.File
+                            label="Logo"
+                            custom
+                            onChange={handleChange}
+                            placeholder="Logo"
+                        />
+                    </Col>
+                </Form.Row>
+                <Form.Row className="mb-2">
+                    <Col>
+                        <Form.Control
+                            as="textarea"
+                            value={props.value.description}
+                            name="description"
+                            onChange={handleChange}
+                            placeholder="Description"
+                        />
+                    </Col>
+                </Form.Row>
+                <Form.Row className="mb-3">
+                    <Col>
+                        <Button
+                            size="sm"
+                            onClick={() => props.delExperience(this)}
+                        >
+                            Supprimer
+                        </Button>
+                    </Col>
+                </Form.Row>
+            </Form>
+        </div>
+    );
+};
 
 export default FormExperience;

@@ -1,0 +1,35 @@
+
+
+POST https://localhost:8000/api/graphql
+X-REQUEST-TYPE: GraphQL
+
+query {
+  offres {
+    edges {
+      node {
+        id
+        titre
+        
+      }
+    }
+  }
+}
+
+
+###
+
+
+POST https://localhost:8000/api/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query  {
+  villes {
+      edges {
+          node {
+            nom
+
+          }
+      }
+  }
+}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import { Row, Col, Button, Accordion, Card } from 'react-bootstrap';
 
 import FormExperiences from './FormExperiences.js';
 import FormFormations from './FormFormations.js';
@@ -13,28 +13,30 @@ import axios from 'axios';
 
 import './CV.css';
 
-class CV extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            profil: {
-                nom: "Wong",
-                prenom: "Kar-wai",
-                adresse: "Carnaby Street",
-                ville: "London",
-                phone: "+33 6 58 96 52 14",
-                email: "jodo@yahoo.com",
-                titre: "Développeur Web",
-                description: "Après une thèse de biochimie et un post-doc en chimiométrie pendant lesquels j'avais développé un certain nombre d'outils informatiques...",
-                photo: "https://test.candidatheque.com/assets/photos/profil4.png",
-                metier: {}
-            },
-            experiences: [
+const CV  = () => {
+
+    const [activeKey, setActiveKey] = useState("0");
+
+    const [profil, setProfil] = useState({
+        nom: "Wong",
+        prenom: "Kar-wai",
+        adresse: "Carnaby Street",
+        ville: "London",
+        phone: "+33 6 58 96 52 14",
+        email: "jodo@yahoo.com",
+        titre: "developpeur web",
+        description: "Après une thèse de biochimie et un post-doc en chimiométrie pendant lesquels j'avais développé un certain nombre d'outils informatiques...",
+        photo: "https://test.candidatheque.com/assets/photos/profil4.png",
+        metier: null
+    });
+
+    const [experiences, setExperiences] = useState([
                 { 
                     dateDebut: "2018", 
                     dateFin: "maintenant", 
                     titre: "Lead developer", 
                     entreprise: "TheBox", 
+                    ville: "Amiens", 
                     logo:"https://test.candidatheque.com/assets/photos/logo1.png", 
                     description: "azeazeaze" 
                 },
@@ -43,6 +45,7 @@ class CV extends React.Component {
                     dateFin: "2018", 
                     titre: "stage de découverte", 
                     entreprise: "TheBox", 
+                    ville: "Amiens", 
                     logo:"https://test.candidatheque.com/assets/photos/logo2.png", 
                     description: "dfgdfgdfg" 
                 },
@@ -51,328 +54,359 @@ class CV extends React.Component {
                     dateFin: "2012", 
                     titre: "stage de découverte", 
                     entreprise: "TheBox", 
+                    ville: "Amiens", 
                     logo:"https://test.candidatheque.com/assets/photos/logo3.png", 
                     description: "uiouiouio" 
-                }
-            ],
-            formations: [
-                { 
-                    dateDebut: "2003", 
-                    dateFin: "2004", 
-                    ecole: "BTS - Chimie des particules",
-                    niveau: "3",
-                    diplome: "",
-                    description: "La raison que je donnais maintenant dans mes lettres à Gilberte, de mon refus de la voir, c'était une allusion à quelque mystérieux malentendu, parfaitement fictif, qu'il y aurait eu entre elle et moi."
+                } 
+    ]);   
+    const [formations, setFormations] = useState([
+            { 
+                dateDebut: "2003", 
+                dateFin: "2004", 
+                ecole: "BTS - Chimie des particules",
+                niveau: "3",
+                diplome: "",
+                description: "La raison que je donnais maintenant dans mes lettres à Gilberte, de mon refus de la voir, c'était une allusion à quelque mystérieux malentendu, parfaitement fictif, qu'il y aurait eu entre elle et moi."
 
-                },
-                { 
-                    dateDebut: "2004", 
-                    dateFin: "2005", 
-                    ecole: "Ecole de le dernière chance",
-                    niveau: "2",
-                    diplome: "Master Communication",
-                    description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions."
+            },
+            { 
+                dateDebut: "2004", 
+                dateFin: "2005", 
+                ecole: "Ecole de le dernière chance",
+                niveau: "2",
+                diplome: "Master Communication",
+                description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions."
 
-                }
-            ],
-            competences: [
-                { libelle: "Javascript", niveau: "5" },
-                { libelle: "PHP", niveau: "2" },
-                { libelle: "Symfony", niveau: "1" },
-                { libelle: "React", niveau: "3" },
-            ],
-            langues: [
-                { libelle: "Anglais", niveau: "Technique" },
-                { libelle: "Allemand", niveau: "Courant" }
-            ],
-            reseaux: [
-                { type: "LinkedIn", url: "https://linkedin.com/..." },
-                { type: "GitHub", url: "https://github.com/..." }
-            ],
+            }
+        ]
+    );
+    const [competences, setCompetences] = useState([
+            { id: 55, libelle: "Javascript", niveau: "5" },
+            { id: 56, libelle: "PHP", niveau: "2" },
+            { id: 57, libelle: "Symfony", niveau: "1" },
+            { id: 58, libelle: "React", niveau: "3" },
+        ]
+    );
+    const [langues, setLangues] = useState([
+            { libelle: "Anglais", niveau: "Technique" },
+            { libelle: "Allemand", niveau: "Courant" }
+        ]
+    );
+    const [reseaux, setReseaux] = useState([
+                    { type: "LinkedIn", url: "https://linkedin.com/..." },
+                    { type: "GitHub", url: "https://github.com/..." }
+                ],
+    );
+
+    const [competencesRome, setCompetencesRome] = useState([]);
+
+
+    useEffect(() => {
+        handleLoadLocal();
+
+        
+    },[]);
+
+    const [timer, setTimer] = useState(null);
+    const [saved, setSaved] = useState(true);
+
+
+    const save = () => {
+
+        localStorage.setItem('be4web_cv', JSON.stringify({ profil, competences, formations, experiences, langues, reseaux }));
+        axios.post('/api/post_cv',{ profil, competences, formations, experiences, langues, reseaux }).then(() => {
+            axios.get('/api/get_cv/2').then((response) => {
+                setProfil(response.data.profil);
+                setCompetences(response.data.competences);
+                setFormations(response.data.formations);
+                setExperiences(response.data.experiences);
+                setLangues(response.data.langues);
+                setReseaux(response.data.reseaux);
+                setSaved(true);
+            });
+        });
+    }
+
+    const handleSaveLocal = () => {
+        setSaved(false);
+        if (timer!==null) {
+            clearTimeout(timer);
         }
-        this.handleLoadLocal();
+
+        setTimer(setTimeout(() => {
+            console.log('saving !');
+            save();
+        }, 2000));
+
     }
 
-    handleSaveLocal() {
-        //localStorage.setItem('be4web_cv', JSON.stringify(this.state));
-        axios.post('/api/post_cv', this.state).then(() => {
-
+    const handleLoadLocal = () => {
+        // this.setPool(JSON.parse(localStorage.getItem('be4web_cv')));
+        axios.get('/api/get_cv/2').then((response) => {
+            setProfil(response.data.profil);
+            setCompetences(response.data.competences);
+            setFormations(response.data.formations);
+            setExperiences(response.data.experiences);
+            setLangues(response.data.langues);
+            setReseaux(response.data.reseaux);
         });
-    }
-    handleLoadLocal() {
-        // this.setState(JSON.parse(localStorage.getItem('be4web_cv')));
-        axios.get('/api/get_cv/2', this.state).then((response) => {
-            //this.setState(response.data);
-        });
-    }
-    handleProfilChange(pro) {
-        this.setState({ profil: pro });
-        this.handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddExperience(evt) {
-        let experiences = this.state.experiences;
-        experiences.push({ date: "2020-10-03", mission: "bla bla bla22" });
-        this.setState({ experiences });
-        this.handleSaveLocal();
+
+    const handleProfilChange = (profil) => {
+        setProfil({ ...profil });
+        handleSaveLocal();
+
+        if (profil.metier) {
+            axios.get("/api/cv/competences/" + profil.metier.id + "/" )
+            .then( (response) => {
+                setCompetencesRome(response.data);
+            });
+        }
     }
-    handleDelExperience(i) {
-        let experiences = this.state.experiences;
+    //////////////////////////////////////////////////////////////
+    const handleAddExperience = (evt) => {
+        experiences.push({ dateDebut: "", dateFin: "", titre: "", entreprise: "", ville: "", logo:"", description: "" });
+        setExperiences([ ...experiences ]);
+        handleSaveLocal();
+    }
+    const handleDelExperience = (i) => {
         experiences.splice(i, 1);
-        this.setState({ experiences });
-        this.handleSaveLocal();
+        setExperiences([ ...experiences ]);
+        handleSaveLocal();
     }
-    handleChangeExperience(i, exp) {
-        let experiences = this.state.experiences;
-        experiences[i] = exp;
-        this.setState({ experiences });
-        this.handleSaveLocal();
+    const handleChangeExperience = (i, e) => {
+        experiences[i] = e;
+        setExperiences([ ...experiences  ]);
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddFormation(evt) {
-        let formations = this.state.formations;
+    const handleAddFormation = (evt) => {
         formations.push({ dateDebut: "", dateFin: "", ecole: "", niveau: "", diplome: "", description: "" });
-        this.setState({ formations });
-        this.handleSaveLocal();
+        setFormations([ ...formations ]);
+        handleSaveLocal();
     }
-    handleDelFormation(i) {
-        let formations = this.state.formations;
+    const handleDelFormation = (i) => {
         formations.splice(i, 1);
-        this.setState({ formations });
-        this.handleSaveLocal();
+        setFormations([ ...formations ]);
+        handleSaveLocal();
     }
-    handleChangeFormation(i, exp) {
-        let formations = this.state.formations;
+    const handleChangeFormation = (i, exp) => {
         formations[i] = exp;
-        this.setState({ formations });
-        this.handleSaveLocal();
+        setFormations([ ...formations ]);
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddCompetence(evt, com) {
-        let competences = this.state.competences;
-        competences.push({ libelle: com, niveau: "5"});
-        this.setState({ competences });
-        this.handleSaveLocal();
+    const handleAddCompetence = (com) => {
+        // console.log("competences à ajouter");
+        // console.log(com);
+        let present = false;
+        for (const comp of competences) {
+            if (comp.id==com.id) {
+                present=true;
+            }
+        }
+        // console.log("present=");
+        // console.log(present);
+        if (!present) competences.push({ libelle: com.libelle, niveau: "5", id: com.id});
+        setCompetences([ ...competences ]);
+        handleSaveLocal();
     }
-    handleDelCompetence(i) {
-        let competences = this.state.competences;
-        competences.splice(i, 1);
-        this.setState({ competences });
-        this.handleSaveLocal();
+    const handleDelCompetence = (i, com) => {
+        // console.log("i=");
+        // console.log(i);
+        // console.log("comp=");
+        // console.log(com);
+        if (i!==null) {
+            competences.splice(i, 1);
+            setCompetences([ ...competences ]);
+            handleSaveLocal();
+        }
+        else {
+            let present = -1;
+            for (const i_comp in competences) {
+                if (competences[i_comp].id==com.id) {
+                    present=i_comp;
+                }
+            }
+            if (present!=-1) competences.splice(present, 1);
+            setCompetences([ ...competences ]);
+            handleSaveLocal();
+        }
     }
-    handleChangeCompetence(i, exp) {
-        let competences = this.state.competences;
-        competences[i] = exp;
-        this.setState({ competences });
-        this.handleSaveLocal();
+    const handleChangeCompetence = (i, comp) => {
+        competences[i] = comp;
+        setCompetences([ ...competences ]);
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddLangue(evt) {
-        let langues = this.state.langues;
+    const handleAddLangue = (evt) => {
         langues.push({ libelle: "", niveau: ""});
-        this.setState({ langues });
-        this.handleSaveLocal();
+        setLangues([ ...langues ]);
+        handleSaveLocal();
     }
-    handleDelLangue(i) {
-        let langues = this.state.langues;
+    const handleDelLangue = (i) => {
         langues.splice(i, 1);
-        this.setState({ langues });
-        this.handleSaveLocal();
+        setLangues([ ...langues ]);
+        handleSaveLocal();
     }
-    handleChangeLangue(i, exp) {
-        let langues = this.state.langues;
+    const handleChangeLangue = (i, exp) => {
         langues[i] = exp;
-        this.setState({ langues });
-        this.handleSaveLocal();
+        setLangues([ ...langues ]);
+        handleSaveLocal();
     }
     //////////////////////////////////////////////////////////////
-    handleAddReseau(evt) {
-        let reseaux = this.state.reseaux;
+    const handleAddReseau = (evt) => {
         reseaux.push({ type: "", url: ""});
-        this.setState({ reseaux });
-        this.handleSaveLocal();
+        setReseaux([ ...reseaux ]);
+        handleSaveLocal();
     }
-    handleDelReseau(i) {
-        let reseaux = this.state.reseaux;
+    const handleDelReseau = (i) => {
         reseaux.splice(i, 1);
-        this.setState({ reseaux });
-        this.handleSaveLocal();
+        setReseaux([ ...reseaux ]);
+        handleSaveLocal();
     }
-    handleChangeReseau(i, exp) {
-        let reseaux = this.state.reseaux;
-        reseaux[i] = exp;
-        this.setState({ reseaux });
-        this.handleSaveLocal();
+
+    const handleChangeReseau = (i, res) => {
+        reseaux[i] = res;
+        setReseaux([ ...reseaux ]);
+        handleSaveLocal();
     }
-    render() {
+
+    const handleScrollToProfile = () => {
+        setActiveKey("0");
+    }
+
         return (
-            <div className="row">
-                <div className="col-6 no-print">
-                    {/* <Dialog /> */}
-                </div>
-                <div className="col-6 text-right no-print mt-5">
-                    <Templates />
-                </div>
-                
-                <div className="col-sm-6 no-print">
-                    <div className="row">
-                        {/* <div className="col-9">
-                            <h1>Module de création de CV.</h1>
-                        </div> */}
-                        {/* <div className="col-3 text-right">
-                        <Button variant="secondary" onClick={ () => { this.handleSaveLocal(); } }>Save</Button>&nbsp;
-                        <Button variant="secondary" onClick={ () => { this.handleLoadLocal(); } }>Load</Button>
-                        </div> */}
-                    </div>
-                    
-                        <div className="accordion mt-5" id="accordion1">
-                            <div className="card" style={{overflow: 'visible'}}>
-                                <div className="card-header" id="heading1">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse1" >
-                                            Informations personnelles                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse1" className="collapse show" data-parent="#accordion1">
-                                    <div className="card-body">
-                                        <FormProfil
-                                            value={this.state.profil}
-                                            onProfilChange={(evt) => this.handleProfilChange(evt)}
+            <Row className="mt-2">
+                <Col className=" no-print pl-2">
+                    <Accordion defaultActiveKey="0" activeKey={activeKey} onSelect={(value)=>{ setActiveKey(value); }}>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="0">
+                            Informations personnelles
+                            <i className={"fa fa-floppy-o float-right " + (saved?"text-success":"text-danger")} aria-hidden="true"></i>
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                <FormProfil
+                                            value={profil}
+                                            onChange={(evt) => handleProfilChange(evt)}
                                         />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card"  style={{overflow: 'visible'}}>
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse4" >
-                                            Competences                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse4" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormCompetences
-                                        value={this.state.competences}
-                                        metier={this.state.profil.metier}
-                                        addCompetence={(evt, com) => this.handleAddCompetence(evt, com)}
-                                        delCompetence={(i) => this.handleDelCompetence(i)}
-                                        changeCompetence={(i, exp) => this.handleChangeCompetence(i, exp)}
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="1">
+                                Competences
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="1">
+                                <Card.Body>
+                                <FormCompetences
+                                        value={competences}
+                                        competencesRome={competencesRome}
+                                        metier={profil.metier}
+                                        addCompetence={(evt, com) => handleAddCompetence(evt, com)}
+                                        delCompetence={(i, comp) => handleDelCompetence(i, comp)}
+                                        changeCompetence={(i, exp) => handleChangeCompetence(i, exp)}
+                                        scrollToProfile={() => handleScrollToProfile()}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div className="card">
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse2" >
-                                            Experiences                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse2" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormExperiences
-                                        value={this.state.experiences}
-                                        addExperience={(evt) => this.handleAddExperience(evt)}
-                                        delExperience={(i) => this.handleDelExperience(i)}
-                                        changeExperience={(i, exp) => this.handleChangeExperience(i, exp)}
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="2">
+                            Experiences
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="2">
+                                <Card.Body>
+                                <FormExperiences
+                                        value={experiences}
+                                        addExperience={(evt) => handleAddExperience(evt)}
+                                        delExperience={(i) => handleDelExperience(i)}
+                                        changeExperience={(i, exp) => handleChangeExperience(i, exp)}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse3" >
-                                            Formation                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse3" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormFormations
-                                        value={this.state.formations}
-                                        addFormation={(evt) => this.handleAddFormation(evt)}
-                                        delFormation={(i) => this.handleDelFormation(i)}
-                                        changeFormation={(i, exp) => this.handleChangeFormation(i, exp)}
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="3">
+                            Formation
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="3">
+                                <Card.Body>
+                                <FormFormations
+                                        value={formations}
+                                        addFormation={(evt) => handleAddFormation(evt)}
+                                        delFormation={(i) => handleDelFormation(i)}
+                                        changeFormation={(i, exp) => handleChangeFormation(i, exp)}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse5" >
-                                            Langues                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse5" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="4">
+                            Langues
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="4">
+                                <Card.Body>
                                     <FormLangues
-                                        value={this.state.langues}
-                                        addLangue={(evt) => this.handleAddLangue(evt)}
-                                        delLangue={(i) => this.handleDelLangue(i)}
-                                        changeLangue={(i, exp) => this.handleChangeLangue(i, exp)}
+                                        value={langues}
+                                        addLangue={(evt) => handleAddLangue(evt)}
+                                        delLangue={(i) => handleDelLangue(i)}
+                                        changeLangue={(i, exp) => handleChangeLangue(i, exp)}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="card-header" id="heading2">
-                                    <h2 className="mb-0">
-                                        <button className="btn btn-block btn-sm text-left font-weight-bold" type="button" data-toggle="collapse" data-target="#collapse6" >
-                                            Réseaux sociaux                                
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse6" className="collapse " data-parent="#accordion1">
-                                    <div className="card-body">
-                                    <FormReseaux
-                                        value={this.state.reseaux}
-                                        addReseau={(evt) => this.handleAddReseau(evt)}
-                                        delReseau={(i) => this.handleDelReseau(i)}
-                                        changeReseau={(i, exp) => this.handleChangeReseau(i, exp)}
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Accordion.Toggle as={Card.Header} eventKey="5">
+                            Réseaux sociaux
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey="5">
+                                <Card.Body>
+                                <FormReseaux
+                                        value={reseaux}
+                                        addReseau={(evt) => handleAddReseau(evt)}
+                                        delReseau={(i) => handleDelReseau(i)}
+                                        changeReseau={(i, exp) => handleChangeReseau(i, exp)}
                                     />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    
-                </div>
-
-                <div  className="col-sm-6 paper-container">
-
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                </Col>
+                <Col>
+                    <Row>
+                        <Col sm={12} className="text-right no-print ">
+                            <Templates />
+                        </Col>
+                        <Col sm={12}  className=" paper-container">
                     <div className="paper">
                         <section className="identite">
-                            <div className="nom">{this.state.profil.prenom} {this.state.profil.nom}</div>
+                            <div className="nom">{profil.prenom} {profil.nom}</div>
                         </section>
                         <section className="photo">
-                            <div className="portrait"><img src={this.state.profil.photo}/></div>
+                            <div className="portrait"><img src={profil.photo}/></div>
                         </section>
                         <section className="profil">
                             <header>Contact</header>
-                            <div className="adresse">{this.state.profil.adresse}</div>
-                            <div className="ville">{this.state.profil.ville}</div>
-                            <div className="phone">{this.state.profil.phone}</div>
-                            <div className="email">{this.state.profil.email}</div>
+                            <div className="adresse">{profil.adresse}</div>
+                            <div className="ville">{profil.ville}</div>
+                            <div className="phone">{profil.phone}</div>
+                            <div className="email">{profil.email}</div>
                         </section>
                         <section className="titre">
-                            <div className="poste">{this.state.profil.titre}</div>
+                            <div className="poste">{profil.titre}</div>
                         </section>
                         <section className="intro">
                             <header>Profil</header>
-                            <div className="text">{this.state.profil.description}</div>
+                            <div className="text">{profil.description}</div>
                         </section>
                         <section className="experiences">
                             <header>Experiences</header>
                             <div >
                                 {
-                                    this.state.experiences.map((experience, index) =>
+                                    experiences.map((experience, index) =>
                                         <div className="experience"  key={index}>
                                             <div className="date-debut">{experience.dateDebut}</div>
                                             <div className="date-fin">{experience.dateFin}</div>
@@ -390,7 +424,7 @@ class CV extends React.Component {
                             <header>Formations</header>
                             <div >
                                 {
-                                    this.state.formations.map((formation, index) =>
+                                    formations.map((formation, index) =>
                                         <div className="formation"  key={index}>
                                             <div className="date-debut">{formation.dateDebut}</div>
                                             <div className="date-fin">{formation.dateFin}</div>
@@ -407,7 +441,7 @@ class CV extends React.Component {
                             <header>Competences</header>
                             <div >
                                 {
-                                    this.state.competences.map((competence, index) =>
+                                    competences.map((competence, index) =>
                                         <div className="competence"  key={index}>
                                             <div className="libelle">{competence.libelle}</div>
                                             <div className={"niveau niveau-" + competence.niveau}>{competence.niveau}</div>
@@ -421,7 +455,7 @@ class CV extends React.Component {
                             <header>Langues</header>
                             <div >
                                 {
-                                    this.state.langues.map((langue, index) =>
+                                    langues.map((langue, index) =>
                                         <div className="langue"  key={index}>
                                             <div className="libelle">{langue.libelle}</div>
                                             <div className="niveau">{langue.niveau}</div>
@@ -434,7 +468,7 @@ class CV extends React.Component {
                             <header>Réseaux</header>
                             <div >
                                 {
-                                    this.state.reseaux.map((reseau, index) =>
+                                    reseaux.map((reseau, index) =>
                                         <div className="reseau"  key={index}>
                                             <div className="libelle no-screen">{reseau.type}</div>
                                             <div className="libelle no-screen">{reseau.url}</div>
@@ -447,11 +481,18 @@ class CV extends React.Component {
                             </div>
                         </section>
                     </div>
-                </div>
+                </Col>
 
-            </div>
+
+                    </Row>
+                </Col>
+            </Row>
+                
+                
+            
+           
+
         );
-    }
 }
 
 export default CV;

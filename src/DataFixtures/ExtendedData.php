@@ -187,6 +187,24 @@ class ExtendedData extends Fixture implements FixtureGroupInterface
         $manager->persist($cv2);
 
 
+        $tab_metiers = [14156, 16084, 17856, 16090, 11363];
+
+        for ($i=0; $i < 1000; $i++) { 
+            # code...
+            $of = new Offre();
+            $of->setRecruteur($rec1);
+            $of->setDatePublication(new \DateTime());
+            $of->setDescription("Nous recherchons des ...");
+            $met = $manager->getRepository(Metier::class)->find($tab_metiers[rand(0, count($tab_metiers)-1)]);
+            $of->setMetier($met);
+            $of->setProfil("...");
+            $of->setSalaire(45632);
+            $of->setTitre($met->getLibelle());
+            $of->setTypeContrat($manager->getRepository(TypeContrat::class)->findOneBy([ "libelle" => "CDI"]));
+            $manager->persist($of);
+        }
+
+
         $manager->flush();
 
     }

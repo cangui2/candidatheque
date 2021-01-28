@@ -2,23 +2,24 @@
 
 namespace App\Entity;
 
+use App\Entity\Entreprise;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OffreRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use App\Entity\Entreprise;
-use App\Repository\OffreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Serializer\NameConverter;
-use \AdvancedNameConverterInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=OffreRepository::class)
+ * @Table(indexes={@Index(columns={"profil"}, flags={"fulltext"})})
  * @ORM\HasLifecycleCallbacks
  * @ApiResource(
  *     collectionOperations={
@@ -64,10 +65,10 @@ class Offre
      * @Groups({"off:read", "write"})
      */
     private $titre;
-
+    
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -81,7 +82,7 @@ class Offre
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $description;
 
@@ -99,7 +100,7 @@ class Offre
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @Assert\GreaterThanOrEqual(
      *     value = 0,
      *     message = "Le montant du salaire proposé doit être égal ou supérieur à {{ compared_value }}"
@@ -110,7 +111,7 @@ class Offre
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      * @ApiProperty(
      *     attributes={
      *         "openapi_context"={
@@ -125,7 +126,7 @@ class Offre
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $duree;
 
@@ -138,19 +139,19 @@ class Offre
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $possibiliteCDI;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $urgent;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $profil;
 
@@ -193,7 +194,7 @@ class Offre
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
     private $dateModification;
 
@@ -247,9 +248,9 @@ class Offre
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
-    private $typeSalaire; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
+    private $typeSalaire;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -257,9 +258,9 @@ class Offre
      *     value = 0,
      *     message = "Le temps de travail doit être supérieur à {{ compared_value }}"
      * )
-     * @Groups({"off:read", "write"})
+     * @Groups({"write"})
      */
-    private $dureeHebdo;
+    private $dureeHebdo; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
 
 
 

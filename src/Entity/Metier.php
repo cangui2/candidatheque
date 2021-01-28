@@ -57,13 +57,13 @@ class Metier
 
     /**
      * @ORM\OneToMany(targetEntity=CV::class, mappedBy="metier")
-     * @Groups("mt:read")
+     * 
      */
     private $CVs;
 
     /**
      * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="metier")
-     * @Groups("mt:read")
+     * 
      */
     private $offres;
 
@@ -253,8 +253,5 @@ class Metier
 
         return $this;
     }
-
-
-
 
 }
