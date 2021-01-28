@@ -6,23 +6,68 @@ import ReactDOM from "react-dom";
 import Filtre from "./component/Filtre";
 import Offre from "./component/offre_liste";
 import SearchOffre from "./component/SearchOffre";
-import Calendar from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
 
-function App() {
+
+function App(props) {
     const [list,setListe]=useState([]);
-    const handleListChange = (list)=>{
-        setListe(list)
+    const [param,setParam]=useState([0]);
+
+
+
+
+    let str=window.location.href;
+    let url=new URL(str);
+    let met=url.searchParams.get("metier");
+    let vil=url.searchParams.get("ville");
+    let cont=url.searchParams.get("contrat");
+    const [idMetier, setIdMetier] = useState(met);
+    const[idVille,setIdVille]=useState(vil);
+    const [idContrat,setIdContrat]=useState(cont);
+
+
+
+    console.log(idVille);
+    const handleIdChange =(idVille,idMetier,idContrat,param)=>{
+        axios.get(`/api/search?` + '&metier=' + idMetier+ '&ville='+idVille+'&contrat=' + idContrat +'&filtre1='+ param)
+            .then((result) => {
+                setListe(result.data);
+                setIdVille(idVille);
+                console.log(param);
+                console.log("api get recherche")
+                console.log(result)
+
+
+            })
+            .catch(error => console.log(error));
+
+
     }
-    const [value, onChange] = useState(new Date());
+
+    const handleFiltreChange = (filtre) => {
+        console.log(filtre);
+        setParam(filtre);
+    }
+
+    useEffect(()=>{
+        handleIdChange(idVille,idMetier,idContrat,param)
+        console.log(param);
+        console.log('use effect actif page principal')
+    },[param])
 
 
         return (
             <Container>
-            <SearchOffre onListeChange={(list)=>handleListChange(list)}/>
+            <SearchOffre
+
+                onIdChange={(idVille,idMetier,idContrat)=>handleIdChange(idVille,idMetier,idContrat)}
+
+            />
                 <Row>
                     <Col xs={3}>
-                        <Filtre/>
+                        <Filtre
+                            liste={list}
+                            onFiltreChange={handleFiltreChange}
+                        />
                     </Col>
                     <Col >
                         <Offre liste={list}/>

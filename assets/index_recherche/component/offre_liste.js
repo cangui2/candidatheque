@@ -10,7 +10,7 @@ import Moment from "react-moment";
 function Offre (props) {
 
 const [idMetier,setIdMetier]=useState(window.metier)
-console.log(props.liste)
+
 
     return(
 

@@ -64,7 +64,7 @@ class Offre
      * @Groups({"off:read", "write"})
      */
     private $titre;
-    
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"off:read", "write"})
@@ -249,7 +249,7 @@ class Offre
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"off:read", "write"})
      */
-    private $typeSalaire;
+    private $typeSalaire; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -259,7 +259,7 @@ class Offre
      * )
      * @Groups({"off:read", "write"})
      */
-    private $dureeHebdo; //1-annuel, 2-mensuel, 3-journalier, 4-horaire
+    private $dureeHebdo;
 
 
 

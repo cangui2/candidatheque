@@ -11,16 +11,13 @@ use App\Repository\PostuleRepository;
 use App\Repository\TypeContratRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 class ApiController extends AbstractController
 {
 
@@ -153,6 +150,7 @@ class ApiController extends AbstractController
      * @Route("/api/search", name="api_recherche")
      * @param OffreRepository $offreRepository
      * @param Request $request
+     *
      * @return JsonResponse
      */
 
@@ -162,9 +160,15 @@ class ApiController extends AbstractController
         $metier = $request->query->get("metier");
         $ville = $request->query->get("ville");
         $secteur = $request->query->get("secteur");
-        $typeContrat = $request->query->get("contrat");
-        $filtre1=$request->query->get("filtre1");
-        $filtre2=$request->query->get("filtre2");
+        $keyword = $request->query->get("contrat");
+        $filtre1=$request->query->get('filtre1');
+        $test=array_map('intval',explode(',',$filtre1));
+        $possibleCdi=$request->query->get('cdi');
+        $urgent=$request->query->get('urgent');
+        $rayon=$request->query->get('rayon');
+        $salaire=$request->query->get('salaire');
+
+        //$filtre2=$request->query->get("filtre2");
 
         $query = $offreRepository->createQueryBuilder('o')
             ->select('o', 'met', 'vil', 'typ', 'rec', 'ent')
@@ -173,16 +177,40 @@ class ApiController extends AbstractController
             ->join('o.typeContrat', 'typ')
             ->join('o.recruteur', 'rec')
             ->join('o.entreprise', 'ent')
-            ->andWhere('met.id like :metier and vil.id like :ville and typ.id like :contrat ')
+            ->andWhere('met.id like :metier and vil.id like :ville and o.titre like :keyword and o.pro')
             ->setParameters(array(
                 'metier' => '%' . $metier . '%',
                 'ville' => '%' . $ville . '%',
-                'contrat' => '%' . $typeContrat . '%',
+                'keyword' => '%' . $keyword . '%',
             ));
-        if ($filtre1 || $filtre2){
+       if ($filtre1){
+           $query
+                ->andWhere('typ.id IN (:idContratCollection)')
+                ->setParameter('idContratCollection',$test );
+        }
+       if($possibleCdi){
+           $query
+               ->andWhere('o.possibiliteCdi like :possibiliteCdi')
+               ->setParameter('possibiliteCdi',$possibleCdi);
+       }
+       if ($urgent){
+           $query
+               ->andWhere('o.urgent like :urgent')
+               ->setParameter('urgent',$urgent);
+       }
+        if ($rayon) {
+
             $query
-                ->andWhere('typ.id IN (:idContratCollection,:id2)')
-                ->setParameter('idContratCollection', $filtre1);
+                ->andWhere('vil.id IN (:result)')
+                ->setParameter(
+                    'result', $this->villeRepo->searchAround($ville, $rayon)
+                );
+        if ($salaire){
+            $query
+                ->andWhere('o.salaire like :salaire')
+                ->setParameter('salaire', '%' . $salaire . '%');
+        }
+
         }
 
             $offreListeResult = $query->getQuery()

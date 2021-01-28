@@ -3,7 +3,9 @@
         "@fortawesome/fontawesome-free": "^5.15.1",
         "@symfony/webpack-encore": "^0.31.0",
         "core-js": "^3.0.0",
+        "node-sass": "^5.0.0",
         "regenerator-runtime": "^0.13.2",
+        "sass-loader": "9.0.1",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -19,6 +21,8 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
         "@fortawesome/free-solid-svg-icons": "^5.15.1",
         "@fortawesome/react-fontawesome": "^0.1.13",
+        "@thumbtack/thumbprint-react": "^14.3.3",
+        "@thumbtack/thumbprint-scss": "^4.0.1",
         "autoprefixer-loader": "^3.2.0",
         "axios": "^0.21.0",
         "bootstrap": "^4.5.3",

@@ -80,6 +80,7 @@ dd($resultat);
 
 
         $offres=$this->offreRepo->findByCompany($entreprise);
+
         //$offres=$recruteur->getOffres(); //$this->offreRepo->findCustomOfferByIdRecruteur($recruteurId);
         $cvs=$this->cvRepo->findAll();
 

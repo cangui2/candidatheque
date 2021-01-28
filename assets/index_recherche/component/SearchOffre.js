@@ -7,68 +7,50 @@ import AsyncSelect from "react-select/async/dist/react-select.esm";
 function SearchOffre (props) {
 
     // const param imput and select
-    const [profession, setProfession] = useState([]);
-    const [ville, setVille] = useState([]);
+
     const [secteur, setSecteur] = useState([]);
-    const [contrat, setContrat] = useState([]);
 
-
-
-    let str=window.location.href;
-    let url=new URL(str);
-    let met=url.searchParams.get("metier");
-    let vil=url.searchParams.get("ville");
-    let cont=url.searchParams.get("contrat");
-
-    const [idMetier, setIdMetier] = useState(met);
-    const[idVille,setIdVille]=useState(vil);
-    const [idContrat,setIdContrat]=useState(cont);
+    const [idMetier, setIdMetier] = useState();
+    const[idVille,setIdVille]=useState();
+    const [idContrat,setIdContrat]=useState();
     const [list,setListe]=useState([]);
     const[param,setParam]=useState([]);
 
 
 
-    const offreListe = (idMetier,idVille,idContrat) => {
-        axios.get(`/api/search?` + '&metier=' + idMetier+ '&ville='+idVille+'&contrat=' + idContrat)
-            .then((result) => {
-                setListe(result.data);
-                props.onListeChange(result.data);
-                console.log("1111111111111111111111111")
 
-            })
-            .catch(error => console.log(error));
-   }
-    useEffect(()=>{
 
-        offreListe(idMetier,idVille,idContrat)
-    },[idVille,idContrat,idContrat])
+    // useEffect(()=>{
+    //     props.onIdChange(idMetier,idVille,idContrat);
+    //     console.log('use effect search offre actif')
+    // },[idVille,idContrat,idContrat])
 
 
 
-    console.log(list);
+  //  console.log(list);
     // handle selection
     const handleChange = value => {
         //setSelectedValue(value);
-        setProfession(value.id);
+        setIdMetier(value.id);
 
     }
 
     const handleChange2 = value => {
         // setSelectedValue(value);
-        setVille(value.id);
+        setIdVille(value.id);
     }
 
     const handleChange3 = value => {
         // setSelectedValue(value);
-        setSecteur(value.id);
+        //setIdContrat(value.id);
     }
     const handleChange4 = value => {
         //setSelectedValue(value);
-        setContrat(value.id);
+        setIdContrat(value.id);
     }
 
-    const handleSubmit =(metier,contrat,ville)=>{
-        offreListe(metier,contrat,ville);
+    const handleSubmit =(idVille,idMetier,idContrat)=>{
+        props.onIdChange(idVille,idMetier,idContrat)
 
     }
 
@@ -143,7 +125,7 @@ function SearchOffre (props) {
                     type="radio"
                     variant='info'
                     value={2}
-                    onClick={() => handleSubmit(profession,ville,contrat)}
+                    onClick={() => handleSubmit(idVille,idMetier,idContrat)}
                 >
                     Recherche
                 </ToggleButton>
