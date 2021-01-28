@@ -32,6 +32,7 @@ class ApiController extends AbstractController
     protected $em;
 
 
+
     public function __construct(EntityManagerInterface $em, CompetenceRepository $competenceRepo, MetierRepository $metierRepo, CVRepository $cvRepo, TypeContratRepository $typeContratRepo, OffreRepository $offreRepo, PostuleRepository $postuleRepo, VilleRepository $villeRepo)
     {
 
@@ -44,6 +45,7 @@ class ApiController extends AbstractController
         $this->villeRepo = $villeRepo;
         $this->typeContratRepo = $typeContratRepo;
         $this->em = $em;
+
     }
 
     /**
@@ -158,9 +160,8 @@ class ApiController extends AbstractController
     {
 
         $metier = $request->query->get("metier");
-        $ville = $request->query->get("ville");
-        $secteur = $request->query->get("secteur");
-        $keyword = $request->query->get("contrat");
+        $villeId = $request->query->get("ville");
+        $keyword = $request->query->get("keyword");
         $filtre1=$request->query->get('filtre1');
         $test=array_map('intval',explode(',',$filtre1));
         $possibleCdi=$request->query->get('cdi');
@@ -177,10 +178,10 @@ class ApiController extends AbstractController
             ->join('o.typeContrat', 'typ')
             ->join('o.recruteur', 'rec')
             ->join('o.entreprise', 'ent')
-            ->andWhere('met.id like :metier and vil.id like :ville and o.titre like :keyword and o.pro')
+            ->andWhere('met.id like :metier  and o.titre like :keyword ')
             ->setParameters(array(
                 'metier' => '%' . $metier . '%',
-                'ville' => '%' . $ville . '%',
+                //'ville' =>  $villeId,
                 'keyword' => '%' . $keyword . '%',
             ));
        if ($filtre1){
@@ -188,11 +189,11 @@ class ApiController extends AbstractController
                 ->andWhere('typ.id IN (:idContratCollection)')
                 ->setParameter('idContratCollection',$test );
         }
-       if($possibleCdi){
-           $query
-               ->andWhere('o.possibiliteCdi like :possibiliteCdi')
-               ->setParameter('possibiliteCdi',$possibleCdi);
-       }
+//       if($possibleCdi){
+//           $query
+//               ->andWhere('o.possibiliteCdi like :possibiliteCdi')
+//               ->setParameter('possibiliteCdi',$possibleCdi);
+//       }
        if ($urgent){
            $query
                ->andWhere('o.urgent like :urgent')
@@ -203,7 +204,7 @@ class ApiController extends AbstractController
             $query
                 ->andWhere('vil.id IN (:result)')
                 ->setParameter(
-                    'result', $this->villeRepo->searchAround($ville, $rayon)
+                    'result', $this->villeRepo->searchAround($villeId, $rayon)
                 );
         if ($salaire){
             $query

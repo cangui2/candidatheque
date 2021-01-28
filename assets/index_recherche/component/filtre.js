@@ -18,15 +18,13 @@ function Filtre (props){
     const [finalRange,setFinalRange]=useState();
     const [finalRangeSalaire,setFinalRangeSalaire]=useState();
     const [filtre,setFiltre]=useState([])
-    const [param,setParam]=useState([])
-
-
-
+    const [cdi,setCdi]=useState([])
+    const [urgent,setUrgent] = useState([]);
 
 
     //const test = "1 2 3 4 5 6 7 10 11 ".split('');
     const test2=["CDI","CDD","Contrat de Travail Temporaire/Mission intérim","Contrat de professionnalisation","Contrat d'apprentissage","Stage","Freelance","CDI Intérimaire","CUI–CAE","CUI-CIE","Service civique"]
-
+    const test3=["Possibilité CDI","Urgent"]
     const handleSubmit =data=> {
 
         let v =  data.target.value;
@@ -49,24 +47,16 @@ function Filtre (props){
     }
 
 
-    const handleSend = (param) =>{
-        // axios.post('/api/search?filtre1='+ [value,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11])
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-        props.onFiltreChange(param);
+
+    const handleSendRayon = (data) =>{
+
+        props.onRayonChange(data);
         console.log('filtre');
     }
+    const handleSendBooleen =(data)=>{
 
-     // useEffect(()=>{
-     //     console.log('filtre');
-     //     props.onFiltreChange(param);
-     //     setFiltre(false)
-     //     },[filtre])
 
+    }
 
     return(
         <Form>
@@ -78,10 +68,13 @@ function Filtre (props){
 
                 <div  className="mb-3">
                     <fieldset>
+
                     {
+
                     test2.map(
 
                     (item,index)=>
+
                         <label key={index}>
                             <input type="checkbox" value={index+1} onChange={handleSubmit} name={"chk_" + index}  />
                             {item}
@@ -90,17 +83,19 @@ function Filtre (props){
                     )
 
                     }
+
                     </fieldset>
                 </div>
 
             </div>
             <br/>
             <div>
-                <label ><input type="checkbox" value={1} name="sameName"  />Possibilité CDI</label>
+
+                <label ><input type="checkbox" value={true} name="sameName"  />Possibilité CDI</label>
             </div>
             <br/>
             <div>
-                <label ><input type="checkbox" value={1} name="sameName"  />Urgent</label>
+                <label ><input type="checkbox" value={true} name="sameName"  />Urgent</label>
             </div>
             <br/>
             <div>
@@ -114,7 +109,7 @@ function Filtre (props){
                 max={150}
                 //className={disabled?' d-none ':''}
                 onChange={evt => setRange(evt.target.value)}
-                onAfterChange={evt => setFinalRange(evt.target.value)}
+                onAfterChange={evt => handleSendRayon(evt.target.value)}
             />
             </div>
             <div>

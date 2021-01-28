@@ -1,19 +1,12 @@
 import {Card} from "react-bootstrap";
-
-import axios from 'axios'
-import {Col, Form,Button} from "react-bootstrap";
 import React, { useState } from 'react'
-import ReactDOM from "react-dom";
 import Moment from "react-moment";
+import Button from "react-bootstrap/Button";
 
 
-function Offre (props) {
-
-const [idMetier,setIdMetier]=useState(window.metier)
-
+function OffreListe (props) {
 
     return(
-
         props.liste.map((item)=>(
         <Card style={{width: '100%'}}>
             <Card.Body>
@@ -22,14 +15,12 @@ const [idMetier,setIdMetier]=useState(window.metier)
                 <Card.Text>
                     {item.description}
                 </Card.Text>
-                <Card.Link href="#">Card Link</Card.Link>
-                <Card.Link href="#">Another Link</Card.Link>
+                <Button href=""type="button">Voir l'offre</Button>{' '}
+
             </Card.Body>
         </Card>
         ))
-
     )
-
 }
 
-export default Offre;
+export default OffreListe;
