@@ -8,7 +8,7 @@ function SelectLieu(props) {
     const [lieu, setLieu] = useState("");
 
     const loadOptions = (inputValue, callback) => {
-        axios.get("https://localhost:8000/api/sourcing/lieu/" + lieu).then((data) => {
+        axios.get("/api/sourcing/lieu/" + lieu).then((data) => {
             console.log(data);
             callback(data.data);
         });

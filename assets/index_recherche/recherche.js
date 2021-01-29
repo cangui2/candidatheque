@@ -1,7 +1,6 @@
-import React, {Component, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import {Col, Form, Button, Container, Row} from "react-bootstrap";
-import AsyncSelect from "react-select/async";
+import {Col, Container, Row} from "react-bootstrap";
 import ReactDOM from "react-dom";
 import Filtre from "./component/filtre";
 import OffreListe from "./component/offre_liste";
@@ -10,27 +9,30 @@ import './recherche.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(props) {
-    const [liste,setListe]=useState([]);
-    const [filtreContrat,setFiltreContrat]=useState([0]);
+    const [liste, setListe] = useState([]);
+    const [filtreContrat, setFiltreContrat] = useState([0]);
 
 
-    let str=window.location.href;
-    let url=new URL(str);
-    let met=url.searchParams.get("metier");
-    let vil=url.searchParams.get("ville");
-    let cont=url.searchParams.get("contrat");
+    let str = window.location.href;
+    let url = new URL(str);
+    let met = url.searchParams.get("metier");
+    let vil = url.searchParams.get("ville");
+    let cont = url.searchParams.get("contrat");
     const [idMetier, setIdMetier] = useState(met);
-    const[idVille,setIdVille]=useState(vil);
-    const [idContrat,setIdContrat]=useState(cont);
-    const [rayon,setRayon]=useState(1)
-    const [possibleCdi,setPossibleCdi]=useState(false);
-    const [urgent,setUrgent]=useState(false);
+    const [idVille, setIdVille] = useState(vil);
+    const [idContrat, setIdContrat] = useState(cont);
+    const [rayon, setRayon] = useState(1)
+    const [possibleCdi, setPossibleCdi] = useState(null);
+    const [urgent, setUrgent] = useState();
+    const [salaire,setSalaire]=useState([0]);
 
 
+    const handleChangeValue = () => {
 
-    const handleIdChange =()=>{
-//+'&cdi='+possibleCdi+'&urgent='+urgent
-        axios.get(`/api/search?` + '&metier=' + idMetier+ '&ville='+idVille+'&keyword=' + idContrat +'&filtre1='+ filtreContrat+'&rayon='+rayon)
+//+'&urgent='+urgent
+
+
+        axios.get(`/api/search?` + '&metier=' + idMetier + '&ville=' + idVille + '&keyword=' + idContrat + '&filtre1=' + filtreContrat + '&rayon=' + rayon+'&cdi='+possibleCdi+'&salaire='+salaire)
             .then((result) => {
                 setListe(result.data);
                 setIdVille(idVille);
@@ -39,58 +41,67 @@ function App(props) {
                 console.log(result)
             })
             .catch(error => console.log(error));
-
     }
-
-
+    const handleIdVilleChange =(value)=>{
+        setIdVille(value);
+           }
+    const handleIdMetierChange=(value)=>{
+        setIdMetier(value);
+           }
+    const handleChangeKeyword =(value)=>{
+        setIdContrat(value);
+           }
     const handleFiltreChange = (filtre) => {
-
         setFiltreContrat(filtre);
-    }
-    const handleRayonChange =(rayon)=>{
-        console.log(idVille);
+           }
+    const handleRayonChange = (rayon) => {
         setRayon(rayon);
-    }
-    const handleBooleenChange=(res,res2)=>{
+            }
+    const handleBooleenCdiChange = (res) => {
         setPossibleCdi(res);
-        setUrgent(res2);
+
+    }
+    const handleBooleenUrgentChange=(res)=>{
+        setUrgent(res);
+            }
+    const handleSalaireChange=(data)=>{
+        setSalaire(data);
     }
 
-    useEffect(()=>{
-        handleIdChange(idVille,idMetier,idContrat,filtreContrat)
-        setRayon(rayon);
-        console.log(filtreContrat);
+    useEffect(() => {
+        handleChangeValue()
         console.log('use effect actif page principal')
-    },[filtreContrat,rayon])
+    }, [filtreContrat, rayon, idVille, idMetier, idContrat,possibleCdi,urgent,salaire])
 
 
-
-        return (
-            <Container>
-                <br/>
+    return (
+        <Container>
+            <br/>
             <OffreRecherche
-                onIdChange={(idVille,idMetier,idContrat)=>handleIdChange(idVille,idMetier,idContrat)}
+                onIdVilleChange={(idVille)=>handleIdVilleChange(idVille)}
+                onIdMetierchange={(idMetier)=>handleIdMetierChange(idMetier)}
+                onKeywordChange={(idContrat)=>handleChangeKeyword(idContrat)}
             />
             <br/>
-                <Row>
-                    <Col xs={3} className='card'>
-                        <Filtre
-                            onFiltreChange={handleFiltreChange}
-                            onRayonChange={handleRayonChange}
-                           // onBoolenChange={handleBooleenChange}
-                        />
-                    </Col>
-                    <Col >
-                        <OffreListe liste={liste}/>
-                    </Col>
+            <Row>
+                <Col xs={3} className='card'>
+                    <Filtre
+                        onFiltreChange={handleFiltreChange}
+                        onRayonChange={handleRayonChange}
+                        onBoolenCdiChange={handleBooleenCdiChange}
+                        onBoolenUrgentChange={handleBooleenUrgentChange}
+                        onSalaireChange={handleSalaireChange}
+                    />
+                </Col>
+                <Col>
+                    <OffreListe liste={liste}/>
+                </Col>
 
-                </Row>
-    </Container>
+            </Row>
+        </Container>
 
 
-
-
-        )
+    )
 
 }
 

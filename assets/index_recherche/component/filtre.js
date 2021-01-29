@@ -1,12 +1,7 @@
-import {Col, Container, Form} from "react-bootstrap";
-import React, {Component, useEffect, useReducer, useState} from 'react'
+import {Container, Form} from "react-bootstrap";
+import React, {useEffect, useState} from 'react'
 import RangeSlider from "react-bootstrap-range-slider";
-import axios from "axios";
-
-
-
-
-
+import {getTrackBackground, Range} from "react-range";
 
 
 
@@ -14,15 +9,12 @@ function Filtre (props){
 
 
     const [range,setRange]=useState(0);
-    const [rangeSalaire,setRangeSalaire]=useState(500);
-    const [finalRange,setFinalRange]=useState();
+
+    const [rangeSalaire,setRangeSalaire]=useState([25,75]);
     const [finalRangeSalaire,setFinalRangeSalaire]=useState();
     const [filtre,setFiltre]=useState([])
-    const [cdi,setCdi]=useState([])
-    const [urgent,setUrgent] = useState([]);
+    const [value,setValue]=useState([25,75])
 
-
-    //const test = "1 2 3 4 5 6 7 10 11 ".split('');
     const test2=["CDI","CDD","Contrat de Travail Temporaire/Mission intérim","Contrat de professionnalisation","Contrat d'apprentissage","Stage","Freelance","CDI Intérimaire","CUI–CAE","CUI-CIE","Service civique"]
     const test3=["Possibilité CDI","Urgent"]
     const handleSubmit =data=> {
@@ -41,25 +33,44 @@ function Filtre (props){
                 setFiltre([...filtre])
             }
         }
-
         props.onFiltreChange(filtre);
-
     }
-
-
-
     const handleSendRayon = (data) =>{
-
         props.onRayonChange(data);
         console.log('filtre');
     }
-    const handleSendBooleen =(data)=>{
-
-
+    const handleSendCdiBooleen =(data)=>{
+        if(data.target.checked){
+            props.onBoolenCdiChange(0)
+        }
+        else {
+            props.onBoolenCdiChange(1)
+        }
     }
 
+    const handleSendUrgentBoolen =(data)=>{
+        if(data.target.checked){
+            props.onBoolenUrgentChange(0)
+        }else {
+            props.onBoolenUrgentChange(1)
+        }
+
+    }
+    const handleSendSalaire =(data)=>{
+        props.onSalaireChange(data);
+    }
+    // useEffect(()=>{
+    //     handleSendSalaire(value);
+    //     console.log(value)
+    // },[value])
+
+
+    const STEP = 0.1;
+    const MIN = 0;
+    const MAX = 100;
+
     return(
-        <Form>
+        <Container>
 
             <div>
                 <h5>Type de Contrat</h5>
@@ -91,11 +102,11 @@ function Filtre (props){
             <br/>
             <div>
 
-                <label ><input type="checkbox" value={true} name="sameName"  />Possibilité CDI</label>
+                <label ><input type="checkbox" value={true} name="sameName" onChange={handleSendCdiBooleen} />Possibilité CDI</label>
             </div>
             <br/>
             <div>
-                <label ><input type="checkbox" value={true} name="sameName"  />Urgent</label>
+                <label ><input type="checkbox" value={true} name="sameName" onChange={handleSendUrgentBoolen}  />Urgent</label>
             </div>
             <br/>
             <div>
@@ -117,17 +128,91 @@ function Filtre (props){
                 <h5>Salaire</h5>
             </div>
             <br/>
-            <RangeSlider
-                value={rangeSalaire}
-                min={500}
-                max={3000}
-                //className={disabled?' d-none ':''}
-                onChange={evt => setRangeSalaire(evt.target.value)}
-                onAfterChange={evt => setFinalRangeSalaire(evt.target.value)}
-            />
+
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap'
+                    }}
+                >
+                    <Range
+                        draggableTrack
+                        values={value}
+                        step={STEP}
+                        min={MIN}
+                        max={MAX}
+                        onChange={values => {
+                            setValue(values )
+                        }}
+                        onFinalChange={handleSendSalaire}
+
+                        renderTrack={({ props, children }) => (
+                            <div
+                                onMouseDown={props.onMouseDown}
+                                onTouchStart={props.onTouchStart}
+                                style={{
+                                    ...props.style,
+                                    height: '36px',
+                                    display: 'flex',
+                                    width: '100%'
+                                }}
+                            >
+                                <div
+                                    ref={props.ref}
+                                    style={{
+                                        height: '5px',
+                                        width: '100%',
+                                        borderRadius: '4px',
+                                        background: getTrackBackground({
+                                            values: value,
+                                            colors: ['#ccc', '#548BF4', '#ccc'],
+                                            min: MIN,
+                                            max: MAX
+                                        }),
+                                        alignSelf: 'center'
+                                    }}
+                                >
+                                    {children}
+                                </div>
+                            </div>
+                        )}
+                        renderThumb={({ props, isDragged }) => (
+                            <div
+                                {...props}
+                                style={{
+                                    ...props.style,
+                                    height: '42px',
+                                    width: '42px',
+                                    borderRadius: '4px',
+                                    backgroundColor: '#FFF',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    boxShadow: '0px 2px 6px #AAA'
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        height: '16px',
+                                        width: '5px',
+                                        backgroundColor: isDragged ? '#548BF4' : '#CCC'
+                                    }}
+                                />
+                            </div>
+                        )}
+                    />
+                <output style={{ marginTop: '30px' }} id="output">
+                    {value[0].toFixed(1)} - {value[1].toFixed(1)}
+                </output>
+
+
+
+                </div>
+
         </div>
 
-        </Form>
+        </Container>
     )
 }
 

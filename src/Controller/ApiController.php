@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Candidat;
 use App\Entity\Competence;
 use App\Repository\CVRepository;
+use App\Repository\OffreRepository;
 use App\Repository\VilleRepository;
 use App\Repository\MetierRepository;
 use App\Repository\CompetenceRepository;
@@ -24,14 +25,18 @@ class ApiController extends AbstractController
     protected $metierRepo;
     protected $cvRepo;
     protected $em;
+    protected $offreRepo;
+    protected $villeRepo;
 
 
-    public function __construct(EntityManagerInterface $em, CompetenceRepository $competenceRepo, MetierRepository $metierRepo, CVRepository $cvRepo)
+    public function __construct(EntityManagerInterface $em, CompetenceRepository $competenceRepo, MetierRepository $metierRepo, CVRepository $cvRepo,OffreRepository $offreRepository,VilleRepository $villeRepository)
     {
         $this->competenceRepo = $competenceRepo;
         $this->metierRepo = $metierRepo;
         $this->cvRepo = $cvRepo;
         $this->em = $em;
+        $this->offreRepo=$offreRepository;
+        $this->villeRepo=$villeRepository;
     }
 
     /**
@@ -151,11 +156,12 @@ class ApiController extends AbstractController
         $villeId = $request->query->get("ville");
         $keyword = $request->query->get("keyword");
         $filtre1=$request->query->get('filtre1');
-        $test=array_map('intval',explode(',',$filtre1));
+        $filtreCollection=array_map('intval',explode(',',$filtre1));
         $possibleCdi=$request->query->get('cdi');
         $urgent=$request->query->get('urgent');
         $rayon=$request->query->get('rayon');
         $salaire=$request->query->get('salaire');
+        $salaireCollection=array_map('intval',explode(',',$salaire));
 
         //$filtre2=$request->query->get("filtre2");
 
@@ -166,43 +172,66 @@ class ApiController extends AbstractController
             ->join('o.typeContrat', 'typ')
             ->join('o.recruteur', 'rec')
             ->join('o.entreprise', 'ent')
-            ->andWhere('met.id like :metier  and o.titre like :keyword ')
+            ->andWhere('met.id like :metier  AND o.titre like :keyword ')
             ->setParameters(array(
                 'metier' => '%' . $metier . '%',
                 //'ville' =>  $villeId,
                 'keyword' => '%' . $keyword . '%',
             ));
+
        if ($filtre1){
            $query
                 ->andWhere('typ.id IN (:idContratCollection)')
-                ->setParameter('idContratCollection',$test );
+                ->setParameter('idContratCollection',$filtreCollection );
         }
-//       if($possibleCdi){
-//           $query
-//               ->andWhere('o.possibiliteCdi like :possibiliteCdi')
-//               ->setParameter('possibiliteCdi',$possibleCdi);
-//       }
+
+       if($possibleCdi){
+           $query
+               ->andWhere('o.possibiliteCDI=:possibiliteCdi')
+               ->setParameter('possibiliteCdi',$possibleCdi);
+       }
+       if($possibleCdi === 1 || $possibleCdi === null){
+           $query
+               ->andWhere('o.possibiliteCDI= null AND o.possibiliteCDI = false')
+               ->setParameter('possibiliteCdi',$possibleCdi);
+
+       }
+
        if ($urgent){
            $query
-               ->andWhere('o.urgent like :urgent')
+               ->andWhere('o.urgent=:urgent')
                ->setParameter('urgent',$urgent);
        }
-        if ($rayon) {
+        if ($rayon && $villeId) {
 
             $query
                 ->andWhere('vil.id IN (:result)')
                 ->setParameter(
                     'result', $this->villeRepo->searchAround($villeId, $rayon)
                 );
-        if ($salaire){
-            $query
-                ->andWhere('o.salaire like :salaire')
-                ->setParameter('salaire', '%' . $salaire . '%');
         }
+        if ($salaire){
+           // dd(andWhere($query->expr()->between('o.typeSalaire ',':start','end' )));
+
+
+
+            $query
+
+              ->andWhere('o.salaire between :valeurMin and :$valeurMax')
+
+               // ->where('o.salaireType BETWEEN (:start) AND (:end)')
+                ->setParameters(array(
+                      'valeurMin' => $salaire,
+                      'valeurMax' => $salaire,
+                  ));
+
 
         }
+
+
 
             $offreListeResult = $query->getQuery()
+
             ->setMaxResults(30)
             ->getArrayResult();
 

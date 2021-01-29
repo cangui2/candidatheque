@@ -19,7 +19,9 @@ function OffreListe (props) {
 
             </Card.Body>
         </Card>
+
         ))
+
     )
 }
 
