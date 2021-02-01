@@ -113,12 +113,18 @@ class RechercheController extends AbstractController
 
 
     /**
-     * @Route("/recherche_details", name="recherche_details")
+     * @Route("/recherche_details/{id}", name="recherche_details")
      */
-    public function details(): Response
+    public function details($id): Response
     {
+
+        $offre=$this->offreRepo->find($id);
+
+
+
         return $this->render('recherche/details.html.twig', [
             'controller_name' => 'RechercheController',
+            'offre'=>$offre
         ]);
     }
 }

@@ -156,12 +156,13 @@ class ApiController extends AbstractController
         $villeId = $request->query->get("ville");
         $keyword = $request->query->get("keyword");
         $filtre1=$request->query->get('filtre1');
-        $filtreCollection=array_map('intval',explode(',',$filtre1));
+        //$filtreCollection=array_map('intval',explode(',',$filtre1));
         $possibleCdi=$request->query->get('cdi');
         $urgent=$request->query->get('urgent');
         $rayon=$request->query->get('rayon');
-        $salaire=$request->query->get('salaire');
-        $salaireCollection=array_map('intval',explode(',',$salaire));
+        $salaireMin=$request->query->get('salaireMin');
+        $salaireMax=$request->query->get('salaireMax');
+        //$salaireCollection=array_map('intval',explode(',',$salaire));
 
         //$filtre2=$request->query->get("filtre2");
 
@@ -171,13 +172,26 @@ class ApiController extends AbstractController
             ->join('o.ville', 'vil')
             ->join('o.typeContrat', 'typ')
             ->join('o.recruteur', 'rec')
-            ->join('o.entreprise', 'ent')
-            ->andWhere('met.id like :metier  AND o.titre like :keyword ')
-            ->setParameters(array(
-                'metier' => '%' . $metier . '%',
-                //'ville' =>  $villeId,
-                'keyword' => '%' . $keyword . '%',
-            ));
+            ->join('o.entreprise', 'ent');
+//            ->andWhere('met.id like :metier  AND o.titre like :keyword ')
+//            ->setParameters(array(
+//                'metier' => '%' . $metier . '%',
+//                //'ville' =>  $villeId,
+//                'keyword' => '%' . $keyword . '%',
+//            ));
+
+        if ($keyword){
+            $query
+                ->andWhere('o.titre like :keyword')
+                ->setParameter('keyword','%'.$keyword.'%');
+        }
+
+
+        if($metier){
+            $query
+                ->andWhere('met.id like :metier ')
+                ->setParameter('metier',$metier);
+        }
 
        if ($filtre1){
            $query
@@ -190,7 +204,7 @@ class ApiController extends AbstractController
                ->andWhere('o.possibiliteCDI=:possibiliteCdi')
                ->setParameter('possibiliteCdi',$possibleCdi);
        }
-       if($possibleCdi === 1 || $possibleCdi === null){
+       if($possibleCdi === false){
            $query
                ->andWhere('o.possibiliteCDI= null AND o.possibiliteCDI = false')
                ->setParameter('possibiliteCdi',$possibleCdi);
@@ -210,19 +224,18 @@ class ApiController extends AbstractController
                     'result', $this->villeRepo->searchAround($villeId, $rayon)
                 );
         }
-        if ($salaire){
+        if ($salaireMin && $salaireMax){
            // dd(andWhere($query->expr()->between('o.typeSalaire ',':start','end' )));
-
 
 
             $query
 
-              ->andWhere('o.salaire between :valeurMin and :$valeurMax')
+              ->andWhere('o.salaire between :valeurMin and :valeurMax')
 
                // ->where('o.salaireType BETWEEN (:start) AND (:end)')
                 ->setParameters(array(
-                      'valeurMin' => $salaire,
-                      'valeurMax' => $salaire,
+                      'valeurMin' => $salaireMin,
+                      'valeurMax' => $salaireMax,
                   ));
 
 

@@ -9,31 +9,30 @@ function Filtre (props){
 
 
     const [range,setRange]=useState(0);
+    const [filtreContrat,setFiltreContrat]=useState([])
+    const [salaire,setSalaire]=useState([12000, 30000])
+    const libelleContrat=["CDI","CDD","Contrat de Travail Temporaire/Mission intérim","Contrat de professionnalisation","Contrat d'apprentissage","Stage","Freelance","CDI Intérimaire","CUI–CAE","CUI-CIE","Service civique"]
+    const STEP = 0.1;
+    const MIN = 0;
+    const MAX = 50000;
 
-    const [rangeSalaire,setRangeSalaire]=useState([25,75]);
-    const [finalRangeSalaire,setFinalRangeSalaire]=useState();
-    const [filtre,setFiltre]=useState([])
-    const [value,setValue]=useState([25,75])
-
-    const test2=["CDI","CDD","Contrat de Travail Temporaire/Mission intérim","Contrat de professionnalisation","Contrat d'apprentissage","Stage","Freelance","CDI Intérimaire","CUI–CAE","CUI-CIE","Service civique"]
-    const test3=["Possibilité CDI","Urgent"]
-    const handleSubmit =data=> {
+    const handleChangeValueContrat =data=> {
 
         let v =  data.target.value;
         if (data.target.checked) {
-            if (!filtre.includes(v)) {
-                filtre.push(v);
-                setFiltre([...filtre])
+            if (!filtreContrat.includes(v)) {
+                filtreContrat.push(v);
+                setFiltreContrat([...filtreContrat])
             }
         }
         else {
-            const index = filtre.indexOf(v);
+            const index = filtreContrat.indexOf(v);
             if (index > -1) {
-                filtre.splice(index, 1);
-                setFiltre([...filtre])
+                filtreContrat.splice(index, 1);
+                setFiltreContrat([...filtreContrat])
             }
         }
-        props.onFiltreChange(filtre);
+        props.onFiltreChange(filtreContrat);
     }
     const handleSendRayon = (data) =>{
         props.onRayonChange(data);
@@ -41,33 +40,26 @@ function Filtre (props){
     }
     const handleSendCdiBooleen =(data)=>{
         if(data.target.checked){
-            props.onBoolenCdiChange(0)
+            props.onBoolenCdiChange(true)
         }
         else {
-            props.onBoolenCdiChange(1)
+            props.onBoolenCdiChange(false)
         }
     }
-
     const handleSendUrgentBoolen =(data)=>{
         if(data.target.checked){
-            props.onBoolenUrgentChange(0)
+            props.onBoolenUrgentChange(true)
         }else {
-            props.onBoolenUrgentChange(1)
+            props.onBoolenUrgentChange(false)
         }
-
     }
     const handleSendSalaire =(data)=>{
         props.onSalaireChange(data);
     }
-    // useEffect(()=>{
-    //     handleSendSalaire(value);
-    //     console.log(value)
-    // },[value])
 
 
-    const STEP = 0.1;
-    const MIN = 0;
-    const MAX = 100;
+
+
 
     return(
         <Container>
@@ -77,36 +69,38 @@ function Filtre (props){
             </div>
             <div>
 
-                <div  className="mb-3">
-                    <fieldset>
+                <div  className="mb-12 col-6">
+                    <div>
 
                     {
 
-                    test2.map(
+                    libelleContrat.map(
 
                     (item,index)=>
 
-                        <label key={index}>
-                            <input type="checkbox" value={index+1} onChange={handleSubmit} name={"chk_" + index}  />
+                        <label key={index} style={{whiteSpace:"pre-line"}}>
+
+                            <input type="checkbox" value={index+1} onChange={handleChangeValueContrat} name={"chk_" + index}  />
                             {item}
+
                         </label>
 
                     )
 
                     }
 
-                    </fieldset>
+                    </div>
                 </div>
 
             </div>
             <br/>
-            <div>
+            <div className="mb-12 col-8">
 
-                <label ><input type="checkbox" value={true} name="sameName" onChange={handleSendCdiBooleen} />Possibilité CDI</label>
+                <label ><input type="checkbox" name="possibiliteCDI" onChange={handleSendCdiBooleen} />Possibilité CDI</label>
             </div>
             <br/>
-            <div>
-                <label ><input type="checkbox" value={true} name="sameName" onChange={handleSendUrgentBoolen}  />Urgent</label>
+            <div className="mb-12 col-6">
+                <label ><input type="checkbox" value={true} name="urgent" onChange={handleSendUrgentBoolen}  />Urgent</label>
             </div>
             <br/>
             <div>
@@ -138,12 +132,12 @@ function Filtre (props){
                 >
                     <Range
                         draggableTrack
-                        values={value}
+                        values={salaire}
                         step={STEP}
                         min={MIN}
                         max={MAX}
                         onChange={values => {
-                            setValue(values )
+                            setSalaire(values )
                         }}
                         onFinalChange={handleSendSalaire}
 
@@ -152,8 +146,9 @@ function Filtre (props){
                                 onMouseDown={props.onMouseDown}
                                 onTouchStart={props.onTouchStart}
                                 style={{
+
                                     ...props.style,
-                                    height: '36px',
+                                    height: '26px',
                                     display: 'flex',
                                     width: '100%'
                                 }}
@@ -165,7 +160,7 @@ function Filtre (props){
                                         width: '100%',
                                         borderRadius: '4px',
                                         background: getTrackBackground({
-                                            values: value,
+                                            values: salaire,
                                             colors: ['#ccc', '#548BF4', '#ccc'],
                                             min: MIN,
                                             max: MAX
@@ -182,8 +177,8 @@ function Filtre (props){
                                 {...props}
                                 style={{
                                     ...props.style,
-                                    height: '42px',
-                                    width: '42px',
+                                    height: '22px',
+                                    width: '22px',
                                     borderRadius: '4px',
                                     backgroundColor: '#FFF',
                                     display: 'flex',
@@ -203,7 +198,7 @@ function Filtre (props){
                         )}
                     />
                 <output style={{ marginTop: '30px' }} id="output">
-                    {value[0].toFixed(1)} - {value[1].toFixed(1)}
+                    {salaire[0].toFixed(0)} - {salaire[1].toFixed(0)}
                 </output>
 
 

@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(props) {
     const [liste, setListe] = useState([]);
-    const [filtreContrat, setFiltreContrat] = useState([0]);
+    const [filtreContrat, setFiltreContrat] = useState([]);
 
 
     let str = window.location.href;
@@ -18,21 +18,35 @@ function App(props) {
     let met = url.searchParams.get("metier");
     let vil = url.searchParams.get("ville");
     let cont = url.searchParams.get("contrat");
+
     const [idMetier, setIdMetier] = useState(met);
     const [idVille, setIdVille] = useState(vil);
-    const [idContrat, setIdContrat] = useState(cont);
+    const [keyword, setKeyword] = useState(cont);
     const [rayon, setRayon] = useState(1)
-    const [possibleCdi, setPossibleCdi] = useState(null);
+    const [possibleCdi, setPossibleCdi] = useState(0);
     const [urgent, setUrgent] = useState();
-    const [salaire,setSalaire]=useState([0]);
+    const [salaire,setSalaire]=useState([12000, 30000]);
 
 
     const handleChangeValue = () => {
+        let params = [];
+        if (idMetier) params.push("metier=" + idMetier);
+        if (idVille)  {
+            params.push("ville="+idVille);
+            params.push("rayon=" + rayon);
+        }
+        if (possibleCdi) params.push("possibleCdi=" + possibleCdi);
+        if (urgent) params.push("urgent=" + urgent);
+        if (filtreContrat.length>0) params.push("filtreContrat=" + filtreContrat.join());
+        params.push("salaireMin=" + salaire[0]);
+        params.push("salaireMax=" + salaire[1]);
+        if(keyword) params.push("keyword="+keyword);
 
-//+'&urgent='+urgent
+        console.log(params);
+        var url_params = params.join("&");
+        console.log(url_params);
 
-
-        axios.get(`/api/search?` + '&metier=' + idMetier + '&ville=' + idVille + '&keyword=' + idContrat + '&filtre1=' + filtreContrat + '&rayon=' + rayon+'&cdi='+possibleCdi+'&salaire='+salaire)
+        axios.get(`/api/search?` + url_params)
             .then((result) => {
                 setListe(result.data);
                 setIdVille(idVille);
@@ -49,7 +63,7 @@ function App(props) {
         setIdMetier(value);
            }
     const handleChangeKeyword =(value)=>{
-        setIdContrat(value);
+        setKeyword(value);
            }
     const handleFiltreChange = (filtre) => {
         setFiltreContrat(filtre);
@@ -63,15 +77,18 @@ function App(props) {
     }
     const handleBooleenUrgentChange=(res)=>{
         setUrgent(res);
+        //handleChangeValue()
             }
+
     const handleSalaireChange=(data)=>{
         setSalaire(data);
+        //handleChangeValue()
     }
 
     useEffect(() => {
         handleChangeValue()
         console.log('use effect actif page principal')
-    }, [filtreContrat, rayon, idVille, idMetier, idContrat,possibleCdi,urgent,salaire])
+    }, [filtreContrat, rayon, idVille, idMetier, keyword,possibleCdi,urgent,salaire])
 
 
     return (
