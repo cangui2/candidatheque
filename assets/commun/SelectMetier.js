@@ -32,6 +32,7 @@ const SelectMetier = (props) => {
             placeholder="Saisissez votre métier..."
             onChange={handleChangeMetier}
             menuPosition="fixed"
+
         />
     );
 };

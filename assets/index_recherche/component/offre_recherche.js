@@ -7,10 +7,10 @@ import SelectMetier from "../../commun/SelectMetier";
 
 function OffreRecherche(props) {
 
-    const handleChange = value => {
+    const handleChangeMetier = value => {
         props.onIdMetierchange(value.id);
     }
-    const handleChange2 = (value) => {
+    const handleChangeVille = (value) => {
         props.onIdVilleChange(value.id);
     }
     const handleChange3 = value => {
@@ -33,10 +33,10 @@ function OffreRecherche(props) {
         <Form>
             <Form.Row>
                 <Col>
-                    <SelectMetier onSelect={handleChange}/>
+                    <SelectMetier onSelect={handleChangeMetier}/>
                 </Col>
                 <Col>
-                    <SelectVille onSelect={handleChange2}/>
+                    <SelectVille onSelect={handleChangeVille}/>
                 </Col>
                 <Col>
                     <AsyncSelect

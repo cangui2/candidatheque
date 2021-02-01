@@ -9,8 +9,7 @@ import './recherche.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(props) {
-    const [liste, setListe] = useState([]);
-    const [filtreContrat, setFiltreContrat] = useState([]);
+
 
 
     let str = window.location.href;
@@ -19,6 +18,8 @@ function App(props) {
     let vil = url.searchParams.get("ville");
     let cont = url.searchParams.get("contrat");
 
+    const [liste, setListe] = useState([]);
+    const [filtreContrat, setFiltreContrat] = useState([]);
     const [idMetier, setIdMetier] = useState(met);
     const [idVille, setIdVille] = useState(vil);
     const [keyword, setKeyword] = useState(cont);
