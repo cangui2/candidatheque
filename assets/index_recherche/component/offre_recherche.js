@@ -1,31 +1,21 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
-import {Button, Col, Form, ToggleButton} from "react-bootstrap";
+import React from "react";
+import {Col, Form} from "react-bootstrap";
 import AsyncSelect from "react-select/async/dist/react-select.esm";
 import SelectVille from "../../commun/SelectVille";
 import SelectMetier from "../../commun/SelectMetier";
 
 
-function OffreRecherche (props) {
-
-
-
+function OffreRecherche(props) {
 
     const handleChange = value => {
         props.onIdMetierchange(value.id);
-
     }
     const handleChange2 = (value) => {
         props.onIdVilleChange(value.id);
-
     }
-
     const handleChange3 = value => {
         props.onKeywordChange(value);
-
     }
-
-
 
     //
     // load options using API call
@@ -39,16 +29,14 @@ function OffreRecherche (props) {
         return fetch(`/api/a_p_es?libelle=${inputValue}`).then(res => res.json());
     };
 
-
-
-    return(
+    return (
         <Form>
             <Form.Row>
                 <Col>
-                    <SelectMetier onSelect={handleChange} />
+                    <SelectMetier onSelect={handleChange}/>
                 </Col>
                 <Col>
-                    <SelectVille onSelect={handleChange2} />
+                    <SelectVille onSelect={handleChange2}/>
                 </Col>
                 <Col>
                     <AsyncSelect
@@ -65,8 +53,9 @@ function OffreRecherche (props) {
 
     )
 }
+
 export default OffreRecherche;
 
-const style ={
-    border:'1 px solid black'
+const style = {
+    border: '1 px solid black'
 }

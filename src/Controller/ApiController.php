@@ -155,8 +155,8 @@ class ApiController extends AbstractController
         $metier = $request->query->get("metier");
         $villeId = $request->query->get("ville");
         $keyword = $request->query->get("keyword");
-        $filtre1=$request->query->get('filtre1');
-        //$filtreCollection=array_map('intval',explode(',',$filtre1));
+        $filtre1=$request->query->get('filtreContrat');
+        $filtreCollection=array_map('intval',explode(',',$filtre1));
         $possibleCdi=$request->query->get('cdi');
         $urgent=$request->query->get('urgent');
         $rayon=$request->query->get('rayon');
@@ -230,7 +230,7 @@ class ApiController extends AbstractController
 
             $query
 
-              ->andWhere('o.salaire between :valeurMin and :valeurMax')
+              ->where('o.salaire between :valeurMin and :valeurMax')
 
                // ->where('o.salaireType BETWEEN (:start) AND (:end)')
                 ->setParameters(array(

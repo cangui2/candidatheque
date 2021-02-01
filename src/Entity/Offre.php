@@ -133,7 +133,7 @@ class Offre
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeContrat::class, inversedBy="offres")
-     * @Groups({"write"})
+     * @Groups({"write", "read"})
      */
     private $typeContrat;
 

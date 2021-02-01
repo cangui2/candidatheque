@@ -3,30 +3,48 @@
 {% block title %}Détail Offre{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-<body>
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-<div class="container my-5">
-    <div class="card bg-light p-4">
-      <div class="card-body">
-        <h6 class="card-text text-secondary font-weight-light text">Publiée le {{ offre.datePublication | date ("d/m/y") }}</h6>
-        <h3 class="card-title color-principale1 border-bottom pb-3 my-2">{{offre.titre}}</h3>
-        <h5 class="card-text my-4">Offre n° {{ offre.id }}</h5>
-        <h5 class="card-text text-secondary my-4"><i class="fa fa-map-marker color-principale1" aria-hidden="true"></i> Localisation : {{ offre.ville.nom }}</h5>
-        <h5 class="card-text text-secondary my-4"><i class="fa fa-pie-chart color-principale1" aria-hidden="true"></i> Secteur d'activité : </h5>
-        <h5 class="card-text text-secondary my-4"><i class="fa fa-clock-o color-principale1" aria-hidden="true"></i> Type de contrat : {{ offre.typeSalaire}} </h5>
-        <h5 class="card-text text-secondary my-4"><i class="fa fa-calendar-o color-principale1" aria-hidden="true"></i> Début du contrat : {{ offre.dateDebut | date ("d/m/y")}} </h5>
-        <h3 class="card-text color-principale1 my-4">Profil : </h3>
-        <p class="card-text text-justify my-4"> {{ offre.profil }}</p>
-        <h3 class="card-text color-principale1">Mission : </h3>
-        <p class="card-text text-justify my-4"> {{ offre.description }}</p>
-        <h5 class="card-text text-secondary my-4"><i class="fa fa-map-o color-principale1" aria-hidden="true"></i> Lieu de votre mission : </h5>
-      </div>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+    <body>
+
+    <div class="container my-5">
+        <div class="card bg-light p-4">
+            <div class="card-body">
+                <h6 class="card-text text-secondary font-weight-light text">Publiée
+                    le {{ offre.datePublication | date ("d/m/y") }}</h6>
+                <h3 class="card-title color-principale1 border-bottom pb-3 my-2">{{ offre.titre }}</h3>
+                <h5 class="card-text my-4">Offre n° {{ offre.id }}</h5>
+                <h5 class="card-text text-secondary my-4"><i class="fa fa-map-marker color-principale1"
+                                                             aria-hidden="true"></i> Localisation
+                    : {{ offre.ville.nom }}</h5>
+                <h5 class="card-text text-secondary my-4"><i class="fa fa-pie-chart color-principale1"
+                                                             aria-hidden="true"></i> Secteur d'activité : </h5>
+                <h5 class="card-text text-secondary my-4"><i class="fa fa-clock-o color-principale1"
+                                                             aria-hidden="true"></i> Type de contrat
+                    : {{ offre.typeContrat.libelle }} </h5>
+                <h5 class="card-text text-secondary my-4"><i class="fa fa-calendar-o color-principale1"
+                                                             aria-hidden="true"></i> Début du contrat
+                    : {{ offre.dateDebut | date ("d/m/y") }} </h5>
+                <h3 class="card-text color-principale1 my-4">Profil : </h3>
+                <p class="card-text text-justify my-4"> {{ offre.profil }}</p>
+                <h3 class="card-text color-principale1">Mission : </h3>
+                <p class="card-text text-justify my-4"> {{ offre.description }}</p>
+                <h5 class="card-text text-secondary my-4"><i class="fa fa-map-o color-principale1"
+                                                             aria-hidden="true"></i> Lieu de votre mission : </h5>
+            </div>
+        </div>
     </div>
-    </div>
-</body>
+    </body>
 
 {% endblock %}
