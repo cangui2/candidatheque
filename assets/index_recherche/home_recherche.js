@@ -11,10 +11,7 @@ function App() {
     const [ville, setVille] = useState([]);
     const [secteur, setSecteur] = useState([]);
     const [contrat, setContrat] = useState([]);
-    const [idMetier, setIdMetier] = useState(window.metier);
-
-
-    // handle selection
+    //const [idMetier, setIdMetier] = useState(window.metier);
 
     const handleChange2 = value => {
         // setSelectedValue(value);
@@ -35,20 +32,10 @@ function App() {
         console.log(value.id)
     }
 
-
-    //
-    // const loadOptions =(inputValue,callback)=>{
-    //     axios.get(`/api/metiers?libelle=`+inputValue)
-    //         .then((data)=>{
-    //             callback(data.data);
-    //         })
-    // }
-
     // load options using API call
      const loadOptions = (inputValue) => {
          return fetch(`/api/metiers?libelle=${inputValue}`).then(res => res.json());
      };
-
 
     const loadOptions2 = (inputValue) => {
         return fetch(`/api/villes?nom=${inputValue}`).then(res => res.json());
@@ -72,7 +59,7 @@ function App() {
 
                     <AsyncSelect
 
-                        placeholder=""
+                        placeholder="Profession"
                         getOptionLabel={e => e.libelle}
                         getOptionValue={e => e.id}
                         loadOptions={loadOptions}
@@ -90,17 +77,17 @@ function App() {
                         onChange={handleChange2}
                         components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
                     />
-                    <Form.Label>Secteur</Form.Label>
+                    {/*<Form.Label>Secteur</Form.Label>*/}
 
-                    <AsyncSelect
+                    {/*<AsyncSelect*/}
 
-                        placeholder=""
-                        getOptionLabel={e => e.libelle}
-                        getOptionValue={e => e.id}
-                        loadOptions={loadOptions3}
-                        onChange={handleChange3}
-                        components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
-                    />
+                    {/*    placeholder=""*/}
+                    {/*    getOptionLabel={e => e.libelle}*/}
+                    {/*    getOptionValue={e => e.id}*/}
+                    {/*    loadOptions={loadOptions3}*/}
+                    {/*    onChange={handleChange3}*/}
+                    {/*    components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}*/}
+                    {/*/>*/}
                     <Form.Label>Type de contrat</Form.Label>
 
                     <AsyncSelect
@@ -125,10 +112,6 @@ function App() {
             </form>
 
         );
-
-
-
-
     }
 
 ReactDOM.render(

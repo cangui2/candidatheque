@@ -51,6 +51,7 @@ class Offres extends Fixture implements FixtureGroupInterface
             $met = $manager->getRepository(Metier::class)->find($tab_metiers[rand(0, count($tab_metiers)-1)]);
             $ville = $manager->getRepository(Ville::class)->find(rand(1, 30000));
             $type = $manager->getRepository(TypeContrat::class)->find(rand(1, 11));
+
             $profil = "";
             $nb = rand(5, 15);
             for ($j=0; $j < $nb; $j++) { 

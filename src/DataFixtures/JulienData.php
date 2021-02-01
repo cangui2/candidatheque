@@ -301,8 +301,8 @@ class JulienData extends Fixture implements FixtureGroupInterface
 
         $formation= new Formation();
         $formation->setCv($cv1);
-        $formation->setDateDebut(new \DateTime('06/04/2014'));
-        $formation->setDateFin(new \DateTime('06/04/2016'));
+        $formation->setDateDebut('06/04/2014');
+        $formation->setDateFin('06/04/2016');
         $formation->setDescription('test');
         $formation->setDiplome('diplome superieur');
         $formation->setEcole('Acor Alternance');
@@ -311,8 +311,8 @@ class JulienData extends Fixture implements FixtureGroupInterface
 
         $formation= new Formation();
         $formation->setCv($cv1);
-        $formation->setDateDebut(new \DateTime('06/04/2014'));
-        $formation->setDateFin(new \DateTime('06/04/2012'));
+        $formation->setDateDebut('06/04/2014');
+        $formation->setDateFin('06/04/2012');
         $formation->setDescription('diplome professionelle ');
         $formation->setDiplome('diplome fin d etude');
         $formation->setEcole('lycee notre dame');
@@ -321,8 +321,8 @@ class JulienData extends Fixture implements FixtureGroupInterface
 
         $formation= new Formation();
         $formation->setCv($cv1);
-        $formation->setDateDebut(new \DateTime('06/04/2014'));
-        $formation->setDateFin(new \DateTime('06/04/2014'));
+        $formation->setDateDebut('06/04/2014');
+        $formation->setDateFin('06/04/2014');
         $formation->setDescription('brevet');
         $formation->setDiplome('brevet professionnel');
         $formation->setEcole('lycee notre dames');
@@ -331,8 +331,8 @@ class JulienData extends Fixture implements FixtureGroupInterface
 
         $formation2= new Formation();
         $formation2->setCv($cv2);
-        $formation2->setDateDebut(new \DateTime('06/04/2014'));
-        $formation2->setDateFin(new \DateTime('06/04/2016'));
+        $formation2->setDateDebut('06/04/2014');
+        $formation2->setDateFin('06/04/2016');
         $formation2->setDescription('test');
         $formation2->setDiplome('diplome superieur');
         $formation2->setEcole('Acor Alternance');
@@ -341,8 +341,8 @@ class JulienData extends Fixture implements FixtureGroupInterface
 
         $formation2= new Formation();
         $formation2->setCv($cv2);
-        $formation2->setDateDebut(new \DateTime('06/04/2014'));
-        $formation2->setDateFin(new \DateTime('06/04/2012'));
+        $formation2->setDateDebut('06/04/2014');
+        $formation2->setDateFin('06/04/2012');
         $formation2->setDescription('diplome professionelle ');
         $formation2->setDiplome('diplome fin d etude');
         $formation2->setEcole('lycee notre dame');
@@ -351,8 +351,8 @@ class JulienData extends Fixture implements FixtureGroupInterface
 
         $formation= new Formation();
         $formation->setCv($cv2);
-        $formation->setDateDebut(new \DateTime('06/04/2014'));
-        $formation->setDateFin(new \DateTime('06/04/2014'));
+        $formation->setDateDebut('06/04/2014');
+        $formation->setDateFin('06/04/2014');
         $formation->setDescription('brevet');
         $formation->setDiplome('brevet professionnel');
         $formation->setEcole('lycee notre dames');

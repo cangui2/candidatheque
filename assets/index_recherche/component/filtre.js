@@ -15,7 +15,7 @@ function Filtre(props) {
     const MIN = 0;
     const MAX = 50000;
 
-    const handleChangeValueContrat = data => {
+    const handleChangeTypeContrat = data => {
 
         let v = data.target.value;
         if (data.target.checked) {
@@ -65,7 +65,7 @@ function Filtre(props) {
                             libelleContrat.map(
                                 (item, index) =>
                                     <label key={index} style={{whiteSpace: "pre-line"}}>
-                                        <input type="checkbox" value={index + 1} onChange={handleChangeValueContrat}
+                                        <input type="checkbox" value={index + 1} onChange={handleChangeTypeContrat}
                                                name={"chk_" + index}/>
                                         {item}
                                     </label>

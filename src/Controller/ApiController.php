@@ -162,6 +162,7 @@ class ApiController extends AbstractController
         $rayon=$request->query->get('rayon');
         $salaireMin=$request->query->get('salaireMin');
         $salaireMax=$request->query->get('salaireMax');
+        $contrat=$request->query->get('contrat');
         //$salaireCollection=array_map('intval',explode(',',$salaire));
 
         //$filtre2=$request->query->get("filtre2");
@@ -173,12 +174,15 @@ class ApiController extends AbstractController
             ->join('o.typeContrat', 'typ')
             ->join('o.recruteur', 'rec')
             ->join('o.entreprise', 'ent');
-//            ->andWhere('met.id like :metier  AND o.titre like :keyword ')
-//            ->setParameters(array(
-//                'metier' => '%' . $metier . '%',
-//                //'ville' =>  $villeId,
-//                'keyword' => '%' . $keyword . '%',
-//            ));
+
+
+        if($contrat){
+
+            $query
+                ->andWhere('typ.id like :contratId')
+                ->setParameter('contratId',$contrat);
+
+        }
 
         if ($keyword){
             $query
@@ -225,7 +229,6 @@ class ApiController extends AbstractController
                 );
         }
         if ($salaireMin && $salaireMax){
-           // dd(andWhere($query->expr()->between('o.typeSalaire ',':start','end' )));
 
 
             $query
