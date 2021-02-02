@@ -17,14 +17,7 @@ function OffreRecherche(props) {
         props.onKeywordChange(value);
     }
 
-    //
-    // load options using API call
-    const loadOptions = (inputValue) => {
-        return fetch(`/api/metiers?libelle=${inputValue}`).then(res => res.json());
-    };
-    const loadOptions2 = (inputValue) => {
-        return fetch(`/api/villes?nom=${inputValue}`).then(res => res.json());
-    };
+
     const loadOptions3 = (inputValue) => {
         return fetch(`/api/a_p_es?libelle=${inputValue}`).then(res => res.json());
     };
@@ -56,6 +49,4 @@ function OffreRecherche(props) {
 
 export default OffreRecherche;
 
-const style = {
-    border: '1 px solid black'
-}
+

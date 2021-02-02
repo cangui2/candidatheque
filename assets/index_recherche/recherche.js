@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {Col, Container, Row} from "react-bootstrap";
 import ReactDOM from "react-dom";
-import Filtre from "./component/filtre";
-import OffreListe from "./component/offre_liste";
-import OffreRecherche from "./component/offre_recherche";
+import Offrefiltre from "./component/Offrefiltre";
+import OffreListe from "./component/OffreListe";
+import OffreRecherche from "./component/OffreRecherche";
 import './recherche.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -80,12 +80,12 @@ function App(props) {
     }
     const handleBooleenUrgentChange = (res) => {
         setUrgent(res);
-        //handleChangeValue()
+
     }
 
     const handleSalaireChange = (data) => {
         setSalaire(data);
-        //handleChangeValue()
+
     }
 
     useEffect(() => {
@@ -105,7 +105,7 @@ function App(props) {
             <br/>
             <Row>
                 <Col xs={3} className='card'>
-                    <Filtre
+                    <Offrefiltre
                         onFiltreChange={handleFiltreChange}
                         onRayonChange={handleRayonChange}
                         onBoolenCdiChange={handleBooleenCdiChange}

@@ -4,7 +4,7 @@ import RangeSlider from "react-bootstrap-range-slider";
 import {getTrackBackground, Range} from "react-range";
 
 
-function Filtre(props) {
+function Offrefiltre(props) {
 
 
     const [range, setRange] = useState(0);
@@ -177,5 +177,5 @@ function Filtre(props) {
     )
 }
 
-export default Filtre;
+export default Offrefiltre;
 
